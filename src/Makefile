@@ -5,8 +5,7 @@
 #Origional source code link:https://github.com/riscv-mcu/GD32VF103_Firmware_Library
 
 ### GD32VF103CBT6 Makefile ###
-# make instruction:
-# 
+
 
 #target
 TARGET = gd32vf103
