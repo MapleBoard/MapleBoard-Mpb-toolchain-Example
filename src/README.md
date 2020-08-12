@@ -2,7 +2,7 @@ This file shows how to use the Makefile to build the executable file for gd32vf1
 
 We recommand using our prebuild toolchain, download link is here:  
 
-also, you can build the riscv-gnu-toolchain from scratch (provided by nuceli), download link is here:https://github.com/riscv/riscv-gnu-toolchain  
+also, you can build the riscv-gnu-toolchain from scratch (provided by nuceli), download link is here:https://github.com/riscv-mcu/riscv-gnu-toolchain  
 
 If you replace our MapleBoard toolchain into your own toolchain, remember to modify the $(PREFIX) variable at line 54 of Makefile, like this  
 
