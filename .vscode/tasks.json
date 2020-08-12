@@ -1,0 +1,44 @@
+/*
+	This file is for VSCode user to build GD32 RISC-V Nano/Pico
+	Simple press Ctrl+Shift+B and you can build the Mpb-toolchain-Example
+	Please check you had install our riscv-32-mapleboard-toolchain first, and put the exectuable file path into your environment variable $PATH
+	So that the makefile can work correctlly.
+	This tasks file only test under Linux environment.
+	Github: https://github.com/MapleBoard/Mpb-toolchain-Example
+	Author: Chun-Lin Chen <johnson35762@gmail.com>
+	version: 2020-08-11
+	Copyright: Centrum embedded System (c) CC BY-SA 4.0
+*/
+
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "shell",
+			"label": "GD32V:Build",
+			"command": "/usr/bin/make",		//Here is your natice machine's "make" command location
+			"args": [
+				"-f",
+				"${fileDirname}/Makefile",	//Here is the Makefile under the current opened file's director name
+			],
+			"options": {
+				"cwd": "${workspaceFolder}/src/"	//the task runner's current working directory on strat up
+			},
+			"group": "build",
+		},
+		{
+			"type": "shell",
+			"label": "GD32V:Build & Upload via DFU",
+			"command": "/usr/bin/make",
+			"args": [
+				"-f",
+				"${fileDirname}/Makefile",
+				"dfu",		//upload the executable code via DFU Mode
+			],
+			"options": {
+				"cwd": "${workspaceFolder}/src/"
+			},
+			"group": "build",
+		}
+	]
+}
