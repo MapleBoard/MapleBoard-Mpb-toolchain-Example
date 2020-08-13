@@ -5,10 +5,10 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "GD32V Build and debug active file",
+            "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${fileDirname}/${fileBasenameNoExtension}",
+            "program": "${workspaceFolder}/src/build/gd32vf103.elf",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
@@ -21,9 +21,7 @@
                     "text": "-enable-pretty-printing",
                     "ignoreFailures": true
                 }
-            ],
-            "preLaunchTask": "GD32V:Build & Upload via DFU",
-            "miDebuggerPath": "/home/johnson/mapleboard_prebuild_toolchain/riscv-gnu-toolchain/build/bin//riscv32-mapleboard-elf-gdb"
+            ]
         }
     ]
 }

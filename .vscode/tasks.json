@@ -39,6 +39,17 @@
 				"cwd": "${workspaceFolder}/src/"
 			},
 			"group": "build",
-		}
+		},
+		{
+			"type": "shell",
+			"label": "GD32V:Prebuild & Debug via RISC-V GDB",
+			"dependsOn":"GD32V:Build",
+			"command": "/home/johnson/mapleboard_prebuild_toolchain/riscv-gnu-toolchain/build/bin/riscv32-mapleboard-elf-gdb",	//Here to fill in your full path of risc-v gdb exectuable file location
+			"args": ["${WorkspaceFolder}/src/build/gd32vf103.elf"],		//Load the exectuable file to gdb to debug
+			"options": {
+				"cwd": "${workspaceFolder}/src/"
+			},
+			"group": "build",
+		},
 	]
 }
