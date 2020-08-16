@@ -1,8 +1,12 @@
-#This is mapleboard makefile test
-
-#Author Chun-Lin Chen @ CES/Mapleboard
-#Origional Author: WsHelloWorld,rgwan 
-#Origional source code link:https://github.com/riscv-mcu/GD32VF103_Firmware_Library
+#	This file help user to build the GD32V MCU machine code automatically.
+#	Please check you had install our riscv-32-mapleboard-toolchain first, and put the exectuable file path into your environment variable $PATH
+#	So that the makefile can work correctlly.
+#	Github: https://github.com/MapleBoard/Mpb-toolchain-Example
+#	Author: Chun-Lin Chen <johnson35762@gmail.com>
+#	version: 2020-08-11
+#	Copyright: Centrum embedded System (c) CC BY-SA 4.0
+#	Origional Author: WsHelloWorld,rgwan 
+#	Origional source code link:https://github.com/riscv-mcu/GD32VF103_Firmware_Library
 
 ### GD32VF103CBT6 Makefile ###
 
