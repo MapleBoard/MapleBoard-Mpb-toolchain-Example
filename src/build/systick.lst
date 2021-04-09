@@ -1,0 +1,315 @@
+GAS LISTING /tmp/ccvqJ7Ng.s 			page 1
+
+
+   1              		.file	"systick.c"
+   2              		.option nopic
+   3              		.attribute arch, "rv32i2p0_m2p0_a2p0_c2p0"
+   4              		.attribute unaligned_access, 0
+   5              		.attribute stack_align, 16
+   6              		.text
+   7              	.Ltext0:
+   8              		.cfi_sections	.debug_frame
+   9              		.globl	__udivdi3
+  10              		.globl	__divdi3
+  11              		.section	.text.delay_1ms,"ax",@progbits
+  12              		.align	1
+  13              		.globl	delay_1ms
+  15              	delay_1ms:
+  16              	.LFB2:
+  17              		.file 1 "systick.c"
+   1:systick.c     **** /*!
+   2:systick.c     ****     \file  systick.c
+   3:systick.c     ****     \brief the systick configuration file
+   4:systick.c     **** 
+   5:systick.c     ****     \version 2019-6-5, V1.0.0, firmware for GD32VF103
+   6:systick.c     **** */
+   7:systick.c     **** 
+   8:systick.c     **** /*
+   9:systick.c     ****     Copyright (c) 2019, GigaDevice Semiconductor Inc.
+  10:systick.c     **** 
+  11:systick.c     ****     Redistribution and use in source and binary forms, with or without modification, 
+  12:systick.c     **** are permitted provided that the following conditions are met:
+  13:systick.c     **** 
+  14:systick.c     ****     1. Redistributions of source code must retain the above copyright notice, this 
+  15:systick.c     ****        list of conditions and the following disclaimer.
+  16:systick.c     ****     2. Redistributions in binary form must reproduce the above copyright notice, 
+  17:systick.c     ****        this list of conditions and the following disclaimer in the documentation 
+  18:systick.c     ****        and/or other materials provided with the distribution.
+  19:systick.c     ****     3. Neither the name of the copyright holder nor the names of its contributors 
+  20:systick.c     ****        may be used to endorse or promote products derived from this software without 
+  21:systick.c     ****        specific prior written permission.
+  22:systick.c     **** 
+  23:systick.c     ****     THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
+  24:systick.c     **** AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+  25:systick.c     **** WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
+  26:systick.c     **** IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, 
+  27:systick.c     **** INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT 
+  28:systick.c     **** NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR 
+  29:systick.c     **** PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
+  30:systick.c     **** WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+  31:systick.c     **** ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY 
+  32:systick.c     **** OF SUCH DAMAGE.
+  33:systick.c     **** */
+  34:systick.c     **** 
+  35:systick.c     **** #include "gd32vf103.h"
+  36:systick.c     **** #include "systick.h"
+  37:systick.c     **** 
+  38:systick.c     **** /*!
+  39:systick.c     ****     \brief      delay a time in milliseconds
+  40:systick.c     ****     \param[in]  count: count in milliseconds
+  41:systick.c     ****     \param[out] none
+GAS LISTING /tmp/ccvqJ7Ng.s 			page 2
+
+
+  42:systick.c     ****     \retval     none
+  43:systick.c     **** */
+  44:systick.c     **** void delay_1ms(uint32_t count)
+  45:systick.c     **** {
+  18              		.loc 1 45 1
+  19              		.cfi_startproc
+  20              	.LVL0:
+  46:systick.c     ****     volatile uint64_t start_mtime, delta_mtime;
+  21              		.loc 1 46 5
+  47:systick.c     **** 
+  48:systick.c     ****     volatile uint64_t tmp = get_timer_value();
+  22              		.loc 1 48 5
+  45:systick.c     ****     volatile uint64_t start_mtime, delta_mtime;
+  23              		.loc 1 45 1 is_stmt 0
+  24 0000 7971     		addi	sp,sp,-48
+  25              	.LCFI0:
+  26              		.cfi_def_cfa_offset 48
+  27 0002 22D4     		sw	s0,40(sp)
+  28 0004 06D6     		sw	ra,44(sp)
+  29 0006 26D2     		sw	s1,36(sp)
+  30              		.cfi_offset 8, -8
+  31              		.cfi_offset 1, -4
+  32              		.cfi_offset 9, -12
+  45:systick.c     ****     volatile uint64_t start_mtime, delta_mtime;
+  33              		.loc 1 45 1
+  34 0008 2A84     		mv	s0,a0
+  35              		.loc 1 48 29
+  36 000a 97000000 		call	get_timer_value
+  36      E7800000 
+  37              	.LVL1:
+  38              		.loc 1 48 23
+  39 0012 2ACC     		sw	a0,24(sp)
+  40 0014 2ECE     		sw	a1,28(sp)
+  41              	.L2:
+  49:systick.c     ****     do {
+  42              		.loc 1 49 5 is_stmt 1 discriminator 1
+  50:systick.c     ****     	start_mtime = get_timer_value();
+  43              		.loc 1 50 6 discriminator 1
+  44              		.loc 1 50 20 is_stmt 0 discriminator 1
+  45 0016 97000000 		call	get_timer_value
+  45      E7800000 
+  46              	.LVL2:
+  47              		.loc 1 50 18 discriminator 1
+  48 001e 2AC4     		sw	a0,8(sp)
+  49 0020 2EC6     		sw	a1,12(sp)
+  51:systick.c     ****     } while(start_mtime == tmp);
+  50              		.loc 1 51 12 is_stmt 1 discriminator 1
+  51              		.loc 1 51 25 is_stmt 0 discriminator 1
+  52 0022 2247     		lw	a4,8(sp)
+  53 0024 B247     		lw	a5,12(sp)
+  54 0026 6246     		lw	a2,24(sp)
+  55 0028 F246     		lw	a3,28(sp)
+  56              		.loc 1 51 5 discriminator 1
+  57 002a 6314E600 		bne	a2,a4,.L6
+  58 002e E384F6FE 		beq	a3,a5,.L2
+  59              	.L6:
+  52:systick.c     **** 
+GAS LISTING /tmp/ccvqJ7Ng.s 			page 3
+
+
+  53:systick.c     **** 
+  54:systick.c     ****     uint64_t delay_ticks = SystemCoreClock / 55; // 1 second
+  60              		.loc 1 54 5 is_stmt 1
+  61              	.LVL3:
+  55:systick.c     ****     delay_ticks = delay_ticks * count / 1000;
+  62              		.loc 1 55 5
+  54:systick.c     ****     delay_ticks = delay_ticks * count / 1000;
+  63              		.loc 1 54 44 is_stmt 0
+  64 0032 B7070000 		lui	a5,%hi(SystemCoreClock)
+  65 0036 03A50700 		lw	a0,%lo(SystemCoreClock)(a5)
+  66 003a 93077003 		li	a5,55
+  67              		.loc 1 55 17
+  68 003e 1306803E 		li	a2,1000
+  54:systick.c     ****     delay_ticks = delay_ticks * count / 1000;
+  69              		.loc 1 54 44
+  70 0042 3355F502 		divu	a0,a0,a5
+  71              		.loc 1 55 17
+  72 0046 8146     		li	a3,0
+  73              		.loc 1 55 31
+  74 0048 B3358502 		mulhu	a1,a0,s0
+  75              		.loc 1 55 17
+  76 004c 33058502 		mul	a0,a0,s0
+  77 0050 97000000 		call	__udivdi3
+  77      E7800000 
+  78              	.LVL4:
+  79 0058 AA84     		mv	s1,a0
+  80 005a 2E84     		mv	s0,a1
+  81              	.LVL5:
+  82              	.L7:
+  56:systick.c     **** 
+  57:systick.c     ****     do {
+  83              		.loc 1 57 5 is_stmt 1 discriminator 1
+  58:systick.c     ****     	delta_mtime = get_timer_value() - start_mtime;
+  84              		.loc 1 58 6 discriminator 1
+  85              		.loc 1 58 20 is_stmt 0 discriminator 1
+  86 005c 97000000 		call	get_timer_value
+  86      E7800000 
+  87              	.LVL6:
+  88              		.loc 1 58 38 discriminator 1
+  89 0064 2247     		lw	a4,8(sp)
+  90 0066 B247     		lw	a5,12(sp)
+  91 0068 B306E540 		sub	a3,a0,a4
+  92 006c 3335D500 		sgtu	a0,a3,a0
+  93 0070 9D8D     		sub	a1,a1,a5
+  94              		.loc 1 58 18 discriminator 1
+  95 0072 36C8     		sw	a3,16(sp)
+  96              		.loc 1 58 38 discriminator 1
+  97 0074 B387A540 		sub	a5,a1,a0
+  98              		.loc 1 58 18 discriminator 1
+  99 0078 3ECA     		sw	a5,20(sp)
+  59:systick.c     ****     } while(delta_mtime < delay_ticks);
+ 100              		.loc 1 59 12 is_stmt 1 discriminator 1
+ 101              		.loc 1 59 25 is_stmt 0 discriminator 1
+ 102 007a 4246     		lw	a2,16(sp)
+ 103 007c D246     		lw	a3,20(sp)
+ 104              		.loc 1 59 5 discriminator 1
+ 105 007e E3EF86FC 		bgtu	s0,a3,.L7
+GAS LISTING /tmp/ccvqJ7Ng.s 			page 4
+
+
+ 106 0082 6314D400 		bne	s0,a3,.L1
+ 107 0086 E36B96FC 		bgtu	s1,a2,.L7
+ 108              	.L1:
+  60:systick.c     **** 
+  61:systick.c     **** }
+ 109              		.loc 1 61 1
+ 110 008a B250     		lw	ra,44(sp)
+ 111              		.cfi_restore 1
+ 112 008c 2254     		lw	s0,40(sp)
+ 113              		.cfi_restore 8
+ 114              	.LVL7:
+ 115 008e 9254     		lw	s1,36(sp)
+ 116              		.cfi_restore 9
+ 117 0090 4561     		addi	sp,sp,48
+ 118              	.LCFI1:
+ 119              		.cfi_def_cfa_offset 0
+ 120 0092 8280     		jr	ra
+ 121              		.cfi_endproc
+ 122              	.LFE2:
+ 124              		.text
+ 125              	.Letext0:
+ 126              		.file 2 "/home/johnson/Documents/mpb-toolchain/build/riscv32-mapleboard-elf/include/machine/_defau
+ 127              		.file 3 "/home/johnson/Documents/mpb-toolchain/build/riscv32-mapleboard-elf/include/sys/_stdint.h"
+ 128              		.file 4 "../Firmware/GD32VF103_standard_peripheral/system_gd32vf103.h"
+ 129              		.file 5 "../Firmware/RISCV/drivers/n200_func.h"
+GAS LISTING /tmp/ccvqJ7Ng.s 			page 5
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 systick.c
+     /tmp/ccvqJ7Ng.s:15     .text.delay_1ms:0000000000000000 delay_1ms
+     /tmp/ccvqJ7Ng.s:19     .text.delay_1ms:0000000000000000 .L0 
+     /tmp/ccvqJ7Ng.s:21     .text.delay_1ms:0000000000000000 .L0 
+     /tmp/ccvqJ7Ng.s:22     .text.delay_1ms:0000000000000000 .L0 
+     /tmp/ccvqJ7Ng.s:23     .text.delay_1ms:0000000000000000 .L0 
+     /tmp/ccvqJ7Ng.s:24     .text.delay_1ms:0000000000000000 .L0 
+     /tmp/ccvqJ7Ng.s:26     .text.delay_1ms:0000000000000002 .L0 
+     /tmp/ccvqJ7Ng.s:30     .text.delay_1ms:0000000000000008 .L0 
+     /tmp/ccvqJ7Ng.s:31     .text.delay_1ms:0000000000000008 .L0 
+     /tmp/ccvqJ7Ng.s:32     .text.delay_1ms:0000000000000008 .L0 
+     /tmp/ccvqJ7Ng.s:34     .text.delay_1ms:0000000000000008 .L0 
+     /tmp/ccvqJ7Ng.s:36     .text.delay_1ms:000000000000000a .L0 
+     /tmp/ccvqJ7Ng.s:39     .text.delay_1ms:0000000000000012 .L0 
+     /tmp/ccvqJ7Ng.s:43     .text.delay_1ms:0000000000000016 .L0 
+     /tmp/ccvqJ7Ng.s:44     .text.delay_1ms:0000000000000016 .L0 
+     /tmp/ccvqJ7Ng.s:45     .text.delay_1ms:0000000000000016 .L0 
+     /tmp/ccvqJ7Ng.s:48     .text.delay_1ms:000000000000001e .L0 
+     /tmp/ccvqJ7Ng.s:51     .text.delay_1ms:0000000000000022 .L0 
+     /tmp/ccvqJ7Ng.s:52     .text.delay_1ms:0000000000000022 .L0 
+     /tmp/ccvqJ7Ng.s:57     .text.delay_1ms:000000000000002a .L0 
+     /tmp/ccvqJ7Ng.s:62     .text.delay_1ms:0000000000000032 .L0 
+     /tmp/ccvqJ7Ng.s:63     .text.delay_1ms:0000000000000032 .L0 
+     /tmp/ccvqJ7Ng.s:64     .text.delay_1ms:0000000000000032 .L0 
+     /tmp/ccvqJ7Ng.s:68     .text.delay_1ms:000000000000003e .L0 
+     /tmp/ccvqJ7Ng.s:70     .text.delay_1ms:0000000000000042 .L0 
+     /tmp/ccvqJ7Ng.s:72     .text.delay_1ms:0000000000000046 .L0 
+     /tmp/ccvqJ7Ng.s:74     .text.delay_1ms:0000000000000048 .L0 
+     /tmp/ccvqJ7Ng.s:76     .text.delay_1ms:000000000000004c .L0 
+     /tmp/ccvqJ7Ng.s:84     .text.delay_1ms:000000000000005c .L0 
+     /tmp/ccvqJ7Ng.s:85     .text.delay_1ms:000000000000005c .L0 
+     /tmp/ccvqJ7Ng.s:86     .text.delay_1ms:000000000000005c .L0 
+     /tmp/ccvqJ7Ng.s:89     .text.delay_1ms:0000000000000064 .L0 
+     /tmp/ccvqJ7Ng.s:95     .text.delay_1ms:0000000000000072 .L0 
+     /tmp/ccvqJ7Ng.s:97     .text.delay_1ms:0000000000000074 .L0 
+     /tmp/ccvqJ7Ng.s:99     .text.delay_1ms:0000000000000078 .L0 
+     /tmp/ccvqJ7Ng.s:101    .text.delay_1ms:000000000000007a .L0 
+     /tmp/ccvqJ7Ng.s:102    .text.delay_1ms:000000000000007a .L0 
+     /tmp/ccvqJ7Ng.s:105    .text.delay_1ms:000000000000007e .L0 
+     /tmp/ccvqJ7Ng.s:110    .text.delay_1ms:000000000000008a .L0 
+     /tmp/ccvqJ7Ng.s:111    .text.delay_1ms:000000000000008c .L0 
+     /tmp/ccvqJ7Ng.s:113    .text.delay_1ms:000000000000008e .L0 
+     /tmp/ccvqJ7Ng.s:116    .text.delay_1ms:0000000000000090 .L0 
+     /tmp/ccvqJ7Ng.s:119    .text.delay_1ms:0000000000000092 .L0 
+     /tmp/ccvqJ7Ng.s:121    .text.delay_1ms:0000000000000094 .L0 
+     /tmp/ccvqJ7Ng.s:124    .text.delay_1ms:0000000000000094 .L0 
+                     .debug_frame:0000000000000000 .L0 
+     /tmp/ccvqJ7Ng.s:59     .text.delay_1ms:0000000000000032 .L6
+     /tmp/ccvqJ7Ng.s:41     .text.delay_1ms:0000000000000016 .L2
+     /tmp/ccvqJ7Ng.s:82     .text.delay_1ms:000000000000005c .L7
+     /tmp/ccvqJ7Ng.s:108    .text.delay_1ms:000000000000008a .L1
+     /tmp/ccvqJ7Ng.s:304    .debug_abbrev:0000000000000000 .Ldebug_abbrev0
+     /tmp/ccvqJ7Ng.s:645    .debug_str:0000000000000152 .LASF17
+     /tmp/ccvqJ7Ng.s:637    .debug_str:00000000000000ff .LASF18
+     /tmp/ccvqJ7Ng.s:641    .debug_str:0000000000000115 .LASF19
+     /tmp/ccvqJ7Ng.s:589    .debug_ranges:0000000000000000 .Ldebug_ranges0
+GAS LISTING /tmp/ccvqJ7Ng.s 			page 6
+
+
+     /tmp/ccvqJ7Ng.s:595    .debug_line:0000000000000000 .Ldebug_line0
+     /tmp/ccvqJ7Ng.s:601    .debug_str:0000000000000021 .LASF0
+     /tmp/ccvqJ7Ng.s:629    .debug_str:00000000000000cd .LASF1
+     /tmp/ccvqJ7Ng.s:615    .debug_str:000000000000007b .LASF2
+     /tmp/ccvqJ7Ng.s:635    .debug_str:00000000000000f5 .LASF3
+     /tmp/ccvqJ7Ng.s:599    .debug_str:000000000000000e .LASF4
+     /tmp/ccvqJ7Ng.s:623    .debug_str:00000000000000ae .LASF5
+     /tmp/ccvqJ7Ng.s:605    .debug_str:0000000000000034 .LASF8
+     /tmp/ccvqJ7Ng.s:609    .debug_str:0000000000000049 .LASF6
+     /tmp/ccvqJ7Ng.s:597    .debug_str:0000000000000000 .LASF7
+     /tmp/ccvqJ7Ng.s:643    .debug_str:0000000000000147 .LASF9
+     /tmp/ccvqJ7Ng.s:611    .debug_str:000000000000005b .LASF10
+     /tmp/ccvqJ7Ng.s:619    .debug_str:0000000000000095 .LASF11
+     /tmp/ccvqJ7Ng.s:613    .debug_str:0000000000000072 .LASF12
+     /tmp/ccvqJ7Ng.s:621    .debug_str:000000000000009e .LASF20
+     /tmp/ccvqJ7Ng.s:633    .debug_str:00000000000000e9 .LASF13
+     /tmp/ccvqJ7Ng.s:607    .debug_str:000000000000003f .LASF21
+     /tmp/ccvqJ7Ng.s:16     .text.delay_1ms:0000000000000000 .LFB2
+     /tmp/ccvqJ7Ng.s:122    .text.delay_1ms:0000000000000094 .LFE2
+     /tmp/ccvqJ7Ng.s:528    .debug_loc:0000000000000000 .LLST0
+     /tmp/ccvqJ7Ng.s:603    .debug_str:000000000000002e .LASF22
+     /tmp/ccvqJ7Ng.s:546    .debug_loc:000000000000002c .LLST1
+     /tmp/ccvqJ7Ng.s:625    .debug_str:00000000000000b7 .LASF14
+     /tmp/ccvqJ7Ng.s:639    .debug_str:0000000000000109 .LASF15
+     /tmp/ccvqJ7Ng.s:617    .debug_str:0000000000000089 .LASF16
+     /tmp/ccvqJ7Ng.s:564    .debug_loc:0000000000000058 .LLST2
+     /tmp/ccvqJ7Ng.s:37     .text.delay_1ms:0000000000000012 .LVL1
+     /tmp/ccvqJ7Ng.s:46     .text.delay_1ms:000000000000001e .LVL2
+     /tmp/ccvqJ7Ng.s:78     .text.delay_1ms:0000000000000058 .LVL4
+     /tmp/ccvqJ7Ng.s:87     .text.delay_1ms:0000000000000064 .LVL6
+     /tmp/ccvqJ7Ng.s:631    .debug_str:00000000000000d9 .LASF23
+     /tmp/ccvqJ7Ng.s:627    .debug_str:00000000000000c3 .LASF24
+     /tmp/ccvqJ7Ng.s:25     .text.delay_1ms:0000000000000002 .LCFI0
+     /tmp/ccvqJ7Ng.s:118    .text.delay_1ms:0000000000000092 .LCFI1
+     /tmp/ccvqJ7Ng.s:20     .text.delay_1ms:0000000000000000 .LVL0
+     /tmp/ccvqJ7Ng.s:81     .text.delay_1ms:000000000000005c .LVL5
+     /tmp/ccvqJ7Ng.s:114    .text.delay_1ms:000000000000008e .LVL7
+     /tmp/ccvqJ7Ng.s:131    .debug_info:0000000000000000 .Ldebug_info0
+
+UNDEFINED SYMBOLS
+__udivdi3
+__divdi3
+get_timer_value
+SystemCoreClock

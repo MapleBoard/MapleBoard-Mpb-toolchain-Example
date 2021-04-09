@@ -1,0 +1,36 @@
+GAS LISTING /tmp/cc5CTj2j.s 			page 1
+
+
+   1              		.file	"_exit.c"
+   2              		.option nopic
+   3              		.attribute arch, "rv32i2p0_m2p0_a2p0_c2p0"
+   4              		.attribute unaligned_access, 0
+   5              		.attribute stack_align, 16
+   6              		.text
+   7              	.Ltext0:
+   8              		.cfi_sections	.debug_frame
+   9              	.Letext0:
+GAS LISTING /tmp/cc5CTj2j.s 			page 2
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 _exit.c
+     /tmp/cc5CTj2j.s:72     .debug_abbrev:0000000000000000 .Ldebug_abbrev0
+     /tmp/cc5CTj2j.s:128    .debug_str:000000000000001f .LASF11
+     /tmp/cc5CTj2j.s:130    .debug_str:00000000000000b8 .LASF12
+     /tmp/cc5CTj2j.s:138    .debug_str:00000000000000fa .LASF13
+     /tmp/cc5CTj2j.s:122    .debug_line:0000000000000000 .Ldebug_line0
+     /tmp/cc5CTj2j.s:136    .debug_str:00000000000000ee .LASF0
+     /tmp/cc5CTj2j.s:142    .debug_str:0000000000000143 .LASF1
+     /tmp/cc5CTj2j.s:134    .debug_str:00000000000000e4 .LASF2
+     /tmp/cc5CTj2j.s:148    .debug_str:000000000000015f .LASF3
+     /tmp/cc5CTj2j.s:144    .debug_str:0000000000000151 .LASF4
+     /tmp/cc5CTj2j.s:126    .debug_str:000000000000000d .LASF5
+     /tmp/cc5CTj2j.s:150    .debug_str:0000000000000172 .LASF6
+     /tmp/cc5CTj2j.s:140    .debug_str:000000000000012c .LASF7
+     /tmp/cc5CTj2j.s:124    .debug_str:0000000000000000 .LASF8
+     /tmp/cc5CTj2j.s:146    .debug_str:000000000000015a .LASF9
+     /tmp/cc5CTj2j.s:132    .debug_str:00000000000000d8 .LASF10
+     /tmp/cc5CTj2j.s:11     .debug_info:0000000000000000 .Ldebug_info0
+
+NO UNDEFINED SYMBOLS

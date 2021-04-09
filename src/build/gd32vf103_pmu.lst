@@ -1,0 +1,1538 @@
+GAS LISTING /tmp/ccLU0wez.s 			page 1
+
+
+   1              		.file	"gd32vf103_pmu.c"
+   2              		.option nopic
+   3              		.attribute arch, "rv32i2p0_m2p0_a2p0_c2p0"
+   4              		.attribute unaligned_access, 0
+   5              		.attribute stack_align, 16
+   6              		.text
+   7              	.Ltext0:
+   8              		.cfi_sections	.debug_frame
+   9              		.section	.text.pmu_deinit,"ax",@progbits
+  10              		.align	1
+  11              		.globl	pmu_deinit
+  13              	pmu_deinit:
+  14              	.LFB2:
+  15              		.file 1 "../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c"
+   1:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** /*!
+   2:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     \file    gd32vf103_pmu.c
+   3:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     \brief   PMU driver
+   4:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** 
+   5:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     \version 2019-6-5, V1.0.0, firmware for GD32VF103
+   6:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** */
+   7:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** 
+   8:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** /*
+   9:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     Copyright (c) 2019, GigaDevice Semiconductor Inc.
+  10:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** 
+  11:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     Redistribution and use in source and binary forms, with or without modification,
+  12:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** are permitted provided that the following conditions are met:
+  13:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** 
+  14:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     1. Redistributions of source code must retain the above copyright notice, this
+  15:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****        list of conditions and the following disclaimer.
+  16:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     2. Redistributions in binary form must reproduce the above copyright notice,
+  17:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****        this list of conditions and the following disclaimer in the documentation
+  18:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****        and/or other materials provided with the distribution.
+  19:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     3. Neither the name of the copyright holder nor the names of its contributors
+  20:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****        may be used to endorse or promote products derived from this software without
+  21:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****        specific prior written permission.
+  22:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** 
+  23:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+  24:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+  25:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+  26:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+  27:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+  28:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+  29:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+  30:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+  31:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY
+  32:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** OF SUCH DAMAGE.
+  33:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** */
+  34:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** 
+  35:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** #include "gd32vf103_pmu.h"
+  36:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** #include "riscv_encoding.h"
+  37:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** 
+  38:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** /*!
+  39:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     \brief      reset PMU register
+  40:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     \param[in]  none
+  41:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     \param[out] none
+  42:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     \retval     none
+  43:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** */
+GAS LISTING /tmp/ccLU0wez.s 			page 2
+
+
+  44:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** void pmu_deinit(void)
+  45:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** {
+  16              		.loc 1 45 1
+  17              		.cfi_startproc
+  46:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     /* reset PMU */
+  47:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     rcu_periph_reset_enable(RCU_PMURST);
+  18              		.loc 1 47 5
+  45:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     /* reset PMU */
+  19              		.loc 1 45 1 is_stmt 0
+  20 0000 4111     		addi	sp,sp,-16
+  21              	.LCFI0:
+  22              		.cfi_def_cfa_offset 16
+  23              		.loc 1 47 5
+  24 0002 1305C041 		li	a0,1052
+  45:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     /* reset PMU */
+  25              		.loc 1 45 1
+  26 0006 06C6     		sw	ra,12(sp)
+  27              		.cfi_offset 1, -4
+  28              		.loc 1 47 5
+  29 0008 97000000 		call	rcu_periph_reset_enable
+  29      E7800000 
+  30              	.LVL0:
+  48:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     rcu_periph_reset_disable(RCU_PMURST);
+  31              		.loc 1 48 5 is_stmt 1
+  49:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** }
+  32              		.loc 1 49 1 is_stmt 0
+  33 0010 B240     		lw	ra,12(sp)
+  34              		.cfi_restore 1
+  48:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     rcu_periph_reset_disable(RCU_PMURST);
+  35              		.loc 1 48 5
+  36 0012 1305C041 		li	a0,1052
+  37              		.loc 1 49 1
+  38 0016 4101     		addi	sp,sp,16
+  39              	.LCFI1:
+  40              		.cfi_def_cfa_offset 0
+  48:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     rcu_periph_reset_disable(RCU_PMURST);
+  41              		.loc 1 48 5
+  42 0018 17030000 		tail	rcu_periph_reset_disable
+  42      67000300 
+  43              	.LVL1:
+  44              		.cfi_endproc
+  45              	.LFE2:
+  47              		.section	.text.pmu_lvd_select,"ax",@progbits
+  48              		.align	1
+  49              		.globl	pmu_lvd_select
+  51              	pmu_lvd_select:
+  52              	.LFB3:
+  50:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** 
+  51:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** /*!
+  52:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     \brief      select low voltage detector threshold
+  53:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     \param[in]  lvdt_n:
+  54:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****                 only one parameter can be selected which is shown as below:
+  55:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****       \arg        PMU_LVDT_0: voltage threshold is 2.2V
+  56:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****       \arg        PMU_LVDT_1: voltage threshold is 2.3V
+  57:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****       \arg        PMU_LVDT_2: voltage threshold is 2.4V
+  58:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****       \arg        PMU_LVDT_3: voltage threshold is 2.5V
+  59:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****       \arg        PMU_LVDT_4: voltage threshold is 2.6V
+GAS LISTING /tmp/ccLU0wez.s 			page 3
+
+
+  60:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****       \arg        PMU_LVDT_5: voltage threshold is 2.7V
+  61:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****       \arg        PMU_LVDT_6: voltage threshold is 2.8V
+  62:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****       \arg        PMU_LVDT_7: voltage threshold is 2.9V
+  63:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     \param[out] none
+  64:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     \retval     none
+  65:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** */
+  66:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** void pmu_lvd_select(uint32_t lvdt_n)
+  67:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** {
+  53              		.loc 1 67 1 is_stmt 1
+  54              		.cfi_startproc
+  55              	.LVL2:
+  68:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     /* disable LVD */
+  69:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     PMU_CTL &= ~PMU_CTL_LVDEN;
+  56              		.loc 1 69 5
+  57              		.loc 1 69 13 is_stmt 0
+  58 0000 B7770040 		li	a5,1073770496
+  59 0004 9443     		lw	a3,0(a5)
+  60 0006 BD9A     		andi	a3,a3,-17
+  61 0008 94C3     		sw	a3,0(a5)
+  70:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     /* clear LVDT bits */
+  71:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     PMU_CTL &= ~PMU_CTL_LVDT;
+  62              		.loc 1 71 5 is_stmt 1
+  63              		.loc 1 71 13 is_stmt 0
+  64 000a 9443     		lw	a3,0(a5)
+  65 000c 93F6F6F1 		andi	a3,a3,-225
+  66 0010 94C3     		sw	a3,0(a5)
+  72:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     /* set LVDT bits according to lvdt_n */
+  73:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     PMU_CTL |= lvdt_n;
+  67              		.loc 1 73 5 is_stmt 1
+  68              		.loc 1 73 13 is_stmt 0
+  69 0012 9843     		lw	a4,0(a5)
+  70 0014 498F     		or	a4,a4,a0
+  71 0016 98C3     		sw	a4,0(a5)
+  74:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     /* enable LVD */
+  75:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     PMU_CTL |= PMU_CTL_LVDEN;
+  72              		.loc 1 75 5 is_stmt 1
+  73              		.loc 1 75 13 is_stmt 0
+  74 0018 9843     		lw	a4,0(a5)
+  75 001a 13670701 		ori	a4,a4,16
+  76 001e 98C3     		sw	a4,0(a5)
+  76:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** }
+  77              		.loc 1 76 1
+  78 0020 8280     		ret
+  79              		.cfi_endproc
+  80              	.LFE3:
+  82              		.section	.text.pmu_lvd_disable,"ax",@progbits
+  83              		.align	1
+  84              		.globl	pmu_lvd_disable
+  86              	pmu_lvd_disable:
+  87              	.LFB4:
+  77:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** 
+  78:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** /*!
+  79:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     \brief      disable PMU lvd
+  80:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     \param[in]  none
+  81:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     \param[out] none
+  82:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     \retval     none
+  83:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** */
+GAS LISTING /tmp/ccLU0wez.s 			page 4
+
+
+  84:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** void pmu_lvd_disable(void)
+  85:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** {
+  88              		.loc 1 85 1 is_stmt 1
+  89              		.cfi_startproc
+  86:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     /* disable LVD */
+  87:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     PMU_CTL &= ~PMU_CTL_LVDEN;
+  90              		.loc 1 87 5
+  91              		.loc 1 87 13 is_stmt 0
+  92 0000 37770040 		li	a4,1073770496
+  93 0004 1C43     		lw	a5,0(a4)
+  94 0006 BD9B     		andi	a5,a5,-17
+  95 0008 1CC3     		sw	a5,0(a4)
+  88:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** }
+  96              		.loc 1 88 1
+  97 000a 8280     		ret
+  98              		.cfi_endproc
+  99              	.LFE4:
+ 101              		.section	.text.pmu_to_sleepmode,"ax",@progbits
+ 102              		.align	1
+ 103              		.globl	pmu_to_sleepmode
+ 105              	pmu_to_sleepmode:
+ 106              	.LFB5:
+  89:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** 
+  90:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** /*!
+  91:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     \brief      PMU work at sleep mode
+  92:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     \param[in]  sleepmodecmd:
+  93:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****                 only one parameter can be selected which is shown as below:
+  94:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****       \arg        WFI_CMD: use WFI command
+  95:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****       \arg        WFE_CMD: use WFE command
+  96:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     \param[out] none
+  97:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     \retval     none
+  98:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** */
+  99:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** void pmu_to_sleepmode(uint8_t sleepmodecmd)
+ 100:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** {
+ 107              		.loc 1 100 1 is_stmt 1
+ 108              		.cfi_startproc
+ 109              	.LVL3:
+ 101:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     /* clear sleepdeep bit of RISC-V system control register */
+ 102:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     clear_csr(0x811, 0x1);
+ 110              		.loc 1 102 5
+ 111              	.LBB31:
+ 112              		.loc 1 102 5
+ 113              		.loc 1 102 5
+ 114              		.loc 1 102 5
+ 115              	 #APP
+ 116              	# 102 "../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c" 1
+ 103              	
+ 117              		csrrc a5, 0x811, 1
+ 118              	# 0 "" 2
+ 119              	.LVL4:
+ 102:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     clear_csr(0x811, 0x1);
+ 120              		.loc 1 102 5
+ 121              	 #NO_APP
+ 122              	.LBE31:
+ 104:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     /* select WFI or WFE command to enter sleep mode */
+ 105:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     if(WFI_CMD == sleepmodecmd){
+ 123              		.loc 1 105 5
+GAS LISTING /tmp/ccLU0wez.s 			page 5
+
+
+ 124              		.loc 1 105 7 is_stmt 0
+ 125 0004 01E5     		bne	a0,zero,.L7
+ 106:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****         __WFI();
+ 126              		.loc 1 106 9 is_stmt 1
+ 127              	.LBB32:
+ 128              	.LBB33:
+ 129              		.file 2 "../Firmware/RISCV/drivers/n200_func.h"
+   1:../Firmware/RISCV/drivers/n200_func.h **** // See LICENSE file for licence details
+   2:../Firmware/RISCV/drivers/n200_func.h **** 
+   3:../Firmware/RISCV/drivers/n200_func.h **** #ifndef N200_FUNC_H
+   4:../Firmware/RISCV/drivers/n200_func.h **** #define N200_FUNC_H
+   5:../Firmware/RISCV/drivers/n200_func.h **** 
+   6:../Firmware/RISCV/drivers/n200_func.h **** 
+   7:../Firmware/RISCV/drivers/n200_func.h **** #include <stddef.h>
+   8:../Firmware/RISCV/drivers/n200_func.h **** #include "n200_timer.h"
+   9:../Firmware/RISCV/drivers/n200_func.h **** #include "n200_eclic.h"
+  10:../Firmware/RISCV/drivers/n200_func.h **** 
+  11:../Firmware/RISCV/drivers/n200_func.h **** #define	ECLIC_GROUP_LEVEL0_PRIO4	0
+  12:../Firmware/RISCV/drivers/n200_func.h **** #define	ECLIC_GROUP_LEVEL1_PRIO3	1
+  13:../Firmware/RISCV/drivers/n200_func.h **** #define	ECLIC_GROUP_LEVEL2_PRIO2	2
+  14:../Firmware/RISCV/drivers/n200_func.h **** #define	ECLIC_GROUP_LEVEL3_PRIO1	3
+  15:../Firmware/RISCV/drivers/n200_func.h **** #define	ECLIC_GROUP_LEVEL4_PRIO0	4
+  16:../Firmware/RISCV/drivers/n200_func.h **** 
+  17:../Firmware/RISCV/drivers/n200_func.h **** void pmp_open_all_space();
+  18:../Firmware/RISCV/drivers/n200_func.h **** 
+  19:../Firmware/RISCV/drivers/n200_func.h **** void switch_m2u_mode();
+  20:../Firmware/RISCV/drivers/n200_func.h **** 
+  21:../Firmware/RISCV/drivers/n200_func.h **** uint32_t get_mtime_freq();
+  22:../Firmware/RISCV/drivers/n200_func.h **** 
+  23:../Firmware/RISCV/drivers/n200_func.h **** uint32_t mtime_lo(void);
+  24:../Firmware/RISCV/drivers/n200_func.h **** 
+  25:../Firmware/RISCV/drivers/n200_func.h **** uint32_t mtime_hi(void);
+  26:../Firmware/RISCV/drivers/n200_func.h **** 
+  27:../Firmware/RISCV/drivers/n200_func.h **** uint64_t get_mtime_value();
+  28:../Firmware/RISCV/drivers/n200_func.h **** 
+  29:../Firmware/RISCV/drivers/n200_func.h **** uint64_t get_instret_value();
+  30:../Firmware/RISCV/drivers/n200_func.h **** 
+  31:../Firmware/RISCV/drivers/n200_func.h **** uint64_t get_cycle_value();
+  32:../Firmware/RISCV/drivers/n200_func.h **** 
+  33:../Firmware/RISCV/drivers/n200_func.h **** uint32_t get_cpu_freq();
+  34:../Firmware/RISCV/drivers/n200_func.h **** 
+  35:../Firmware/RISCV/drivers/n200_func.h **** uint32_t __attribute__((noinline)) measure_cpu_freq(size_t n);
+  36:../Firmware/RISCV/drivers/n200_func.h **** 
+  37:../Firmware/RISCV/drivers/n200_func.h **** 
+  38:../Firmware/RISCV/drivers/n200_func.h **** ///////////////////////////////////////////////////////////////////
+  39:../Firmware/RISCV/drivers/n200_func.h **** /////// ECLIC relevant functions
+  40:../Firmware/RISCV/drivers/n200_func.h **** ///////
+  41:../Firmware/RISCV/drivers/n200_func.h **** void eclic_init ( uint32_t num_irq );
+  42:../Firmware/RISCV/drivers/n200_func.h **** uint64_t get_timer_value();
+  43:../Firmware/RISCV/drivers/n200_func.h **** void eclic_enable_interrupt (uint32_t source);
+  44:../Firmware/RISCV/drivers/n200_func.h **** void eclic_disable_interrupt (uint32_t source);
+  45:../Firmware/RISCV/drivers/n200_func.h **** 
+  46:../Firmware/RISCV/drivers/n200_func.h **** void eclic_set_pending(uint32_t source);
+  47:../Firmware/RISCV/drivers/n200_func.h **** void eclic_clear_pending(uint32_t source);
+  48:../Firmware/RISCV/drivers/n200_func.h **** 
+  49:../Firmware/RISCV/drivers/n200_func.h **** void eclic_set_intctrl (uint32_t source, uint8_t intctrl);
+  50:../Firmware/RISCV/drivers/n200_func.h **** uint8_t eclic_get_intctrl  (uint32_t source);
+GAS LISTING /tmp/ccLU0wez.s 			page 6
+
+
+  51:../Firmware/RISCV/drivers/n200_func.h **** 
+  52:../Firmware/RISCV/drivers/n200_func.h **** void eclic_set_intattr (uint32_t source, uint8_t intattr);
+  53:../Firmware/RISCV/drivers/n200_func.h **** uint8_t eclic_get_intattr  (uint32_t source);
+  54:../Firmware/RISCV/drivers/n200_func.h **** 
+  55:../Firmware/RISCV/drivers/n200_func.h **** void eclic_set_cliccfg (uint8_t cliccfg);
+  56:../Firmware/RISCV/drivers/n200_func.h **** uint8_t eclic_get_cliccfg ();
+  57:../Firmware/RISCV/drivers/n200_func.h **** 
+  58:../Firmware/RISCV/drivers/n200_func.h **** void eclic_set_mth (uint8_t mth);
+  59:../Firmware/RISCV/drivers/n200_func.h **** uint8_t eclic_get_mth();
+  60:../Firmware/RISCV/drivers/n200_func.h **** 
+  61:../Firmware/RISCV/drivers/n200_func.h **** //sets nlbits 
+  62:../Firmware/RISCV/drivers/n200_func.h **** void eclic_set_nlbits(uint8_t nlbits);
+  63:../Firmware/RISCV/drivers/n200_func.h **** 
+  64:../Firmware/RISCV/drivers/n200_func.h **** 
+  65:../Firmware/RISCV/drivers/n200_func.h **** //get nlbits 
+  66:../Firmware/RISCV/drivers/n200_func.h **** uint8_t eclic_get_nlbits();
+  67:../Firmware/RISCV/drivers/n200_func.h **** 
+  68:../Firmware/RISCV/drivers/n200_func.h **** void eclic_set_irq_lvl(uint32_t source, uint8_t lvl);
+  69:../Firmware/RISCV/drivers/n200_func.h **** uint8_t eclic_get_irq_lvl(uint32_t source);
+  70:../Firmware/RISCV/drivers/n200_func.h **** 
+  71:../Firmware/RISCV/drivers/n200_func.h **** void eclic_set_irq_lvl_abs(uint32_t source, uint8_t lvl_abs);
+  72:../Firmware/RISCV/drivers/n200_func.h **** uint8_t eclic_get_irq_lvl_abs(uint32_t source);
+  73:../Firmware/RISCV/drivers/n200_func.h **** 
+  74:../Firmware/RISCV/drivers/n200_func.h **** uint8_t eclic_set_irq_priority(uint32_t source, uint8_t priority);
+  75:../Firmware/RISCV/drivers/n200_func.h **** uint8_t eclic_get_irq_priority(uint32_t source);
+  76:../Firmware/RISCV/drivers/n200_func.h **** 
+  77:../Firmware/RISCV/drivers/n200_func.h **** void eclic_mode_enable();
+  78:../Firmware/RISCV/drivers/n200_func.h **** 
+  79:../Firmware/RISCV/drivers/n200_func.h **** void eclic_set_vmode(uint32_t source);
+  80:../Firmware/RISCV/drivers/n200_func.h **** void eclic_set_nonvmode(uint32_t source);
+  81:../Firmware/RISCV/drivers/n200_func.h **** 
+  82:../Firmware/RISCV/drivers/n200_func.h **** void eclic_set_level_trig(uint32_t source);
+  83:../Firmware/RISCV/drivers/n200_func.h **** void eclic_set_posedge_trig(uint32_t source);
+  84:../Firmware/RISCV/drivers/n200_func.h **** void eclic_set_negedge_trig(uint32_t source);
+  85:../Firmware/RISCV/drivers/n200_func.h **** 
+  86:../Firmware/RISCV/drivers/n200_func.h **** 
+  87:../Firmware/RISCV/drivers/n200_func.h **** ///** \brief  Wait For Interrupt
+  88:../Firmware/RISCV/drivers/n200_func.h **** //
+  89:../Firmware/RISCV/drivers/n200_func.h **** //    Wait For Interrupt is a hint instruction that suspends execution
+  90:../Firmware/RISCV/drivers/n200_func.h **** //    until one of a number of events occurs.
+  91:../Firmware/RISCV/drivers/n200_func.h **** // */
+  92:../Firmware/RISCV/drivers/n200_func.h **** __attribute__( ( always_inline ) ) static inline void __WFI(void) {
+  93:../Firmware/RISCV/drivers/n200_func.h **** 	__asm volatile ("wfi");
+ 130              		.loc 2 93 2
+ 131              	 #APP
+ 132              	# 93 "../Firmware/RISCV/drivers/n200_func.h" 1
+  94              	}
+ 133              		wfi
+ 134              	# 0 "" 2
+ 135              		.loc 2 94 1 is_stmt 0
+ 136              	 #NO_APP
+ 137 000a 8280     		ret
+ 138              	.L7:
+ 139              	.LBE33:
+ 140              	.LBE32:
+ 107:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     }else{
+ 108:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****         clear_csr(mstatus, MSTATUS_MIE);
+GAS LISTING /tmp/ccLU0wez.s 			page 7
+
+
+ 141              		.loc 1 108 9 is_stmt 1 discriminator 1
+ 142              	.LBB34:
+ 143              		.loc 1 108 9 discriminator 1
+ 144              		.loc 1 108 9 discriminator 1
+ 145              		.loc 1 108 9 discriminator 1
+ 146              	 #APP
+ 147              	# 108 "../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c" 1
+ 109              	        set_csr(0x810, 0x1);
+ 148              		csrrc a5, mstatus, 8
+ 149              	# 0 "" 2
+ 150              	.LVL5:
+ 108:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****         clear_csr(mstatus, MSTATUS_MIE);
+ 151              		.loc 1 108 9 discriminator 1
+ 152              	 #NO_APP
+ 153              	.LBE34:
+ 154              		.loc 1 109 9 discriminator 1
+ 155              	.LBB35:
+ 156              		.loc 1 109 9 discriminator 1
+ 157              		.loc 1 109 9 discriminator 1
+ 158              		.loc 1 109 9 discriminator 1
+ 159              	 #APP
+ 160              	# 109 "../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c" 1
+ 110              	        __WFI();
+ 161              		csrrs a5, 0x810, 1
+ 162              	# 0 "" 2
+ 163              	.LVL6:
+ 109:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****         __WFI();
+ 164              		.loc 1 109 9 discriminator 1
+ 165              	 #NO_APP
+ 166              	.LBE35:
+ 167              		.loc 1 110 9 discriminator 1
+ 168              	.LBB36:
+ 169              	.LBB37:
+  93:../Firmware/RISCV/drivers/n200_func.h **** }
+ 170              		.loc 2 93 2 discriminator 1
+ 171              	 #APP
+ 172              	# 93 "../Firmware/RISCV/drivers/n200_func.h" 1
+ 173              		wfi
+ 174              	# 0 "" 2
+ 175              	 #NO_APP
+ 176              	.LBE37:
+ 177              	.LBE36:
+ 111:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****         clear_csr(0x810, 0x1);
+ 178              		.loc 1 111 9 discriminator 1
+ 179              	.LBB38:
+ 180              		.loc 1 111 9 discriminator 1
+ 181              		.loc 1 111 9 discriminator 1
+ 182              		.loc 1 111 9 discriminator 1
+ 183              	 #APP
+ 184              	# 111 "../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c" 1
+ 112              	        set_csr(mstatus, MSTATUS_MIE);
+ 185              		csrrc a5, 0x810, 1
+ 186              	# 0 "" 2
+ 187              	.LVL7:
+ 111:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****         clear_csr(0x810, 0x1);
+ 188              		.loc 1 111 9 discriminator 1
+ 189              	 #NO_APP
+GAS LISTING /tmp/ccLU0wez.s 			page 8
+
+
+ 190              	.LBE38:
+ 191              		.loc 1 112 9 discriminator 1
+ 192              	.LBB39:
+ 193              		.loc 1 112 9 discriminator 1
+ 194              		.loc 1 112 9 discriminator 1
+ 195              		.loc 1 112 9 discriminator 1
+ 196              	 #APP
+ 197              	# 112 "../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c" 1
+ 113              	    }
+ 198              		csrrs a5, mstatus, 8
+ 199              	# 0 "" 2
+ 200              	.LVL8:
+ 112:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     }
+ 201              		.loc 1 112 9 discriminator 1
+ 202              	 #NO_APP
+ 203              	.LBE39:
+ 114:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** }
+ 204              		.loc 1 114 1 is_stmt 0 discriminator 1
+ 205 0020 8280     		ret
+ 206              		.cfi_endproc
+ 207              	.LFE5:
+ 209              		.section	.text.pmu_to_deepsleepmode,"ax",@progbits
+ 210              		.align	1
+ 211              		.globl	pmu_to_deepsleepmode
+ 213              	pmu_to_deepsleepmode:
+ 214              	.LFB6:
+ 115:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** 
+ 116:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** /*!
+ 117:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     \brief      PMU work at deepsleep mode
+ 118:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     \param[in]  ldo:
+ 119:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****                 only one parameter can be selected which is shown as below:
+ 120:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****       \arg        PMU_LDO_NORMAL: LDO work at normal power mode when pmu enter deepsleep mode
+ 121:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****       \arg        PMU_LDO_LOWPOWER: LDO work at low power mode when pmu enter deepsleep mode
+ 122:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     \param[in]  deepsleepmodecmd:
+ 123:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****                 only one parameter can be selected which is shown as below:
+ 124:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****       \arg        WFI_CMD: use WFI command
+ 125:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****       \arg        WFE_CMD: use WFE command
+ 126:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     \param[out] none
+ 127:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     \retval     none
+ 128:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** */
+ 129:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** void pmu_to_deepsleepmode(uint32_t ldo,uint8_t deepsleepmodecmd)
+ 130:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** {
+ 215              		.loc 1 130 1 is_stmt 1
+ 216              		.cfi_startproc
+ 217              	.LVL9:
+ 131:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     /* clear stbmod and ldolp bits */
+ 132:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     PMU_CTL &= ~((uint32_t)(PMU_CTL_STBMOD | PMU_CTL_LDOLP));
+ 218              		.loc 1 132 5
+ 219              		.loc 1 132 13 is_stmt 0
+ 220 0000 B7770040 		li	a5,1073770496
+ 221 0004 9443     		lw	a3,0(a5)
+ 222 0006 F19A     		andi	a3,a3,-4
+ 223 0008 94C3     		sw	a3,0(a5)
+ 133:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     /* set ldolp bit according to pmu_ldo */
+ 134:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     PMU_CTL |= ldo;
+ 224              		.loc 1 134 5 is_stmt 1
+ 225              		.loc 1 134 13 is_stmt 0
+GAS LISTING /tmp/ccLU0wez.s 			page 9
+
+
+ 226 000a 9843     		lw	a4,0(a5)
+ 227 000c 498F     		or	a4,a4,a0
+ 228 000e 98C3     		sw	a4,0(a5)
+ 135:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     /* set CSR_SLEEPVALUE bit of RISC-V system control register */
+ 136:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     set_csr(0x811, 0x1);
+ 229              		.loc 1 136 5 is_stmt 1
+ 230              	.LBB40:
+ 231              		.loc 1 136 5
+ 232              		.loc 1 136 5
+ 233              		.loc 1 136 5
+ 234              	 #APP
+ 235              	# 136 "../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c" 1
+ 137              	    /* select WFI or WFE command to enter deepsleep mode */
+ 236              		csrrs a5, 0x811, 1
+ 237              	# 0 "" 2
+ 238              	.LVL10:
+ 136:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     set_csr(0x811, 0x1);
+ 239              		.loc 1 136 5
+ 240              	 #NO_APP
+ 241              	.LBE40:
+ 138:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     if(WFI_CMD == deepsleepmodecmd){
+ 242              		.loc 1 138 5
+ 243              		.loc 1 138 7 is_stmt 0
+ 244 0014 91E5     		bne	a1,zero,.L10
+ 139:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****         __WFI();
+ 245              		.loc 1 139 9 is_stmt 1
+ 246              	.LBB41:
+ 247              	.LBB42:
+  93:../Firmware/RISCV/drivers/n200_func.h **** }
+ 248              		.loc 2 93 2
+ 249              	 #APP
+ 250              	# 93 "../Firmware/RISCV/drivers/n200_func.h" 1
+ 251              		wfi
+ 252              	# 0 "" 2
+ 253              	 #NO_APP
+ 254              	.LBE42:
+ 255              	.LBE41:
+ 140:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     }else{
+ 141:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****         clear_csr(mstatus, MSTATUS_MIE);
+ 142:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****         set_csr(0x810, 0x1);
+ 143:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****         __WFI();
+ 144:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****         clear_csr(0x810, 0x1);
+ 145:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****         set_csr(mstatus, MSTATUS_MIE);
+ 146:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     }
+ 147:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     /* reset sleepdeep bit of RISC-V system control register */
+ 148:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     clear_csr(0x811, 0x1);
+ 256              		.loc 1 148 5
+ 257              	.LBB43:
+ 258              		.loc 1 148 5
+ 259              		.loc 1 148 5
+ 260              		.loc 1 148 5
+ 261              	 #APP
+ 262              	# 148 "../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c" 1
+ 149              	}
+ 263              		csrrc a5, 0x811, 1
+ 264              	# 0 "" 2
+ 265              	.LVL11:
+GAS LISTING /tmp/ccLU0wez.s 			page 10
+
+
+ 148:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     clear_csr(0x811, 0x1);
+ 266              		.loc 1 148 5
+ 267              	 #NO_APP
+ 268              	.LBE43:
+ 269              		.loc 1 149 1 is_stmt 0
+ 270 001e 8280     		ret
+ 271              	.L10:
+ 141:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****         set_csr(0x810, 0x1);
+ 272              		.loc 1 141 9 is_stmt 1 discriminator 1
+ 273              	.LBB44:
+ 141:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****         set_csr(0x810, 0x1);
+ 274              		.loc 1 141 9 discriminator 1
+ 141:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****         set_csr(0x810, 0x1);
+ 275              		.loc 1 141 9 discriminator 1
+ 141:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****         set_csr(0x810, 0x1);
+ 276              		.loc 1 141 9 discriminator 1
+ 277              	 #APP
+ 278              	# 141 "../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c" 1
+ 279              		csrrc a5, mstatus, 8
+ 280              	# 0 "" 2
+ 281              	.LVL12:
+ 141:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****         set_csr(0x810, 0x1);
+ 282              		.loc 1 141 9 discriminator 1
+ 283              	 #NO_APP
+ 284              	.LBE44:
+ 142:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****         __WFI();
+ 285              		.loc 1 142 9 discriminator 1
+ 286              	.LBB45:
+ 142:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****         __WFI();
+ 287              		.loc 1 142 9 discriminator 1
+ 142:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****         __WFI();
+ 288              		.loc 1 142 9 discriminator 1
+ 142:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****         __WFI();
+ 289              		.loc 1 142 9 discriminator 1
+ 290              	 #APP
+ 291              	# 142 "../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c" 1
+ 292              		csrrs a5, 0x810, 1
+ 293              	# 0 "" 2
+ 294              	.LVL13:
+ 142:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****         __WFI();
+ 295              		.loc 1 142 9 discriminator 1
+ 296              	 #NO_APP
+ 297              	.LBE45:
+ 143:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****         clear_csr(0x810, 0x1);
+ 298              		.loc 1 143 9 discriminator 1
+ 299              	.LBB46:
+ 300              	.LBB47:
+  93:../Firmware/RISCV/drivers/n200_func.h **** }
+ 301              		.loc 2 93 2 discriminator 1
+ 302              	 #APP
+ 303              	# 93 "../Firmware/RISCV/drivers/n200_func.h" 1
+ 304              		wfi
+ 305              	# 0 "" 2
+ 306              	 #NO_APP
+ 307              	.LBE47:
+ 308              	.LBE46:
+ 144:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****         set_csr(mstatus, MSTATUS_MIE);
+GAS LISTING /tmp/ccLU0wez.s 			page 11
+
+
+ 309              		.loc 1 144 9 discriminator 1
+ 310              	.LBB48:
+ 144:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****         set_csr(mstatus, MSTATUS_MIE);
+ 311              		.loc 1 144 9 discriminator 1
+ 144:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****         set_csr(mstatus, MSTATUS_MIE);
+ 312              		.loc 1 144 9 discriminator 1
+ 144:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****         set_csr(mstatus, MSTATUS_MIE);
+ 313              		.loc 1 144 9 discriminator 1
+ 314              	 #APP
+ 315              	# 144 "../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c" 1
+ 316              		csrrc a5, 0x810, 1
+ 317              	# 0 "" 2
+ 318              	.LVL14:
+ 144:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****         set_csr(mstatus, MSTATUS_MIE);
+ 319              		.loc 1 144 9 discriminator 1
+ 320              	 #NO_APP
+ 321              	.LBE48:
+ 145:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     }
+ 322              		.loc 1 145 9 discriminator 1
+ 323              	.LBB49:
+ 145:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     }
+ 324              		.loc 1 145 9 discriminator 1
+ 145:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     }
+ 325              		.loc 1 145 9 discriminator 1
+ 145:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     }
+ 326              		.loc 1 145 9 discriminator 1
+ 327              	 #APP
+ 328              	# 145 "../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c" 1
+ 329              		csrrs a5, mstatus, 8
+ 330              	# 0 "" 2
+ 331              	.LVL15:
+ 145:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     }
+ 332              		.loc 1 145 9 discriminator 1
+ 333              	 #NO_APP
+ 334              	.LBE49:
+ 148:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** }
+ 335              		.loc 1 148 5 discriminator 1
+ 336              	.LBB50:
+ 148:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** }
+ 337              		.loc 1 148 5 discriminator 1
+ 148:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** }
+ 338              		.loc 1 148 5 discriminator 1
+ 148:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** }
+ 339              		.loc 1 148 5 discriminator 1
+ 340              	 #APP
+ 341              	# 148 "../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c" 1
+ 148:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** }
+ 342              		csrrc a5, 0x811, 1
+ 343              	# 0 "" 2
+ 344              		.loc 1 148 5 discriminator 1
+ 345              	 #NO_APP
+ 346              	.LBE50:
+ 347              		.loc 1 149 1 is_stmt 0 discriminator 1
+ 348 0038 8280     		ret
+ 349              		.cfi_endproc
+ 350              	.LFE6:
+ 352              		.section	.text.pmu_to_standbymode,"ax",@progbits
+GAS LISTING /tmp/ccLU0wez.s 			page 12
+
+
+ 353              		.align	1
+ 354              		.globl	pmu_to_standbymode
+ 356              	pmu_to_standbymode:
+ 357              	.LFB7:
+ 150:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** 
+ 151:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** /*!
+ 152:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     \brief      pmu work at standby mode
+ 153:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     \param[in]  standbymodecmd:
+ 154:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****                 only one parameter can be selected which is shown as below:
+ 155:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****       \arg        WFI_CMD: use WFI command
+ 156:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****       \arg        WFE_CMD: use WFE command
+ 157:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     \param[out] none
+ 158:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     \retval     none
+ 159:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** */
+ 160:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** void pmu_to_standbymode(uint8_t standbymodecmd)
+ 161:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** {
+ 358              		.loc 1 161 1 is_stmt 1
+ 359              		.cfi_startproc
+ 360              	.LVL16:
+ 162:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     /* set CSR_SLEEPVALUE bit of RISC-V system control register */
+ 163:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     set_csr(0x811, 0x1);
+ 361              		.loc 1 163 5
+ 362              	.LBB51:
+ 363              		.loc 1 163 5
+ 364              		.loc 1 163 5
+ 365              		.loc 1 163 5
+ 366              	 #APP
+ 367              	# 163 "../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c" 1
+ 164              	
+ 368              		csrrs a5, 0x811, 1
+ 369              	# 0 "" 2
+ 370              	.LVL17:
+ 163:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     set_csr(0x811, 0x1);
+ 371              		.loc 1 163 5
+ 372              	 #NO_APP
+ 373              	.LBE51:
+ 165:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     /* set stbmod bit */
+ 166:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     PMU_CTL |= PMU_CTL_STBMOD;
+ 374              		.loc 1 166 5
+ 375              		.loc 1 166 13 is_stmt 0
+ 376 0004 B7770040 		li	a5,1073770496
+ 377 0008 9843     		lw	a4,0(a5)
+ 378 000a 13672700 		ori	a4,a4,2
+ 379 000e 98C3     		sw	a4,0(a5)
+ 167:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** 
+ 168:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     /* reset wakeup flag */
+ 169:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     PMU_CTL |= PMU_CTL_WURST;
+ 380              		.loc 1 169 5 is_stmt 1
+ 381              		.loc 1 169 13 is_stmt 0
+ 382 0010 9843     		lw	a4,0(a5)
+ 383 0012 13674700 		ori	a4,a4,4
+ 384 0016 98C3     		sw	a4,0(a5)
+ 170:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** 
+ 171:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     /* select WFI or WFE command to enter standby mode */
+ 172:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     if(WFI_CMD == standbymodecmd){
+ 385              		.loc 1 172 5 is_stmt 1
+ 386              		.loc 1 172 7 is_stmt 0
+GAS LISTING /tmp/ccLU0wez.s 			page 13
+
+
+ 387 0018 11E5     		bne	a0,zero,.L13
+ 173:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****         __WFI();
+ 388              		.loc 1 173 9 is_stmt 1
+ 389              	.LBB52:
+ 390              	.LBB53:
+  93:../Firmware/RISCV/drivers/n200_func.h **** }
+ 391              		.loc 2 93 2
+ 392              	 #APP
+ 393              	# 93 "../Firmware/RISCV/drivers/n200_func.h" 1
+ 394              		wfi
+ 395              	# 0 "" 2
+ 396              	 #NO_APP
+ 397              	.LBE53:
+ 398              	.LBE52:
+ 174:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     }else{
+ 175:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****         clear_csr(mstatus, MSTATUS_MIE);
+ 176:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****         set_csr(0x810, 0x1);
+ 177:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****         __WFI();
+ 178:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****         clear_csr(0x810, 0x1);
+ 179:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****         set_csr(mstatus, MSTATUS_MIE);
+ 180:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     }
+ 181:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     clear_csr(0x811, 0x1);
+ 399              		.loc 1 181 5
+ 400              	.LBB54:
+ 401              		.loc 1 181 5
+ 402              		.loc 1 181 5
+ 403              		.loc 1 181 5
+ 404              	 #APP
+ 405              	# 181 "../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c" 1
+ 182              	}
+ 406              		csrrc a5, 0x811, 1
+ 407              	# 0 "" 2
+ 408              	.LVL18:
+ 181:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     clear_csr(0x811, 0x1);
+ 409              		.loc 1 181 5
+ 410              	 #NO_APP
+ 411              	.LBE54:
+ 412              		.loc 1 182 1 is_stmt 0
+ 413 0022 8280     		ret
+ 414              	.L13:
+ 175:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****         set_csr(0x810, 0x1);
+ 415              		.loc 1 175 9 is_stmt 1 discriminator 1
+ 416              	.LBB55:
+ 175:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****         set_csr(0x810, 0x1);
+ 417              		.loc 1 175 9 discriminator 1
+ 175:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****         set_csr(0x810, 0x1);
+ 418              		.loc 1 175 9 discriminator 1
+ 175:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****         set_csr(0x810, 0x1);
+ 419              		.loc 1 175 9 discriminator 1
+ 420              	 #APP
+ 421              	# 175 "../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c" 1
+ 422              		csrrc a5, mstatus, 8
+ 423              	# 0 "" 2
+ 424              	.LVL19:
+ 175:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****         set_csr(0x810, 0x1);
+ 425              		.loc 1 175 9 discriminator 1
+ 426              	 #NO_APP
+GAS LISTING /tmp/ccLU0wez.s 			page 14
+
+
+ 427              	.LBE55:
+ 176:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****         __WFI();
+ 428              		.loc 1 176 9 discriminator 1
+ 429              	.LBB56:
+ 176:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****         __WFI();
+ 430              		.loc 1 176 9 discriminator 1
+ 176:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****         __WFI();
+ 431              		.loc 1 176 9 discriminator 1
+ 176:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****         __WFI();
+ 432              		.loc 1 176 9 discriminator 1
+ 433              	 #APP
+ 434              	# 176 "../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c" 1
+ 435              		csrrs a5, 0x810, 1
+ 436              	# 0 "" 2
+ 437              	.LVL20:
+ 176:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****         __WFI();
+ 438              		.loc 1 176 9 discriminator 1
+ 439              	 #NO_APP
+ 440              	.LBE56:
+ 177:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****         clear_csr(0x810, 0x1);
+ 441              		.loc 1 177 9 discriminator 1
+ 442              	.LBB57:
+ 443              	.LBB58:
+  93:../Firmware/RISCV/drivers/n200_func.h **** }
+ 444              		.loc 2 93 2 discriminator 1
+ 445              	 #APP
+ 446              	# 93 "../Firmware/RISCV/drivers/n200_func.h" 1
+ 447              		wfi
+ 448              	# 0 "" 2
+ 449              	 #NO_APP
+ 450              	.LBE58:
+ 451              	.LBE57:
+ 178:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****         set_csr(mstatus, MSTATUS_MIE);
+ 452              		.loc 1 178 9 discriminator 1
+ 453              	.LBB59:
+ 178:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****         set_csr(mstatus, MSTATUS_MIE);
+ 454              		.loc 1 178 9 discriminator 1
+ 178:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****         set_csr(mstatus, MSTATUS_MIE);
+ 455              		.loc 1 178 9 discriminator 1
+ 178:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****         set_csr(mstatus, MSTATUS_MIE);
+ 456              		.loc 1 178 9 discriminator 1
+ 457              	 #APP
+ 458              	# 178 "../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c" 1
+ 459              		csrrc a5, 0x810, 1
+ 460              	# 0 "" 2
+ 461              	.LVL21:
+ 178:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****         set_csr(mstatus, MSTATUS_MIE);
+ 462              		.loc 1 178 9 discriminator 1
+ 463              	 #NO_APP
+ 464              	.LBE59:
+ 179:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     }
+ 465              		.loc 1 179 9 discriminator 1
+ 466              	.LBB60:
+ 179:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     }
+ 467              		.loc 1 179 9 discriminator 1
+ 179:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     }
+ 468              		.loc 1 179 9 discriminator 1
+GAS LISTING /tmp/ccLU0wez.s 			page 15
+
+
+ 179:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     }
+ 469              		.loc 1 179 9 discriminator 1
+ 470              	 #APP
+ 471              	# 179 "../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c" 1
+ 472              		csrrs a5, mstatus, 8
+ 473              	# 0 "" 2
+ 474              	.LVL22:
+ 179:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     }
+ 475              		.loc 1 179 9 discriminator 1
+ 476              	 #NO_APP
+ 477              	.LBE60:
+ 181:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** }
+ 478              		.loc 1 181 5 discriminator 1
+ 479              	.LBB61:
+ 181:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** }
+ 480              		.loc 1 181 5 discriminator 1
+ 181:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** }
+ 481              		.loc 1 181 5 discriminator 1
+ 181:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** }
+ 482              		.loc 1 181 5 discriminator 1
+ 483              	 #APP
+ 484              	# 181 "../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c" 1
+ 181:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** }
+ 485              		csrrc a5, 0x811, 1
+ 486              	# 0 "" 2
+ 487              		.loc 1 181 5 discriminator 1
+ 488              	 #NO_APP
+ 489              	.LBE61:
+ 490              		.loc 1 182 1 is_stmt 0 discriminator 1
+ 491 003c 8280     		ret
+ 492              		.cfi_endproc
+ 493              	.LFE7:
+ 495              		.section	.text.pmu_wakeup_pin_enable,"ax",@progbits
+ 496              		.align	1
+ 497              		.globl	pmu_wakeup_pin_enable
+ 499              	pmu_wakeup_pin_enable:
+ 500              	.LFB8:
+ 183:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** 
+ 184:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** /*!
+ 185:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     \brief      enable wakeup pin
+ 186:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     \param[in]  none
+ 187:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     \param[out] none
+ 188:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     \retval     none
+ 189:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** */
+ 190:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** void pmu_wakeup_pin_enable(void)
+ 191:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** {
+ 501              		.loc 1 191 1 is_stmt 1
+ 502              		.cfi_startproc
+ 192:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     PMU_CS |= PMU_CS_WUPEN;
+ 503              		.loc 1 192 5
+ 504              		.loc 1 192 12 is_stmt 0
+ 505 0000 37770040 		li	a4,1073770496
+ 506 0004 5C43     		lw	a5,4(a4)
+ 507 0006 93E70710 		ori	a5,a5,256
+ 508 000a 5CC3     		sw	a5,4(a4)
+ 193:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** }
+ 509              		.loc 1 193 1
+GAS LISTING /tmp/ccLU0wez.s 			page 16
+
+
+ 510 000c 8280     		ret
+ 511              		.cfi_endproc
+ 512              	.LFE8:
+ 514              		.section	.text.pmu_wakeup_pin_disable,"ax",@progbits
+ 515              		.align	1
+ 516              		.globl	pmu_wakeup_pin_disable
+ 518              	pmu_wakeup_pin_disable:
+ 519              	.LFB9:
+ 194:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** 
+ 195:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** /*!
+ 196:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     \brief      disable wakeup pin
+ 197:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     \param[in]  none
+ 198:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     \param[out] none
+ 199:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     \retval     none
+ 200:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** */
+ 201:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** void pmu_wakeup_pin_disable(void)
+ 202:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** {
+ 520              		.loc 1 202 1 is_stmt 1
+ 521              		.cfi_startproc
+ 203:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     PMU_CS &= ~PMU_CS_WUPEN;
+ 522              		.loc 1 203 5
+ 523              		.loc 1 203 12 is_stmt 0
+ 524 0000 37770040 		li	a4,1073770496
+ 525 0004 5C43     		lw	a5,4(a4)
+ 526 0006 93F7F7EF 		andi	a5,a5,-257
+ 527 000a 5CC3     		sw	a5,4(a4)
+ 204:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** }
+ 528              		.loc 1 204 1
+ 529 000c 8280     		ret
+ 530              		.cfi_endproc
+ 531              	.LFE9:
+ 533              		.section	.text.pmu_backup_write_enable,"ax",@progbits
+ 534              		.align	1
+ 535              		.globl	pmu_backup_write_enable
+ 537              	pmu_backup_write_enable:
+ 538              	.LFB10:
+ 205:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** 
+ 206:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** /*!
+ 207:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     \brief      enable write access to the registers in backup domain
+ 208:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     \param[in]  none
+ 209:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     \param[out] none
+ 210:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     \retval     none
+ 211:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** */
+ 212:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** void pmu_backup_write_enable(void)
+ 213:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** {
+ 539              		.loc 1 213 1 is_stmt 1
+ 540              		.cfi_startproc
+ 214:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     PMU_CTL |= PMU_CTL_BKPWEN;
+ 541              		.loc 1 214 5
+ 542              		.loc 1 214 13 is_stmt 0
+ 543 0000 37770040 		li	a4,1073770496
+ 544 0004 1C43     		lw	a5,0(a4)
+ 545 0006 93E70710 		ori	a5,a5,256
+ 546 000a 1CC3     		sw	a5,0(a4)
+ 215:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** }
+ 547              		.loc 1 215 1
+ 548 000c 8280     		ret
+GAS LISTING /tmp/ccLU0wez.s 			page 17
+
+
+ 549              		.cfi_endproc
+ 550              	.LFE10:
+ 552              		.section	.text.pmu_backup_write_disable,"ax",@progbits
+ 553              		.align	1
+ 554              		.globl	pmu_backup_write_disable
+ 556              	pmu_backup_write_disable:
+ 557              	.LFB11:
+ 216:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** 
+ 217:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** /*!
+ 218:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     \brief      disable write access to the registers in backup domain
+ 219:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     \param[in]  none
+ 220:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     \param[out] none
+ 221:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     \retval     none
+ 222:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** */
+ 223:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** void pmu_backup_write_disable(void)
+ 224:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** {
+ 558              		.loc 1 224 1 is_stmt 1
+ 559              		.cfi_startproc
+ 225:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     PMU_CTL &= ~PMU_CTL_BKPWEN;
+ 560              		.loc 1 225 5
+ 561              		.loc 1 225 13 is_stmt 0
+ 562 0000 37770040 		li	a4,1073770496
+ 563 0004 1C43     		lw	a5,0(a4)
+ 564 0006 93F7F7EF 		andi	a5,a5,-257
+ 565 000a 1CC3     		sw	a5,0(a4)
+ 226:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** }
+ 566              		.loc 1 226 1
+ 567 000c 8280     		ret
+ 568              		.cfi_endproc
+ 569              	.LFE11:
+ 571              		.section	.text.pmu_flag_get,"ax",@progbits
+ 572              		.align	1
+ 573              		.globl	pmu_flag_get
+ 575              	pmu_flag_get:
+ 576              	.LFB12:
+ 227:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** 
+ 228:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** /*!
+ 229:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     \brief      get flag state
+ 230:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     \param[in]  flag:
+ 231:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****                 only one parameter can be selected which is shown as below:
+ 232:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****       \arg        PMU_FLAG_WAKEUP: wakeup flag
+ 233:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****       \arg        PMU_FLAG_STANDBY: standby flag
+ 234:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****       \arg        PMU_FLAG_LVD: lvd flag
+ 235:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     \param[out] none
+ 236:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     \retval     FlagStatus SET or RESET
+ 237:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** */
+ 238:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** FlagStatus pmu_flag_get(uint32_t flag)
+ 239:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** {
+ 577              		.loc 1 239 1 is_stmt 1
+ 578              		.cfi_startproc
+ 579              	.LVL23:
+ 240:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     if(PMU_CS & flag){
+ 580              		.loc 1 240 5
+ 581              		.loc 1 240 8 is_stmt 0
+ 582 0000 B7770040 		li	a5,1073770496
+ 583 0004 DC43     		lw	a5,4(a5)
+ 584              		.loc 1 240 15
+GAS LISTING /tmp/ccLU0wez.s 			page 18
+
+
+ 585 0006 7D8D     		and	a0,a5,a0
+ 586              	.LVL24:
+ 241:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****         return  SET;
+ 242:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     }else{
+ 243:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****         return  RESET;
+ 244:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     }
+ 245:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** }
+ 587              		.loc 1 245 1
+ 588 0008 3335A000 		snez	a0,a0
+ 589 000c 8280     		ret
+ 590              		.cfi_endproc
+ 591              	.LFE12:
+ 593              		.section	.text.pmu_flag_clear,"ax",@progbits
+ 594              		.align	1
+ 595              		.globl	pmu_flag_clear
+ 597              	pmu_flag_clear:
+ 598              	.LFB13:
+ 246:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** 
+ 247:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** /*!
+ 248:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     \brief      clear flag bit
+ 249:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     \param[in]  flag_reset:
+ 250:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****                 only one parameter can be selected which is shown as below:
+ 251:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****       \arg        PMU_FLAG_RESET_WAKEUP: reset wakeup flag
+ 252:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****       \arg        PMU_FLAG_RESET_STANDBY: reset standby flag
+ 253:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     \param[out] none
+ 254:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     \retval     none
+ 255:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** */
+ 256:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** void pmu_flag_clear(uint32_t flag_reset)
+ 257:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** {
+ 599              		.loc 1 257 1 is_stmt 1
+ 600              		.cfi_startproc
+ 601              	.LVL25:
+ 258:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     switch(flag_reset){
+ 602              		.loc 1 258 5
+ 603 0000 01CD     		beq	a0,zero,.L21
+ 604 0002 8547     		li	a5,1
+ 605 0004 6319F500 		bne	a0,a5,.L24
+ 259:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     case PMU_FLAG_RESET_WAKEUP:
+ 260:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****         /* reset wakeup flag */
+ 261:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****         PMU_CTL |= PMU_CTL_WURST;
+ 262:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****         break;
+ 263:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     case PMU_FLAG_RESET_STANDBY:
+ 264:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****         /* reset standby flag */
+ 265:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****         PMU_CTL |= PMU_CTL_STBRST;
+ 606              		.loc 1 265 9
+ 607              		.loc 1 265 17 is_stmt 0
+ 608 0008 37770040 		li	a4,1073770496
+ 609 000c 1C43     		lw	a5,0(a4)
+ 610 000e 93E78700 		ori	a5,a5,8
+ 611 0012 1CC3     		sw	a5,0(a4)
+ 266:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****         break;
+ 612              		.loc 1 266 9 is_stmt 1
+ 267:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     default :
+ 268:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****         break;
+ 269:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     }
+ 270:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c **** }
+ 613              		.loc 1 270 1 is_stmt 0
+GAS LISTING /tmp/ccLU0wez.s 			page 19
+
+
+ 614 0014 8280     		ret
+ 615              	.L24:
+ 616 0016 8280     		ret
+ 617              	.L21:
+ 261:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****         break;
+ 618              		.loc 1 261 9 is_stmt 1
+ 261:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****         break;
+ 619              		.loc 1 261 17 is_stmt 0
+ 620 0018 37770040 		li	a4,1073770496
+ 621 001c 1C43     		lw	a5,0(a4)
+ 622 001e 93E74700 		ori	a5,a5,4
+ 623 0022 1CC3     		sw	a5,0(a4)
+ 262:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c ****     case PMU_FLAG_RESET_STANDBY:
+ 624              		.loc 1 262 9 is_stmt 1
+ 625 0024 8280     		ret
+ 626              		.cfi_endproc
+ 627              	.LFE13:
+ 629              		.text
+ 630              	.Letext0:
+ 631              		.file 3 "/home/johnson/Documents/mpb-toolchain/build/riscv32-mapleboard-elf/include/machine/_defau
+ 632              		.file 4 "/home/johnson/Documents/mpb-toolchain/build/riscv32-mapleboard-elf/include/sys/_stdint.h"
+ 633              		.file 5 "../Firmware/GD32VF103_standard_peripheral/gd32vf103.h"
+ 634              		.file 6 "../Firmware/GD32VF103_standard_peripheral/Include/gd32vf103_rcu.h"
+GAS LISTING /tmp/ccLU0wez.s 			page 20
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 gd32vf103_pmu.c
+     /tmp/ccLU0wez.s:13     .text.pmu_deinit:0000000000000000 pmu_deinit
+     /tmp/ccLU0wez.s:17     .text.pmu_deinit:0000000000000000 .L0 
+     /tmp/ccLU0wez.s:18     .text.pmu_deinit:0000000000000000 .L0 
+     /tmp/ccLU0wez.s:19     .text.pmu_deinit:0000000000000000 .L0 
+     /tmp/ccLU0wez.s:20     .text.pmu_deinit:0000000000000000 .L0 
+     /tmp/ccLU0wez.s:22     .text.pmu_deinit:0000000000000002 .L0 
+     /tmp/ccLU0wez.s:24     .text.pmu_deinit:0000000000000002 .L0 
+     /tmp/ccLU0wez.s:26     .text.pmu_deinit:0000000000000006 .L0 
+     /tmp/ccLU0wez.s:27     .text.pmu_deinit:0000000000000008 .L0 
+     /tmp/ccLU0wez.s:29     .text.pmu_deinit:0000000000000008 .L0 
+     /tmp/ccLU0wez.s:32     .text.pmu_deinit:0000000000000010 .L0 
+     /tmp/ccLU0wez.s:33     .text.pmu_deinit:0000000000000010 .L0 
+     /tmp/ccLU0wez.s:34     .text.pmu_deinit:0000000000000012 .L0 
+     /tmp/ccLU0wez.s:36     .text.pmu_deinit:0000000000000012 .L0 
+     /tmp/ccLU0wez.s:38     .text.pmu_deinit:0000000000000016 .L0 
+     /tmp/ccLU0wez.s:40     .text.pmu_deinit:0000000000000018 .L0 
+     /tmp/ccLU0wez.s:42     .text.pmu_deinit:0000000000000018 .L0 
+     /tmp/ccLU0wez.s:44     .text.pmu_deinit:0000000000000020 .L0 
+     /tmp/ccLU0wez.s:51     .text.pmu_lvd_select:0000000000000000 pmu_lvd_select
+     /tmp/ccLU0wez.s:54     .text.pmu_lvd_select:0000000000000000 .L0 
+     /tmp/ccLU0wez.s:56     .text.pmu_lvd_select:0000000000000000 .L0 
+     /tmp/ccLU0wez.s:57     .text.pmu_lvd_select:0000000000000000 .L0 
+     /tmp/ccLU0wez.s:58     .text.pmu_lvd_select:0000000000000000 .L0 
+     /tmp/ccLU0wez.s:63     .text.pmu_lvd_select:000000000000000a .L0 
+     /tmp/ccLU0wez.s:64     .text.pmu_lvd_select:000000000000000a .L0 
+     /tmp/ccLU0wez.s:68     .text.pmu_lvd_select:0000000000000012 .L0 
+     /tmp/ccLU0wez.s:69     .text.pmu_lvd_select:0000000000000012 .L0 
+     /tmp/ccLU0wez.s:73     .text.pmu_lvd_select:0000000000000018 .L0 
+     /tmp/ccLU0wez.s:74     .text.pmu_lvd_select:0000000000000018 .L0 
+     /tmp/ccLU0wez.s:78     .text.pmu_lvd_select:0000000000000020 .L0 
+     /tmp/ccLU0wez.s:79     .text.pmu_lvd_select:0000000000000022 .L0 
+     /tmp/ccLU0wez.s:86     .text.pmu_lvd_disable:0000000000000000 pmu_lvd_disable
+     /tmp/ccLU0wez.s:89     .text.pmu_lvd_disable:0000000000000000 .L0 
+     /tmp/ccLU0wez.s:90     .text.pmu_lvd_disable:0000000000000000 .L0 
+     /tmp/ccLU0wez.s:91     .text.pmu_lvd_disable:0000000000000000 .L0 
+     /tmp/ccLU0wez.s:92     .text.pmu_lvd_disable:0000000000000000 .L0 
+     /tmp/ccLU0wez.s:97     .text.pmu_lvd_disable:000000000000000a .L0 
+     /tmp/ccLU0wez.s:98     .text.pmu_lvd_disable:000000000000000c .L0 
+     /tmp/ccLU0wez.s:105    .text.pmu_to_sleepmode:0000000000000000 pmu_to_sleepmode
+     /tmp/ccLU0wez.s:108    .text.pmu_to_sleepmode:0000000000000000 .L0 
+     /tmp/ccLU0wez.s:110    .text.pmu_to_sleepmode:0000000000000000 .L0 
+     /tmp/ccLU0wez.s:112    .text.pmu_to_sleepmode:0000000000000000 .L0 
+     /tmp/ccLU0wez.s:113    .text.pmu_to_sleepmode:0000000000000000 .L0 
+     /tmp/ccLU0wez.s:114    .text.pmu_to_sleepmode:0000000000000000 .L0 
+../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c:102    .text.pmu_to_sleepmode:0000000000000000 .L0 
+     /tmp/ccLU0wez.s:123    .text.pmu_to_sleepmode:0000000000000004 .L0 
+     /tmp/ccLU0wez.s:124    .text.pmu_to_sleepmode:0000000000000004 .L0 
+     /tmp/ccLU0wez.s:125    .text.pmu_to_sleepmode:0000000000000004 .L0 
+     /tmp/ccLU0wez.s:130    .text.pmu_to_sleepmode:0000000000000006 .L0 
+../Firmware/RISCV/drivers/n200_func.h:93     .text.pmu_to_sleepmode:0000000000000006 .L0 
+     /tmp/ccLU0wez.s:137    .text.pmu_to_sleepmode:000000000000000a .L0 
+     /tmp/ccLU0wez.s:143    .text.pmu_to_sleepmode:000000000000000c .L0 
+     /tmp/ccLU0wez.s:144    .text.pmu_to_sleepmode:000000000000000c .L0 
+     /tmp/ccLU0wez.s:145    .text.pmu_to_sleepmode:000000000000000c .L0 
+../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c:108    .text.pmu_to_sleepmode:000000000000000c .L0 
+GAS LISTING /tmp/ccLU0wez.s 			page 21
+
+
+     /tmp/ccLU0wez.s:154    .text.pmu_to_sleepmode:0000000000000010 .L0 
+     /tmp/ccLU0wez.s:156    .text.pmu_to_sleepmode:0000000000000010 .L0 
+     /tmp/ccLU0wez.s:157    .text.pmu_to_sleepmode:0000000000000010 .L0 
+     /tmp/ccLU0wez.s:158    .text.pmu_to_sleepmode:0000000000000010 .L0 
+../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c:109    .text.pmu_to_sleepmode:0000000000000010 .L0 
+     /tmp/ccLU0wez.s:167    .text.pmu_to_sleepmode:0000000000000014 .L0 
+     /tmp/ccLU0wez.s:170    .text.pmu_to_sleepmode:0000000000000014 .L0 
+../Firmware/RISCV/drivers/n200_func.h:93     .text.pmu_to_sleepmode:0000000000000014 .L0 
+     /tmp/ccLU0wez.s:180    .text.pmu_to_sleepmode:0000000000000018 .L0 
+     /tmp/ccLU0wez.s:181    .text.pmu_to_sleepmode:0000000000000018 .L0 
+     /tmp/ccLU0wez.s:182    .text.pmu_to_sleepmode:0000000000000018 .L0 
+../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c:111    .text.pmu_to_sleepmode:0000000000000018 .L0 
+     /tmp/ccLU0wez.s:191    .text.pmu_to_sleepmode:000000000000001c .L0 
+     /tmp/ccLU0wez.s:193    .text.pmu_to_sleepmode:000000000000001c .L0 
+     /tmp/ccLU0wez.s:194    .text.pmu_to_sleepmode:000000000000001c .L0 
+     /tmp/ccLU0wez.s:195    .text.pmu_to_sleepmode:000000000000001c .L0 
+../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c:112    .text.pmu_to_sleepmode:000000000000001c .L0 
+     /tmp/ccLU0wez.s:204    .text.pmu_to_sleepmode:0000000000000020 .L0 
+     /tmp/ccLU0wez.s:205    .text.pmu_to_sleepmode:0000000000000020 .L0 
+     /tmp/ccLU0wez.s:206    .text.pmu_to_sleepmode:0000000000000022 .L0 
+     /tmp/ccLU0wez.s:213    .text.pmu_to_deepsleepmode:0000000000000000 pmu_to_deepsleepmode
+     /tmp/ccLU0wez.s:216    .text.pmu_to_deepsleepmode:0000000000000000 .L0 
+     /tmp/ccLU0wez.s:218    .text.pmu_to_deepsleepmode:0000000000000000 .L0 
+     /tmp/ccLU0wez.s:219    .text.pmu_to_deepsleepmode:0000000000000000 .L0 
+     /tmp/ccLU0wez.s:220    .text.pmu_to_deepsleepmode:0000000000000000 .L0 
+     /tmp/ccLU0wez.s:225    .text.pmu_to_deepsleepmode:000000000000000a .L0 
+     /tmp/ccLU0wez.s:226    .text.pmu_to_deepsleepmode:000000000000000a .L0 
+     /tmp/ccLU0wez.s:231    .text.pmu_to_deepsleepmode:0000000000000010 .L0 
+     /tmp/ccLU0wez.s:232    .text.pmu_to_deepsleepmode:0000000000000010 .L0 
+     /tmp/ccLU0wez.s:233    .text.pmu_to_deepsleepmode:0000000000000010 .L0 
+../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c:136    .text.pmu_to_deepsleepmode:0000000000000010 .L0 
+     /tmp/ccLU0wez.s:242    .text.pmu_to_deepsleepmode:0000000000000014 .L0 
+     /tmp/ccLU0wez.s:243    .text.pmu_to_deepsleepmode:0000000000000014 .L0 
+     /tmp/ccLU0wez.s:244    .text.pmu_to_deepsleepmode:0000000000000014 .L0 
+     /tmp/ccLU0wez.s:248    .text.pmu_to_deepsleepmode:0000000000000016 .L0 
+../Firmware/RISCV/drivers/n200_func.h:93     .text.pmu_to_deepsleepmode:0000000000000016 .L0 
+     /tmp/ccLU0wez.s:258    .text.pmu_to_deepsleepmode:000000000000001a .L0 
+     /tmp/ccLU0wez.s:259    .text.pmu_to_deepsleepmode:000000000000001a .L0 
+     /tmp/ccLU0wez.s:260    .text.pmu_to_deepsleepmode:000000000000001a .L0 
+../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c:148    .text.pmu_to_deepsleepmode:000000000000001a .L0 
+     /tmp/ccLU0wez.s:269    .text.pmu_to_deepsleepmode:000000000000001e .L0 
+     /tmp/ccLU0wez.s:270    .text.pmu_to_deepsleepmode:000000000000001e .L0 
+     /tmp/ccLU0wez.s:274    .text.pmu_to_deepsleepmode:0000000000000020 .L0 
+     /tmp/ccLU0wez.s:275    .text.pmu_to_deepsleepmode:0000000000000020 .L0 
+     /tmp/ccLU0wez.s:276    .text.pmu_to_deepsleepmode:0000000000000020 .L0 
+../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c:141    .text.pmu_to_deepsleepmode:0000000000000020 .L0 
+     /tmp/ccLU0wez.s:285    .text.pmu_to_deepsleepmode:0000000000000024 .L0 
+     /tmp/ccLU0wez.s:287    .text.pmu_to_deepsleepmode:0000000000000024 .L0 
+     /tmp/ccLU0wez.s:288    .text.pmu_to_deepsleepmode:0000000000000024 .L0 
+     /tmp/ccLU0wez.s:289    .text.pmu_to_deepsleepmode:0000000000000024 .L0 
+../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c:142    .text.pmu_to_deepsleepmode:0000000000000024 .L0 
+     /tmp/ccLU0wez.s:298    .text.pmu_to_deepsleepmode:0000000000000028 .L0 
+     /tmp/ccLU0wez.s:301    .text.pmu_to_deepsleepmode:0000000000000028 .L0 
+../Firmware/RISCV/drivers/n200_func.h:93     .text.pmu_to_deepsleepmode:0000000000000028 .L0 
+     /tmp/ccLU0wez.s:311    .text.pmu_to_deepsleepmode:000000000000002c .L0 
+     /tmp/ccLU0wez.s:312    .text.pmu_to_deepsleepmode:000000000000002c .L0 
+     /tmp/ccLU0wez.s:313    .text.pmu_to_deepsleepmode:000000000000002c .L0 
+GAS LISTING /tmp/ccLU0wez.s 			page 22
+
+
+../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c:144    .text.pmu_to_deepsleepmode:000000000000002c .L0 
+     /tmp/ccLU0wez.s:322    .text.pmu_to_deepsleepmode:0000000000000030 .L0 
+     /tmp/ccLU0wez.s:324    .text.pmu_to_deepsleepmode:0000000000000030 .L0 
+     /tmp/ccLU0wez.s:325    .text.pmu_to_deepsleepmode:0000000000000030 .L0 
+     /tmp/ccLU0wez.s:326    .text.pmu_to_deepsleepmode:0000000000000030 .L0 
+../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c:145    .text.pmu_to_deepsleepmode:0000000000000030 .L0 
+     /tmp/ccLU0wez.s:335    .text.pmu_to_deepsleepmode:0000000000000034 .L0 
+     /tmp/ccLU0wez.s:337    .text.pmu_to_deepsleepmode:0000000000000034 .L0 
+     /tmp/ccLU0wez.s:338    .text.pmu_to_deepsleepmode:0000000000000034 .L0 
+     /tmp/ccLU0wez.s:339    .text.pmu_to_deepsleepmode:0000000000000034 .L0 
+../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c:148    .text.pmu_to_deepsleepmode:0000000000000034 .L0 
+     /tmp/ccLU0wez.s:347    .text.pmu_to_deepsleepmode:0000000000000038 .L0 
+     /tmp/ccLU0wez.s:348    .text.pmu_to_deepsleepmode:0000000000000038 .L0 
+     /tmp/ccLU0wez.s:349    .text.pmu_to_deepsleepmode:000000000000003a .L0 
+     /tmp/ccLU0wez.s:356    .text.pmu_to_standbymode:0000000000000000 pmu_to_standbymode
+     /tmp/ccLU0wez.s:359    .text.pmu_to_standbymode:0000000000000000 .L0 
+     /tmp/ccLU0wez.s:361    .text.pmu_to_standbymode:0000000000000000 .L0 
+     /tmp/ccLU0wez.s:363    .text.pmu_to_standbymode:0000000000000000 .L0 
+     /tmp/ccLU0wez.s:364    .text.pmu_to_standbymode:0000000000000000 .L0 
+     /tmp/ccLU0wez.s:365    .text.pmu_to_standbymode:0000000000000000 .L0 
+../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c:163    .text.pmu_to_standbymode:0000000000000000 .L0 
+     /tmp/ccLU0wez.s:374    .text.pmu_to_standbymode:0000000000000004 .L0 
+     /tmp/ccLU0wez.s:375    .text.pmu_to_standbymode:0000000000000004 .L0 
+     /tmp/ccLU0wez.s:376    .text.pmu_to_standbymode:0000000000000004 .L0 
+     /tmp/ccLU0wez.s:381    .text.pmu_to_standbymode:0000000000000010 .L0 
+     /tmp/ccLU0wez.s:382    .text.pmu_to_standbymode:0000000000000010 .L0 
+     /tmp/ccLU0wez.s:386    .text.pmu_to_standbymode:0000000000000018 .L0 
+     /tmp/ccLU0wez.s:387    .text.pmu_to_standbymode:0000000000000018 .L0 
+     /tmp/ccLU0wez.s:391    .text.pmu_to_standbymode:000000000000001a .L0 
+../Firmware/RISCV/drivers/n200_func.h:93     .text.pmu_to_standbymode:000000000000001a .L0 
+     /tmp/ccLU0wez.s:401    .text.pmu_to_standbymode:000000000000001e .L0 
+     /tmp/ccLU0wez.s:402    .text.pmu_to_standbymode:000000000000001e .L0 
+     /tmp/ccLU0wez.s:403    .text.pmu_to_standbymode:000000000000001e .L0 
+../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c:181    .text.pmu_to_standbymode:000000000000001e .L0 
+     /tmp/ccLU0wez.s:412    .text.pmu_to_standbymode:0000000000000022 .L0 
+     /tmp/ccLU0wez.s:413    .text.pmu_to_standbymode:0000000000000022 .L0 
+     /tmp/ccLU0wez.s:417    .text.pmu_to_standbymode:0000000000000024 .L0 
+     /tmp/ccLU0wez.s:418    .text.pmu_to_standbymode:0000000000000024 .L0 
+     /tmp/ccLU0wez.s:419    .text.pmu_to_standbymode:0000000000000024 .L0 
+../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c:175    .text.pmu_to_standbymode:0000000000000024 .L0 
+     /tmp/ccLU0wez.s:428    .text.pmu_to_standbymode:0000000000000028 .L0 
+     /tmp/ccLU0wez.s:430    .text.pmu_to_standbymode:0000000000000028 .L0 
+     /tmp/ccLU0wez.s:431    .text.pmu_to_standbymode:0000000000000028 .L0 
+     /tmp/ccLU0wez.s:432    .text.pmu_to_standbymode:0000000000000028 .L0 
+../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c:176    .text.pmu_to_standbymode:0000000000000028 .L0 
+     /tmp/ccLU0wez.s:441    .text.pmu_to_standbymode:000000000000002c .L0 
+     /tmp/ccLU0wez.s:444    .text.pmu_to_standbymode:000000000000002c .L0 
+../Firmware/RISCV/drivers/n200_func.h:93     .text.pmu_to_standbymode:000000000000002c .L0 
+     /tmp/ccLU0wez.s:454    .text.pmu_to_standbymode:0000000000000030 .L0 
+     /tmp/ccLU0wez.s:455    .text.pmu_to_standbymode:0000000000000030 .L0 
+     /tmp/ccLU0wez.s:456    .text.pmu_to_standbymode:0000000000000030 .L0 
+../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c:178    .text.pmu_to_standbymode:0000000000000030 .L0 
+     /tmp/ccLU0wez.s:465    .text.pmu_to_standbymode:0000000000000034 .L0 
+     /tmp/ccLU0wez.s:467    .text.pmu_to_standbymode:0000000000000034 .L0 
+     /tmp/ccLU0wez.s:468    .text.pmu_to_standbymode:0000000000000034 .L0 
+     /tmp/ccLU0wez.s:469    .text.pmu_to_standbymode:0000000000000034 .L0 
+../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c:179    .text.pmu_to_standbymode:0000000000000034 .L0 
+GAS LISTING /tmp/ccLU0wez.s 			page 23
+
+
+     /tmp/ccLU0wez.s:478    .text.pmu_to_standbymode:0000000000000038 .L0 
+     /tmp/ccLU0wez.s:480    .text.pmu_to_standbymode:0000000000000038 .L0 
+     /tmp/ccLU0wez.s:481    .text.pmu_to_standbymode:0000000000000038 .L0 
+     /tmp/ccLU0wez.s:482    .text.pmu_to_standbymode:0000000000000038 .L0 
+../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_pmu.c:181    .text.pmu_to_standbymode:0000000000000038 .L0 
+     /tmp/ccLU0wez.s:490    .text.pmu_to_standbymode:000000000000003c .L0 
+     /tmp/ccLU0wez.s:491    .text.pmu_to_standbymode:000000000000003c .L0 
+     /tmp/ccLU0wez.s:492    .text.pmu_to_standbymode:000000000000003e .L0 
+     /tmp/ccLU0wez.s:499    .text.pmu_wakeup_pin_enable:0000000000000000 pmu_wakeup_pin_enable
+     /tmp/ccLU0wez.s:502    .text.pmu_wakeup_pin_enable:0000000000000000 .L0 
+     /tmp/ccLU0wez.s:503    .text.pmu_wakeup_pin_enable:0000000000000000 .L0 
+     /tmp/ccLU0wez.s:504    .text.pmu_wakeup_pin_enable:0000000000000000 .L0 
+     /tmp/ccLU0wez.s:505    .text.pmu_wakeup_pin_enable:0000000000000000 .L0 
+     /tmp/ccLU0wez.s:510    .text.pmu_wakeup_pin_enable:000000000000000c .L0 
+     /tmp/ccLU0wez.s:511    .text.pmu_wakeup_pin_enable:000000000000000e .L0 
+     /tmp/ccLU0wez.s:518    .text.pmu_wakeup_pin_disable:0000000000000000 pmu_wakeup_pin_disable
+     /tmp/ccLU0wez.s:521    .text.pmu_wakeup_pin_disable:0000000000000000 .L0 
+     /tmp/ccLU0wez.s:522    .text.pmu_wakeup_pin_disable:0000000000000000 .L0 
+     /tmp/ccLU0wez.s:523    .text.pmu_wakeup_pin_disable:0000000000000000 .L0 
+     /tmp/ccLU0wez.s:524    .text.pmu_wakeup_pin_disable:0000000000000000 .L0 
+     /tmp/ccLU0wez.s:529    .text.pmu_wakeup_pin_disable:000000000000000c .L0 
+     /tmp/ccLU0wez.s:530    .text.pmu_wakeup_pin_disable:000000000000000e .L0 
+     /tmp/ccLU0wez.s:537    .text.pmu_backup_write_enable:0000000000000000 pmu_backup_write_enable
+     /tmp/ccLU0wez.s:540    .text.pmu_backup_write_enable:0000000000000000 .L0 
+     /tmp/ccLU0wez.s:541    .text.pmu_backup_write_enable:0000000000000000 .L0 
+     /tmp/ccLU0wez.s:542    .text.pmu_backup_write_enable:0000000000000000 .L0 
+     /tmp/ccLU0wez.s:543    .text.pmu_backup_write_enable:0000000000000000 .L0 
+     /tmp/ccLU0wez.s:548    .text.pmu_backup_write_enable:000000000000000c .L0 
+     /tmp/ccLU0wez.s:549    .text.pmu_backup_write_enable:000000000000000e .L0 
+     /tmp/ccLU0wez.s:556    .text.pmu_backup_write_disable:0000000000000000 pmu_backup_write_disable
+     /tmp/ccLU0wez.s:559    .text.pmu_backup_write_disable:0000000000000000 .L0 
+     /tmp/ccLU0wez.s:560    .text.pmu_backup_write_disable:0000000000000000 .L0 
+     /tmp/ccLU0wez.s:561    .text.pmu_backup_write_disable:0000000000000000 .L0 
+     /tmp/ccLU0wez.s:562    .text.pmu_backup_write_disable:0000000000000000 .L0 
+     /tmp/ccLU0wez.s:567    .text.pmu_backup_write_disable:000000000000000c .L0 
+     /tmp/ccLU0wez.s:568    .text.pmu_backup_write_disable:000000000000000e .L0 
+     /tmp/ccLU0wez.s:575    .text.pmu_flag_get:0000000000000000 pmu_flag_get
+     /tmp/ccLU0wez.s:578    .text.pmu_flag_get:0000000000000000 .L0 
+     /tmp/ccLU0wez.s:580    .text.pmu_flag_get:0000000000000000 .L0 
+     /tmp/ccLU0wez.s:581    .text.pmu_flag_get:0000000000000000 .L0 
+     /tmp/ccLU0wez.s:582    .text.pmu_flag_get:0000000000000000 .L0 
+     /tmp/ccLU0wez.s:585    .text.pmu_flag_get:0000000000000006 .L0 
+     /tmp/ccLU0wez.s:588    .text.pmu_flag_get:0000000000000008 .L0 
+     /tmp/ccLU0wez.s:590    .text.pmu_flag_get:000000000000000e .L0 
+     /tmp/ccLU0wez.s:597    .text.pmu_flag_clear:0000000000000000 pmu_flag_clear
+     /tmp/ccLU0wez.s:600    .text.pmu_flag_clear:0000000000000000 .L0 
+     /tmp/ccLU0wez.s:602    .text.pmu_flag_clear:0000000000000000 .L0 
+     /tmp/ccLU0wez.s:603    .text.pmu_flag_clear:0000000000000000 .L0 
+     /tmp/ccLU0wez.s:607    .text.pmu_flag_clear:0000000000000008 .L0 
+     /tmp/ccLU0wez.s:608    .text.pmu_flag_clear:0000000000000008 .L0 
+     /tmp/ccLU0wez.s:613    .text.pmu_flag_clear:0000000000000014 .L0 
+     /tmp/ccLU0wez.s:614    .text.pmu_flag_clear:0000000000000014 .L0 
+     /tmp/ccLU0wez.s:619    .text.pmu_flag_clear:0000000000000018 .L0 
+     /tmp/ccLU0wez.s:620    .text.pmu_flag_clear:0000000000000018 .L0 
+     /tmp/ccLU0wez.s:625    .text.pmu_flag_clear:0000000000000024 .L0 
+     /tmp/ccLU0wez.s:626    .text.pmu_flag_clear:0000000000000026 .L0 
+     /tmp/ccLU0wez.s:47     .text.pmu_deinit:0000000000000020 .L0 
+GAS LISTING /tmp/ccLU0wez.s 			page 24
+
+
+     /tmp/ccLU0wez.s:82     .text.pmu_lvd_select:0000000000000022 .L0 
+     /tmp/ccLU0wez.s:101    .text.pmu_lvd_disable:000000000000000c .L0 
+     /tmp/ccLU0wez.s:209    .text.pmu_to_sleepmode:0000000000000022 .L0 
+     /tmp/ccLU0wez.s:352    .text.pmu_to_deepsleepmode:000000000000003a .L0 
+     /tmp/ccLU0wez.s:495    .text.pmu_to_standbymode:000000000000003e .L0 
+     /tmp/ccLU0wez.s:514    .text.pmu_wakeup_pin_enable:000000000000000e .L0 
+     /tmp/ccLU0wez.s:533    .text.pmu_wakeup_pin_disable:000000000000000e .L0 
+     /tmp/ccLU0wez.s:552    .text.pmu_backup_write_enable:000000000000000e .L0 
+     /tmp/ccLU0wez.s:571    .text.pmu_backup_write_disable:000000000000000e .L0 
+     /tmp/ccLU0wez.s:593    .text.pmu_flag_get:000000000000000e .L0 
+     /tmp/ccLU0wez.s:629    .text.pmu_flag_clear:0000000000000026 .L0 
+                     .debug_frame:0000000000000000 .L0 
+     /tmp/ccLU0wez.s:138    .text.pmu_to_sleepmode:000000000000000c .L7
+     /tmp/ccLU0wez.s:271    .text.pmu_to_deepsleepmode:0000000000000020 .L10
+     /tmp/ccLU0wez.s:414    .text.pmu_to_standbymode:0000000000000024 .L13
+     /tmp/ccLU0wez.s:617    .text.pmu_flag_clear:0000000000000018 .L21
+     /tmp/ccLU0wez.s:615    .text.pmu_flag_clear:0000000000000016 .L24
+     /tmp/ccLU0wez.s:1345   .debug_abbrev:0000000000000000 .Ldebug_abbrev0
+     /tmp/ccLU0wez.s:2032   .debug_str:0000000000000393 .LASF68
+     /tmp/ccLU0wez.s:1950   .debug_str:000000000000010e .LASF69
+     /tmp/ccLU0wez.s:2028   .debug_str:0000000000000349 .LASF70
+     /tmp/ccLU0wez.s:1870   .debug_ranges:0000000000000000 .Ldebug_ranges0
+     /tmp/ccLU0wez.s:1910   .debug_line:0000000000000000 .Ldebug_line0
+     /tmp/ccLU0wez.s:1994   .debug_str:0000000000000263 .LASF0
+     /tmp/ccLU0wez.s:1982   .debug_str:0000000000000213 .LASF1
+     /tmp/ccLU0wez.s:1966   .debug_str:00000000000001ab .LASF6
+     /tmp/ccLU0wez.s:1976   .debug_str:00000000000001e8 .LASF2
+     /tmp/ccLU0wez.s:1940   .debug_str:00000000000000c4 .LASF3
+     /tmp/ccLU0wez.s:2000   .debug_str:0000000000000289 .LASF4
+     /tmp/ccLU0wez.s:1960   .debug_str:0000000000000184 .LASF5
+     /tmp/ccLU0wez.s:1936   .debug_str:00000000000000ab .LASF7
+     /tmp/ccLU0wez.s:1962   .debug_str:000000000000018d .LASF8
+     /tmp/ccLU0wez.s:1958   .debug_str:0000000000000176 .LASF9
+     /tmp/ccLU0wez.s:1986   .debug_str:000000000000022a .LASF10
+     /tmp/ccLU0wez.s:1946   .debug_str:00000000000000f0 .LASF11
+     /tmp/ccLU0wez.s:1990   .debug_str:000000000000024e .LASF12
+     /tmp/ccLU0wez.s:2026   .debug_str:0000000000000343 .LASF13
+     /tmp/ccLU0wez.s:2048   .debug_str:0000000000000489 .LASF14
+     /tmp/ccLU0wez.s:1918   .debug_str:0000000000000036 .LASF15
+     /tmp/ccLU0wez.s:2004   .debug_str:00000000000002a9 .LASF16
+     /tmp/ccLU0wez.s:1952   .debug_str:000000000000014f .LASF17
+     /tmp/ccLU0wez.s:1938   .debug_str:00000000000000b6 .LASF18
+     /tmp/ccLU0wez.s:1970   .debug_str:00000000000001c0 .LASF19
+     /tmp/ccLU0wez.s:2006   .debug_str:00000000000002b7 .LASF20
+     /tmp/ccLU0wez.s:2046   .debug_str:000000000000047b .LASF21
+     /tmp/ccLU0wez.s:2056   .debug_str:00000000000004bd .LASF22
+     /tmp/ccLU0wez.s:1932   .debug_str:0000000000000086 .LASF23
+     /tmp/ccLU0wez.s:1964   .debug_str:000000000000019f .LASF24
+     /tmp/ccLU0wez.s:2012   .debug_str:00000000000002ec .LASF25
+     /tmp/ccLU0wez.s:2054   .debug_str:00000000000004af .LASF26
+     /tmp/ccLU0wez.s:2016   .debug_str:0000000000000301 .LASF27
+     /tmp/ccLU0wez.s:1920   .debug_str:0000000000000043 .LASF28
+     /tmp/ccLU0wez.s:2052   .debug_str:00000000000004a3 .LASF29
+     /tmp/ccLU0wez.s:2020   .debug_str:000000000000031b .LASF30
+     /tmp/ccLU0wez.s:1924   .debug_str:000000000000005d .LASF31
+     /tmp/ccLU0wez.s:1956   .debug_str:000000000000016a .LASF32
+     /tmp/ccLU0wez.s:1930   .debug_str:000000000000007a .LASF33
+GAS LISTING /tmp/ccLU0wez.s 			page 25
+
+
+     /tmp/ccLU0wez.s:2022   .debug_str:0000000000000327 .LASF34
+     /tmp/ccLU0wez.s:1984   .debug_str:000000000000021f .LASF35
+     /tmp/ccLU0wez.s:1978   .debug_str:00000000000001f6 .LASF36
+     /tmp/ccLU0wez.s:1988   .debug_str:0000000000000241 .LASF37
+     /tmp/ccLU0wez.s:2018   .debug_str:000000000000030e .LASF38
+     /tmp/ccLU0wez.s:1922   .debug_str:0000000000000050 .LASF39
+     /tmp/ccLU0wez.s:1954   .debug_str:000000000000015d .LASF40
+     /tmp/ccLU0wez.s:1996   .debug_str:0000000000000270 .LASF41
+     /tmp/ccLU0wez.s:1998   .debug_str:000000000000027d .LASF42
+     /tmp/ccLU0wez.s:1992   .debug_str:0000000000000257 .LASF43
+     /tmp/ccLU0wez.s:1914   .debug_str:0000000000000019 .LASF44
+     /tmp/ccLU0wez.s:2034   .debug_str:000000000000042c .LASF45
+     /tmp/ccLU0wez.s:1972   .debug_str:00000000000001ce .LASF46
+     /tmp/ccLU0wez.s:1974   .debug_str:00000000000001dc .LASF47
+     /tmp/ccLU0wez.s:2050   .debug_str:0000000000000494 .LASF54
+     /tmp/ccLU0wez.s:598    .text.pmu_flag_clear:0000000000000000 .LFB13
+     /tmp/ccLU0wez.s:627    .text.pmu_flag_clear:0000000000000026 .LFE13
+     /tmp/ccLU0wez.s:1968   .debug_str:00000000000001b5 .LASF48
+     /tmp/ccLU0wez.s:1942   .debug_str:00000000000000ce .LASF71
+     /tmp/ccLU0wez.s:576    .text.pmu_flag_get:0000000000000000 .LFB12
+     /tmp/ccLU0wez.s:591    .text.pmu_flag_get:000000000000000e .LFE12
+     /tmp/ccLU0wez.s:2040   .debug_str:000000000000044f .LASF49
+     /tmp/ccLU0wez.s:1803   .debug_loc:0000000000000000 .LLST1
+     /tmp/ccLU0wez.s:1912   .debug_str:0000000000000000 .LASF50
+     /tmp/ccLU0wez.s:557    .text.pmu_backup_write_disable:0000000000000000 .LFB11
+     /tmp/ccLU0wez.s:569    .text.pmu_backup_write_disable:000000000000000e .LFE11
+     /tmp/ccLU0wez.s:2030   .debug_str:000000000000037b .LASF51
+     /tmp/ccLU0wez.s:538    .text.pmu_backup_write_enable:0000000000000000 .LFB10
+     /tmp/ccLU0wez.s:550    .text.pmu_backup_write_enable:000000000000000e .LFE10
+     /tmp/ccLU0wez.s:2008   .debug_str:00000000000002c5 .LASF52
+     /tmp/ccLU0wez.s:519    .text.pmu_wakeup_pin_disable:0000000000000000 .LFB9
+     /tmp/ccLU0wez.s:531    .text.pmu_wakeup_pin_disable:000000000000000e .LFE9
+     /tmp/ccLU0wez.s:1948   .debug_str:00000000000000f8 .LASF53
+     /tmp/ccLU0wez.s:500    .text.pmu_wakeup_pin_enable:0000000000000000 .LFB8
+     /tmp/ccLU0wez.s:512    .text.pmu_wakeup_pin_enable:000000000000000e .LFE8
+     /tmp/ccLU0wez.s:1980   .debug_str:0000000000000200 .LASF55
+     /tmp/ccLU0wez.s:357    .text.pmu_to_standbymode:0000000000000000 .LFB7
+     /tmp/ccLU0wez.s:493    .text.pmu_to_standbymode:000000000000003e .LFE7
+     /tmp/ccLU0wez.s:2042   .debug_str:0000000000000454 .LASF56
+     /tmp/ccLU0wez.s:362    .text.pmu_to_standbymode:0000000000000000 .LBB51
+     /tmp/ccLU0wez.s:373    .text.pmu_to_standbymode:0000000000000004 .LBE51
+     /tmp/ccLU0wez.s:1928   .debug_str:0000000000000074 .LASF57
+     /tmp/ccLU0wez.s:416    .text.pmu_to_standbymode:0000000000000024 .LBB55
+     /tmp/ccLU0wez.s:427    .text.pmu_to_standbymode:0000000000000028 .LBE55
+     /tmp/ccLU0wez.s:429    .text.pmu_to_standbymode:0000000000000028 .LBB56
+     /tmp/ccLU0wez.s:440    .text.pmu_to_standbymode:000000000000002c .LBE56
+     /tmp/ccLU0wez.s:453    .text.pmu_to_standbymode:0000000000000030 .LBB59
+     /tmp/ccLU0wez.s:464    .text.pmu_to_standbymode:0000000000000034 .LBE59
+     /tmp/ccLU0wez.s:466    .text.pmu_to_standbymode:0000000000000034 .LBB60
+     /tmp/ccLU0wez.s:477    .text.pmu_to_standbymode:0000000000000038 .LBE60
+     /tmp/ccLU0wez.s:389    .text.pmu_to_standbymode:000000000000001a .LBB52
+     /tmp/ccLU0wez.s:398    .text.pmu_to_standbymode:000000000000001e .LBE52
+     /tmp/ccLU0wez.s:442    .text.pmu_to_standbymode:000000000000002c .LBB57
+     /tmp/ccLU0wez.s:451    .text.pmu_to_standbymode:0000000000000030 .LBE57
+     /tmp/ccLU0wez.s:1944   .debug_str:00000000000000db .LASF58
+     /tmp/ccLU0wez.s:214    .text.pmu_to_deepsleepmode:0000000000000000 .LFB6
+     /tmp/ccLU0wez.s:350    .text.pmu_to_deepsleepmode:000000000000003a .LFE6
+GAS LISTING /tmp/ccLU0wez.s 			page 26
+
+
+     /tmp/ccLU0wez.s:2036   .debug_str:0000000000000438 .LASF59
+     /tmp/ccLU0wez.s:230    .text.pmu_to_deepsleepmode:0000000000000010 .LBB40
+     /tmp/ccLU0wez.s:241    .text.pmu_to_deepsleepmode:0000000000000014 .LBE40
+     /tmp/ccLU0wez.s:273    .text.pmu_to_deepsleepmode:0000000000000020 .LBB44
+     /tmp/ccLU0wez.s:284    .text.pmu_to_deepsleepmode:0000000000000024 .LBE44
+     /tmp/ccLU0wez.s:286    .text.pmu_to_deepsleepmode:0000000000000024 .LBB45
+     /tmp/ccLU0wez.s:297    .text.pmu_to_deepsleepmode:0000000000000028 .LBE45
+     /tmp/ccLU0wez.s:310    .text.pmu_to_deepsleepmode:000000000000002c .LBB48
+     /tmp/ccLU0wez.s:321    .text.pmu_to_deepsleepmode:0000000000000030 .LBE48
+     /tmp/ccLU0wez.s:323    .text.pmu_to_deepsleepmode:0000000000000030 .LBB49
+     /tmp/ccLU0wez.s:334    .text.pmu_to_deepsleepmode:0000000000000034 .LBE49
+     /tmp/ccLU0wez.s:246    .text.pmu_to_deepsleepmode:0000000000000016 .LBB41
+     /tmp/ccLU0wez.s:255    .text.pmu_to_deepsleepmode:000000000000001a .LBE41
+     /tmp/ccLU0wez.s:299    .text.pmu_to_deepsleepmode:0000000000000028 .LBB46
+     /tmp/ccLU0wez.s:308    .text.pmu_to_deepsleepmode:000000000000002c .LBE46
+     /tmp/ccLU0wez.s:2024   .debug_str:0000000000000332 .LASF60
+     /tmp/ccLU0wez.s:106    .text.pmu_to_sleepmode:0000000000000000 .LFB5
+     /tmp/ccLU0wez.s:207    .text.pmu_to_sleepmode:0000000000000022 .LFE5
+     /tmp/ccLU0wez.s:2002   .debug_str:000000000000029c .LASF61
+     /tmp/ccLU0wez.s:111    .text.pmu_to_sleepmode:0000000000000000 .LBB31
+     /tmp/ccLU0wez.s:122    .text.pmu_to_sleepmode:0000000000000004 .LBE31
+     /tmp/ccLU0wez.s:142    .text.pmu_to_sleepmode:000000000000000c .LBB34
+     /tmp/ccLU0wez.s:153    .text.pmu_to_sleepmode:0000000000000010 .LBE34
+     /tmp/ccLU0wez.s:155    .text.pmu_to_sleepmode:0000000000000010 .LBB35
+     /tmp/ccLU0wez.s:166    .text.pmu_to_sleepmode:0000000000000014 .LBE35
+     /tmp/ccLU0wez.s:179    .text.pmu_to_sleepmode:0000000000000018 .LBB38
+     /tmp/ccLU0wez.s:190    .text.pmu_to_sleepmode:000000000000001c .LBE38
+     /tmp/ccLU0wez.s:192    .text.pmu_to_sleepmode:000000000000001c .LBB39
+     /tmp/ccLU0wez.s:203    .text.pmu_to_sleepmode:0000000000000020 .LBE39
+     /tmp/ccLU0wez.s:127    .text.pmu_to_sleepmode:0000000000000006 .LBB32
+     /tmp/ccLU0wez.s:140    .text.pmu_to_sleepmode:000000000000000c .LBE32
+     /tmp/ccLU0wez.s:168    .text.pmu_to_sleepmode:0000000000000014 .LBB36
+     /tmp/ccLU0wez.s:177    .text.pmu_to_sleepmode:0000000000000018 .LBE36
+     /tmp/ccLU0wez.s:2010   .debug_str:00000000000002dc .LASF62
+     /tmp/ccLU0wez.s:87     .text.pmu_lvd_disable:0000000000000000 .LFB4
+     /tmp/ccLU0wez.s:99     .text.pmu_lvd_disable:000000000000000c .LFE4
+     /tmp/ccLU0wez.s:1916   .debug_str:0000000000000027 .LASF63
+     /tmp/ccLU0wez.s:52     .text.pmu_lvd_select:0000000000000000 .LFB3
+     /tmp/ccLU0wez.s:80     .text.pmu_lvd_select:0000000000000022 .LFE3
+     /tmp/ccLU0wez.s:2014   .debug_str:00000000000002fa .LASF64
+     /tmp/ccLU0wez.s:1926   .debug_str:0000000000000069 .LASF65
+     /tmp/ccLU0wez.s:14     .text.pmu_deinit:0000000000000000 .LFB2
+     /tmp/ccLU0wez.s:45     .text.pmu_deinit:0000000000000020 .LFE2
+     /tmp/ccLU0wez.s:1817   .debug_loc:0000000000000021 .LLST0
+     /tmp/ccLU0wez.s:30     .text.pmu_deinit:0000000000000010 .LVL0
+     /tmp/ccLU0wez.s:43     .text.pmu_deinit:0000000000000020 .LVL1
+     /tmp/ccLU0wez.s:2038   .debug_str:0000000000000449 .LASF72
+     /tmp/ccLU0wez.s:2044   .debug_str:0000000000000463 .LASF66
+     /tmp/ccLU0wez.s:1934   .debug_str:0000000000000092 .LASF67
+     /tmp/ccLU0wez.s:579    .text.pmu_flag_get:0000000000000000 .LVL23
+     /tmp/ccLU0wez.s:586    .text.pmu_flag_get:0000000000000008 .LVL24
+     /tmp/ccLU0wez.s:21     .text.pmu_deinit:0000000000000002 .LCFI0
+     /tmp/ccLU0wez.s:39     .text.pmu_deinit:0000000000000018 .LCFI1
+     /tmp/ccLU0wez.s:636    .debug_info:0000000000000000 .Ldebug_info0
+     /tmp/ccLU0wez.s:257    .text.pmu_to_deepsleepmode:000000000000001a .LBB43
+     /tmp/ccLU0wez.s:268    .text.pmu_to_deepsleepmode:000000000000001e .LBE43
+     /tmp/ccLU0wez.s:336    .text.pmu_to_deepsleepmode:0000000000000034 .LBB50
+GAS LISTING /tmp/ccLU0wez.s 			page 27
+
+
+     /tmp/ccLU0wez.s:346    .text.pmu_to_deepsleepmode:0000000000000038 .LBE50
+     /tmp/ccLU0wez.s:400    .text.pmu_to_standbymode:000000000000001e .LBB54
+     /tmp/ccLU0wez.s:411    .text.pmu_to_standbymode:0000000000000022 .LBE54
+     /tmp/ccLU0wez.s:479    .text.pmu_to_standbymode:0000000000000038 .LBB61
+     /tmp/ccLU0wez.s:489    .text.pmu_to_standbymode:000000000000003c .LBE61
+
+UNDEFINED SYMBOLS
+rcu_periph_reset_enable
+rcu_periph_reset_disable

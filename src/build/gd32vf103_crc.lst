@@ -1,0 +1,467 @@
+GAS LISTING /tmp/cc4MrnMh.s 			page 1
+
+
+   1              		.file	"gd32vf103_crc.c"
+   2              		.option nopic
+   3              		.attribute arch, "rv32i2p0_m2p0_a2p0_c2p0"
+   4              		.attribute unaligned_access, 0
+   5              		.attribute stack_align, 16
+   6              		.text
+   7              	.Ltext0:
+   8              		.cfi_sections	.debug_frame
+   9              		.section	.text.crc_deinit,"ax",@progbits
+  10              		.align	1
+  11              		.globl	crc_deinit
+  13              	crc_deinit:
+  14              	.LFB2:
+  15              		.file 1 "../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c"
+   1:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c **** /*!
+   2:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c ****     \file  gd32vf103_crc.c
+   3:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c ****     \brief CRC driver
+   4:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c **** 
+   5:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c ****     \version 2019-6-5, V1.0.0, firmware for GD32VF103
+   6:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c **** */
+   7:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c **** 
+   8:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c **** /*
+   9:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c ****     Copyright (c) 2019, GigaDevice Semiconductor Inc.
+  10:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c **** 
+  11:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c ****     Redistribution and use in source and binary forms, with or without modification,
+  12:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c **** are permitted provided that the following conditions are met:
+  13:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c **** 
+  14:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c ****     1. Redistributions of source code must retain the above copyright notice, this
+  15:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c ****        list of conditions and the following disclaimer.
+  16:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c ****     2. Redistributions in binary form must reproduce the above copyright notice,
+  17:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c ****        this list of conditions and the following disclaimer in the documentation
+  18:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c ****        and/or other materials provided with the distribution.
+  19:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c ****     3. Neither the name of the copyright holder nor the names of its contributors
+  20:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c ****        may be used to endorse or promote products derived from this software without
+  21:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c ****        specific prior written permission.
+  22:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c **** 
+  23:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c ****     THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+  24:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c **** AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+  25:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c **** WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+  26:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c **** IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+  27:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c **** INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+  28:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c **** NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+  29:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c **** PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+  30:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c **** WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+  31:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c **** ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY
+  32:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c **** OF SUCH DAMAGE.
+  33:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c **** */
+  34:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c **** 
+  35:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c **** #include "gd32vf103_crc.h"
+  36:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c **** 
+  37:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c **** #define CRC_DATA_RESET_VALUE      ((uint32_t)0xFFFFFFFFU)
+  38:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c **** #define CRC_FDATA_RESET_VALUE     ((uint32_t)0x00000000U)
+  39:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c **** 
+  40:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c **** /*!
+  41:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c ****     \brief      deinit CRC calculation unit
+  42:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c ****     \param[in]  none
+  43:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c ****     \param[out] none
+GAS LISTING /tmp/cc4MrnMh.s 			page 2
+
+
+  44:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c ****     \retval     none
+  45:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c **** */
+  46:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c **** void crc_deinit(void)
+  47:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c **** {
+  16              		.loc 1 47 1
+  17              		.cfi_startproc
+  48:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c ****     CRC_DATA = CRC_DATA_RESET_VALUE;
+  18              		.loc 1 48 5
+  19              		.loc 1 48 14 is_stmt 0
+  20 0000 B7370240 		li	a5,1073885184
+  21 0004 7D57     		li	a4,-1
+  22 0006 98C3     		sw	a4,0(a5)
+  49:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c ****     CRC_FDATA = CRC_FDATA_RESET_VALUE;
+  23              		.loc 1 49 5 is_stmt 1
+  24              		.loc 1 49 15 is_stmt 0
+  25 0008 23A20700 		sw	zero,4(a5)
+  50:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c ****     CRC_CTL = (uint32_t)CRC_CTL_RST;
+  26              		.loc 1 50 5 is_stmt 1
+  27              		.loc 1 50 13 is_stmt 0
+  28 000c 0547     		li	a4,1
+  29 000e 98C7     		sw	a4,8(a5)
+  51:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c **** }
+  30              		.loc 1 51 1
+  31 0010 8280     		ret
+  32              		.cfi_endproc
+  33              	.LFE2:
+  35              		.section	.text.crc_data_register_reset,"ax",@progbits
+  36              		.align	1
+  37              		.globl	crc_data_register_reset
+  39              	crc_data_register_reset:
+  40              	.LFB3:
+  52:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c **** 
+  53:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c **** /*!
+  54:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c ****     \brief      reset data register(CRC_DATA) to the value of 0xFFFFFFFF
+  55:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c ****     \param[in]  none
+  56:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c ****     \param[out] none
+  57:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c ****     \retval     none
+  58:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c **** */
+  59:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c **** void crc_data_register_reset(void)
+  60:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c **** {
+  41              		.loc 1 60 1 is_stmt 1
+  42              		.cfi_startproc
+  61:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c ****     CRC_CTL |= (uint32_t)CRC_CTL_RST;
+  43              		.loc 1 61 5
+  44              		.loc 1 61 13 is_stmt 0
+  45 0000 37370240 		li	a4,1073885184
+  46 0004 1C47     		lw	a5,8(a4)
+  47 0006 93E71700 		ori	a5,a5,1
+  48 000a 1CC7     		sw	a5,8(a4)
+  62:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c **** }
+  49              		.loc 1 62 1
+  50 000c 8280     		ret
+  51              		.cfi_endproc
+  52              	.LFE3:
+  54              		.section	.text.crc_data_register_read,"ax",@progbits
+  55              		.align	1
+  56              		.globl	crc_data_register_read
+GAS LISTING /tmp/cc4MrnMh.s 			page 3
+
+
+  58              	crc_data_register_read:
+  59              	.LFB4:
+  63:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c **** 
+  64:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c **** /*!
+  65:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c ****     \brief      read the value of the data register
+  66:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c ****     \param[in]  none
+  67:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c ****     \param[out] none
+  68:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c ****     \retval     32-bit value of the data register
+  69:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c **** */
+  70:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c **** uint32_t crc_data_register_read(void)
+  71:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c **** {
+  60              		.loc 1 71 1 is_stmt 1
+  61              		.cfi_startproc
+  72:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c ****     uint32_t data;
+  62              		.loc 1 72 5
+  73:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c ****     data = CRC_DATA;
+  63              		.loc 1 73 5
+  64              		.loc 1 73 10 is_stmt 0
+  65 0000 B7370240 		li	a5,1073885184
+  66 0004 8843     		lw	a0,0(a5)
+  67              	.LVL0:
+  74:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c ****     return (data);
+  68              		.loc 1 74 5 is_stmt 1
+  75:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c **** }
+  69              		.loc 1 75 1 is_stmt 0
+  70 0006 8280     		ret
+  71              		.cfi_endproc
+  72              	.LFE4:
+  74              		.section	.text.crc_free_data_register_read,"ax",@progbits
+  75              		.align	1
+  76              		.globl	crc_free_data_register_read
+  78              	crc_free_data_register_read:
+  79              	.LFB5:
+  76:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c **** 
+  77:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c **** /*!
+  78:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c ****     \brief      read the value of the free data register
+  79:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c ****     \param[in]  none
+  80:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c ****     \param[out] none
+  81:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c ****     \retval     8-bit value of the free data register
+  82:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c **** */
+  83:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c **** uint8_t crc_free_data_register_read(void)
+  84:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c **** {
+  80              		.loc 1 84 1 is_stmt 1
+  81              		.cfi_startproc
+  85:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c ****     uint8_t fdata;
+  82              		.loc 1 85 5
+  86:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c ****     fdata = (uint8_t)CRC_FDATA;
+  83              		.loc 1 86 5
+  84              		.loc 1 86 22 is_stmt 0
+  85 0000 B7370240 		li	a5,1073885184
+  86 0004 C843     		lw	a0,4(a5)
+  87              	.LVL1:
+  87:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c ****     return (fdata);
+  88              		.loc 1 87 5 is_stmt 1
+  88:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c **** }
+  89              		.loc 1 88 1 is_stmt 0
+  90 0006 1375F50F 		andi	a0,a0,0xff
+GAS LISTING /tmp/cc4MrnMh.s 			page 4
+
+
+  91 000a 8280     		ret
+  92              		.cfi_endproc
+  93              	.LFE5:
+  95              		.section	.text.crc_free_data_register_write,"ax",@progbits
+  96              		.align	1
+  97              		.globl	crc_free_data_register_write
+  99              	crc_free_data_register_write:
+ 100              	.LFB6:
+  89:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c **** 
+  90:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c **** /*!
+  91:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c ****     \brief      write data to the free data register
+  92:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c ****     \param[in]  free_data: specified 8-bit data
+  93:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c ****     \param[out] none
+  94:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c ****     \retval     none
+  95:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c **** */
+  96:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c **** void crc_free_data_register_write(uint8_t free_data)
+  97:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c **** {
+ 101              		.loc 1 97 1 is_stmt 1
+ 102              		.cfi_startproc
+ 103              	.LVL2:
+  98:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c ****     CRC_FDATA = (uint32_t)free_data;
+ 104              		.loc 1 98 5
+ 105              		.loc 1 98 15 is_stmt 0
+ 106 0000 B7370240 		li	a5,1073885184
+ 107 0004 C8C3     		sw	a0,4(a5)
+  99:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c **** }
+ 108              		.loc 1 99 1
+ 109 0006 8280     		ret
+ 110              		.cfi_endproc
+ 111              	.LFE6:
+ 113              		.section	.text.crc_single_data_calculate,"ax",@progbits
+ 114              		.align	1
+ 115              		.globl	crc_single_data_calculate
+ 117              	crc_single_data_calculate:
+ 118              	.LFB7:
+ 100:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c **** 
+ 101:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c **** /*!
+ 102:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c ****     \brief      calculate the CRC value of a 32-bit data
+ 103:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c ****     \param[in]  sdata: specified 32-bit data
+ 104:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c ****     \param[out] none
+ 105:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c ****     \retval     32-bit value calculated by CRC
+ 106:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c **** */
+ 107:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c **** uint32_t crc_single_data_calculate(uint32_t sdata)
+ 108:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c **** {
+ 119              		.loc 1 108 1 is_stmt 1
+ 120              		.cfi_startproc
+ 121              	.LVL3:
+ 109:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c ****     CRC_DATA = sdata;
+ 122              		.loc 1 109 5
+ 123              		.loc 1 109 14 is_stmt 0
+ 124 0000 B7370240 		li	a5,1073885184
+ 125 0004 88C3     		sw	a0,0(a5)
+ 110:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c ****     return (CRC_DATA);
+ 126              		.loc 1 110 5 is_stmt 1
+ 127              		.loc 1 110 13 is_stmt 0
+ 128 0006 8843     		lw	a0,0(a5)
+ 129              	.LVL4:
+GAS LISTING /tmp/cc4MrnMh.s 			page 5
+
+
+ 111:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c **** }
+ 130              		.loc 1 111 1
+ 131 0008 8280     		ret
+ 132              		.cfi_endproc
+ 133              	.LFE7:
+ 135              		.section	.text.crc_block_data_calculate,"ax",@progbits
+ 136              		.align	1
+ 137              		.globl	crc_block_data_calculate
+ 139              	crc_block_data_calculate:
+ 140              	.LFB8:
+ 112:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c **** 
+ 113:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c **** /*!
+ 114:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c ****     \brief      calculate the CRC value of an array of 32-bit values
+ 115:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c ****     \param[in]  array: pointer to an array of 32-bit values
+ 116:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c ****     \param[in]  size: size of the array
+ 117:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c ****     \param[out] none
+ 118:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c ****     \retval     32-bit value calculated by CRC
+ 119:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c **** */
+ 120:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c **** uint32_t crc_block_data_calculate(uint32_t array[], uint32_t size)
+ 121:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c **** {
+ 141              		.loc 1 121 1 is_stmt 1
+ 142              		.cfi_startproc
+ 143              	.LVL5:
+ 122:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c ****     uint32_t index;
+ 144              		.loc 1 122 5
+ 123:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c ****     for(index = 0U; index < size; index++){
+ 145              		.loc 1 123 5
+ 146              		.loc 1 123 21
+ 147              		.loc 1 123 5 is_stmt 0
+ 148 0000 99C9     		beq	a1,zero,.L9
+ 149 0002 8A05     		slli	a1,a1,2
+ 150              	.LVL6:
+ 151 0004 3307B500 		add	a4,a0,a1
+ 124:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c ****         CRC_DATA = array[index];
+ 152              		.loc 1 124 18
+ 153 0008 B7360240 		li	a3,1073885184
+ 154              	.LVL7:
+ 155              	.L10:
+ 156              		.loc 1 124 9 is_stmt 1 discriminator 3
+ 157              		.loc 1 124 25 is_stmt 0 discriminator 3
+ 158 000c 1C41     		lw	a5,0(a0)
+ 123:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c ****     for(index = 0U; index < size; index++){
+ 159              		.loc 1 123 5 discriminator 3
+ 160 000e 1105     		addi	a0,a0,4
+ 161              		.loc 1 124 18 discriminator 3
+ 162 0010 9CC2     		sw	a5,0(a3)
+ 123:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c ****     for(index = 0U; index < size; index++){
+ 163              		.loc 1 123 35 is_stmt 1 discriminator 3
+ 123:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c ****     for(index = 0U; index < size; index++){
+ 164              		.loc 1 123 21 discriminator 3
+ 123:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c ****     for(index = 0U; index < size; index++){
+ 165              		.loc 1 123 5 is_stmt 0 discriminator 3
+ 166 0012 E31DE5FE 		bne	a0,a4,.L10
+ 167              	.L9:
+ 125:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c ****     }
+ 126:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c ****     return (CRC_DATA);
+ 168              		.loc 1 126 5 is_stmt 1
+GAS LISTING /tmp/cc4MrnMh.s 			page 6
+
+
+ 169              		.loc 1 126 13 is_stmt 0
+ 170 0016 B7370240 		li	a5,1073885184
+ 171 001a 8843     		lw	a0,0(a5)
+ 127:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c **** }
+ 172              		.loc 1 127 1
+ 173 001c 8280     		ret
+ 174              		.cfi_endproc
+ 175              	.LFE8:
+ 177              		.text
+ 178              	.Letext0:
+ 179              		.file 2 "/home/johnson/Documents/mpb-toolchain/build/riscv32-mapleboard-elf/include/machine/_defau
+ 180              		.file 3 "/home/johnson/Documents/mpb-toolchain/build/riscv32-mapleboard-elf/include/sys/_stdint.h"
+GAS LISTING /tmp/cc4MrnMh.s 			page 7
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 gd32vf103_crc.c
+     /tmp/cc4MrnMh.s:13     .text.crc_deinit:0000000000000000 crc_deinit
+     /tmp/cc4MrnMh.s:17     .text.crc_deinit:0000000000000000 .L0 
+     /tmp/cc4MrnMh.s:18     .text.crc_deinit:0000000000000000 .L0 
+     /tmp/cc4MrnMh.s:19     .text.crc_deinit:0000000000000000 .L0 
+     /tmp/cc4MrnMh.s:20     .text.crc_deinit:0000000000000000 .L0 
+     /tmp/cc4MrnMh.s:24     .text.crc_deinit:0000000000000008 .L0 
+     /tmp/cc4MrnMh.s:25     .text.crc_deinit:0000000000000008 .L0 
+     /tmp/cc4MrnMh.s:27     .text.crc_deinit:000000000000000c .L0 
+     /tmp/cc4MrnMh.s:28     .text.crc_deinit:000000000000000c .L0 
+     /tmp/cc4MrnMh.s:31     .text.crc_deinit:0000000000000010 .L0 
+     /tmp/cc4MrnMh.s:32     .text.crc_deinit:0000000000000012 .L0 
+     /tmp/cc4MrnMh.s:39     .text.crc_data_register_reset:0000000000000000 crc_data_register_reset
+     /tmp/cc4MrnMh.s:42     .text.crc_data_register_reset:0000000000000000 .L0 
+     /tmp/cc4MrnMh.s:43     .text.crc_data_register_reset:0000000000000000 .L0 
+     /tmp/cc4MrnMh.s:44     .text.crc_data_register_reset:0000000000000000 .L0 
+     /tmp/cc4MrnMh.s:45     .text.crc_data_register_reset:0000000000000000 .L0 
+     /tmp/cc4MrnMh.s:50     .text.crc_data_register_reset:000000000000000c .L0 
+     /tmp/cc4MrnMh.s:51     .text.crc_data_register_reset:000000000000000e .L0 
+     /tmp/cc4MrnMh.s:58     .text.crc_data_register_read:0000000000000000 crc_data_register_read
+     /tmp/cc4MrnMh.s:61     .text.crc_data_register_read:0000000000000000 .L0 
+     /tmp/cc4MrnMh.s:62     .text.crc_data_register_read:0000000000000000 .L0 
+     /tmp/cc4MrnMh.s:63     .text.crc_data_register_read:0000000000000000 .L0 
+     /tmp/cc4MrnMh.s:64     .text.crc_data_register_read:0000000000000000 .L0 
+     /tmp/cc4MrnMh.s:65     .text.crc_data_register_read:0000000000000000 .L0 
+     /tmp/cc4MrnMh.s:69     .text.crc_data_register_read:0000000000000006 .L0 
+     /tmp/cc4MrnMh.s:70     .text.crc_data_register_read:0000000000000006 .L0 
+     /tmp/cc4MrnMh.s:71     .text.crc_data_register_read:0000000000000008 .L0 
+     /tmp/cc4MrnMh.s:78     .text.crc_free_data_register_read:0000000000000000 crc_free_data_register_read
+     /tmp/cc4MrnMh.s:81     .text.crc_free_data_register_read:0000000000000000 .L0 
+     /tmp/cc4MrnMh.s:82     .text.crc_free_data_register_read:0000000000000000 .L0 
+     /tmp/cc4MrnMh.s:83     .text.crc_free_data_register_read:0000000000000000 .L0 
+     /tmp/cc4MrnMh.s:84     .text.crc_free_data_register_read:0000000000000000 .L0 
+     /tmp/cc4MrnMh.s:85     .text.crc_free_data_register_read:0000000000000000 .L0 
+     /tmp/cc4MrnMh.s:89     .text.crc_free_data_register_read:0000000000000006 .L0 
+     /tmp/cc4MrnMh.s:90     .text.crc_free_data_register_read:0000000000000006 .L0 
+     /tmp/cc4MrnMh.s:92     .text.crc_free_data_register_read:000000000000000c .L0 
+     /tmp/cc4MrnMh.s:99     .text.crc_free_data_register_write:0000000000000000 crc_free_data_register_write
+     /tmp/cc4MrnMh.s:102    .text.crc_free_data_register_write:0000000000000000 .L0 
+     /tmp/cc4MrnMh.s:104    .text.crc_free_data_register_write:0000000000000000 .L0 
+     /tmp/cc4MrnMh.s:105    .text.crc_free_data_register_write:0000000000000000 .L0 
+     /tmp/cc4MrnMh.s:106    .text.crc_free_data_register_write:0000000000000000 .L0 
+     /tmp/cc4MrnMh.s:109    .text.crc_free_data_register_write:0000000000000006 .L0 
+     /tmp/cc4MrnMh.s:110    .text.crc_free_data_register_write:0000000000000008 .L0 
+     /tmp/cc4MrnMh.s:117    .text.crc_single_data_calculate:0000000000000000 crc_single_data_calculate
+     /tmp/cc4MrnMh.s:120    .text.crc_single_data_calculate:0000000000000000 .L0 
+     /tmp/cc4MrnMh.s:122    .text.crc_single_data_calculate:0000000000000000 .L0 
+     /tmp/cc4MrnMh.s:123    .text.crc_single_data_calculate:0000000000000000 .L0 
+     /tmp/cc4MrnMh.s:124    .text.crc_single_data_calculate:0000000000000000 .L0 
+     /tmp/cc4MrnMh.s:127    .text.crc_single_data_calculate:0000000000000006 .L0 
+     /tmp/cc4MrnMh.s:128    .text.crc_single_data_calculate:0000000000000006 .L0 
+     /tmp/cc4MrnMh.s:131    .text.crc_single_data_calculate:0000000000000008 .L0 
+     /tmp/cc4MrnMh.s:132    .text.crc_single_data_calculate:000000000000000a .L0 
+     /tmp/cc4MrnMh.s:139    .text.crc_block_data_calculate:0000000000000000 crc_block_data_calculate
+     /tmp/cc4MrnMh.s:142    .text.crc_block_data_calculate:0000000000000000 .L0 
+     /tmp/cc4MrnMh.s:144    .text.crc_block_data_calculate:0000000000000000 .L0 
+GAS LISTING /tmp/cc4MrnMh.s 			page 8
+
+
+     /tmp/cc4MrnMh.s:145    .text.crc_block_data_calculate:0000000000000000 .L0 
+     /tmp/cc4MrnMh.s:146    .text.crc_block_data_calculate:0000000000000000 .L0 
+     /tmp/cc4MrnMh.s:147    .text.crc_block_data_calculate:0000000000000000 .L0 
+     /tmp/cc4MrnMh.s:148    .text.crc_block_data_calculate:0000000000000000 .L0 
+     /tmp/cc4MrnMh.s:153    .text.crc_block_data_calculate:0000000000000008 .L0 
+     /tmp/cc4MrnMh.s:157    .text.crc_block_data_calculate:000000000000000c .L0 
+     /tmp/cc4MrnMh.s:158    .text.crc_block_data_calculate:000000000000000c .L0 
+     /tmp/cc4MrnMh.s:160    .text.crc_block_data_calculate:000000000000000e .L0 
+     /tmp/cc4MrnMh.s:162    .text.crc_block_data_calculate:0000000000000010 .L0 
+     /tmp/cc4MrnMh.s:164    .text.crc_block_data_calculate:0000000000000012 .L0 
+     /tmp/cc4MrnMh.s:165    .text.crc_block_data_calculate:0000000000000012 .L0 
+     /tmp/cc4MrnMh.s:166    .text.crc_block_data_calculate:0000000000000012 .L0 
+     /tmp/cc4MrnMh.s:169    .text.crc_block_data_calculate:0000000000000016 .L0 
+     /tmp/cc4MrnMh.s:170    .text.crc_block_data_calculate:0000000000000016 .L0 
+     /tmp/cc4MrnMh.s:173    .text.crc_block_data_calculate:000000000000001c .L0 
+     /tmp/cc4MrnMh.s:174    .text.crc_block_data_calculate:000000000000001e .L0 
+     /tmp/cc4MrnMh.s:35     .text.crc_deinit:0000000000000012 .L0 
+     /tmp/cc4MrnMh.s:54     .text.crc_data_register_reset:000000000000000e .L0 
+     /tmp/cc4MrnMh.s:74     .text.crc_data_register_read:0000000000000008 .L0 
+     /tmp/cc4MrnMh.s:95     .text.crc_free_data_register_read:000000000000000c .L0 
+     /tmp/cc4MrnMh.s:113    .text.crc_free_data_register_write:0000000000000008 .L0 
+     /tmp/cc4MrnMh.s:135    .text.crc_single_data_calculate:000000000000000a .L0 
+     /tmp/cc4MrnMh.s:177    .text.crc_block_data_calculate:000000000000001e .L0 
+                     .debug_frame:0000000000000000 .L0 
+     /tmp/cc4MrnMh.s:167    .text.crc_block_data_calculate:0000000000000016 .L9
+     /tmp/cc4MrnMh.s:155    .text.crc_block_data_calculate:000000000000000c .L10
+     /tmp/cc4MrnMh.s:426    .debug_abbrev:0000000000000000 .Ldebug_abbrev0
+     /tmp/cc4MrnMh.s:749    .debug_str:0000000000000073 .LASF27
+     /tmp/cc4MrnMh.s:785    .debug_str:00000000000001f7 .LASF28
+     /tmp/cc4MrnMh.s:741    .debug_str:000000000000000a .LASF29
+     /tmp/cc4MrnMh.s:719    .debug_ranges:0000000000000000 .Ldebug_ranges0
+     /tmp/cc4MrnMh.s:737    .debug_line:0000000000000000 .Ldebug_line0
+     /tmp/cc4MrnMh.s:765    .debug_str:0000000000000171 .LASF0
+     /tmp/cc4MrnMh.s:795    .debug_str:0000000000000260 .LASF1
+     /tmp/cc4MrnMh.s:739    .debug_str:0000000000000000 .LASF6
+     /tmp/cc4MrnMh.s:759    .debug_str:000000000000013c .LASF2
+     /tmp/cc4MrnMh.s:787    .debug_str:0000000000000238 .LASF3
+     /tmp/cc4MrnMh.s:755    .debug_str:0000000000000123 .LASF4
+     /tmp/cc4MrnMh.s:791    .debug_str:000000000000024b .LASF5
+     /tmp/cc4MrnMh.s:763    .debug_str:0000000000000166 .LASF7
+     /tmp/cc4MrnMh.s:753    .debug_str:0000000000000111 .LASF8
+     /tmp/cc4MrnMh.s:781    .debug_str:00000000000001e3 .LASF9
+     /tmp/cc4MrnMh.s:771    .debug_str:000000000000018e .LASF10
+     /tmp/cc4MrnMh.s:773    .debug_str:00000000000001a5 .LASF11
+     /tmp/cc4MrnMh.s:789    .debug_str:0000000000000242 .LASF12
+     /tmp/cc4MrnMh.s:793    .debug_str:0000000000000254 .LASF13
+     /tmp/cc4MrnMh.s:779    .debug_str:00000000000001ca .LASF16
+     /tmp/cc4MrnMh.s:140    .text.crc_block_data_calculate:0000000000000000 .LFB8
+     /tmp/cc4MrnMh.s:175    .text.crc_block_data_calculate:000000000000001e .LFE8
+     /tmp/cc4MrnMh.s:757    .debug_str:0000000000000136 .LASF14
+     /tmp/cc4MrnMh.s:646    .debug_loc:0000000000000000 .LLST1
+     /tmp/cc4MrnMh.s:751    .debug_str:000000000000010c .LASF15
+     /tmp/cc4MrnMh.s:660    .debug_loc:0000000000000021 .LLST2
+     /tmp/cc4MrnMh.s:783    .debug_str:00000000000001f1 .LASF21
+     /tmp/cc4MrnMh.s:674    .debug_loc:0000000000000042 .LLST3
+     /tmp/cc4MrnMh.s:745    .debug_str:0000000000000054 .LASF17
+     /tmp/cc4MrnMh.s:118    .text.crc_single_data_calculate:0000000000000000 .LFB7
+GAS LISTING /tmp/cc4MrnMh.s 			page 9
+
+
+     /tmp/cc4MrnMh.s:133    .text.crc_single_data_calculate:000000000000000a .LFE7
+     /tmp/cc4MrnMh.s:775    .debug_str:00000000000001ad .LASF18
+     /tmp/cc4MrnMh.s:682    .debug_loc:0000000000000056 .LLST0
+     /tmp/cc4MrnMh.s:799    .debug_str:0000000000000277 .LASF30
+     /tmp/cc4MrnMh.s:100    .text.crc_free_data_register_write:0000000000000000 .LFB6
+     /tmp/cc4MrnMh.s:111    .text.crc_free_data_register_write:0000000000000008 .LFE6
+     /tmp/cc4MrnMh.s:767    .debug_str:000000000000017e .LASF19
+     /tmp/cc4MrnMh.s:761    .debug_str:000000000000014a .LASF20
+     /tmp/cc4MrnMh.s:79     .text.crc_free_data_register_read:0000000000000000 .LFB5
+     /tmp/cc4MrnMh.s:93     .text.crc_free_data_register_read:000000000000000c .LFE5
+     /tmp/cc4MrnMh.s:769    .debug_str:0000000000000188 .LASF22
+     /tmp/cc4MrnMh.s:777    .debug_str:00000000000001b3 .LASF23
+     /tmp/cc4MrnMh.s:59     .text.crc_data_register_read:0000000000000000 .LFB4
+     /tmp/cc4MrnMh.s:72     .text.crc_data_register_read:0000000000000008 .LFE4
+     /tmp/cc4MrnMh.s:747    .debug_str:000000000000006e .LASF24
+     /tmp/cc4MrnMh.s:743    .debug_str:000000000000003c .LASF25
+     /tmp/cc4MrnMh.s:40     .text.crc_data_register_reset:0000000000000000 .LFB3
+     /tmp/cc4MrnMh.s:52     .text.crc_data_register_reset:000000000000000e .LFE3
+     /tmp/cc4MrnMh.s:797    .debug_str:000000000000026c .LASF26
+     /tmp/cc4MrnMh.s:14     .text.crc_deinit:0000000000000000 .LFB2
+     /tmp/cc4MrnMh.s:33     .text.crc_deinit:0000000000000012 .LFE2
+     /tmp/cc4MrnMh.s:143    .text.crc_block_data_calculate:0000000000000000 .LVL5
+     /tmp/cc4MrnMh.s:154    .text.crc_block_data_calculate:000000000000000c .LVL7
+     /tmp/cc4MrnMh.s:150    .text.crc_block_data_calculate:0000000000000004 .LVL6
+     /tmp/cc4MrnMh.s:121    .text.crc_single_data_calculate:0000000000000000 .LVL3
+     /tmp/cc4MrnMh.s:129    .text.crc_single_data_calculate:0000000000000008 .LVL4
+     /tmp/cc4MrnMh.s:182    .debug_info:0000000000000000 .Ldebug_info0
+
+NO UNDEFINED SYMBOLS

@@ -1,0 +1,255 @@
+GAS LISTING /tmp/cc7Eo4t2.s 			page 1
+
+
+   1              		.file	"main.c"
+   2              		.option nopic
+   3              		.attribute arch, "rv32i2p0_m2p0_a2p0_c2p0"
+   4              		.attribute unaligned_access, 0
+   5              		.attribute stack_align, 16
+   6              		.text
+   7              	.Ltext0:
+   8              		.cfi_sections	.debug_frame
+   9              		.section	.text.startup.main,"ax",@progbits
+  10              		.align	1
+  11              		.globl	main
+  13              	main:
+  14              	.LFB5:
+  15              		.file 1 "main.c"
+   1:main.c        **** /*!
+   2:main.c        ****     \file  main.c
+   3:main.c        ****     \brief running led
+   4:main.c        ****     
+   5:main.c        ****     \version 2019-6-5, V1.0.0, firmware for GD32VF103
+   6:main.c        **** */
+   7:main.c        **** 
+   8:main.c        **** /*
+   9:main.c        ****     Copyright (c) 2019, GigaDevice Semiconductor Inc.
+  10:main.c        **** 
+  11:main.c        ****     Redistribution and use in source and binary forms, with or without modification, 
+  12:main.c        **** are permitted provided that the following conditions are met:
+  13:main.c        **** 
+  14:main.c        ****     1. Redistributions of source code must retain the above copyright notice, this 
+  15:main.c        ****        list of conditions and the following disclaimer.
+  16:main.c        ****     2. Redistributions in binary form must reproduce the above copyright notice, 
+  17:main.c        ****        this list of conditions and the following disclaimer in the documentation 
+  18:main.c        ****        and/or other materials provided with the distribution.
+  19:main.c        ****     3. Neither the name of the copyright holder nor the names of its contributors 
+  20:main.c        ****        may be used to endorse or promote products derived from this software without 
+  21:main.c        ****        specific prior written permission.
+  22:main.c        **** 
+  23:main.c        ****     THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
+  24:main.c        **** AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+  25:main.c        **** WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
+  26:main.c        **** IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, 
+  27:main.c        **** INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT 
+  28:main.c        **** NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR 
+  29:main.c        **** PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
+  30:main.c        **** WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+  31:main.c        **** ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY 
+  32:main.c        **** OF SUCH DAMAGE.
+  33:main.c        **** */
+  34:main.c        **** 
+  35:main.c        **** #include "gd32vf103.h"
+  36:main.c        **** #include "gd32vf103v_eval.h"
+  37:main.c        **** #include "systick.h"
+  38:main.c        **** #include <stdio.h>
+  39:main.c        **** 
+  40:main.c        **** /*!
+  41:main.c        ****     \brief      main function
+  42:main.c        ****     \param[in]  none
+  43:main.c        ****     \param[out] none
+GAS LISTING /tmp/cc7Eo4t2.s 			page 2
+
+
+  44:main.c        ****     \retval     none
+  45:main.c        **** */
+  46:main.c        **** int main(void)
+  47:main.c        **** {
+  16              		.loc 1 47 1
+  17              		.cfi_startproc
+  48:main.c        ****     gd_eval_led_init(LED1);
+  18              		.loc 1 48 5
+  47:main.c        ****     gd_eval_led_init(LED1);
+  19              		.loc 1 47 1 is_stmt 0
+  20 0000 4111     		addi	sp,sp,-16
+  21              	.LCFI0:
+  22              		.cfi_def_cfa_offset 16
+  23              		.loc 1 48 5
+  24 0002 0145     		li	a0,0
+  47:main.c        ****     gd_eval_led_init(LED1);
+  25              		.loc 1 47 1
+  26 0004 06C6     		sw	ra,12(sp)
+  27              		.cfi_offset 1, -4
+  28              		.loc 1 48 5
+  29 0006 97000000 		call	gd_eval_led_init
+  29      E7800000 
+  30              	.LVL0:
+  49:main.c        ****     gd_eval_led_init(LED2);
+  31              		.loc 1 49 5 is_stmt 1
+  32 000e 0545     		li	a0,1
+  33 0010 97000000 		call	gd_eval_led_init
+  33      E7800000 
+  34              	.LVL1:
+  50:main.c        ****     gd_eval_led_init(LED3);
+  35              		.loc 1 50 5
+  36 0018 0945     		li	a0,2
+  37 001a 97000000 		call	gd_eval_led_init
+  37      E7800000 
+  38              	.LVL2:
+  39              	.L2:
+  51:main.c        **** 
+  52:main.c        ****     while(1){
+  40              		.loc 1 52 5 discriminator 1
+  53:main.c        ****         /* turn on led1, turn off led4 */
+  54:main.c        ****         gd_eval_led_on(LED1);
+  41              		.loc 1 54 9 discriminator 1
+  42 0022 0145     		li	a0,0
+  43 0024 97000000 		call	gd_eval_led_on
+  43      E7800000 
+  44              	.LVL3:
+  55:main.c        ****         gd_eval_led_off(LED3);
+  45              		.loc 1 55 9 discriminator 1
+  46 002c 0945     		li	a0,2
+  47 002e 97000000 		call	gd_eval_led_off
+  47      E7800000 
+  48              	.LVL4:
+  56:main.c        ****         delay_1ms(100);
+  49              		.loc 1 56 9 discriminator 1
+  50 0036 13054006 		li	a0,100
+  51 003a 97000000 		call	delay_1ms
+  51      E7800000 
+GAS LISTING /tmp/cc7Eo4t2.s 			page 3
+
+
+  52              	.LVL5:
+  57:main.c        ****         /* turn on led2, turn off led1 */
+  58:main.c        ****         gd_eval_led_on(LED2);
+  53              		.loc 1 58 9 discriminator 1
+  54 0042 0545     		li	a0,1
+  55 0044 97000000 		call	gd_eval_led_on
+  55      E7800000 
+  56              	.LVL6:
+  59:main.c        ****         gd_eval_led_off(LED1);
+  57              		.loc 1 59 9 discriminator 1
+  58 004c 0145     		li	a0,0
+  59 004e 97000000 		call	gd_eval_led_off
+  59      E7800000 
+  60              	.LVL7:
+  60:main.c        ****         delay_1ms(100);
+  61              		.loc 1 60 9 discriminator 1
+  62 0056 13054006 		li	a0,100
+  63 005a 97000000 		call	delay_1ms
+  63      E7800000 
+  64              	.LVL8:
+  61:main.c        ****         /* turn on led3, turn off led2 */
+  62:main.c        ****         gd_eval_led_on(LED3);
+  65              		.loc 1 62 9 discriminator 1
+  66 0062 0945     		li	a0,2
+  67 0064 97000000 		call	gd_eval_led_on
+  67      E7800000 
+  68              	.LVL9:
+  63:main.c        ****         gd_eval_led_off(LED2);
+  69              		.loc 1 63 9 discriminator 1
+  70 006c 0545     		li	a0,1
+  71 006e 97000000 		call	gd_eval_led_off
+  71      E7800000 
+  72              	.LVL10:
+  64:main.c        ****         delay_1ms(100);
+  73              		.loc 1 64 9 discriminator 1
+  74 0076 13054006 		li	a0,100
+  75 007a 97000000 		call	delay_1ms
+  75      E7800000 
+  76              	.LVL11:
+  52:main.c        ****         /* turn on led1, turn off led4 */
+  77              		.loc 1 52 10 discriminator 1
+  78 0082 45B7     		j	.L2
+  79              		.cfi_endproc
+  80              	.LFE5:
+  82              		.text
+  83              	.Letext0:
+  84              		.file 2 "gd32vf103v_eval.h"
+  85              		.file 3 "systick.h"
+GAS LISTING /tmp/cc7Eo4t2.s 			page 4
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 main.c
+     /tmp/cc7Eo4t2.s:13     .text.startup.main:0000000000000000 main
+     /tmp/cc7Eo4t2.s:17     .text.startup.main:0000000000000000 .L0 
+     /tmp/cc7Eo4t2.s:18     .text.startup.main:0000000000000000 .L0 
+     /tmp/cc7Eo4t2.s:19     .text.startup.main:0000000000000000 .L0 
+     /tmp/cc7Eo4t2.s:20     .text.startup.main:0000000000000000 .L0 
+     /tmp/cc7Eo4t2.s:22     .text.startup.main:0000000000000002 .L0 
+     /tmp/cc7Eo4t2.s:24     .text.startup.main:0000000000000002 .L0 
+     /tmp/cc7Eo4t2.s:26     .text.startup.main:0000000000000004 .L0 
+     /tmp/cc7Eo4t2.s:27     .text.startup.main:0000000000000006 .L0 
+     /tmp/cc7Eo4t2.s:29     .text.startup.main:0000000000000006 .L0 
+     /tmp/cc7Eo4t2.s:32     .text.startup.main:000000000000000e .L0 
+     /tmp/cc7Eo4t2.s:36     .text.startup.main:0000000000000018 .L0 
+     /tmp/cc7Eo4t2.s:41     .text.startup.main:0000000000000022 .L0 
+     /tmp/cc7Eo4t2.s:42     .text.startup.main:0000000000000022 .L0 
+     /tmp/cc7Eo4t2.s:46     .text.startup.main:000000000000002c .L0 
+     /tmp/cc7Eo4t2.s:50     .text.startup.main:0000000000000036 .L0 
+     /tmp/cc7Eo4t2.s:54     .text.startup.main:0000000000000042 .L0 
+     /tmp/cc7Eo4t2.s:58     .text.startup.main:000000000000004c .L0 
+     /tmp/cc7Eo4t2.s:62     .text.startup.main:0000000000000056 .L0 
+     /tmp/cc7Eo4t2.s:66     .text.startup.main:0000000000000062 .L0 
+     /tmp/cc7Eo4t2.s:70     .text.startup.main:000000000000006c .L0 
+     /tmp/cc7Eo4t2.s:74     .text.startup.main:0000000000000076 .L0 
+     /tmp/cc7Eo4t2.s:78     .text.startup.main:0000000000000082 .L0 
+     /tmp/cc7Eo4t2.s:79     .text.startup.main:0000000000000084 .L0 
+     /tmp/cc7Eo4t2.s:82     .text.startup.main:0000000000000084 .L0 
+                     .debug_frame:0000000000000000 .L0 
+     /tmp/cc7Eo4t2.s:39     .text.startup.main:0000000000000022 .L2
+     /tmp/cc7Eo4t2.s:340    .debug_abbrev:0000000000000000 .Ldebug_abbrev0
+     /tmp/cc7Eo4t2.s:570    .debug_str:0000000000000121 .LASF19
+     /tmp/cc7Eo4t2.s:530    .debug_str:000000000000001b .LASF20
+     /tmp/cc7Eo4t2.s:566    .debug_str:00000000000000ea .LASF21
+     /tmp/cc7Eo4t2.s:518    .debug_ranges:0000000000000000 .Ldebug_ranges0
+     /tmp/cc7Eo4t2.s:524    .debug_line:0000000000000000 .Ldebug_line0
+     /tmp/cc7Eo4t2.s:528    .debug_str:000000000000000e .LASF0
+     /tmp/cc7Eo4t2.s:558    .debug_str:00000000000000b7 .LASF1
+     /tmp/cc7Eo4t2.s:542    .debug_str:000000000000006a .LASF2
+     /tmp/cc7Eo4t2.s:562    .debug_str:00000000000000cf .LASF3
+     /tmp/cc7Eo4t2.s:556    .debug_str:00000000000000a4 .LASF4
+     /tmp/cc7Eo4t2.s:552    .debug_str:000000000000008c .LASF5
+     /tmp/cc7Eo4t2.s:536    .debug_str:0000000000000031 .LASF6
+     /tmp/cc7Eo4t2.s:526    .debug_str:0000000000000000 .LASF7
+     /tmp/cc7Eo4t2.s:538    .debug_str:0000000000000043 .LASF8
+     /tmp/cc7Eo4t2.s:560    .debug_str:00000000000000c3 .LASF9
+     /tmp/cc7Eo4t2.s:544    .debug_str:0000000000000078 .LASF10
+     /tmp/cc7Eo4t2.s:534    .debug_str:000000000000002c .LASF11
+     /tmp/cc7Eo4t2.s:548    .debug_str:0000000000000082 .LASF12
+     /tmp/cc7Eo4t2.s:550    .debug_str:0000000000000087 .LASF13
+     /tmp/cc7Eo4t2.s:568    .debug_str:000000000000011c .LASF14
+     /tmp/cc7Eo4t2.s:546    .debug_str:000000000000007d .LASF22
+     /tmp/cc7Eo4t2.s:14     .text.startup.main:0000000000000000 .LFB5
+     /tmp/cc7Eo4t2.s:80     .text.startup.main:0000000000000084 .LFE5
+     /tmp/cc7Eo4t2.s:492    .debug_loc:0000000000000000 .LLST0
+     /tmp/cc7Eo4t2.s:30     .text.startup.main:000000000000000e .LVL0
+     /tmp/cc7Eo4t2.s:34     .text.startup.main:0000000000000018 .LVL1
+     /tmp/cc7Eo4t2.s:38     .text.startup.main:0000000000000022 .LVL2
+GAS LISTING /tmp/cc7Eo4t2.s 			page 5
+
+
+     /tmp/cc7Eo4t2.s:44     .text.startup.main:000000000000002c .LVL3
+     /tmp/cc7Eo4t2.s:48     .text.startup.main:0000000000000036 .LVL4
+     /tmp/cc7Eo4t2.s:52     .text.startup.main:0000000000000042 .LVL5
+     /tmp/cc7Eo4t2.s:56     .text.startup.main:000000000000004c .LVL6
+     /tmp/cc7Eo4t2.s:60     .text.startup.main:0000000000000056 .LVL7
+     /tmp/cc7Eo4t2.s:64     .text.startup.main:0000000000000062 .LVL8
+     /tmp/cc7Eo4t2.s:68     .text.startup.main:000000000000006c .LVL9
+     /tmp/cc7Eo4t2.s:72     .text.startup.main:0000000000000076 .LVL10
+     /tmp/cc7Eo4t2.s:76     .text.startup.main:0000000000000082 .LVL11
+     /tmp/cc7Eo4t2.s:564    .debug_str:00000000000000d9 .LASF15
+     /tmp/cc7Eo4t2.s:554    .debug_str:0000000000000095 .LASF16
+     /tmp/cc7Eo4t2.s:540    .debug_str:000000000000005a .LASF17
+     /tmp/cc7Eo4t2.s:532    .debug_str:0000000000000022 .LASF18
+     /tmp/cc7Eo4t2.s:21     .text.startup.main:0000000000000002 .LCFI0
+     /tmp/cc7Eo4t2.s:87     .debug_info:0000000000000000 .Ldebug_info0
+
+UNDEFINED SYMBOLS
+gd_eval_led_init
+gd_eval_led_on
+gd_eval_led_off
+delay_1ms

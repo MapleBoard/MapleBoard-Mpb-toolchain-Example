@@ -1,0 +1,650 @@
+GAS LISTING /tmp/ccJrYKcc.s 			page 1
+
+
+   1              		.file	"write.c"
+   2              		.option nopic
+   3              		.attribute arch, "rv32i2p0_m2p0_a2p0_c2p0"
+   4              		.attribute unaligned_access, 0
+   5              		.attribute stack_align, 16
+   6              		.text
+   7              	.Ltext0:
+   8              		.cfi_sections	.debug_frame
+   9              		.section	.text._put_char,"ax",@progbits
+  10              		.align	1
+  11              		.weak	_put_char
+  13              	_put_char:
+  14              	.LFB6:
+  15              		.file 1 "../Firmware/RISCV/stubs/write.c"
+   1:../Firmware/RISCV/stubs/write.c **** /* See LICENSE of license details. */
+   2:../Firmware/RISCV/stubs/write.c **** 
+   3:../Firmware/RISCV/stubs/write.c **** #include <stdint.h>
+   4:../Firmware/RISCV/stubs/write.c **** #include <string.h>
+   5:../Firmware/RISCV/stubs/write.c **** #include <errno.h>
+   6:../Firmware/RISCV/stubs/write.c **** #include <gd32vf103.h>
+   7:../Firmware/RISCV/stubs/write.c **** #include <unistd.h>
+   8:../Firmware/RISCV/stubs/write.c **** #include <sys/types.h>
+   9:../Firmware/RISCV/stubs/write.c **** 
+  10:../Firmware/RISCV/stubs/write.c **** #include "stub.h"
+  11:../Firmware/RISCV/stubs/write.c **** #include "gd32vf103.h"
+  12:../Firmware/RISCV/stubs/write.c **** 
+  13:../Firmware/RISCV/stubs/write.c **** typedef unsigned int size_t;
+  14:../Firmware/RISCV/stubs/write.c **** 
+  15:../Firmware/RISCV/stubs/write.c **** extern int _put_char(int ch) __attribute__((weak));
+  16:../Firmware/RISCV/stubs/write.c **** 
+  17:../Firmware/RISCV/stubs/write.c **** ssize_t _write(int fd, const void* ptr, size_t len) {
+  18:../Firmware/RISCV/stubs/write.c **** 	const uint8_t * current = (const uint8_t *) ptr;
+  19:../Firmware/RISCV/stubs/write.c **** 
+  20:../Firmware/RISCV/stubs/write.c **** //	if (isatty(fd)) 
+  21:../Firmware/RISCV/stubs/write.c **** 	{
+  22:../Firmware/RISCV/stubs/write.c **** 		for (size_t jj = 0; jj < len; jj++) {
+  23:../Firmware/RISCV/stubs/write.c **** 			_put_char(current[jj]);
+  24:../Firmware/RISCV/stubs/write.c **** 
+  25:../Firmware/RISCV/stubs/write.c **** 			if (current[jj] == '\n') {
+  26:../Firmware/RISCV/stubs/write.c **** 				_put_char('\r');
+  27:../Firmware/RISCV/stubs/write.c **** 			}
+  28:../Firmware/RISCV/stubs/write.c **** 		}
+  29:../Firmware/RISCV/stubs/write.c **** 		return len;
+  30:../Firmware/RISCV/stubs/write.c **** 	}
+  31:../Firmware/RISCV/stubs/write.c **** 
+  32:../Firmware/RISCV/stubs/write.c **** 	return _stub(EBADF);
+  33:../Firmware/RISCV/stubs/write.c **** }
+  34:../Firmware/RISCV/stubs/write.c **** 
+  35:../Firmware/RISCV/stubs/write.c **** int puts(const char* string) {
+  36:../Firmware/RISCV/stubs/write.c **** 	return _write(0, (const void *) string, strlen(string));
+  37:../Firmware/RISCV/stubs/write.c **** }
+  38:../Firmware/RISCV/stubs/write.c **** 
+  39:../Firmware/RISCV/stubs/write.c **** int _put_char(int ch)
+  40:../Firmware/RISCV/stubs/write.c **** {
+  16              		.loc 1 40 1
+  17              		.cfi_startproc
+  18              	.LVL0:
+GAS LISTING /tmp/ccJrYKcc.s 			page 2
+
+
+  41:../Firmware/RISCV/stubs/write.c ****     usart_data_transmit(USART0, (uint8_t) ch );
+  19              		.loc 1 41 5
+  40:../Firmware/RISCV/stubs/write.c ****     usart_data_transmit(USART0, (uint8_t) ch );
+  20              		.loc 1 40 1 is_stmt 0
+  21 0000 4111     		addi	sp,sp,-16
+  22              	.LCFI0:
+  23              		.cfi_def_cfa_offset 16
+  24 0002 22C4     		sw	s0,8(sp)
+  25              		.cfi_offset 8, -8
+  26              		.loc 1 41 5
+  27 0004 37440140 		li	s0,1073823744
+  40:../Firmware/RISCV/stubs/write.c ****     usart_data_transmit(USART0, (uint8_t) ch );
+  28              		.loc 1 40 1
+  29 0008 26C2     		sw	s1,4(sp)
+  30              		.loc 1 41 5
+  31 000a 9375F50F 		andi	a1,a0,0xff
+  32              		.cfi_offset 9, -12
+  40:../Firmware/RISCV/stubs/write.c ****     usart_data_transmit(USART0, (uint8_t) ch );
+  33              		.loc 1 40 1
+  34 000e AA84     		mv	s1,a0
+  35              		.loc 1 41 5
+  36 0010 13050480 		addi	a0,s0,-2048
+  37              	.LVL1:
+  40:../Firmware/RISCV/stubs/write.c ****     usart_data_transmit(USART0, (uint8_t) ch );
+  38              		.loc 1 40 1
+  39 0014 06C6     		sw	ra,12(sp)
+  40              		.cfi_offset 1, -4
+  42:../Firmware/RISCV/stubs/write.c ****     while (usart_flag_get(USART0, USART_FLAG_TBE)== RESET){
+  41              		.loc 1 42 12
+  42 0016 13040480 		addi	s0,s0,-2048
+  41:../Firmware/RISCV/stubs/write.c ****     usart_data_transmit(USART0, (uint8_t) ch );
+  43              		.loc 1 41 5
+  44 001a 97000000 		call	usart_data_transmit
+  44      E7800000 
+  45              	.LVL2:
+  46              		.loc 1 42 5 is_stmt 1
+  47              	.L2:
+  43:../Firmware/RISCV/stubs/write.c ****     }
+  48              		.loc 1 43 5 discriminator 1
+  42:../Firmware/RISCV/stubs/write.c ****     while (usart_flag_get(USART0, USART_FLAG_TBE)== RESET){
+  49              		.loc 1 42 11 discriminator 1
+  42:../Firmware/RISCV/stubs/write.c ****     while (usart_flag_get(USART0, USART_FLAG_TBE)== RESET){
+  50              		.loc 1 42 12 is_stmt 0 discriminator 1
+  51 0022 9D45     		li	a1,7
+  52 0024 2285     		mv	a0,s0
+  53 0026 97000000 		call	usart_flag_get
+  53      E7800000 
+  54              	.LVL3:
+  42:../Firmware/RISCV/stubs/write.c ****     while (usart_flag_get(USART0, USART_FLAG_TBE)== RESET){
+  55              		.loc 1 42 11 discriminator 1
+  56 002e 75D9     		beq	a0,zero,.L2
+  44:../Firmware/RISCV/stubs/write.c **** 
+  45:../Firmware/RISCV/stubs/write.c ****     return ch;
+  57              		.loc 1 45 5 is_stmt 1
+  46:../Firmware/RISCV/stubs/write.c **** }
+  58              		.loc 1 46 1 is_stmt 0
+  59 0030 B240     		lw	ra,12(sp)
+GAS LISTING /tmp/ccJrYKcc.s 			page 3
+
+
+  60              		.cfi_restore 1
+  61 0032 2244     		lw	s0,8(sp)
+  62              		.cfi_restore 8
+  63 0034 2685     		mv	a0,s1
+  64 0036 9244     		lw	s1,4(sp)
+  65              		.cfi_restore 9
+  66              	.LVL4:
+  67 0038 4101     		addi	sp,sp,16
+  68              	.LCFI1:
+  69              		.cfi_def_cfa_offset 0
+  70 003a 8280     		jr	ra
+  71              		.cfi_endproc
+  72              	.LFE6:
+  74              		.section	.text._write,"ax",@progbits
+  75              		.align	1
+  76              		.globl	_write
+  78              	_write:
+  79              	.LFB4:
+  17:../Firmware/RISCV/stubs/write.c **** 	const uint8_t * current = (const uint8_t *) ptr;
+  80              		.loc 1 17 53 is_stmt 1
+  81              		.cfi_startproc
+  82              	.LVL5:
+  18:../Firmware/RISCV/stubs/write.c **** 
+  83              		.loc 1 18 2
+  22:../Firmware/RISCV/stubs/write.c **** 			_put_char(current[jj]);
+  84              		.loc 1 22 3
+  85              	.LBB3:
+  22:../Firmware/RISCV/stubs/write.c **** 			_put_char(current[jj]);
+  86              		.loc 1 22 8
+  22:../Firmware/RISCV/stubs/write.c **** 			_put_char(current[jj]);
+  87              		.loc 1 22 23
+  88              	.LBE3:
+  17:../Firmware/RISCV/stubs/write.c **** 	const uint8_t * current = (const uint8_t *) ptr;
+  89              		.loc 1 17 53 is_stmt 0
+  90 0000 0111     		addi	sp,sp,-32
+  91              	.LCFI2:
+  92              		.cfi_def_cfa_offset 32
+  93 0002 4EC6     		sw	s3,12(sp)
+  94 0004 06CE     		sw	ra,28(sp)
+  95 0006 22CC     		sw	s0,24(sp)
+  96 0008 26CA     		sw	s1,20(sp)
+  97 000a 4AC8     		sw	s2,16(sp)
+  98              		.cfi_offset 19, -20
+  99              		.cfi_offset 1, -4
+ 100              		.cfi_offset 8, -8
+ 101              		.cfi_offset 9, -12
+ 102              		.cfi_offset 18, -16
+  17:../Firmware/RISCV/stubs/write.c **** 	const uint8_t * current = (const uint8_t *) ptr;
+ 103              		.loc 1 17 53
+ 104 000c B289     		mv	s3,a2
+ 105              	.LBB4:
+  22:../Firmware/RISCV/stubs/write.c **** 			_put_char(current[jj]);
+ 106              		.loc 1 22 3
+ 107 000e 15C2     		beq	a2,zero,.L8
+ 108 0010 2E84     		mv	s0,a1
+ 109 0012 3389C500 		add	s2,a1,a2
+  25:../Firmware/RISCV/stubs/write.c **** 				_put_char('\r');
+GAS LISTING /tmp/ccJrYKcc.s 			page 4
+
+
+ 110              		.loc 1 25 7
+ 111 0016 A944     		li	s1,10
+ 112              	.LVL6:
+ 113              	.L10:
+  23:../Firmware/RISCV/stubs/write.c **** 
+ 114              		.loc 1 23 4 is_stmt 1
+ 115 0018 03450400 		lbu	a0,0(s0)
+  22:../Firmware/RISCV/stubs/write.c **** 			_put_char(current[jj]);
+ 116              		.loc 1 22 3 is_stmt 0
+ 117 001c 0504     		addi	s0,s0,1
+ 118              	.LVL7:
+  23:../Firmware/RISCV/stubs/write.c **** 
+ 119              		.loc 1 23 4
+ 120 001e 97000000 		call	_put_char
+ 120      E7800000 
+ 121              	.LVL8:
+  25:../Firmware/RISCV/stubs/write.c **** 				_put_char('\r');
+ 122              		.loc 1 25 4 is_stmt 1
+  25:../Firmware/RISCV/stubs/write.c **** 				_put_char('\r');
+ 123              		.loc 1 25 7 is_stmt 0
+ 124 0026 8347F4FF 		lbu	a5,-1(s0)
+ 125 002a 638C9700 		beq	a5,s1,.L16
+  22:../Firmware/RISCV/stubs/write.c **** 			_put_char(current[jj]);
+ 126              		.loc 1 22 33 is_stmt 1 discriminator 2
+ 127              	.LVL9:
+  22:../Firmware/RISCV/stubs/write.c **** 			_put_char(current[jj]);
+ 128              		.loc 1 22 23 discriminator 2
+  22:../Firmware/RISCV/stubs/write.c **** 			_put_char(current[jj]);
+ 129              		.loc 1 22 3 is_stmt 0 discriminator 2
+ 130 002e E31524FF 		bne	s0,s2,.L10
+ 131              	.L8:
+ 132              	.LBE4:
+  29:../Firmware/RISCV/stubs/write.c **** 	}
+ 133              		.loc 1 29 3 is_stmt 1
+  33:../Firmware/RISCV/stubs/write.c **** 
+ 134              		.loc 1 33 1 is_stmt 0
+ 135 0032 F240     		lw	ra,28(sp)
+ 136              		.cfi_remember_state
+ 137              		.cfi_restore 1
+ 138 0034 6244     		lw	s0,24(sp)
+ 139              		.cfi_restore 8
+ 140 0036 D244     		lw	s1,20(sp)
+ 141              		.cfi_restore 9
+ 142 0038 4249     		lw	s2,16(sp)
+ 143              		.cfi_restore 18
+ 144 003a 4E85     		mv	a0,s3
+ 145 003c B249     		lw	s3,12(sp)
+ 146              		.cfi_restore 19
+ 147              	.LVL10:
+ 148 003e 0561     		addi	sp,sp,32
+ 149              	.LCFI3:
+ 150              		.cfi_def_cfa_offset 0
+ 151 0040 8280     		jr	ra
+ 152              	.LVL11:
+ 153              	.L16:
+ 154              	.LCFI4:
+ 155              		.cfi_restore_state
+GAS LISTING /tmp/ccJrYKcc.s 			page 5
+
+
+ 156              	.LBB5:
+  26:../Firmware/RISCV/stubs/write.c **** 			}
+ 157              		.loc 1 26 5 is_stmt 1
+ 158 0042 3545     		li	a0,13
+ 159 0044 97000000 		call	_put_char
+ 159      E7800000 
+ 160              	.LVL12:
+  22:../Firmware/RISCV/stubs/write.c **** 			_put_char(current[jj]);
+ 161              		.loc 1 22 33
+  22:../Firmware/RISCV/stubs/write.c **** 			_put_char(current[jj]);
+ 162              		.loc 1 22 23
+  22:../Firmware/RISCV/stubs/write.c **** 			_put_char(current[jj]);
+ 163              		.loc 1 22 3 is_stmt 0
+ 164 004c E31624FD 		bne	s0,s2,.L10
+ 165 0050 CDB7     		j	.L8
+ 166              	.LBE5:
+ 167              		.cfi_endproc
+ 168              	.LFE4:
+ 170              		.section	.text.puts,"ax",@progbits
+ 171              		.align	1
+ 172              		.globl	puts
+ 174              	puts:
+ 175              	.LFB5:
+  35:../Firmware/RISCV/stubs/write.c **** 	return _write(0, (const void *) string, strlen(string));
+ 176              		.loc 1 35 30 is_stmt 1
+ 177              		.cfi_startproc
+ 178              	.LVL13:
+  36:../Firmware/RISCV/stubs/write.c **** }
+ 179              		.loc 1 36 2
+  35:../Firmware/RISCV/stubs/write.c **** 	return _write(0, (const void *) string, strlen(string));
+ 180              		.loc 1 35 30 is_stmt 0
+ 181 0000 0111     		addi	sp,sp,-32
+ 182              	.LCFI5:
+ 183              		.cfi_def_cfa_offset 32
+ 184 0002 22CC     		sw	s0,24(sp)
+ 185 0004 4EC6     		sw	s3,12(sp)
+ 186 0006 06CE     		sw	ra,28(sp)
+ 187 0008 26CA     		sw	s1,20(sp)
+ 188 000a 4AC8     		sw	s2,16(sp)
+ 189              		.cfi_offset 8, -8
+ 190              		.cfi_offset 19, -20
+ 191              		.cfi_offset 1, -4
+ 192              		.cfi_offset 9, -12
+ 193              		.cfi_offset 18, -16
+  35:../Firmware/RISCV/stubs/write.c **** 	return _write(0, (const void *) string, strlen(string));
+ 194              		.loc 1 35 30
+ 195 000c 2A84     		mv	s0,a0
+  36:../Firmware/RISCV/stubs/write.c **** }
+ 196              		.loc 1 36 9
+ 197 000e 97000000 		call	strlen
+ 197      E7800000 
+ 198              	.LVL14:
+ 199 0016 AA89     		mv	s3,a0
+ 200              	.LVL15:
+ 201              	.LBB9:
+ 202              	.LBB10:
+ 203              	.LBB11:
+GAS LISTING /tmp/ccJrYKcc.s 			page 6
+
+
+  22:../Firmware/RISCV/stubs/write.c **** 			_put_char(current[jj]);
+ 204              		.loc 1 22 23 is_stmt 1
+  22:../Firmware/RISCV/stubs/write.c **** 			_put_char(current[jj]);
+ 205              		.loc 1 22 3 is_stmt 0
+ 206 0018 0DC1     		beq	a0,zero,.L18
+ 207 001a 3309A400 		add	s2,s0,a0
+  25:../Firmware/RISCV/stubs/write.c **** 				_put_char('\r');
+ 208              		.loc 1 25 7
+ 209 001e A944     		li	s1,10
+ 210              	.LVL16:
+ 211              	.L20:
+  23:../Firmware/RISCV/stubs/write.c **** 
+ 212              		.loc 1 23 4 is_stmt 1
+ 213 0020 03450400 		lbu	a0,0(s0)
+  22:../Firmware/RISCV/stubs/write.c **** 			_put_char(current[jj]);
+ 214              		.loc 1 22 3 is_stmt 0
+ 215 0024 0504     		addi	s0,s0,1
+ 216              	.LVL17:
+  23:../Firmware/RISCV/stubs/write.c **** 
+ 217              		.loc 1 23 4
+ 218 0026 97000000 		call	_put_char
+ 218      E7800000 
+ 219              	.LVL18:
+  25:../Firmware/RISCV/stubs/write.c **** 				_put_char('\r');
+ 220              		.loc 1 25 4 is_stmt 1
+  25:../Firmware/RISCV/stubs/write.c **** 				_put_char('\r');
+ 221              		.loc 1 25 7 is_stmt 0
+ 222 002e 8347F4FF 		lbu	a5,-1(s0)
+ 223 0032 638C9700 		beq	a5,s1,.L26
+  22:../Firmware/RISCV/stubs/write.c **** 			_put_char(current[jj]);
+ 224              		.loc 1 22 33 is_stmt 1
+ 225              	.LVL19:
+  22:../Firmware/RISCV/stubs/write.c **** 			_put_char(current[jj]);
+ 226              		.loc 1 22 23
+  22:../Firmware/RISCV/stubs/write.c **** 			_put_char(current[jj]);
+ 227              		.loc 1 22 3 is_stmt 0
+ 228 0036 E31524FF 		bne	s0,s2,.L20
+ 229              	.L18:
+ 230              	.LBE11:
+  29:../Firmware/RISCV/stubs/write.c **** 	}
+ 231              		.loc 1 29 3 is_stmt 1
+ 232              	.LVL20:
+ 233              	.LBE10:
+ 234              	.LBE9:
+  37:../Firmware/RISCV/stubs/write.c **** 
+ 235              		.loc 1 37 1 is_stmt 0
+ 236 003a F240     		lw	ra,28(sp)
+ 237              		.cfi_remember_state
+ 238              		.cfi_restore 1
+ 239 003c 6244     		lw	s0,24(sp)
+ 240              		.cfi_restore 8
+ 241 003e D244     		lw	s1,20(sp)
+ 242              		.cfi_restore 9
+ 243 0040 4249     		lw	s2,16(sp)
+ 244              		.cfi_restore 18
+ 245 0042 4E85     		mv	a0,s3
+ 246 0044 B249     		lw	s3,12(sp)
+GAS LISTING /tmp/ccJrYKcc.s 			page 7
+
+
+ 247              		.cfi_restore 19
+ 248 0046 0561     		addi	sp,sp,32
+ 249              	.LCFI6:
+ 250              		.cfi_def_cfa_offset 0
+ 251 0048 8280     		jr	ra
+ 252              	.LVL21:
+ 253              	.L26:
+ 254              	.LCFI7:
+ 255              		.cfi_restore_state
+ 256              	.LBB14:
+ 257              	.LBB13:
+ 258              	.LBB12:
+  26:../Firmware/RISCV/stubs/write.c **** 			}
+ 259              		.loc 1 26 5 is_stmt 1
+ 260 004a 3545     		li	a0,13
+ 261 004c 97000000 		call	_put_char
+ 261      E7800000 
+ 262              	.LVL22:
+  22:../Firmware/RISCV/stubs/write.c **** 			_put_char(current[jj]);
+ 263              		.loc 1 22 33
+  22:../Firmware/RISCV/stubs/write.c **** 			_put_char(current[jj]);
+ 264              		.loc 1 22 23
+  22:../Firmware/RISCV/stubs/write.c **** 			_put_char(current[jj]);
+ 265              		.loc 1 22 3 is_stmt 0
+ 266 0054 E31624FD 		bne	s0,s2,.L20
+ 267 0058 CDB7     		j	.L18
+ 268              	.LBE12:
+ 269              	.LBE13:
+ 270              	.LBE14:
+ 271              		.cfi_endproc
+ 272              	.LFE5:
+ 274              		.text
+ 275              	.Letext0:
+ 276              		.file 2 "/home/johnson/Documents/mpb-toolchain/build/riscv32-mapleboard-elf/include/machine/_defau
+ 277              		.file 3 "/home/johnson/Documents/mpb-toolchain/build/riscv32-mapleboard-elf/include/sys/_stdint.h"
+ 278              		.file 4 "/home/johnson/Documents/mpb-toolchain/build/lib/gcc/riscv32-mapleboard-elf/10.2.0/include
+ 279              		.file 5 "/home/johnson/Documents/mpb-toolchain/build/riscv32-mapleboard-elf/include/sys/_types.h"
+ 280              		.file 6 "../Firmware/GD32VF103_standard_peripheral/gd32vf103.h"
+ 281              		.file 7 "../Firmware/GD32VF103_standard_peripheral/Include/gd32vf103_usart.h"
+ 282              		.file 8 "/home/johnson/Documents/mpb-toolchain/build/riscv32-mapleboard-elf/include/sys/types.h"
+ 283              		.file 9 "/home/johnson/Documents/mpb-toolchain/build/riscv32-mapleboard-elf/include/string.h"
+GAS LISTING /tmp/ccJrYKcc.s 			page 8
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 write.c
+     /tmp/ccJrYKcc.s:13     .text._put_char:0000000000000000 _put_char
+     /tmp/ccJrYKcc.s:17     .text._put_char:0000000000000000 .L0 
+     /tmp/ccJrYKcc.s:19     .text._put_char:0000000000000000 .L0 
+     /tmp/ccJrYKcc.s:20     .text._put_char:0000000000000000 .L0 
+     /tmp/ccJrYKcc.s:21     .text._put_char:0000000000000000 .L0 
+     /tmp/ccJrYKcc.s:23     .text._put_char:0000000000000002 .L0 
+     /tmp/ccJrYKcc.s:25     .text._put_char:0000000000000004 .L0 
+     /tmp/ccJrYKcc.s:27     .text._put_char:0000000000000004 .L0 
+     /tmp/ccJrYKcc.s:29     .text._put_char:0000000000000008 .L0 
+     /tmp/ccJrYKcc.s:31     .text._put_char:000000000000000a .L0 
+     /tmp/ccJrYKcc.s:32     .text._put_char:000000000000000e .L0 
+     /tmp/ccJrYKcc.s:34     .text._put_char:000000000000000e .L0 
+     /tmp/ccJrYKcc.s:36     .text._put_char:0000000000000010 .L0 
+     /tmp/ccJrYKcc.s:39     .text._put_char:0000000000000014 .L0 
+     /tmp/ccJrYKcc.s:40     .text._put_char:0000000000000016 .L0 
+     /tmp/ccJrYKcc.s:42     .text._put_char:0000000000000016 .L0 
+     /tmp/ccJrYKcc.s:44     .text._put_char:000000000000001a .L0 
+     /tmp/ccJrYKcc.s:48     .text._put_char:0000000000000022 .L0 
+     /tmp/ccJrYKcc.s:49     .text._put_char:0000000000000022 .L0 
+     /tmp/ccJrYKcc.s:50     .text._put_char:0000000000000022 .L0 
+     /tmp/ccJrYKcc.s:51     .text._put_char:0000000000000022 .L0 
+     /tmp/ccJrYKcc.s:56     .text._put_char:000000000000002e .L0 
+     /tmp/ccJrYKcc.s:58     .text._put_char:0000000000000030 .L0 
+     /tmp/ccJrYKcc.s:59     .text._put_char:0000000000000030 .L0 
+     /tmp/ccJrYKcc.s:60     .text._put_char:0000000000000032 .L0 
+     /tmp/ccJrYKcc.s:62     .text._put_char:0000000000000034 .L0 
+     /tmp/ccJrYKcc.s:65     .text._put_char:0000000000000038 .L0 
+     /tmp/ccJrYKcc.s:69     .text._put_char:000000000000003a .L0 
+     /tmp/ccJrYKcc.s:71     .text._put_char:000000000000003c .L0 
+     /tmp/ccJrYKcc.s:78     .text._write:0000000000000000 _write
+     /tmp/ccJrYKcc.s:81     .text._write:0000000000000000 .L0 
+     /tmp/ccJrYKcc.s:83     .text._write:0000000000000000 .L0 
+     /tmp/ccJrYKcc.s:84     .text._write:0000000000000000 .L0 
+     /tmp/ccJrYKcc.s:86     .text._write:0000000000000000 .L0 
+     /tmp/ccJrYKcc.s:87     .text._write:0000000000000000 .L0 
+     /tmp/ccJrYKcc.s:89     .text._write:0000000000000000 .L0 
+     /tmp/ccJrYKcc.s:90     .text._write:0000000000000000 .L0 
+     /tmp/ccJrYKcc.s:92     .text._write:0000000000000002 .L0 
+     /tmp/ccJrYKcc.s:98     .text._write:000000000000000c .L0 
+     /tmp/ccJrYKcc.s:99     .text._write:000000000000000c .L0 
+     /tmp/ccJrYKcc.s:100    .text._write:000000000000000c .L0 
+     /tmp/ccJrYKcc.s:101    .text._write:000000000000000c .L0 
+     /tmp/ccJrYKcc.s:102    .text._write:000000000000000c .L0 
+     /tmp/ccJrYKcc.s:104    .text._write:000000000000000c .L0 
+     /tmp/ccJrYKcc.s:107    .text._write:000000000000000e .L0 
+     /tmp/ccJrYKcc.s:111    .text._write:0000000000000016 .L0 
+     /tmp/ccJrYKcc.s:115    .text._write:0000000000000018 .L0 
+     /tmp/ccJrYKcc.s:117    .text._write:000000000000001c .L0 
+     /tmp/ccJrYKcc.s:120    .text._write:000000000000001e .L0 
+     /tmp/ccJrYKcc.s:123    .text._write:0000000000000026 .L0 
+     /tmp/ccJrYKcc.s:124    .text._write:0000000000000026 .L0 
+     /tmp/ccJrYKcc.s:128    .text._write:000000000000002e .L0 
+     /tmp/ccJrYKcc.s:129    .text._write:000000000000002e .L0 
+     /tmp/ccJrYKcc.s:130    .text._write:000000000000002e .L0 
+     /tmp/ccJrYKcc.s:134    .text._write:0000000000000032 .L0 
+GAS LISTING /tmp/ccJrYKcc.s 			page 9
+
+
+     /tmp/ccJrYKcc.s:135    .text._write:0000000000000032 .L0 
+     /tmp/ccJrYKcc.s:136    .text._write:0000000000000034 .L0 
+     /tmp/ccJrYKcc.s:137    .text._write:0000000000000034 .L0 
+     /tmp/ccJrYKcc.s:139    .text._write:0000000000000036 .L0 
+     /tmp/ccJrYKcc.s:141    .text._write:0000000000000038 .L0 
+     /tmp/ccJrYKcc.s:143    .text._write:000000000000003a .L0 
+     /tmp/ccJrYKcc.s:146    .text._write:000000000000003e .L0 
+     /tmp/ccJrYKcc.s:150    .text._write:0000000000000040 .L0 
+     /tmp/ccJrYKcc.s:155    .text._write:0000000000000042 .L0 
+     /tmp/ccJrYKcc.s:158    .text._write:0000000000000042 .L0 
+     /tmp/ccJrYKcc.s:162    .text._write:000000000000004c .L0 
+     /tmp/ccJrYKcc.s:163    .text._write:000000000000004c .L0 
+     /tmp/ccJrYKcc.s:164    .text._write:000000000000004c .L0 
+     /tmp/ccJrYKcc.s:167    .text._write:0000000000000052 .L0 
+     /tmp/ccJrYKcc.s:174    .text.puts:0000000000000000 puts
+     /tmp/ccJrYKcc.s:177    .text.puts:0000000000000000 .L0 
+     /tmp/ccJrYKcc.s:179    .text.puts:0000000000000000 .L0 
+     /tmp/ccJrYKcc.s:180    .text.puts:0000000000000000 .L0 
+     /tmp/ccJrYKcc.s:181    .text.puts:0000000000000000 .L0 
+     /tmp/ccJrYKcc.s:183    .text.puts:0000000000000002 .L0 
+     /tmp/ccJrYKcc.s:189    .text.puts:000000000000000c .L0 
+     /tmp/ccJrYKcc.s:190    .text.puts:000000000000000c .L0 
+     /tmp/ccJrYKcc.s:191    .text.puts:000000000000000c .L0 
+     /tmp/ccJrYKcc.s:192    .text.puts:000000000000000c .L0 
+     /tmp/ccJrYKcc.s:193    .text.puts:000000000000000c .L0 
+     /tmp/ccJrYKcc.s:195    .text.puts:000000000000000c .L0 
+     /tmp/ccJrYKcc.s:197    .text.puts:000000000000000e .L0 
+     /tmp/ccJrYKcc.s:205    .text.puts:0000000000000018 .L0 
+     /tmp/ccJrYKcc.s:206    .text.puts:0000000000000018 .L0 
+     /tmp/ccJrYKcc.s:209    .text.puts:000000000000001e .L0 
+     /tmp/ccJrYKcc.s:213    .text.puts:0000000000000020 .L0 
+     /tmp/ccJrYKcc.s:215    .text.puts:0000000000000024 .L0 
+     /tmp/ccJrYKcc.s:218    .text.puts:0000000000000026 .L0 
+     /tmp/ccJrYKcc.s:221    .text.puts:000000000000002e .L0 
+     /tmp/ccJrYKcc.s:222    .text.puts:000000000000002e .L0 
+     /tmp/ccJrYKcc.s:226    .text.puts:0000000000000036 .L0 
+     /tmp/ccJrYKcc.s:227    .text.puts:0000000000000036 .L0 
+     /tmp/ccJrYKcc.s:228    .text.puts:0000000000000036 .L0 
+     /tmp/ccJrYKcc.s:235    .text.puts:000000000000003a .L0 
+     /tmp/ccJrYKcc.s:236    .text.puts:000000000000003a .L0 
+     /tmp/ccJrYKcc.s:237    .text.puts:000000000000003c .L0 
+     /tmp/ccJrYKcc.s:238    .text.puts:000000000000003c .L0 
+     /tmp/ccJrYKcc.s:240    .text.puts:000000000000003e .L0 
+     /tmp/ccJrYKcc.s:242    .text.puts:0000000000000040 .L0 
+     /tmp/ccJrYKcc.s:244    .text.puts:0000000000000042 .L0 
+     /tmp/ccJrYKcc.s:247    .text.puts:0000000000000046 .L0 
+     /tmp/ccJrYKcc.s:250    .text.puts:0000000000000048 .L0 
+     /tmp/ccJrYKcc.s:255    .text.puts:000000000000004a .L0 
+     /tmp/ccJrYKcc.s:260    .text.puts:000000000000004a .L0 
+     /tmp/ccJrYKcc.s:264    .text.puts:0000000000000054 .L0 
+     /tmp/ccJrYKcc.s:265    .text.puts:0000000000000054 .L0 
+     /tmp/ccJrYKcc.s:266    .text.puts:0000000000000054 .L0 
+     /tmp/ccJrYKcc.s:271    .text.puts:000000000000005a .L0 
+     /tmp/ccJrYKcc.s:74     .text._put_char:000000000000003c .L0 
+     /tmp/ccJrYKcc.s:170    .text._write:0000000000000052 .L0 
+     /tmp/ccJrYKcc.s:274    .text.puts:000000000000005a .L0 
+                     .debug_frame:0000000000000000 .L0 
+GAS LISTING /tmp/ccJrYKcc.s 			page 10
+
+
+     /tmp/ccJrYKcc.s:47     .text._put_char:0000000000000022 .L2
+     /tmp/ccJrYKcc.s:131    .text._write:0000000000000032 .L8
+     /tmp/ccJrYKcc.s:153    .text._write:0000000000000042 .L16
+     /tmp/ccJrYKcc.s:113    .text._write:0000000000000018 .L10
+     /tmp/ccJrYKcc.s:229    .text.puts:000000000000003a .L18
+     /tmp/ccJrYKcc.s:253    .text.puts:000000000000004a .L26
+     /tmp/ccJrYKcc.s:211    .text.puts:0000000000000020 .L20
+     /tmp/ccJrYKcc.s:697    .debug_abbrev:0000000000000000 .Ldebug_abbrev0
+     /tmp/ccJrYKcc.s:1445   .debug_str:0000000000000000 .LASF36
+     /tmp/ccJrYKcc.s:1501   .debug_str:000000000000021e .LASF37
+     /tmp/ccJrYKcc.s:1453   .debug_str:00000000000000b8 .LASF38
+     /tmp/ccJrYKcc.s:1419   .debug_ranges:0000000000000000 .Ldebug_ranges0
+     /tmp/ccJrYKcc.s:1443   .debug_line:0000000000000000 .Ldebug_line0
+     /tmp/ccJrYKcc.s:1515   .debug_str:0000000000000277 .LASF0
+     /tmp/ccJrYKcc.s:1447   .debug_str:0000000000000099 .LASF5
+     /tmp/ccJrYKcc.s:1469   .debug_str:0000000000000157 .LASF1
+     /tmp/ccJrYKcc.s:1503   .debug_str:000000000000023e .LASF2
+     /tmp/ccJrYKcc.s:1457   .debug_str:00000000000000fe .LASF3
+     /tmp/ccJrYKcc.s:1511   .debug_str:0000000000000269 .LASF4
+     /tmp/ccJrYKcc.s:1475   .debug_str:0000000000000186 .LASF6
+     /tmp/ccJrYKcc.s:1471   .debug_str:0000000000000165 .LASF7
+     /tmp/ccJrYKcc.s:1495   .debug_str:0000000000000204 .LASF8
+     /tmp/ccJrYKcc.s:1465   .debug_str:0000000000000130 .LASF9
+     /tmp/ccJrYKcc.s:1483   .debug_str:00000000000001c0 .LASF10
+     /tmp/ccJrYKcc.s:1487   .debug_str:00000000000001d6 .LASF11
+     /tmp/ccJrYKcc.s:1509   .debug_str:0000000000000260 .LASF12
+     /tmp/ccJrYKcc.s:1449   .debug_str:00000000000000a3 .LASF13
+     /tmp/ccJrYKcc.s:1493   .debug_str:00000000000001f8 .LASF14
+     /tmp/ccJrYKcc.s:1485   .debug_str:00000000000001cd .LASF15
+     /tmp/ccJrYKcc.s:1497   .debug_str:0000000000000212 .LASF16
+     /tmp/ccJrYKcc.s:1523   .debug_str:00000000000002ac .LASF17
+     /tmp/ccJrYKcc.s:1477   .debug_str:0000000000000191 .LASF18
+     /tmp/ccJrYKcc.s:1467   .debug_str:0000000000000147 .LASF19
+     /tmp/ccJrYKcc.s:1481   .debug_str:00000000000001b1 .LASF20
+     /tmp/ccJrYKcc.s:1451   .debug_str:00000000000000aa .LASF21
+     /tmp/ccJrYKcc.s:1507   .debug_str:0000000000000250 .LASF22
+     /tmp/ccJrYKcc.s:1521   .debug_str:000000000000029b .LASF23
+     /tmp/ccJrYKcc.s:1517   .debug_str:0000000000000283 .LASF24
+     /tmp/ccJrYKcc.s:1461   .debug_str:0000000000000119 .LASF25
+     /tmp/ccJrYKcc.s:1479   .debug_str:00000000000001a1 .LASF26
+     /tmp/ccJrYKcc.s:1491   .debug_str:00000000000001e8 .LASF27
+     /tmp/ccJrYKcc.s:1459   .debug_str:0000000000000111 .LASF28
+     /tmp/ccJrYKcc.s:1489   .debug_str:00000000000001de .LASF29
+     /tmp/ccJrYKcc.s:14     .text._put_char:0000000000000000 .LFB6
+     /tmp/ccJrYKcc.s:72     .text._put_char:000000000000003c .LFE6
+     /tmp/ccJrYKcc.s:1115   .debug_loc:0000000000000000 .LLST0
+     /tmp/ccJrYKcc.s:1133   .debug_loc:000000000000002c .LLST1
+     /tmp/ccJrYKcc.s:45     .text._put_char:0000000000000022 .LVL2
+     /tmp/ccJrYKcc.s:54     .text._put_char:000000000000002e .LVL3
+     /tmp/ccJrYKcc.s:1513   .debug_str:0000000000000272 .LASF30
+     /tmp/ccJrYKcc.s:175    .text.puts:0000000000000000 .LFB5
+     /tmp/ccJrYKcc.s:272    .text.puts:000000000000005a .LFE5
+     /tmp/ccJrYKcc.s:1148   .debug_loc:0000000000000055 .LLST8
+     /tmp/ccJrYKcc.s:1519   .debug_str:0000000000000294 .LASF31
+     /tmp/ccJrYKcc.s:1171   .debug_loc:000000000000008d .LLST9
+     /tmp/ccJrYKcc.s:201    .text.puts:0000000000000018 .LBB9
+     /tmp/ccJrYKcc.s:1189   .debug_loc:00000000000000b9 .LLST10
+GAS LISTING /tmp/ccJrYKcc.s 			page 11
+
+
+     /tmp/ccJrYKcc.s:1204   .debug_loc:00000000000000e2 .LLST11
+     /tmp/ccJrYKcc.s:1225   .debug_loc:0000000000000111 .LLST12
+     /tmp/ccJrYKcc.s:1238   .debug_loc:0000000000000131 .LLST13
+     /tmp/ccJrYKcc.s:219    .text.puts:000000000000002e .LVL18
+     /tmp/ccJrYKcc.s:262    .text.puts:0000000000000054 .LVL22
+     /tmp/ccJrYKcc.s:198    .text.puts:0000000000000016 .LVL14
+     /tmp/ccJrYKcc.s:1499   .debug_str:0000000000000217 .LASF39
+     /tmp/ccJrYKcc.s:1505   .debug_str:0000000000000248 .LASF32
+     /tmp/ccJrYKcc.s:121    .text._write:0000000000000026 .LVL8
+     /tmp/ccJrYKcc.s:160    .text._write:000000000000004c .LVL12
+     /tmp/ccJrYKcc.s:79     .text._write:0000000000000000 .LFB4
+     /tmp/ccJrYKcc.s:168    .text._write:0000000000000052 .LFE4
+     /tmp/ccJrYKcc.s:1278   .debug_loc:000000000000017a .LLST2
+     /tmp/ccJrYKcc.s:1301   .debug_loc:00000000000001b2 .LLST3
+     /tmp/ccJrYKcc.s:1315   .debug_loc:00000000000001d3 .LLST4
+     /tmp/ccJrYKcc.s:1329   .debug_loc:00000000000001f4 .LLST5
+     /tmp/ccJrYKcc.s:1348   .debug_loc:0000000000000228 .LLST6
+     /tmp/ccJrYKcc.s:1362   .debug_loc:0000000000000249 .LLST7
+     /tmp/ccJrYKcc.s:1455   .debug_str:00000000000000ea .LASF33
+     /tmp/ccJrYKcc.s:1473   .debug_str:0000000000000177 .LASF34
+     /tmp/ccJrYKcc.s:1463   .debug_str:0000000000000129 .LASF35
+     /tmp/ccJrYKcc.s:22     .text._put_char:0000000000000002 .LCFI0
+     /tmp/ccJrYKcc.s:68     .text._put_char:000000000000003a .LCFI1
+     /tmp/ccJrYKcc.s:18     .text._put_char:0000000000000000 .LVL0
+     /tmp/ccJrYKcc.s:37     .text._put_char:0000000000000014 .LVL1
+     /tmp/ccJrYKcc.s:66     .text._put_char:0000000000000038 .LVL4
+     /tmp/ccJrYKcc.s:182    .text.puts:0000000000000002 .LCFI5
+     /tmp/ccJrYKcc.s:249    .text.puts:0000000000000048 .LCFI6
+     /tmp/ccJrYKcc.s:254    .text.puts:000000000000004a .LCFI7
+     /tmp/ccJrYKcc.s:178    .text.puts:0000000000000000 .LVL13
+     /tmp/ccJrYKcc.s:210    .text.puts:0000000000000020 .LVL16
+     /tmp/ccJrYKcc.s:200    .text.puts:0000000000000018 .LVL15
+     /tmp/ccJrYKcc.s:232    .text.puts:000000000000003a .LVL20
+     /tmp/ccJrYKcc.s:252    .text.puts:000000000000004a .LVL21
+     /tmp/ccJrYKcc.s:216    .text.puts:0000000000000026 .LVL17
+     /tmp/ccJrYKcc.s:225    .text.puts:0000000000000036 .LVL19
+     /tmp/ccJrYKcc.s:91     .text._write:0000000000000002 .LCFI2
+     /tmp/ccJrYKcc.s:149    .text._write:0000000000000040 .LCFI3
+     /tmp/ccJrYKcc.s:154    .text._write:0000000000000042 .LCFI4
+     /tmp/ccJrYKcc.s:82     .text._write:0000000000000000 .LVL5
+     /tmp/ccJrYKcc.s:112    .text._write:0000000000000018 .LVL6
+     /tmp/ccJrYKcc.s:147    .text._write:000000000000003e .LVL10
+     /tmp/ccJrYKcc.s:152    .text._write:0000000000000042 .LVL11
+     /tmp/ccJrYKcc.s:118    .text._write:000000000000001e .LVL7
+     /tmp/ccJrYKcc.s:127    .text._write:000000000000002e .LVL9
+     /tmp/ccJrYKcc.s:285    .debug_info:0000000000000000 .Ldebug_info0
+     /tmp/ccJrYKcc.s:85     .text._write:0000000000000000 .LBB3
+     /tmp/ccJrYKcc.s:88     .text._write:0000000000000000 .LBE3
+     /tmp/ccJrYKcc.s:105    .text._write:000000000000000e .LBB4
+     /tmp/ccJrYKcc.s:132    .text._write:0000000000000032 .LBE4
+     /tmp/ccJrYKcc.s:156    .text._write:0000000000000042 .LBB5
+     /tmp/ccJrYKcc.s:166    .text._write:0000000000000052 .LBE5
+     /tmp/ccJrYKcc.s:234    .text.puts:000000000000003a .LBE9
+     /tmp/ccJrYKcc.s:256    .text.puts:000000000000004a .LBB14
+     /tmp/ccJrYKcc.s:270    .text.puts:000000000000005a .LBE14
+
+UNDEFINED SYMBOLS
+GAS LISTING /tmp/ccJrYKcc.s 			page 12
+
+
+usart_data_transmit
+usart_flag_get
+strlen

@@ -1,0 +1,103 @@
+GAS LISTING /tmp/ccdxV3Iv.s 			page 1
+
+
+   1              		.file	"read.c"
+   2              		.option nopic
+   3              		.attribute arch, "rv32i2p0_m2p0_a2p0_c2p0"
+   4              		.attribute unaligned_access, 0
+   5              		.attribute stack_align, 16
+   6              		.text
+   7              	.Ltext0:
+   8              		.cfi_sections	.debug_frame
+   9              		.section	.text._read,"ax",@progbits
+  10              		.align	1
+  11              		.globl	_read
+  13              	_read:
+  14              	.LFB1:
+  15              		.file 1 "../Firmware/RISCV/stubs/read.c"
+   1:../Firmware/RISCV/stubs/read.c **** /* See LICENSE of license details. */
+   2:../Firmware/RISCV/stubs/read.c **** 
+   3:../Firmware/RISCV/stubs/read.c **** #include <stdint.h>
+   4:../Firmware/RISCV/stubs/read.c **** #include <errno.h>
+   5:../Firmware/RISCV/stubs/read.c **** #include <unistd.h>
+   6:../Firmware/RISCV/stubs/read.c **** #include <sys/types.h>
+   7:../Firmware/RISCV/stubs/read.c **** 
+   8:../Firmware/RISCV/stubs/read.c **** #include "stub.h"
+   9:../Firmware/RISCV/stubs/read.c **** 
+  10:../Firmware/RISCV/stubs/read.c **** ssize_t _read(int fd, void* ptr, size_t len)
+  11:../Firmware/RISCV/stubs/read.c **** {
+  16              		.loc 1 11 1
+  17              		.cfi_startproc
+  18              	.LVL0:
+  12:../Firmware/RISCV/stubs/read.c ****   return _stub(EBADF);
+  19              		.loc 1 12 3
+  20              		.file 2 "../Firmware/RISCV/stubs/stub.h"
+   1:../Firmware/RISCV/stubs/stub.h **** /* See LICENSE of license details. */
+   2:../Firmware/RISCV/stubs/stub.h **** #ifndef _NUCLEI_SYS_STUB_H
+   3:../Firmware/RISCV/stubs/stub.h **** #define _NUCLEI_SYS_STUB_H
+   4:../Firmware/RISCV/stubs/stub.h **** 
+   5:../Firmware/RISCV/stubs/stub.h **** #include <stdint.h>
+   6:../Firmware/RISCV/stubs/stub.h **** #include <unistd.h>
+   7:../Firmware/RISCV/stubs/stub.h **** 
+   8:../Firmware/RISCV/stubs/stub.h **** void write_hex(int fd, unsigned long int hex);
+   9:../Firmware/RISCV/stubs/stub.h **** 
+  10:../Firmware/RISCV/stubs/stub.h **** static inline int _stub(int err)
+  11:../Firmware/RISCV/stubs/stub.h **** {
+  12:../Firmware/RISCV/stubs/stub.h ****   return -1;
+  21              		.loc 2 12 3
+  13:../Firmware/RISCV/stubs/read.c **** }
+  22              		.loc 1 13 1 is_stmt 0
+  23 0000 7D55     		li	a0,-1
+  24              	.LVL1:
+  25 0002 8280     		ret
+  26              		.cfi_endproc
+  27              	.LFE1:
+  29              		.text
+  30              	.Letext0:
+  31              		.file 3 "/home/johnson/Documents/mpb-toolchain/build/lib/gcc/riscv32-mapleboard-elf/10.2.0/include
+  32              		.file 4 "/home/johnson/Documents/mpb-toolchain/build/riscv32-mapleboard-elf/include/sys/_types.h"
+  33              		.file 5 "/home/johnson/Documents/mpb-toolchain/build/riscv32-mapleboard-elf/include/sys/types.h"
+GAS LISTING /tmp/ccdxV3Iv.s 			page 2
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 read.c
+     /tmp/ccdxV3Iv.s:13     .text._read:0000000000000000 _read
+     /tmp/ccdxV3Iv.s:17     .text._read:0000000000000000 .L0 
+     /tmp/ccdxV3Iv.s:19     .text._read:0000000000000000 .L0 
+     /tmp/ccdxV3Iv.s:21     .text._read:0000000000000000 .L0 
+     /tmp/ccdxV3Iv.s:22     .text._read:0000000000000000 .L0 
+     /tmp/ccdxV3Iv.s:23     .text._read:0000000000000000 .L0 
+     /tmp/ccdxV3Iv.s:26     .text._read:0000000000000004 .L0 
+     /tmp/ccdxV3Iv.s:29     .text._read:0000000000000004 .L0 
+                     .debug_frame:0000000000000000 .L0 
+     /tmp/ccdxV3Iv.s:173    .debug_abbrev:0000000000000000 .Ldebug_abbrev0
+     /tmp/ccdxV3Iv.s:410    .debug_str:000000000000010a .LASF14
+     /tmp/ccdxV3Iv.s:398    .debug_str:0000000000000081 .LASF15
+     /tmp/ccdxV3Iv.s:408    .debug_str:00000000000000d8 .LASF16
+     /tmp/ccdxV3Iv.s:366    .debug_ranges:0000000000000000 .Ldebug_ranges0
+     /tmp/ccdxV3Iv.s:372    .debug_line:0000000000000000 .Ldebug_line0
+     /tmp/ccdxV3Iv.s:402    .debug_str:00000000000000b3 .LASF0
+     /tmp/ccdxV3Iv.s:386    .debug_str:000000000000004d .LASF1
+     /tmp/ccdxV3Iv.s:394    .debug_str:0000000000000071 .LASF2
+     /tmp/ccdxV3Iv.s:400    .debug_str:00000000000000a0 .LASF3
+     /tmp/ccdxV3Iv.s:392    .debug_str:0000000000000068 .LASF4
+     /tmp/ccdxV3Iv.s:380    .debug_str:000000000000001b .LASF5
+     /tmp/ccdxV3Iv.s:374    .debug_str:0000000000000000 .LASF6
+     /tmp/ccdxV3Iv.s:382    .debug_str:000000000000002d .LASF7
+     /tmp/ccdxV3Iv.s:406    .debug_str:00000000000000cb .LASF8
+     /tmp/ccdxV3Iv.s:376    .debug_str:000000000000000e .LASF10
+     /tmp/ccdxV3Iv.s:404    .debug_str:00000000000000bf .LASF9
+     /tmp/ccdxV3Iv.s:384    .debug_str:0000000000000044 .LASF11
+     /tmp/ccdxV3Iv.s:388    .debug_str:000000000000005b .LASF12
+     /tmp/ccdxV3Iv.s:390    .debug_str:0000000000000060 .LASF13
+     /tmp/ccdxV3Iv.s:378    .debug_str:0000000000000015 .LASF17
+     /tmp/ccdxV3Iv.s:14     .text._read:0000000000000000 .LFB1
+     /tmp/ccdxV3Iv.s:27     .text._read:0000000000000004 .LFE1
+     /tmp/ccdxV3Iv.s:339    .debug_loc:0000000000000000 .LLST0
+     /tmp/ccdxV3Iv.s:396    .debug_str:000000000000007b .LASF18
+     /tmp/ccdxV3Iv.s:18     .text._read:0000000000000000 .LVL0
+     /tmp/ccdxV3Iv.s:24     .text._read:0000000000000002 .LVL1
+     /tmp/ccdxV3Iv.s:35     .debug_info:0000000000000000 .Ldebug_info0
+
+NO UNDEFINED SYMBOLS

@@ -1,0 +1,2277 @@
+GAS LISTING /tmp/ccsCKFkX.s 			page 1
+
+
+   1              		.file	"gd32vf103_gpio.c"
+   2              		.option nopic
+   3              		.attribute arch, "rv32i2p0_m2p0_a2p0_c2p0"
+   4              		.attribute unaligned_access, 0
+   5              		.attribute stack_align, 16
+   6              		.text
+   7              	.Ltext0:
+   8              		.cfi_sections	.debug_frame
+   9              		.section	.text.gpio_deinit,"ax",@progbits
+  10              		.align	1
+  11              		.globl	gpio_deinit
+  13              	gpio_deinit:
+  14              	.LFB2:
+  15              		.file 1 "../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c"
+   1:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** /*!
+   2:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \file  gd32vf103_gpio.c
+   3:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \brief GPIO driver
+   4:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** 
+   5:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \version 2019-6-5, V1.0.0, firmware for GD32VF103
+   6:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** */
+   7:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** 
+   8:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** /*
+   9:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     Copyright (c) 2019, GigaDevice Semiconductor Inc.
+  10:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** 
+  11:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     Redistribution and use in source and binary forms, with or without modification, 
+  12:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** are permitted provided that the following conditions are met:
+  13:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** 
+  14:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     1. Redistributions of source code must retain the above copyright notice, this 
+  15:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****        list of conditions and the following disclaimer.
+  16:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     2. Redistributions in binary form must reproduce the above copyright notice, 
+  17:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****        this list of conditions and the following disclaimer in the documentation 
+  18:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****        and/or other materials provided with the distribution.
+  19:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     3. Neither the name of the copyright holder nor the names of its contributors 
+  20:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****        may be used to endorse or promote products derived from this software without 
+  21:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****        specific prior written permission.
+  22:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** 
+  23:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
+  24:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+  25:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
+  26:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, 
+  27:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT 
+  28:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR 
+  29:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
+  30:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+  31:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY 
+  32:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** OF SUCH DAMAGE.
+  33:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** */
+  34:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** 
+  35:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** #include "gd32vf103_gpio.h"
+  36:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** 
+  37:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** #define AFIO_EXTI_SOURCE_MASK              ((uint8_t)0x03U)         /*!< AFIO exti source selection
+  38:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** #define AFIO_EXTI_SOURCE_FIELDS            ((uint8_t)0x04U)         /*!< select AFIO exti source re
+  39:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** #define LSB_16BIT_MASK                     ((uint16_t)0xFFFFU)      /*!< LSB 16-bit mask */
+  40:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** #define PCF_POSITION_MASK                  ((uint32_t)0x000F0000U)  /*!< AFIO_PCF register position
+  41:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** #define PCF_SWJCFG_MASK                    ((uint32_t)0xF0FFFFFFU)  /*!< AFIO_PCF register SWJCFG m
+  42:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** #define PCF_LOCATION1_MASK                 ((uint32_t)0x00200000U)  /*!< AFIO_PCF register location
+  43:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** #define PCF_LOCATION2_MASK                 ((uint32_t)0x00100000U)  /*!< AFIO_PCF register location
+GAS LISTING /tmp/ccsCKFkX.s 			page 2
+
+
+  44:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** #define AFIO_PCF1_FIELDS                   ((uint32_t)0x80000000U)  /*!< select AFIO_PCF1 register 
+  45:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** #define GPIO_OUTPUT_PORT_OFFSET            ((uint32_t)4U)           /*!< GPIO event output port off
+  46:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** 
+  47:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** /*!
+  48:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \brief      reset GPIO port
+  49:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \param[in]  gpio_periph: GPIOx(x = A,B,C,D,E)
+  50:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \param[out] none
+  51:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \retval     none
+  52:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** */
+  53:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** void gpio_deinit(uint32_t gpio_periph)
+  54:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** {
+  16              		.loc 1 54 1
+  17              		.cfi_startproc
+  18              	.LVL0:
+  55:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     switch (gpio_periph) {
+  19              		.loc 1 55 5
+  54:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     switch (gpio_periph) {
+  20              		.loc 1 54 1 is_stmt 0
+  21 0000 4111     		addi	sp,sp,-16
+  22              	.LCFI0:
+  23              		.cfi_def_cfa_offset 16
+  24 0002 06C6     		sw	ra,12(sp)
+  25              		.cfi_offset 1, -4
+  26              		.loc 1 55 5
+  27 0004 B7170140 		li	a5,1073811456
+  28 0008 6302F506 		beq	a0,a5,.L2
+  29 000c 63FAA702 		bleu	a0,a5,.L11
+  30 0010 93870740 		addi	a5,a5,1024
+  31 0014 630AF506 		beq	a0,a5,.L7
+  32 0018 B7270140 		li	a5,1073815552
+  33 001c 93870780 		addi	a5,a5,-2048
+  34 0020 6312F508 		bne	a0,a5,.L1
+  56:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     case GPIOA:
+  57:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         /* reset GPIOA */
+  58:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         rcu_periph_reset_enable(RCU_GPIOARST);
+  59:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         rcu_periph_reset_disable(RCU_GPIOARST);
+  60:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         break;
+  61:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     case GPIOB:
+  62:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         /* reset GPIOB */
+  63:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         rcu_periph_reset_enable(RCU_GPIOBRST);
+  64:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         rcu_periph_reset_disable(RCU_GPIOBRST);
+  65:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         break;
+  66:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     case GPIOC:
+  67:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         /* reset GPIOC */
+  68:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         rcu_periph_reset_enable(RCU_GPIOCRST);
+  69:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         rcu_periph_reset_disable(RCU_GPIOCRST);
+  70:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         break;
+  71:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     case GPIOD:
+  72:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         /* reset GPIOD */
+  73:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         rcu_periph_reset_enable(RCU_GPIODRST);
+  74:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         rcu_periph_reset_disable(RCU_GPIODRST);
+  75:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         break;
+  76:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     case GPIOE:
+  77:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         /* reset GPIOE */
+  78:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         rcu_periph_reset_enable(RCU_GPIOERST);
+  35              		.loc 1 78 9 is_stmt 1
+  36 0024 13056030 		li	a0,774
+GAS LISTING /tmp/ccsCKFkX.s 			page 3
+
+
+  37              	.LVL1:
+  38 0028 97000000 		call	rcu_periph_reset_enable
+  38      E7800000 
+  39              	.LVL2:
+  79:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         rcu_periph_reset_disable(RCU_GPIOERST);
+  40              		.loc 1 79 9
+  80:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         break;
+  81:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     default:
+  82:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         break;
+  83:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     }
+  84:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** }
+  41              		.loc 1 84 1 is_stmt 0
+  42 0030 B240     		lw	ra,12(sp)
+  43              		.cfi_remember_state
+  44              		.cfi_restore 1
+  79:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         rcu_periph_reset_disable(RCU_GPIOERST);
+  45              		.loc 1 79 9
+  46 0032 13056030 		li	a0,774
+  47              		.loc 1 84 1
+  48 0036 4101     		addi	sp,sp,16
+  49              	.LCFI1:
+  50              		.cfi_def_cfa_offset 0
+  79:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         rcu_periph_reset_disable(RCU_GPIOERST);
+  51              		.loc 1 79 9
+  52 0038 17030000 		tail	rcu_periph_reset_disable
+  52      67000300 
+  53              	.LVL3:
+  54              	.L11:
+  55              	.LCFI2:
+  56              		.cfi_restore_state
+  55:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     case GPIOA:
+  57              		.loc 1 55 5
+  58 0040 13870780 		addi	a4,a5,-2048
+  59 0044 6303E506 		beq	a0,a4,.L4
+  60 0048 938707C0 		addi	a5,a5,-1024
+  61 004c 631CF504 		bne	a0,a5,.L1
+  63:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         rcu_periph_reset_disable(RCU_GPIOBRST);
+  62              		.loc 1 63 9 is_stmt 1
+  63 0050 13053030 		li	a0,771
+  64              	.LVL4:
+  65 0054 97000000 		call	rcu_periph_reset_enable
+  65      E7800000 
+  66              	.LVL5:
+  64:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         break;
+  67              		.loc 1 64 9
+  68              		.loc 1 84 1 is_stmt 0
+  69 005c B240     		lw	ra,12(sp)
+  70              		.cfi_remember_state
+  71              		.cfi_restore 1
+  64:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         break;
+  72              		.loc 1 64 9
+  73 005e 13053030 		li	a0,771
+  74              		.loc 1 84 1
+  75 0062 4101     		addi	sp,sp,16
+  76              	.LCFI3:
+  77              		.cfi_def_cfa_offset 0
+  64:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         break;
+GAS LISTING /tmp/ccsCKFkX.s 			page 4
+
+
+  78              		.loc 1 64 9
+  79 0064 17030000 		tail	rcu_periph_reset_disable
+  79      67000300 
+  80              	.LVL6:
+  81              	.L2:
+  82              	.LCFI4:
+  83              		.cfi_restore_state
+  68:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         rcu_periph_reset_disable(RCU_GPIOCRST);
+  84              		.loc 1 68 9 is_stmt 1
+  85 006c 13054030 		li	a0,772
+  86              	.LVL7:
+  87 0070 97000000 		call	rcu_periph_reset_enable
+  87      E7800000 
+  88              	.LVL8:
+  69:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         break;
+  89              		.loc 1 69 9
+  90              		.loc 1 84 1 is_stmt 0
+  91 0078 B240     		lw	ra,12(sp)
+  92              		.cfi_remember_state
+  93              		.cfi_restore 1
+  69:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         break;
+  94              		.loc 1 69 9
+  95 007a 13054030 		li	a0,772
+  96              		.loc 1 84 1
+  97 007e 4101     		addi	sp,sp,16
+  98              	.LCFI5:
+  99              		.cfi_def_cfa_offset 0
+  69:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         break;
+ 100              		.loc 1 69 9
+ 101 0080 17030000 		tail	rcu_periph_reset_disable
+ 101      67000300 
+ 102              	.LVL9:
+ 103              	.L7:
+ 104              	.LCFI6:
+ 105              		.cfi_restore_state
+  73:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         rcu_periph_reset_disable(RCU_GPIODRST);
+ 106              		.loc 1 73 9 is_stmt 1
+ 107 0088 13055030 		li	a0,773
+ 108              	.LVL10:
+ 109 008c 97000000 		call	rcu_periph_reset_enable
+ 109      E7800000 
+ 110              	.LVL11:
+  74:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         break;
+ 111              		.loc 1 74 9
+ 112              		.loc 1 84 1 is_stmt 0
+ 113 0094 B240     		lw	ra,12(sp)
+ 114              		.cfi_remember_state
+ 115              		.cfi_restore 1
+  74:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         break;
+ 116              		.loc 1 74 9
+ 117 0096 13055030 		li	a0,773
+ 118              		.loc 1 84 1
+ 119 009a 4101     		addi	sp,sp,16
+ 120              	.LCFI7:
+ 121              		.cfi_def_cfa_offset 0
+  74:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         break;
+ 122              		.loc 1 74 9
+GAS LISTING /tmp/ccsCKFkX.s 			page 5
+
+
+ 123 009c 17030000 		tail	rcu_periph_reset_disable
+ 123      67000300 
+ 124              	.LVL12:
+ 125              	.L1:
+ 126              	.LCFI8:
+ 127              		.cfi_restore_state
+ 128              		.loc 1 84 1
+ 129 00a4 B240     		lw	ra,12(sp)
+ 130              		.cfi_remember_state
+ 131              		.cfi_restore 1
+ 132 00a6 4101     		addi	sp,sp,16
+ 133              	.LCFI9:
+ 134              		.cfi_def_cfa_offset 0
+ 135 00a8 8280     		jr	ra
+ 136              	.L4:
+ 137              	.LCFI10:
+ 138              		.cfi_restore_state
+  58:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         rcu_periph_reset_disable(RCU_GPIOARST);
+ 139              		.loc 1 58 9 is_stmt 1
+ 140 00aa 13052030 		li	a0,770
+ 141              	.LVL13:
+ 142 00ae 97000000 		call	rcu_periph_reset_enable
+ 142      E7800000 
+ 143              	.LVL14:
+  59:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         break;
+ 144              		.loc 1 59 9
+ 145              		.loc 1 84 1 is_stmt 0
+ 146 00b6 B240     		lw	ra,12(sp)
+ 147              		.cfi_restore 1
+  59:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         break;
+ 148              		.loc 1 59 9
+ 149 00b8 13052030 		li	a0,770
+ 150              		.loc 1 84 1
+ 151 00bc 4101     		addi	sp,sp,16
+ 152              	.LCFI11:
+ 153              		.cfi_def_cfa_offset 0
+  59:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         break;
+ 154              		.loc 1 59 9
+ 155 00be 17030000 		tail	rcu_periph_reset_disable
+ 155      67000300 
+ 156              	.LVL15:
+ 157              		.cfi_endproc
+ 158              	.LFE2:
+ 160              		.section	.text.gpio_afio_deinit,"ax",@progbits
+ 161              		.align	1
+ 162              		.globl	gpio_afio_deinit
+ 164              	gpio_afio_deinit:
+ 165              	.LFB3:
+  85:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** 
+  86:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** /*!
+  87:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \brief      reset alternate function I/O(AFIO)
+  88:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \param[in]  none
+  89:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \param[out] none
+  90:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \retval     none
+  91:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** */
+  92:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** void gpio_afio_deinit(void)
+  93:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** {
+GAS LISTING /tmp/ccsCKFkX.s 			page 6
+
+
+ 166              		.loc 1 93 1 is_stmt 1
+ 167              		.cfi_startproc
+  94:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     rcu_periph_reset_enable(RCU_AFRST);
+ 168              		.loc 1 94 5
+  93:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     rcu_periph_reset_enable(RCU_AFRST);
+ 169              		.loc 1 93 1 is_stmt 0
+ 170 0000 4111     		addi	sp,sp,-16
+ 171              	.LCFI12:
+ 172              		.cfi_def_cfa_offset 16
+ 173              		.loc 1 94 5
+ 174 0002 13050030 		li	a0,768
+  93:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     rcu_periph_reset_enable(RCU_AFRST);
+ 175              		.loc 1 93 1
+ 176 0006 06C6     		sw	ra,12(sp)
+ 177              		.cfi_offset 1, -4
+ 178              		.loc 1 94 5
+ 179 0008 97000000 		call	rcu_periph_reset_enable
+ 179      E7800000 
+ 180              	.LVL16:
+  95:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     rcu_periph_reset_disable(RCU_AFRST);
+ 181              		.loc 1 95 5 is_stmt 1
+  96:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** }
+ 182              		.loc 1 96 1 is_stmt 0
+ 183 0010 B240     		lw	ra,12(sp)
+ 184              		.cfi_restore 1
+  95:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     rcu_periph_reset_disable(RCU_AFRST);
+ 185              		.loc 1 95 5
+ 186 0012 13050030 		li	a0,768
+ 187              		.loc 1 96 1
+ 188 0016 4101     		addi	sp,sp,16
+ 189              	.LCFI13:
+ 190              		.cfi_def_cfa_offset 0
+  95:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     rcu_periph_reset_disable(RCU_AFRST);
+ 191              		.loc 1 95 5
+ 192 0018 17030000 		tail	rcu_periph_reset_disable
+ 192      67000300 
+ 193              	.LVL17:
+ 194              		.cfi_endproc
+ 195              	.LFE3:
+ 197              		.section	.text.gpio_init,"ax",@progbits
+ 198              		.align	1
+ 199              		.globl	gpio_init
+ 201              	gpio_init:
+ 202              	.LFB4:
+  97:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** 
+  98:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** /*!
+  99:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \brief      GPIO parameter initialization
+ 100:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \param[in]  gpio_periph: GPIOx(x = A,B,C,D,E)
+ 101:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \param[in]  mode: gpio pin mode
+ 102:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****                 only one parameter can be selected which is shown as below:
+ 103:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****       \arg        GPIO_MODE_AIN: analog input mode
+ 104:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****       \arg        GPIO_MODE_IN_FLOATING: floating input mode
+ 105:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****       \arg        GPIO_MODE_IPD: pull-down input mode
+ 106:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****       \arg        GPIO_MODE_IPU: pull-up input mode
+ 107:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****       \arg        GPIO_MODE_OUT_OD: GPIO output with open-drain
+ 108:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****       \arg        GPIO_MODE_OUT_PP: GPIO output with push-pull
+ 109:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****       \arg        GPIO_MODE_AF_OD: AFIO output with open-drain
+GAS LISTING /tmp/ccsCKFkX.s 			page 7
+
+
+ 110:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****       \arg        GPIO_MODE_AF_PP: AFIO output with push-pull
+ 111:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \param[in]  speed: gpio output max speed value
+ 112:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****                 only one parameter can be selected which is shown as below:
+ 113:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****       \arg        GPIO_OSPEED_10MHZ: output max speed 10MHz
+ 114:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****       \arg        GPIO_OSPEED_2MHZ: output max speed 2MHz
+ 115:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****       \arg        GPIO_OSPEED_50MHZ: output max speed 50MHz
+ 116:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \param[in]  pin: GPIO pin
+ 117:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****                 one or more parameters can be selected which are shown as below:
+ 118:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****       \arg        GPIO_PIN_x(x=0..15), GPIO_PIN_ALL
+ 119:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** 
+ 120:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \param[out] none
+ 121:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \retval     none
+ 122:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** */
+ 123:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** void gpio_init(uint32_t gpio_periph, uint32_t mode, uint32_t speed,
+ 124:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         uint32_t pin)
+ 125:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** {
+ 203              		.loc 1 125 1 is_stmt 1
+ 204              		.cfi_startproc
+ 205              	.LVL18:
+ 126:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     uint16_t i;
+ 206              		.loc 1 126 5
+ 127:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     uint32_t temp_mode = 0U;
+ 207              		.loc 1 127 5
+ 128:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     uint32_t reg = 0U;
+ 208              		.loc 1 128 5
+ 129:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** 
+ 130:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     /* GPIO mode configuration */
+ 131:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     temp_mode = (uint32_t) (mode & ((uint32_t) 0x0FU));
+ 209              		.loc 1 131 5
+ 132:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** 
+ 133:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     /* GPIO speed configuration */
+ 134:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     if (((uint32_t) 0x00U) != ((uint32_t) mode & ((uint32_t) 0x10U))) {
+ 210              		.loc 1 134 48 is_stmt 0
+ 211 0000 93F70501 		andi	a5,a1,16
+ 131:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** 
+ 212              		.loc 1 131 15
+ 213 0004 13F3F500 		andi	t1,a1,15
+ 214              	.LVL19:
+ 215              		.loc 1 134 5 is_stmt 1
+ 216              		.loc 1 134 8 is_stmt 0
+ 217 0008 99C3     		beq	a5,zero,.L15
+ 135:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         /* output mode max speed:10MHz,2MHz,50MHz */
+ 136:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         temp_mode |= (uint32_t) speed;
+ 218              		.loc 1 136 9 is_stmt 1
+ 219              		.loc 1 136 19 is_stmt 0
+ 220 000a 3363C300 		or	t1,t1,a2
+ 221              	.LVL20:
+ 222              	.L15:
+ 137:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     }
+ 138:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** 
+ 139:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     /* configure the eight low port pins with GPIO_CTL0 */
+ 140:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     for (i = 0U; i < 8U; i++) {
+ 223              		.loc 1 140 5 is_stmt 1
+ 224              		.loc 1 140 18
+ 125:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     uint16_t i;
+ 225              		.loc 1 125 1 is_stmt 0
+ 226 000e 8147     		li	a5,0
+GAS LISTING /tmp/ccsCKFkX.s 			page 8
+
+
+ 141:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         if ((1U << i) & pin) {
+ 227              		.loc 1 141 17
+ 228 0010 854E     		li	t4,1
+ 142:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****             reg = GPIO_CTL0(gpio_periph);
+ 143:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** 
+ 144:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****             /* clear the specified pin mode bits */
+ 145:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****             reg &= ~GPIO_MODE_MASK(i);
+ 229              		.loc 1 145 21
+ 230 0012 3D4E     		li	t3,15
+ 146:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****             /* set the specified pin mode bits */
+ 147:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****             reg |= GPIO_MODE_SET(i, temp_mode);
+ 148:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** 
+ 149:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****             /* set IPD or IPU */
+ 150:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****             if (GPIO_MODE_IPD == mode) {
+ 231              		.loc 1 150 16
+ 232 0014 930F8002 		li	t6,40
+ 151:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****                 /* reset the corresponding OCTL bit */
+ 152:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****                 GPIO_BC(gpio_periph) = (uint32_t) ((1U << i) & pin);
+ 153:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****             } else {
+ 154:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****                 /* set the corresponding OCTL bit */
+ 155:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****                 if (GPIO_MODE_IPU == mode) {
+ 233              		.loc 1 155 20
+ 234 0018 93028004 		li	t0,72
+ 140:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         if ((1U << i) & pin) {
+ 235              		.loc 1 140 5
+ 236 001c A148     		li	a7,8
+ 237              	.LVL21:
+ 238              	.L19:
+ 141:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****             reg = GPIO_CTL0(gpio_periph);
+ 239              		.loc 1 141 9 is_stmt 1
+ 142:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** 
+ 240              		.loc 1 142 13
+ 241 001e 13962700 		slli	a2,a5,2
+ 141:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****             reg = GPIO_CTL0(gpio_periph);
+ 242              		.loc 1 141 17 is_stmt 0
+ 243 0022 3397FE00 		sll	a4,t4,a5
+ 145:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****             /* set the specified pin mode bits */
+ 244              		.loc 1 145 21
+ 245 0026 3318CE00 		sll	a6,t3,a2
+ 141:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****             reg = GPIO_CTL0(gpio_periph);
+ 246              		.loc 1 141 23
+ 247 002a 758F     		and	a4,a4,a3
+ 145:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****             /* set the specified pin mode bits */
+ 248              		.loc 1 145 20
+ 249 002c 1348F8FF 		not	a6,a6
+ 147:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** 
+ 250              		.loc 1 147 20
+ 251 0030 3316C300 		sll	a2,t1,a2
+ 141:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****             reg = GPIO_CTL0(gpio_periph);
+ 252              		.loc 1 141 12
+ 253 0034 01CF     		beq	a4,zero,.L16
+ 254              		.loc 1 155 17 is_stmt 1
+ 142:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** 
+ 255              		.loc 1 142 17 is_stmt 0
+ 256 0036 032F0500 		lw	t5,0(a0)
+ 257              	.LVL22:
+ 145:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****             /* set the specified pin mode bits */
+GAS LISTING /tmp/ccsCKFkX.s 			page 9
+
+
+ 258              		.loc 1 145 13 is_stmt 1
+ 145:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****             /* set the specified pin mode bits */
+ 259              		.loc 1 145 17 is_stmt 0
+ 260 003a 3378E801 		and	a6,a6,t5
+ 261              	.LVL23:
+ 147:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** 
+ 262              		.loc 1 147 13 is_stmt 1
+ 147:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** 
+ 263              		.loc 1 147 17 is_stmt 0
+ 264 003e 33660601 		or	a2,a2,a6
+ 265              	.LVL24:
+ 150:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****                 /* reset the corresponding OCTL bit */
+ 266              		.loc 1 150 13 is_stmt 1
+ 150:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****                 /* reset the corresponding OCTL bit */
+ 267              		.loc 1 150 16 is_stmt 0
+ 268 0042 638EF505 		beq	a1,t6,.L35
+ 269              		.loc 1 155 20
+ 270 0046 63885504 		beq	a1,t0,.L36
+ 271              	.L18:
+ 156:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****                     GPIO_BOP(gpio_periph) = (uint32_t) ((1U << i) & pin);
+ 157:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****                 }
+ 158:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****             }
+ 159:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****             /* set GPIO_CTL0 register */
+ 160:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****             GPIO_CTL0(gpio_periph) = reg;
+ 272              		.loc 1 160 13 is_stmt 1
+ 273              		.loc 1 160 36 is_stmt 0
+ 274 004a 10C1     		sw	a2,0(a0)
+ 275              	.LVL25:
+ 276              	.L16:
+ 140:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         if ((1U << i) & pin) {
+ 277              		.loc 1 140 26 is_stmt 1 discriminator 2
+ 140:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         if ((1U << i) & pin) {
+ 278              		.loc 1 140 18 discriminator 2
+ 140:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         if ((1U << i) & pin) {
+ 279              		.loc 1 140 5 is_stmt 0 discriminator 2
+ 280 004c 8507     		addi	a5,a5,1
+ 281              	.LVL26:
+ 282 004e E39817FD 		bne	a5,a7,.L19
+ 283 0052 0148     		li	a6,0
+ 161:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         }
+ 162:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     }
+ 163:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     /* configure the eight high port pins with GPIO_CTL1 */
+ 164:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     for (i = 8U; i < 16U; i++) {
+ 165:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         if ((1U << i) & pin) {
+ 284              		.loc 1 165 17
+ 285 0054 054F     		li	t5,1
+ 166:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****             reg = GPIO_CTL1(gpio_periph);
+ 167:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** 
+ 168:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****             /* clear the specified pin mode bits */
+ 169:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****             reg &= ~GPIO_MODE_MASK(i - 8U);
+ 286              		.loc 1 169 21
+ 287 0056 BD4E     		li	t4,15
+ 170:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****             /* set the specified pin mode bits */
+ 171:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****             reg |= GPIO_MODE_SET(i - 8U, temp_mode);
+ 172:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** 
+ 173:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****             /* set IPD or IPU */
+ 174:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****             if (GPIO_MODE_IPD == mode) {
+GAS LISTING /tmp/ccsCKFkX.s 			page 10
+
+
+ 288              		.loc 1 174 16
+ 289 0058 93028002 		li	t0,40
+ 175:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****                 /* reset the corresponding OCTL bit */
+ 176:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****                 GPIO_BC(gpio_periph) = (uint32_t) ((1U << i) & pin);
+ 177:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****             } else {
+ 178:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****                 /* set the corresponding OCTL bit */
+ 179:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****                 if (GPIO_MODE_IPU == mode) {
+ 290              		.loc 1 179 20
+ 291 005c 93038004 		li	t2,72
+ 164:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         if ((1U << i) & pin) {
+ 292              		.loc 1 164 5
+ 293 0060 414E     		li	t3,16
+ 294              	.L23:
+ 295              	.LVL27:
+ 165:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****             reg = GPIO_CTL1(gpio_periph);
+ 296              		.loc 1 165 9 is_stmt 1
+ 166:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** 
+ 297              		.loc 1 166 13
+ 165:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****             reg = GPIO_CTL1(gpio_periph);
+ 298              		.loc 1 165 17 is_stmt 0
+ 299 0062 3316FF00 		sll	a2,t5,a5
+ 169:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****             /* set the specified pin mode bits */
+ 300              		.loc 1 169 21
+ 301 0066 33970E01 		sll	a4,t4,a6
+ 165:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****             reg = GPIO_CTL1(gpio_periph);
+ 302              		.loc 1 165 23
+ 303 006a 758E     		and	a2,a2,a3
+ 169:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****             /* set the specified pin mode bits */
+ 304              		.loc 1 169 20
+ 305 006c 1347F7FF 		not	a4,a4
+ 171:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** 
+ 306              		.loc 1 171 20
+ 307 0070 B3180301 		sll	a7,t1,a6
+ 165:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****             reg = GPIO_CTL1(gpio_periph);
+ 308              		.loc 1 165 12
+ 309 0074 01CE     		beq	a2,zero,.L20
+ 310              		.loc 1 179 17 is_stmt 1
+ 166:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** 
+ 311              		.loc 1 166 17 is_stmt 0
+ 312 0076 832F4500 		lw	t6,4(a0)
+ 313              	.LVL28:
+ 169:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****             /* set the specified pin mode bits */
+ 314              		.loc 1 169 13 is_stmt 1
+ 169:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****             /* set the specified pin mode bits */
+ 315              		.loc 1 169 17 is_stmt 0
+ 316 007a 3377F701 		and	a4,a4,t6
+ 317              	.LVL29:
+ 171:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** 
+ 318              		.loc 1 171 13 is_stmt 1
+ 171:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** 
+ 319              		.loc 1 171 17 is_stmt 0
+ 320 007e 33E7E800 		or	a4,a7,a4
+ 321              	.LVL30:
+ 174:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****                 /* reset the corresponding OCTL bit */
+ 322              		.loc 1 174 13 is_stmt 1
+ 174:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****                 /* reset the corresponding OCTL bit */
+ 323              		.loc 1 174 16 is_stmt 0
+GAS LISTING /tmp/ccsCKFkX.s 			page 11
+
+
+ 324 0082 63805502 		beq	a1,t0,.L37
+ 325              		.loc 1 179 20
+ 326 0086 638A7500 		beq	a1,t2,.L38
+ 327              	.L22:
+ 180:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****                     GPIO_BOP(gpio_periph) = (uint32_t) ((1U << i) & pin);
+ 181:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****                 }
+ 182:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****             }
+ 183:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****             /* set GPIO_CTL1 register */
+ 184:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****             GPIO_CTL1(gpio_periph) = reg;
+ 328              		.loc 1 184 13 is_stmt 1
+ 329              		.loc 1 184 36 is_stmt 0
+ 330 008a 58C1     		sw	a4,4(a0)
+ 331              	.LVL31:
+ 332              	.L20:
+ 164:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         if ((1U << i) & pin) {
+ 333              		.loc 1 164 27 is_stmt 1 discriminator 2
+ 164:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         if ((1U << i) & pin) {
+ 334              		.loc 1 164 18 discriminator 2
+ 164:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         if ((1U << i) & pin) {
+ 335              		.loc 1 164 5 is_stmt 0 discriminator 2
+ 336 008c 8507     		addi	a5,a5,1
+ 337              	.LVL32:
+ 338 008e 1108     		addi	a6,a6,4
+ 339 0090 E399C7FD 		bne	a5,t3,.L23
+ 185:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         }
+ 186:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     }
+ 187:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** }
+ 340              		.loc 1 187 1
+ 341 0094 8280     		ret
+ 342              	.LVL33:
+ 343              	.L36:
+ 156:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****                 }
+ 344              		.loc 1 156 21 is_stmt 1
+ 156:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****                 }
+ 345              		.loc 1 156 43 is_stmt 0
+ 346 0096 18C9     		sw	a4,16(a0)
+ 347 0098 4DBF     		j	.L18
+ 348              	.LVL34:
+ 349              	.L38:
+ 180:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****                 }
+ 350              		.loc 1 180 21 is_stmt 1
+ 180:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****                 }
+ 351              		.loc 1 180 43 is_stmt 0
+ 352 009a 10C9     		sw	a2,16(a0)
+ 353 009c FDB7     		j	.L22
+ 354              	.LVL35:
+ 355              	.L35:
+ 152:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****             } else {
+ 356              		.loc 1 152 17 is_stmt 1
+ 152:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****             } else {
+ 357              		.loc 1 152 38 is_stmt 0
+ 358 009e 58C9     		sw	a4,20(a0)
+ 359 00a0 6DB7     		j	.L18
+ 360              	.LVL36:
+ 361              	.L37:
+ 176:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****             } else {
+ 362              		.loc 1 176 17 is_stmt 1
+GAS LISTING /tmp/ccsCKFkX.s 			page 12
+
+
+ 176:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****             } else {
+ 363              		.loc 1 176 38 is_stmt 0
+ 364 00a2 50C9     		sw	a2,20(a0)
+ 365 00a4 DDB7     		j	.L22
+ 366              		.cfi_endproc
+ 367              	.LFE4:
+ 369              		.section	.text.gpio_bit_set,"ax",@progbits
+ 370              		.align	1
+ 371              		.globl	gpio_bit_set
+ 373              	gpio_bit_set:
+ 374              	.LFB5:
+ 188:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** 
+ 189:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** /*!
+ 190:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \brief      set GPIO pin
+ 191:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \param[in]  gpio_periph: GPIOx(x = A,B,C,D,E)
+ 192:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \param[in]  pin: GPIO pin
+ 193:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****                 one or more parameters can be selected which are shown as below:
+ 194:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****       \arg        GPIO_PIN_x(x=0..15), GPIO_PIN_ALL
+ 195:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \param[out] none
+ 196:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \retval     none
+ 197:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** */
+ 198:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** void gpio_bit_set(uint32_t gpio_periph, uint32_t pin)
+ 199:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** {
+ 375              		.loc 1 199 1 is_stmt 1
+ 376              		.cfi_startproc
+ 377              	.LVL37:
+ 200:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     GPIO_BOP(gpio_periph) = (uint32_t) pin;
+ 378              		.loc 1 200 5
+ 379              		.loc 1 200 27 is_stmt 0
+ 380 0000 0CC9     		sw	a1,16(a0)
+ 201:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** }
+ 381              		.loc 1 201 1
+ 382 0002 8280     		ret
+ 383              		.cfi_endproc
+ 384              	.LFE5:
+ 386              		.section	.text.gpio_bit_reset,"ax",@progbits
+ 387              		.align	1
+ 388              		.globl	gpio_bit_reset
+ 390              	gpio_bit_reset:
+ 391              	.LFB6:
+ 202:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** 
+ 203:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** /*!
+ 204:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \brief      reset GPIO pin
+ 205:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \param[in]  gpio_periph: GPIOx(x = A,B,C,D,E)
+ 206:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \param[in]  pin: GPIO pin
+ 207:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****                 one or more parameters can be selected which are shown as below:
+ 208:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****       \arg        GPIO_PIN_x(x=0..15), GPIO_PIN_ALL
+ 209:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \param[out] none
+ 210:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \retval     none
+ 211:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** */
+ 212:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** void gpio_bit_reset(uint32_t gpio_periph, uint32_t pin)
+ 213:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** {
+ 392              		.loc 1 213 1 is_stmt 1
+ 393              		.cfi_startproc
+ 394              	.LVL38:
+ 214:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     GPIO_BC(gpio_periph) = (uint32_t) pin;
+ 395              		.loc 1 214 5
+GAS LISTING /tmp/ccsCKFkX.s 			page 13
+
+
+ 396              		.loc 1 214 26 is_stmt 0
+ 397 0000 4CC9     		sw	a1,20(a0)
+ 215:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** }
+ 398              		.loc 1 215 1
+ 399 0002 8280     		ret
+ 400              		.cfi_endproc
+ 401              	.LFE6:
+ 403              		.section	.text.gpio_bit_write,"ax",@progbits
+ 404              		.align	1
+ 405              		.globl	gpio_bit_write
+ 407              	gpio_bit_write:
+ 408              	.LFB7:
+ 216:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** 
+ 217:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** /*!
+ 218:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \brief      write data to the specified GPIO pin
+ 219:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \param[in]  gpio_periph: GPIOx(x = A,B,C,D,E)
+ 220:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \param[in]  pin: GPIO pin
+ 221:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****                 one or more parameters can be selected which are shown as below:
+ 222:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****       \arg        GPIO_PIN_x(x=0..15), GPIO_PIN_ALL
+ 223:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \param[in]  bit_value: SET or RESET
+ 224:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****                 only one parameter can be selected which is shown as below:
+ 225:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****       \arg        RESET: clear the port pin
+ 226:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****       \arg        SET: set the port pin
+ 227:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \param[out] none
+ 228:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \retval     none
+ 229:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** */
+ 230:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** void gpio_bit_write(uint32_t gpio_periph, uint32_t pin, bit_status bit_value)
+ 231:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** {
+ 409              		.loc 1 231 1 is_stmt 1
+ 410              		.cfi_startproc
+ 411              	.LVL39:
+ 232:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     if (RESET != bit_value) {
+ 412              		.loc 1 232 5
+ 413              		.loc 1 232 8 is_stmt 0
+ 414 0000 19C2     		beq	a2,zero,.L42
+ 233:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         GPIO_BOP(gpio_periph) = (uint32_t) pin;
+ 415              		.loc 1 233 9 is_stmt 1
+ 416              		.loc 1 233 31 is_stmt 0
+ 417 0002 0CC9     		sw	a1,16(a0)
+ 418 0004 8280     		ret
+ 419              	.L42:
+ 234:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     } else {
+ 235:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         GPIO_BC(gpio_periph) = (uint32_t) pin;
+ 420              		.loc 1 235 9 is_stmt 1
+ 421              		.loc 1 235 30 is_stmt 0
+ 422 0006 4CC9     		sw	a1,20(a0)
+ 236:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     }
+ 237:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** }
+ 423              		.loc 1 237 1
+ 424 0008 8280     		ret
+ 425              		.cfi_endproc
+ 426              	.LFE7:
+ 428              		.section	.text.gpio_port_write,"ax",@progbits
+ 429              		.align	1
+ 430              		.globl	gpio_port_write
+ 432              	gpio_port_write:
+ 433              	.LFB8:
+GAS LISTING /tmp/ccsCKFkX.s 			page 14
+
+
+ 238:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** 
+ 239:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** /*!
+ 240:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \brief      write data to the specified GPIO port
+ 241:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \param[in]  gpio_periph: GPIOx(x = A,B,C,D,E)
+ 242:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \param[in]  data: specify the value to be written to the port output data register
+ 243:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \param[out] none
+ 244:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \retval     none
+ 245:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** */
+ 246:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** void gpio_port_write(uint32_t gpio_periph, uint16_t data)
+ 247:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** {
+ 434              		.loc 1 247 1 is_stmt 1
+ 435              		.cfi_startproc
+ 436              	.LVL40:
+ 248:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     GPIO_OCTL(gpio_periph) = (uint32_t) data;
+ 437              		.loc 1 248 5
+ 438              		.loc 1 248 28 is_stmt 0
+ 439 0000 4CC5     		sw	a1,12(a0)
+ 249:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** }
+ 440              		.loc 1 249 1
+ 441 0002 8280     		ret
+ 442              		.cfi_endproc
+ 443              	.LFE8:
+ 445              		.section	.text.gpio_input_bit_get,"ax",@progbits
+ 446              		.align	1
+ 447              		.globl	gpio_input_bit_get
+ 449              	gpio_input_bit_get:
+ 450              	.LFB9:
+ 250:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** 
+ 251:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** /*!
+ 252:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \brief      get GPIO pin input status
+ 253:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \param[in]  gpio_periph: GPIOx(x = A,B,C,D,E)
+ 254:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \param[in]  pin: GPIO pin
+ 255:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****                 only one parameter can be selected which are shown as below:
+ 256:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****       \arg        GPIO_PIN_x(x=0..15), GPIO_PIN_ALL
+ 257:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \param[out] none
+ 258:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \retval     input status of gpio pin: SET or RESET
+ 259:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** */
+ 260:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** FlagStatus gpio_input_bit_get(uint32_t gpio_periph, uint32_t pin)
+ 261:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** {
+ 451              		.loc 1 261 1 is_stmt 1
+ 452              		.cfi_startproc
+ 453              	.LVL41:
+ 262:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     if ((uint32_t) RESET != (GPIO_ISTAT(gpio_periph) & (pin))) {
+ 454              		.loc 1 262 5
+ 455              		.loc 1 262 30 is_stmt 0
+ 456 0000 0845     		lw	a0,8(a0)
+ 457              	.LVL42:
+ 458              		.loc 1 262 54
+ 459 0002 6D8D     		and	a0,a0,a1
+ 263:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         return SET;
+ 264:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     } else {
+ 265:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         return RESET;
+ 266:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     }
+ 267:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** }
+ 460              		.loc 1 267 1
+ 461 0004 3335A000 		snez	a0,a0
+ 462 0008 8280     		ret
+GAS LISTING /tmp/ccsCKFkX.s 			page 15
+
+
+ 463              		.cfi_endproc
+ 464              	.LFE9:
+ 466              		.section	.text.gpio_input_port_get,"ax",@progbits
+ 467              		.align	1
+ 468              		.globl	gpio_input_port_get
+ 470              	gpio_input_port_get:
+ 471              	.LFB10:
+ 268:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** 
+ 269:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** /*!
+ 270:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \brief      get GPIO port input status
+ 271:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \param[in]  gpio_periph: GPIOx(x = A,B,C,D,E)
+ 272:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \param[out] none
+ 273:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \retval     input status of gpio all pins
+ 274:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** */
+ 275:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** uint16_t gpio_input_port_get(uint32_t gpio_periph)
+ 276:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** {
+ 472              		.loc 1 276 1 is_stmt 1
+ 473              		.cfi_startproc
+ 474              	.LVL43:
+ 277:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     return (uint16_t) (GPIO_ISTAT(gpio_periph));
+ 475              		.loc 1 277 5
+ 476              		.loc 1 277 24 is_stmt 0
+ 477 0000 0845     		lw	a0,8(a0)
+ 478              	.LVL44:
+ 278:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** }
+ 479              		.loc 1 278 1
+ 480 0002 4205     		slli	a0,a0,16
+ 481 0004 4181     		srli	a0,a0,16
+ 482 0006 8280     		ret
+ 483              		.cfi_endproc
+ 484              	.LFE10:
+ 486              		.section	.text.gpio_output_bit_get,"ax",@progbits
+ 487              		.align	1
+ 488              		.globl	gpio_output_bit_get
+ 490              	gpio_output_bit_get:
+ 491              	.LFB11:
+ 279:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** 
+ 280:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** /*!
+ 281:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \brief      get GPIO pin output status
+ 282:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \param[in]  gpio_periph: GPIOx(x = A,B,C,D,E)
+ 283:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \param[in]  pin: GPIO pin
+ 284:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****                 only one parameter can be selected which are shown as below:
+ 285:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****       \arg        GPIO_PIN_x(x=0..15), GPIO_PIN_ALL
+ 286:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \param[out] none
+ 287:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \retval     output status of gpio pin: SET or RESET
+ 288:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** */
+ 289:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** FlagStatus gpio_output_bit_get(uint32_t gpio_periph, uint32_t pin)
+ 290:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** {
+ 492              		.loc 1 290 1 is_stmt 1
+ 493              		.cfi_startproc
+ 494              	.LVL45:
+ 291:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     if ((uint32_t) RESET != (GPIO_OCTL(gpio_periph) & (pin))) {
+ 495              		.loc 1 291 5
+ 496              		.loc 1 291 30 is_stmt 0
+ 497 0000 4845     		lw	a0,12(a0)
+ 498              	.LVL46:
+ 499              		.loc 1 291 53
+GAS LISTING /tmp/ccsCKFkX.s 			page 16
+
+
+ 500 0002 6D8D     		and	a0,a0,a1
+ 292:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         return SET;
+ 293:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     } else {
+ 294:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         return RESET;
+ 295:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     }
+ 296:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** }
+ 501              		.loc 1 296 1
+ 502 0004 3335A000 		snez	a0,a0
+ 503 0008 8280     		ret
+ 504              		.cfi_endproc
+ 505              	.LFE11:
+ 507              		.section	.text.gpio_output_port_get,"ax",@progbits
+ 508              		.align	1
+ 509              		.globl	gpio_output_port_get
+ 511              	gpio_output_port_get:
+ 512              	.LFB12:
+ 297:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** 
+ 298:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** /*!
+ 299:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \brief      get GPIO port output status
+ 300:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \param[in]  gpio_periph: GPIOx(x = A,B,C,D,E)
+ 301:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \param[out] none
+ 302:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \retval     output status of gpio all pins
+ 303:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** */
+ 304:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** uint16_t gpio_output_port_get(uint32_t gpio_periph)
+ 305:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** {
+ 513              		.loc 1 305 1 is_stmt 1
+ 514              		.cfi_startproc
+ 515              	.LVL47:
+ 306:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     return ((uint16_t) GPIO_OCTL(gpio_periph));
+ 516              		.loc 1 306 5
+ 517              		.loc 1 306 24 is_stmt 0
+ 518 0000 4845     		lw	a0,12(a0)
+ 519              	.LVL48:
+ 307:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** }
+ 520              		.loc 1 307 1
+ 521 0002 4205     		slli	a0,a0,16
+ 522 0004 4181     		srli	a0,a0,16
+ 523 0006 8280     		ret
+ 524              		.cfi_endproc
+ 525              	.LFE12:
+ 527              		.section	.text.gpio_pin_remap_config,"ax",@progbits
+ 528              		.align	1
+ 529              		.globl	gpio_pin_remap_config
+ 531              	gpio_pin_remap_config:
+ 532              	.LFB13:
+ 308:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** 
+ 309:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** /*!
+ 310:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \brief      configure GPIO pin remap
+ 311:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \param[in]  gpio_remap: select the pin to remap
+ 312:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****                 only one parameter can be selected which are shown as below:
+ 313:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****       \arg        GPIO_SPI0_REMAP: SPI0 remapping
+ 314:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****       \arg        GPIO_I2C0_REMAP: I2C0 remapping
+ 315:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****       \arg        GPIO_USART0_REMAP: USART0 remapping
+ 316:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****       \arg        GPIO_USART1_REMAP: USART1 remapping
+ 317:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****       \arg        GPIO_USART2_PARTIAL_REMAP: USART2 partial remapping
+ 318:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****       \arg        GPIO_USART2_FULL_REMAP: USART2 full remapping
+ 319:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****       \arg        GPIO_TIMER0_PARTIAL_REMAP: TIMER0 partial remapping
+GAS LISTING /tmp/ccsCKFkX.s 			page 17
+
+
+ 320:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****       \arg        GPIO_TIMER0_FULL_REMAP: TIMER0 full remapping
+ 321:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****       \arg        GPIO_TIMER1_PARTIAL_REMAP0: TIMER1 partial remapping
+ 322:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****       \arg        GPIO_TIMER1_PARTIAL_REMAP1: TIMER1 partial remapping
+ 323:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****       \arg        GPIO_TIMER1_FULL_REMAP: TIMER1 full remapping
+ 324:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****       \arg        GPIO_TIMER2_PARTIAL_REMAP: TIMER2 partial remapping
+ 325:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****       \arg        GPIO_TIMER2_FULL_REMAP: TIMER2 full remapping
+ 326:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****       \arg        GPIO_TIMER3_REMAP: TIMER3 remapping
+ 327:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****       \arg        GPIO_CAN0_PARTIAL_REMAP: CAN0 partial remapping
+ 328:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****       \arg        GPIO_CAN0_FULL_REMAP: CAN0 full remapping
+ 329:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****       \arg        GPIO_PD01_REMAP: PD01 remapping
+ 330:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****       \arg        GPIO_TIMER4CH3_IREMAP: TIMER4 channel3 internal remapping
+ 331:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****       \arg        GPIO_CAN1_REMAP: CAN1 remapping
+ 332:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****       \arg        GPIO_SWJ_NONJTRST_REMAP: JTAG-DP,but without NJTRST
+ 333:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****       \arg        GPIO_SWJ_DISABLE_REMAP: JTAG-DP disabled
+ 334:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****       \arg        GPIO_SPI2_REMAP: SPI2 remapping
+ 335:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****       \arg        GPIO_TIMER1ITI1_REMAP: TIMER1 internal trigger 1 remapping
+ 336:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****       \arg        GPIO_EXMC_NADV_REMAP: EXMC_NADV connect/disconnect
+ 337:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \param[in]  newvalue: ENABLE or DISABLE
+ 338:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \param[out] none
+ 339:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \retval     none
+ 340:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** */
+ 341:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** void gpio_pin_remap_config(uint32_t remap, ControlStatus newvalue)
+ 342:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** {
+ 533              		.loc 1 342 1 is_stmt 1
+ 534              		.cfi_startproc
+ 535              	.LVL49:
+ 343:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     uint32_t remap1 = 0U, remap2 = 0U, temp_reg = 0U, temp_mask = 0U;
+ 536              		.loc 1 343 5
+ 344:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** 
+ 345:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     if (AFIO_PCF1_FIELDS == (remap & AFIO_PCF1_FIELDS)) {
+ 537              		.loc 1 345 5
+ 346:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         /* get AFIO_PCF1 regiter value */
+ 347:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         temp_reg = AFIO_PCF1;
+ 538              		.loc 1 347 18 is_stmt 0
+ 539 0000 B7070140 		li	a5,1073807360
+ 345:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         /* get AFIO_PCF1 regiter value */
+ 540              		.loc 1 345 8
+ 541 0004 63480506 		blt	a0,zero,.L61
+ 348:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     } else {
+ 349:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         /* get AFIO_PCF0 regiter value */
+ 350:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         temp_reg = AFIO_PCF0;
+ 542              		.loc 1 350 9 is_stmt 1
+ 351:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     }
+ 352:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** 
+ 353:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     temp_mask = (remap & PCF_POSITION_MASK) >> 0x10U;
+ 354:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     remap1 = remap & LSB_16BIT_MASK;
+ 355:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** 
+ 356:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     /* judge pin remap type */
+ 357:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     if ((PCF_LOCATION1_MASK | PCF_LOCATION2_MASK)
+ 358:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****             == (remap & (PCF_LOCATION1_MASK | PCF_LOCATION2_MASK))) {
+ 543              		.loc 1 358 23 is_stmt 0
+ 544 0008 37073000 		li	a4,3145728
+ 350:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     }
+ 545              		.loc 1 350 18
+ 546 000c DC43     		lw	a5,4(a5)
+ 547              	.LVL50:
+ 353:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     remap1 = remap & LSB_16BIT_MASK;
+GAS LISTING /tmp/ccsCKFkX.s 			page 18
+
+
+ 548              		.loc 1 353 5 is_stmt 1
+ 354:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** 
+ 549              		.loc 1 354 5
+ 354:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** 
+ 550              		.loc 1 354 12 is_stmt 0
+ 551 000e 13160501 		slli	a2,a0,16
+ 552              		.loc 1 358 23
+ 553 0012 B376E500 		and	a3,a0,a4
+ 354:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** 
+ 554              		.loc 1 354 12
+ 555 0016 4182     		srli	a2,a2,16
+ 556              	.LVL51:
+ 357:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****             == (remap & (PCF_LOCATION1_MASK | PCF_LOCATION2_MASK))) {
+ 557              		.loc 1 357 5 is_stmt 1
+ 357:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****             == (remap & (PCF_LOCATION1_MASK | PCF_LOCATION2_MASK))) {
+ 558              		.loc 1 357 8 is_stmt 0
+ 559 0018 6388E606 		beq	a3,a4,.L62
+ 560              	.LVL52:
+ 561              	.L52:
+ 359:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         temp_reg &= PCF_SWJCFG_MASK;
+ 360:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         AFIO_PCF0 &= PCF_SWJCFG_MASK;
+ 361:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     } else if (PCF_LOCATION2_MASK == (remap & PCF_LOCATION2_MASK)) {
+ 562              		.loc 1 361 12 is_stmt 1
+ 563              		.loc 1 361 45 is_stmt 0
+ 564 001c B7061000 		li	a3,1048576
+ 565 0020 E98E     		and	a3,a0,a3
+ 566              		.loc 1 361 15
+ 567 0022 9DCA     		beq	a3,zero,.L54
+ 362:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         remap2 = ((uint32_t) 0x03U) << temp_mask;
+ 568              		.loc 1 362 9 is_stmt 1
+ 569              	.LVL53:
+ 363:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         temp_reg &= ~remap2;
+ 570              		.loc 1 363 9
+ 353:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     remap1 = remap & LSB_16BIT_MASK;
+ 571              		.loc 1 353 45 is_stmt 0
+ 572 0024 93560501 		srli	a3,a0,16
+ 353:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     remap1 = remap & LSB_16BIT_MASK;
+ 573              		.loc 1 353 15
+ 574 0028 13F7F600 		andi	a4,a3,15
+ 362:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         remap2 = ((uint32_t) 0x03U) << temp_mask;
+ 575              		.loc 1 362 16
+ 576 002c 8D46     		li	a3,3
+ 577 002e B396E600 		sll	a3,a3,a4
+ 578              		.loc 1 363 21
+ 579 0032 93C6F6FF 		not	a3,a3
+ 580              		.loc 1 363 18
+ 581 0036 FD8E     		and	a3,a3,a5
+ 582              	.LVL54:
+ 364:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         temp_reg |= ~PCF_SWJCFG_MASK;
+ 583              		.loc 1 364 9 is_stmt 1
+ 584              		.loc 1 364 18 is_stmt 0
+ 585 0038 B707000F 		li	a5,251658240
+ 586 003c D58F     		or	a5,a3,a5
+ 587              	.LVL55:
+ 588              	.L53:
+ 365:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     }  else {
+ 366:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         temp_reg &= ~(remap1 << ((remap >> 0x15U) * 0x10U));
+GAS LISTING /tmp/ccsCKFkX.s 			page 19
+
+
+ 367:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         temp_reg |= ~PCF_SWJCFG_MASK;
+ 368:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     }
+ 369:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** 
+ 370:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     /* set pin remap value */
+ 371:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     if (DISABLE != newvalue) {
+ 589              		.loc 1 371 5 is_stmt 1
+ 590              		.loc 1 371 8 is_stmt 0
+ 591 003e 99C5     		beq	a1,zero,.L55
+ 372:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         temp_reg |= (remap1 << ((remap >> 0x15U) * 0x10U));
+ 592              		.loc 1 372 9 is_stmt 1
+ 593              		.loc 1 372 40 is_stmt 0
+ 594 0040 13575501 		srli	a4,a0,21
+ 595              		.loc 1 372 50
+ 596 0044 1207     		slli	a4,a4,4
+ 597              		.loc 1 372 29
+ 598 0046 3317E600 		sll	a4,a2,a4
+ 599              		.loc 1 372 18
+ 600 004a D98F     		or	a5,a5,a4
+ 601              	.LVL56:
+ 602              	.L55:
+ 373:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     }
+ 374:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** 
+ 375:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     if (AFIO_PCF1_FIELDS == (remap & AFIO_PCF1_FIELDS)) {
+ 603              		.loc 1 375 5 is_stmt 1
+ 376:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         /* set AFIO_PCF1 regiter value */
+ 377:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         AFIO_PCF1 = temp_reg;
+ 604              		.loc 1 377 19 is_stmt 0
+ 605 004c 37070140 		li	a4,1073807360
+ 375:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         /* set AFIO_PCF1 regiter value */
+ 606              		.loc 1 375 8
+ 607 0050 63400502 		blt	a0,zero,.L63
+ 378:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     } else {
+ 379:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         /* set AFIO_PCF0 regiter value */
+ 380:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         AFIO_PCF0 = temp_reg;
+ 608              		.loc 1 380 9 is_stmt 1
+ 609              		.loc 1 380 19 is_stmt 0
+ 610 0054 5CC3     		sw	a5,4(a4)
+ 381:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     }
+ 382:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** }
+ 611              		.loc 1 382 1
+ 612 0056 8280     		ret
+ 613              	.LVL57:
+ 614              	.L54:
+ 366:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         temp_reg |= ~PCF_SWJCFG_MASK;
+ 615              		.loc 1 366 9 is_stmt 1
+ 366:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         temp_reg |= ~PCF_SWJCFG_MASK;
+ 616              		.loc 1 366 41 is_stmt 0
+ 617 0058 13575501 		srli	a4,a0,21
+ 366:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         temp_reg |= ~PCF_SWJCFG_MASK;
+ 618              		.loc 1 366 51
+ 619 005c 1207     		slli	a4,a4,4
+ 366:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         temp_reg |= ~PCF_SWJCFG_MASK;
+ 620              		.loc 1 366 30
+ 621 005e 3317E600 		sll	a4,a2,a4
+ 366:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         temp_reg |= ~PCF_SWJCFG_MASK;
+ 622              		.loc 1 366 21
+ 623 0062 1347F7FF 		not	a4,a4
+GAS LISTING /tmp/ccsCKFkX.s 			page 20
+
+
+ 366:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         temp_reg |= ~PCF_SWJCFG_MASK;
+ 624              		.loc 1 366 18
+ 625 0066 7D8F     		and	a4,a4,a5
+ 626              	.LVL58:
+ 367:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     }
+ 627              		.loc 1 367 9 is_stmt 1
+ 367:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     }
+ 628              		.loc 1 367 18 is_stmt 0
+ 629 0068 B707000F 		li	a5,251658240
+ 630 006c D98F     		or	a5,a4,a5
+ 631              	.LVL59:
+ 632 006e C1BF     		j	.L53
+ 633              	.LVL60:
+ 634              	.L63:
+ 377:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     } else {
+ 635              		.loc 1 377 9 is_stmt 1
+ 377:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     } else {
+ 636              		.loc 1 377 19 is_stmt 0
+ 637 0070 5CCF     		sw	a5,28(a4)
+ 638 0072 8280     		ret
+ 639              	.LVL61:
+ 640              	.L61:
+ 347:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     } else {
+ 641              		.loc 1 347 9 is_stmt 1
+ 358:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         temp_reg &= PCF_SWJCFG_MASK;
+ 642              		.loc 1 358 23 is_stmt 0
+ 643 0074 37073000 		li	a4,3145728
+ 347:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     } else {
+ 644              		.loc 1 347 18
+ 645 0078 DC4F     		lw	a5,28(a5)
+ 646              	.LVL62:
+ 353:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     remap1 = remap & LSB_16BIT_MASK;
+ 647              		.loc 1 353 5 is_stmt 1
+ 354:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** 
+ 648              		.loc 1 354 5
+ 354:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** 
+ 649              		.loc 1 354 12 is_stmt 0
+ 650 007a 13160501 		slli	a2,a0,16
+ 358:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         temp_reg &= PCF_SWJCFG_MASK;
+ 651              		.loc 1 358 23
+ 652 007e B376E500 		and	a3,a0,a4
+ 354:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** 
+ 653              		.loc 1 354 12
+ 654 0082 4182     		srli	a2,a2,16
+ 655              	.LVL63:
+ 357:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****             == (remap & (PCF_LOCATION1_MASK | PCF_LOCATION2_MASK))) {
+ 656              		.loc 1 357 5 is_stmt 1
+ 357:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****             == (remap & (PCF_LOCATION1_MASK | PCF_LOCATION2_MASK))) {
+ 657              		.loc 1 357 8 is_stmt 0
+ 658 0084 E39CE6F8 		bne	a3,a4,.L52
+ 659              	.LVL64:
+ 660              	.L62:
+ 359:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         AFIO_PCF0 &= PCF_SWJCFG_MASK;
+ 661              		.loc 1 359 9 is_stmt 1
+ 360:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     } else if (PCF_LOCATION2_MASK == (remap & PCF_LOCATION2_MASK)) {
+ 662              		.loc 1 360 19 is_stmt 0
+ 663 0088 37080140 		li	a6,1073807360
+GAS LISTING /tmp/ccsCKFkX.s 			page 21
+
+
+ 664 008c 83264800 		lw	a3,4(a6)
+ 359:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         AFIO_PCF0 &= PCF_SWJCFG_MASK;
+ 665              		.loc 1 359 18
+ 666 0090 370700F1 		li	a4,-251658240
+ 667 0094 7D17     		addi	a4,a4,-1
+ 360:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     } else if (PCF_LOCATION2_MASK == (remap & PCF_LOCATION2_MASK)) {
+ 668              		.loc 1 360 19
+ 669 0096 F98E     		and	a3,a3,a4
+ 359:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         AFIO_PCF0 &= PCF_SWJCFG_MASK;
+ 670              		.loc 1 359 18
+ 671 0098 F98F     		and	a5,a5,a4
+ 672              	.LVL65:
+ 360:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     } else if (PCF_LOCATION2_MASK == (remap & PCF_LOCATION2_MASK)) {
+ 673              		.loc 1 360 9 is_stmt 1
+ 360:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     } else if (PCF_LOCATION2_MASK == (remap & PCF_LOCATION2_MASK)) {
+ 674              		.loc 1 360 19 is_stmt 0
+ 675 009a 2322D800 		sw	a3,4(a6)
+ 676 009e 45B7     		j	.L53
+ 677              		.cfi_endproc
+ 678              	.LFE13:
+ 680              		.section	.text.gpio_exti_source_select,"ax",@progbits
+ 681              		.align	1
+ 682              		.globl	gpio_exti_source_select
+ 684              	gpio_exti_source_select:
+ 685              	.LFB14:
+ 383:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** 
+ 384:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** /*!
+ 385:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \brief      select GPIO pin exti sources
+ 386:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \param[in]  gpio_outputport: gpio event output port
+ 387:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****                 only one parameter can be selected which are shown as below:
+ 388:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****       \arg        GPIO_PORT_SOURCE_GPIOA: output port source A
+ 389:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****       \arg        GPIO_PORT_SOURCE_GPIOB: output port source B
+ 390:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****       \arg        GPIO_PORT_SOURCE_GPIOC: output port source C
+ 391:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****       \arg        GPIO_PORT_SOURCE_GPIOD: output port source D
+ 392:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****       \arg        GPIO_PORT_SOURCE_GPIOE: output port source E
+ 393:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \param[in]  gpio_outputpin: GPIO_PIN_SOURCE_x(x=0..15)
+ 394:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \param[out] none
+ 395:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \retval     none
+ 396:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** */
+ 397:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** void gpio_exti_source_select(uint8_t output_port, uint8_t output_pin)
+ 398:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** {
+ 686              		.loc 1 398 1 is_stmt 1
+ 687              		.cfi_startproc
+ 688              	.LVL66:
+ 399:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     uint32_t source = 0U;
+ 689              		.loc 1 399 5
+ 400:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     source = ((uint32_t) 0x0FU)
+ 690              		.loc 1 400 5
+ 401:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****             << (AFIO_EXTI_SOURCE_FIELDS * (output_pin & AFIO_EXTI_SOURCE_MASK));
+ 691              		.loc 1 401 55 is_stmt 0
+ 692 0000 13F73500 		andi	a4,a1,3
+ 693              		.loc 1 401 41
+ 694 0004 0A07     		slli	a4,a4,2
+ 695              	.LVL67:
+ 402:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** 
+ 403:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     /* select EXTI sources */
+ 404:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     if (GPIO_PIN_SOURCE_4 > output_pin) {
+GAS LISTING /tmp/ccsCKFkX.s 			page 22
+
+
+ 696              		.loc 1 404 5 is_stmt 1
+ 400:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****             << (AFIO_EXTI_SOURCE_FIELDS * (output_pin & AFIO_EXTI_SOURCE_MASK));
+ 697              		.loc 1 400 12 is_stmt 0
+ 698 0006 BD47     		li	a5,15
+ 699 0008 B397E700 		sll	a5,a5,a4
+ 700              		.loc 1 404 8
+ 701 000c 8D46     		li	a3,3
+ 405:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         /* select EXTI0/EXTI1/EXTI2/EXTI3 */
+ 406:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         AFIO_EXTISS0 &= ~source;
+ 702              		.loc 1 406 25
+ 703 000e 93C7F7FF 		not	a5,a5
+ 407:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         AFIO_EXTISS0 |= (((uint32_t) output_port)
+ 408:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****                 << (AFIO_EXTI_SOURCE_FIELDS
+ 704              		.loc 1 408 17
+ 705 0012 3317E500 		sll	a4,a0,a4
+ 706              	.LVL68:
+ 404:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         /* select EXTI0/EXTI1/EXTI2/EXTI3 */
+ 707              		.loc 1 404 8
+ 708 0016 63EBB600 		bgtu	a1,a3,.L65
+ 406:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         AFIO_EXTISS0 |= (((uint32_t) output_port)
+ 709              		.loc 1 406 9 is_stmt 1
+ 406:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         AFIO_EXTISS0 |= (((uint32_t) output_port)
+ 710              		.loc 1 406 22 is_stmt 0
+ 711 001a B7060140 		li	a3,1073807360
+ 712 001e 9046     		lw	a2,8(a3)
+ 713 0020 F18F     		and	a5,a2,a5
+ 714 0022 9CC6     		sw	a5,8(a3)
+ 407:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         AFIO_EXTISS0 |= (((uint32_t) output_port)
+ 715              		.loc 1 407 9 is_stmt 1
+ 407:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         AFIO_EXTISS0 |= (((uint32_t) output_port)
+ 716              		.loc 1 407 22 is_stmt 0
+ 717 0024 8846     		lw	a0,8(a3)
+ 718              	.LVL69:
+ 719 0026 498F     		or	a4,a0,a4
+ 720 0028 98C6     		sw	a4,8(a3)
+ 721 002a 8280     		ret
+ 722              	.LVL70:
+ 723              	.L65:
+ 409:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****                         * (output_pin & AFIO_EXTI_SOURCE_MASK)));
+ 410:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     } else if (GPIO_PIN_SOURCE_8 > output_pin) {
+ 724              		.loc 1 410 12 is_stmt 1
+ 725              		.loc 1 410 15 is_stmt 0
+ 726 002c 9D46     		li	a3,7
+ 727 002e 63EBB600 		bgtu	a1,a3,.L67
+ 411:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         /* select EXTI4/EXTI5/EXTI6/EXTI7 */
+ 412:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         AFIO_EXTISS1 &= ~source;
+ 728              		.loc 1 412 9 is_stmt 1
+ 729              		.loc 1 412 22 is_stmt 0
+ 730 0032 B7060140 		li	a3,1073807360
+ 731 0036 D046     		lw	a2,12(a3)
+ 732 0038 F18F     		and	a5,a2,a5
+ 733 003a DCC6     		sw	a5,12(a3)
+ 413:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         AFIO_EXTISS1 |= (((uint32_t) output_port)
+ 734              		.loc 1 413 9 is_stmt 1
+ 735              		.loc 1 413 22 is_stmt 0
+ 736 003c C846     		lw	a0,12(a3)
+ 737              	.LVL71:
+GAS LISTING /tmp/ccsCKFkX.s 			page 23
+
+
+ 738 003e 498F     		or	a4,a0,a4
+ 739 0040 D8C6     		sw	a4,12(a3)
+ 740 0042 8280     		ret
+ 741              	.LVL72:
+ 742              	.L67:
+ 414:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****                 << (AFIO_EXTI_SOURCE_FIELDS
+ 415:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****                         * (output_pin & AFIO_EXTI_SOURCE_MASK)));
+ 416:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     } else if (GPIO_PIN_SOURCE_12 > output_pin) {
+ 743              		.loc 1 416 12 is_stmt 1
+ 744              		.loc 1 416 15 is_stmt 0
+ 745 0044 AD46     		li	a3,11
+ 746 0046 63EBB600 		bgtu	a1,a3,.L68
+ 417:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         /* select EXTI8/EXTI9/EXTI10/EXTI11 */
+ 418:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         AFIO_EXTISS2 &= ~source;
+ 747              		.loc 1 418 9 is_stmt 1
+ 748              		.loc 1 418 22 is_stmt 0
+ 749 004a B7060140 		li	a3,1073807360
+ 750 004e 904A     		lw	a2,16(a3)
+ 751 0050 F18F     		and	a5,a2,a5
+ 752 0052 9CCA     		sw	a5,16(a3)
+ 419:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         AFIO_EXTISS2 |= (((uint32_t) output_port)
+ 753              		.loc 1 419 9 is_stmt 1
+ 754              		.loc 1 419 22 is_stmt 0
+ 755 0054 884A     		lw	a0,16(a3)
+ 756              	.LVL73:
+ 757 0056 498F     		or	a4,a0,a4
+ 758 0058 98CA     		sw	a4,16(a3)
+ 759 005a 8280     		ret
+ 760              	.LVL74:
+ 761              	.L68:
+ 420:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****                 << (AFIO_EXTI_SOURCE_FIELDS
+ 421:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****                         * (output_pin & AFIO_EXTI_SOURCE_MASK)));
+ 422:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     } else {
+ 423:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         /* select EXTI12/EXTI13/EXTI14/EXTI15 */
+ 424:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         AFIO_EXTISS3 &= ~source;
+ 762              		.loc 1 424 9 is_stmt 1
+ 763              		.loc 1 424 22 is_stmt 0
+ 764 005c B7060140 		li	a3,1073807360
+ 765 0060 D04A     		lw	a2,20(a3)
+ 766 0062 F18F     		and	a5,a2,a5
+ 767 0064 DCCA     		sw	a5,20(a3)
+ 425:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****         AFIO_EXTISS3 |= (((uint32_t) output_port)
+ 768              		.loc 1 425 9 is_stmt 1
+ 769              		.loc 1 425 22 is_stmt 0
+ 770 0066 C84A     		lw	a0,20(a3)
+ 771              	.LVL75:
+ 772 0068 498F     		or	a4,a0,a4
+ 773 006a D8CA     		sw	a4,20(a3)
+ 426:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****                 << (AFIO_EXTI_SOURCE_FIELDS
+ 427:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****                         * (output_pin & AFIO_EXTI_SOURCE_MASK)));
+ 428:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     }
+ 429:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** }
+ 774              		.loc 1 429 1
+ 775 006c 8280     		ret
+ 776              		.cfi_endproc
+ 777              	.LFE14:
+ 779              		.section	.text.gpio_event_output_config,"ax",@progbits
+GAS LISTING /tmp/ccsCKFkX.s 			page 24
+
+
+ 780              		.align	1
+ 781              		.globl	gpio_event_output_config
+ 783              	gpio_event_output_config:
+ 784              	.LFB15:
+ 430:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** 
+ 431:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** /*!
+ 432:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \brief      configure GPIO pin event output
+ 433:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \param[in]  output_port: gpio event output port
+ 434:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****                 only one parameter can be selected which are shown as below:
+ 435:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****       \arg        GPIO_EVENT_PORT_GPIOA: event output port A
+ 436:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****       \arg        GPIO_EVENT_PORT_GPIOB: event output port B
+ 437:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****       \arg        GPIO_EVENT_PORT_GPIOC: event output port C
+ 438:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****       \arg        GPIO_EVENT_PORT_GPIOD: event output port D
+ 439:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****       \arg        GPIO_EVENT_PORT_GPIOE: event output port E
+ 440:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \param[in]  output_pin:
+ 441:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****                 only one parameter can be selected which are shown as below:
+ 442:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****       \arg        GPIO_EVENT_PIN_x(x=0..15)
+ 443:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \param[out] none
+ 444:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \retval     none
+ 445:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** */
+ 446:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** void gpio_event_output_config(uint8_t output_port, uint8_t output_pin)
+ 447:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** {
+ 785              		.loc 1 447 1 is_stmt 1
+ 786              		.cfi_startproc
+ 787              	.LVL76:
+ 448:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     uint32_t reg = 0U;
+ 788              		.loc 1 448 5
+ 449:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     reg = AFIO_EC;
+ 789              		.loc 1 449 5
+ 790              		.loc 1 449 9 is_stmt 0
+ 791 0000 37070140 		li	a4,1073807360
+ 792 0004 1C43     		lw	a5,0(a4)
+ 793              	.LVL77:
+ 450:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** 
+ 451:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     /* clear AFIO_EC_PORT and AFIO_EC_PIN bits */
+ 452:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     reg &= (uint32_t) (~(AFIO_EC_PORT | AFIO_EC_PIN));
+ 794              		.loc 1 452 5 is_stmt 1
+ 453:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** 
+ 454:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     reg |= (uint32_t) ((uint32_t) output_port << GPIO_OUTPUT_PORT_OFFSET);
+ 795              		.loc 1 454 5
+ 455:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     reg |= (uint32_t) output_pin;
+ 796              		.loc 1 455 5
+ 454:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     reg |= (uint32_t) output_pin;
+ 797              		.loc 1 454 12 is_stmt 0
+ 798 0006 1205     		slli	a0,a0,4
+ 799              	.LVL78:
+ 452:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** 
+ 800              		.loc 1 452 9
+ 801 0008 93F707F8 		andi	a5,a5,-128
+ 802 000c CD8F     		or	a5,a5,a1
+ 803              		.loc 1 455 9
+ 804 000e 5D8D     		or	a0,a0,a5
+ 805              	.LVL79:
+ 456:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** 
+ 457:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     AFIO_EC = reg;
+ 806              		.loc 1 457 5 is_stmt 1
+ 807              		.loc 1 457 13 is_stmt 0
+GAS LISTING /tmp/ccsCKFkX.s 			page 25
+
+
+ 808 0010 08C3     		sw	a0,0(a4)
+ 458:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** }
+ 809              		.loc 1 458 1
+ 810 0012 8280     		ret
+ 811              		.cfi_endproc
+ 812              	.LFE15:
+ 814              		.section	.text.gpio_event_output_enable,"ax",@progbits
+ 815              		.align	1
+ 816              		.globl	gpio_event_output_enable
+ 818              	gpio_event_output_enable:
+ 819              	.LFB16:
+ 459:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** 
+ 460:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** /*!
+ 461:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \brief      enable GPIO pin event output
+ 462:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \param[in]  none
+ 463:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \param[out] none
+ 464:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \retval     none
+ 465:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** */
+ 466:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** void gpio_event_output_enable(void)
+ 467:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** {
+ 820              		.loc 1 467 1 is_stmt 1
+ 821              		.cfi_startproc
+ 468:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     AFIO_EC |= AFIO_EC_EOE;
+ 822              		.loc 1 468 5
+ 823              		.loc 1 468 13 is_stmt 0
+ 824 0000 37070140 		li	a4,1073807360
+ 825 0004 1C43     		lw	a5,0(a4)
+ 826 0006 93E70708 		ori	a5,a5,128
+ 827 000a 1CC3     		sw	a5,0(a4)
+ 469:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** }
+ 828              		.loc 1 469 1
+ 829 000c 8280     		ret
+ 830              		.cfi_endproc
+ 831              	.LFE16:
+ 833              		.section	.text.gpio_event_output_disable,"ax",@progbits
+ 834              		.align	1
+ 835              		.globl	gpio_event_output_disable
+ 837              	gpio_event_output_disable:
+ 838              	.LFB17:
+ 470:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** 
+ 471:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** /*!
+ 472:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \brief      disable GPIO pin event output
+ 473:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \param[in]  none
+ 474:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \param[out] none
+ 475:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \retval     none
+ 476:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** */
+ 477:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** void gpio_event_output_disable(void)
+ 478:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** {
+ 839              		.loc 1 478 1 is_stmt 1
+ 840              		.cfi_startproc
+ 479:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     AFIO_EC &= (uint32_t) (~AFIO_EC_EOE);
+ 841              		.loc 1 479 5
+ 842              		.loc 1 479 13 is_stmt 0
+ 843 0000 37070140 		li	a4,1073807360
+ 844 0004 1C43     		lw	a5,0(a4)
+ 845 0006 93F7F7F7 		andi	a5,a5,-129
+ 846 000a 1CC3     		sw	a5,0(a4)
+GAS LISTING /tmp/ccsCKFkX.s 			page 26
+
+
+ 480:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** }
+ 847              		.loc 1 480 1
+ 848 000c 8280     		ret
+ 849              		.cfi_endproc
+ 850              	.LFE17:
+ 852              		.section	.text.gpio_pin_lock,"ax",@progbits
+ 853              		.align	1
+ 854              		.globl	gpio_pin_lock
+ 856              	gpio_pin_lock:
+ 857              	.LFB18:
+ 481:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** 
+ 482:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** /*!
+ 483:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \brief      lock GPIO pin
+ 484:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \param[in]  gpio_periph: GPIOx(x = A,B,C,D,E)
+ 485:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \param[in]  pin: GPIO pin
+ 486:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****                 one or more parameters can be selected which are shown as below:
+ 487:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****       \arg        GPIO_PIN_x(x=0..15), GPIO_PIN_ALL
+ 488:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \param[out] none
+ 489:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     \retval     none
+ 490:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** */
+ 491:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** void gpio_pin_lock(uint32_t gpio_periph, uint32_t pin)
+ 492:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** {
+ 858              		.loc 1 492 1 is_stmt 1
+ 859              		.cfi_startproc
+ 860              	.LVL80:
+ 493:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     uint32_t lock = 0x00010000U;
+ 861              		.loc 1 493 5
+ 494:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     lock |= pin;
+ 862              		.loc 1 494 5
+ 863              		.loc 1 494 10 is_stmt 0
+ 864 0000 C167     		li	a5,65536
+ 865 0002 CD8F     		or	a5,a1,a5
+ 866              	.LVL81:
+ 495:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** 
+ 496:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     /* lock key writing sequence: write 1 -> write 0 -> write 1 -> read 0 -> read 1 */
+ 497:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     GPIO_LOCK(gpio_periph) = (uint32_t) lock;
+ 867              		.loc 1 497 5 is_stmt 1
+ 868              		.loc 1 497 28 is_stmt 0
+ 869 0004 1CCD     		sw	a5,24(a0)
+ 498:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     GPIO_LOCK(gpio_periph) = (uint32_t) pin;
+ 870              		.loc 1 498 5 is_stmt 1
+ 871              		.loc 1 498 28 is_stmt 0
+ 872 0006 0CCD     		sw	a1,24(a0)
+ 499:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     GPIO_LOCK(gpio_periph) = (uint32_t) lock;
+ 873              		.loc 1 499 5 is_stmt 1
+ 874              		.loc 1 499 28 is_stmt 0
+ 875 0008 1CCD     		sw	a5,24(a0)
+ 500:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     lock = GPIO_LOCK(gpio_periph);
+ 876              		.loc 1 500 5 is_stmt 1
+ 877              		.loc 1 500 10 is_stmt 0
+ 878 000a 1C4D     		lw	a5,24(a0)
+ 879              	.LVL82:
+ 501:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c ****     lock = GPIO_LOCK(gpio_periph);
+ 880              		.loc 1 501 5 is_stmt 1
+ 881              		.loc 1 501 10 is_stmt 0
+ 882 000c 1C4D     		lw	a5,24(a0)
+ 502:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_gpio.c **** }
+GAS LISTING /tmp/ccsCKFkX.s 			page 27
+
+
+ 883              		.loc 1 502 1
+ 884 000e 8280     		ret
+ 885              		.cfi_endproc
+ 886              	.LFE18:
+ 888              		.text
+ 889              	.Letext0:
+ 890              		.file 2 "/home/johnson/Documents/mpb-toolchain/build/riscv32-mapleboard-elf/include/machine/_defau
+ 891              		.file 3 "/home/johnson/Documents/mpb-toolchain/build/riscv32-mapleboard-elf/include/sys/_stdint.h"
+ 892              		.file 4 "../Firmware/GD32VF103_standard_peripheral/gd32vf103.h"
+ 893              		.file 5 "../Firmware/GD32VF103_standard_peripheral/Include/gd32vf103_rcu.h"
+ 894              		.file 6 "../Firmware/GD32VF103_standard_peripheral/Include/gd32vf103_gpio.h"
+GAS LISTING /tmp/ccsCKFkX.s 			page 28
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 gd32vf103_gpio.c
+     /tmp/ccsCKFkX.s:13     .text.gpio_deinit:0000000000000000 gpio_deinit
+     /tmp/ccsCKFkX.s:17     .text.gpio_deinit:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:19     .text.gpio_deinit:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:20     .text.gpio_deinit:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:21     .text.gpio_deinit:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:23     .text.gpio_deinit:0000000000000002 .L0 
+     /tmp/ccsCKFkX.s:25     .text.gpio_deinit:0000000000000004 .L0 
+     /tmp/ccsCKFkX.s:27     .text.gpio_deinit:0000000000000004 .L0 
+     /tmp/ccsCKFkX.s:36     .text.gpio_deinit:0000000000000024 .L0 
+     /tmp/ccsCKFkX.s:41     .text.gpio_deinit:0000000000000030 .L0 
+     /tmp/ccsCKFkX.s:42     .text.gpio_deinit:0000000000000030 .L0 
+     /tmp/ccsCKFkX.s:43     .text.gpio_deinit:0000000000000032 .L0 
+     /tmp/ccsCKFkX.s:44     .text.gpio_deinit:0000000000000032 .L0 
+     /tmp/ccsCKFkX.s:46     .text.gpio_deinit:0000000000000032 .L0 
+     /tmp/ccsCKFkX.s:48     .text.gpio_deinit:0000000000000036 .L0 
+     /tmp/ccsCKFkX.s:50     .text.gpio_deinit:0000000000000038 .L0 
+     /tmp/ccsCKFkX.s:52     .text.gpio_deinit:0000000000000038 .L0 
+     /tmp/ccsCKFkX.s:56     .text.gpio_deinit:0000000000000040 .L0 
+     /tmp/ccsCKFkX.s:58     .text.gpio_deinit:0000000000000040 .L0 
+     /tmp/ccsCKFkX.s:63     .text.gpio_deinit:0000000000000050 .L0 
+     /tmp/ccsCKFkX.s:68     .text.gpio_deinit:000000000000005c .L0 
+     /tmp/ccsCKFkX.s:69     .text.gpio_deinit:000000000000005c .L0 
+     /tmp/ccsCKFkX.s:70     .text.gpio_deinit:000000000000005e .L0 
+     /tmp/ccsCKFkX.s:71     .text.gpio_deinit:000000000000005e .L0 
+     /tmp/ccsCKFkX.s:73     .text.gpio_deinit:000000000000005e .L0 
+     /tmp/ccsCKFkX.s:75     .text.gpio_deinit:0000000000000062 .L0 
+     /tmp/ccsCKFkX.s:77     .text.gpio_deinit:0000000000000064 .L0 
+     /tmp/ccsCKFkX.s:79     .text.gpio_deinit:0000000000000064 .L0 
+     /tmp/ccsCKFkX.s:83     .text.gpio_deinit:000000000000006c .L0 
+     /tmp/ccsCKFkX.s:85     .text.gpio_deinit:000000000000006c .L0 
+     /tmp/ccsCKFkX.s:90     .text.gpio_deinit:0000000000000078 .L0 
+     /tmp/ccsCKFkX.s:91     .text.gpio_deinit:0000000000000078 .L0 
+     /tmp/ccsCKFkX.s:92     .text.gpio_deinit:000000000000007a .L0 
+     /tmp/ccsCKFkX.s:93     .text.gpio_deinit:000000000000007a .L0 
+     /tmp/ccsCKFkX.s:95     .text.gpio_deinit:000000000000007a .L0 
+     /tmp/ccsCKFkX.s:97     .text.gpio_deinit:000000000000007e .L0 
+     /tmp/ccsCKFkX.s:99     .text.gpio_deinit:0000000000000080 .L0 
+     /tmp/ccsCKFkX.s:101    .text.gpio_deinit:0000000000000080 .L0 
+     /tmp/ccsCKFkX.s:105    .text.gpio_deinit:0000000000000088 .L0 
+     /tmp/ccsCKFkX.s:107    .text.gpio_deinit:0000000000000088 .L0 
+     /tmp/ccsCKFkX.s:112    .text.gpio_deinit:0000000000000094 .L0 
+     /tmp/ccsCKFkX.s:113    .text.gpio_deinit:0000000000000094 .L0 
+     /tmp/ccsCKFkX.s:114    .text.gpio_deinit:0000000000000096 .L0 
+     /tmp/ccsCKFkX.s:115    .text.gpio_deinit:0000000000000096 .L0 
+     /tmp/ccsCKFkX.s:117    .text.gpio_deinit:0000000000000096 .L0 
+     /tmp/ccsCKFkX.s:119    .text.gpio_deinit:000000000000009a .L0 
+     /tmp/ccsCKFkX.s:121    .text.gpio_deinit:000000000000009c .L0 
+     /tmp/ccsCKFkX.s:123    .text.gpio_deinit:000000000000009c .L0 
+     /tmp/ccsCKFkX.s:127    .text.gpio_deinit:00000000000000a4 .L0 
+     /tmp/ccsCKFkX.s:129    .text.gpio_deinit:00000000000000a4 .L0 
+     /tmp/ccsCKFkX.s:130    .text.gpio_deinit:00000000000000a6 .L0 
+     /tmp/ccsCKFkX.s:131    .text.gpio_deinit:00000000000000a6 .L0 
+     /tmp/ccsCKFkX.s:134    .text.gpio_deinit:00000000000000a8 .L0 
+     /tmp/ccsCKFkX.s:138    .text.gpio_deinit:00000000000000aa .L0 
+     /tmp/ccsCKFkX.s:140    .text.gpio_deinit:00000000000000aa .L0 
+GAS LISTING /tmp/ccsCKFkX.s 			page 29
+
+
+     /tmp/ccsCKFkX.s:145    .text.gpio_deinit:00000000000000b6 .L0 
+     /tmp/ccsCKFkX.s:146    .text.gpio_deinit:00000000000000b6 .L0 
+     /tmp/ccsCKFkX.s:147    .text.gpio_deinit:00000000000000b8 .L0 
+     /tmp/ccsCKFkX.s:149    .text.gpio_deinit:00000000000000b8 .L0 
+     /tmp/ccsCKFkX.s:151    .text.gpio_deinit:00000000000000bc .L0 
+     /tmp/ccsCKFkX.s:153    .text.gpio_deinit:00000000000000be .L0 
+     /tmp/ccsCKFkX.s:155    .text.gpio_deinit:00000000000000be .L0 
+     /tmp/ccsCKFkX.s:157    .text.gpio_deinit:00000000000000c6 .L0 
+     /tmp/ccsCKFkX.s:164    .text.gpio_afio_deinit:0000000000000000 gpio_afio_deinit
+     /tmp/ccsCKFkX.s:167    .text.gpio_afio_deinit:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:168    .text.gpio_afio_deinit:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:169    .text.gpio_afio_deinit:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:170    .text.gpio_afio_deinit:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:172    .text.gpio_afio_deinit:0000000000000002 .L0 
+     /tmp/ccsCKFkX.s:174    .text.gpio_afio_deinit:0000000000000002 .L0 
+     /tmp/ccsCKFkX.s:176    .text.gpio_afio_deinit:0000000000000006 .L0 
+     /tmp/ccsCKFkX.s:177    .text.gpio_afio_deinit:0000000000000008 .L0 
+     /tmp/ccsCKFkX.s:179    .text.gpio_afio_deinit:0000000000000008 .L0 
+     /tmp/ccsCKFkX.s:182    .text.gpio_afio_deinit:0000000000000010 .L0 
+     /tmp/ccsCKFkX.s:183    .text.gpio_afio_deinit:0000000000000010 .L0 
+     /tmp/ccsCKFkX.s:184    .text.gpio_afio_deinit:0000000000000012 .L0 
+     /tmp/ccsCKFkX.s:186    .text.gpio_afio_deinit:0000000000000012 .L0 
+     /tmp/ccsCKFkX.s:188    .text.gpio_afio_deinit:0000000000000016 .L0 
+     /tmp/ccsCKFkX.s:190    .text.gpio_afio_deinit:0000000000000018 .L0 
+     /tmp/ccsCKFkX.s:192    .text.gpio_afio_deinit:0000000000000018 .L0 
+     /tmp/ccsCKFkX.s:194    .text.gpio_afio_deinit:0000000000000020 .L0 
+     /tmp/ccsCKFkX.s:201    .text.gpio_init:0000000000000000 gpio_init
+     /tmp/ccsCKFkX.s:204    .text.gpio_init:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:206    .text.gpio_init:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:207    .text.gpio_init:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:208    .text.gpio_init:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:209    .text.gpio_init:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:210    .text.gpio_init:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:211    .text.gpio_init:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:213    .text.gpio_init:0000000000000004 .L0 
+     /tmp/ccsCKFkX.s:216    .text.gpio_init:0000000000000008 .L0 
+     /tmp/ccsCKFkX.s:217    .text.gpio_init:0000000000000008 .L0 
+     /tmp/ccsCKFkX.s:219    .text.gpio_init:000000000000000a .L0 
+     /tmp/ccsCKFkX.s:220    .text.gpio_init:000000000000000a .L0 
+     /tmp/ccsCKFkX.s:224    .text.gpio_init:000000000000000e .L0 
+     /tmp/ccsCKFkX.s:225    .text.gpio_init:000000000000000e .L0 
+     /tmp/ccsCKFkX.s:226    .text.gpio_init:000000000000000e .L0 
+     /tmp/ccsCKFkX.s:228    .text.gpio_init:0000000000000010 .L0 
+     /tmp/ccsCKFkX.s:230    .text.gpio_init:0000000000000012 .L0 
+     /tmp/ccsCKFkX.s:232    .text.gpio_init:0000000000000014 .L0 
+     /tmp/ccsCKFkX.s:234    .text.gpio_init:0000000000000018 .L0 
+     /tmp/ccsCKFkX.s:236    .text.gpio_init:000000000000001c .L0 
+     /tmp/ccsCKFkX.s:240    .text.gpio_init:000000000000001e .L0 
+     /tmp/ccsCKFkX.s:241    .text.gpio_init:000000000000001e .L0 
+     /tmp/ccsCKFkX.s:243    .text.gpio_init:0000000000000022 .L0 
+     /tmp/ccsCKFkX.s:245    .text.gpio_init:0000000000000026 .L0 
+     /tmp/ccsCKFkX.s:247    .text.gpio_init:000000000000002a .L0 
+     /tmp/ccsCKFkX.s:249    .text.gpio_init:000000000000002c .L0 
+     /tmp/ccsCKFkX.s:251    .text.gpio_init:0000000000000030 .L0 
+     /tmp/ccsCKFkX.s:253    .text.gpio_init:0000000000000034 .L0 
+     /tmp/ccsCKFkX.s:255    .text.gpio_init:0000000000000036 .L0 
+     /tmp/ccsCKFkX.s:256    .text.gpio_init:0000000000000036 .L0 
+GAS LISTING /tmp/ccsCKFkX.s 			page 30
+
+
+     /tmp/ccsCKFkX.s:259    .text.gpio_init:000000000000003a .L0 
+     /tmp/ccsCKFkX.s:260    .text.gpio_init:000000000000003a .L0 
+     /tmp/ccsCKFkX.s:263    .text.gpio_init:000000000000003e .L0 
+     /tmp/ccsCKFkX.s:264    .text.gpio_init:000000000000003e .L0 
+     /tmp/ccsCKFkX.s:267    .text.gpio_init:0000000000000042 .L0 
+     /tmp/ccsCKFkX.s:268    .text.gpio_init:0000000000000042 .L0 
+     /tmp/ccsCKFkX.s:270    .text.gpio_init:0000000000000046 .L0 
+     /tmp/ccsCKFkX.s:273    .text.gpio_init:000000000000004a .L0 
+     /tmp/ccsCKFkX.s:274    .text.gpio_init:000000000000004a .L0 
+     /tmp/ccsCKFkX.s:278    .text.gpio_init:000000000000004c .L0 
+     /tmp/ccsCKFkX.s:279    .text.gpio_init:000000000000004c .L0 
+     /tmp/ccsCKFkX.s:280    .text.gpio_init:000000000000004c .L0 
+     /tmp/ccsCKFkX.s:285    .text.gpio_init:0000000000000054 .L0 
+     /tmp/ccsCKFkX.s:287    .text.gpio_init:0000000000000056 .L0 
+     /tmp/ccsCKFkX.s:289    .text.gpio_init:0000000000000058 .L0 
+     /tmp/ccsCKFkX.s:291    .text.gpio_init:000000000000005c .L0 
+     /tmp/ccsCKFkX.s:293    .text.gpio_init:0000000000000060 .L0 
+     /tmp/ccsCKFkX.s:297    .text.gpio_init:0000000000000062 .L0 
+     /tmp/ccsCKFkX.s:298    .text.gpio_init:0000000000000062 .L0 
+     /tmp/ccsCKFkX.s:299    .text.gpio_init:0000000000000062 .L0 
+     /tmp/ccsCKFkX.s:301    .text.gpio_init:0000000000000066 .L0 
+     /tmp/ccsCKFkX.s:303    .text.gpio_init:000000000000006a .L0 
+     /tmp/ccsCKFkX.s:305    .text.gpio_init:000000000000006c .L0 
+     /tmp/ccsCKFkX.s:307    .text.gpio_init:0000000000000070 .L0 
+     /tmp/ccsCKFkX.s:309    .text.gpio_init:0000000000000074 .L0 
+     /tmp/ccsCKFkX.s:311    .text.gpio_init:0000000000000076 .L0 
+     /tmp/ccsCKFkX.s:312    .text.gpio_init:0000000000000076 .L0 
+     /tmp/ccsCKFkX.s:315    .text.gpio_init:000000000000007a .L0 
+     /tmp/ccsCKFkX.s:316    .text.gpio_init:000000000000007a .L0 
+     /tmp/ccsCKFkX.s:319    .text.gpio_init:000000000000007e .L0 
+     /tmp/ccsCKFkX.s:320    .text.gpio_init:000000000000007e .L0 
+     /tmp/ccsCKFkX.s:323    .text.gpio_init:0000000000000082 .L0 
+     /tmp/ccsCKFkX.s:324    .text.gpio_init:0000000000000082 .L0 
+     /tmp/ccsCKFkX.s:326    .text.gpio_init:0000000000000086 .L0 
+     /tmp/ccsCKFkX.s:329    .text.gpio_init:000000000000008a .L0 
+     /tmp/ccsCKFkX.s:330    .text.gpio_init:000000000000008a .L0 
+     /tmp/ccsCKFkX.s:334    .text.gpio_init:000000000000008c .L0 
+     /tmp/ccsCKFkX.s:335    .text.gpio_init:000000000000008c .L0 
+     /tmp/ccsCKFkX.s:336    .text.gpio_init:000000000000008c .L0 
+     /tmp/ccsCKFkX.s:341    .text.gpio_init:0000000000000094 .L0 
+     /tmp/ccsCKFkX.s:345    .text.gpio_init:0000000000000096 .L0 
+     /tmp/ccsCKFkX.s:346    .text.gpio_init:0000000000000096 .L0 
+     /tmp/ccsCKFkX.s:351    .text.gpio_init:000000000000009a .L0 
+     /tmp/ccsCKFkX.s:352    .text.gpio_init:000000000000009a .L0 
+     /tmp/ccsCKFkX.s:357    .text.gpio_init:000000000000009e .L0 
+     /tmp/ccsCKFkX.s:358    .text.gpio_init:000000000000009e .L0 
+     /tmp/ccsCKFkX.s:363    .text.gpio_init:00000000000000a2 .L0 
+     /tmp/ccsCKFkX.s:364    .text.gpio_init:00000000000000a2 .L0 
+     /tmp/ccsCKFkX.s:366    .text.gpio_init:00000000000000a6 .L0 
+     /tmp/ccsCKFkX.s:373    .text.gpio_bit_set:0000000000000000 gpio_bit_set
+     /tmp/ccsCKFkX.s:376    .text.gpio_bit_set:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:378    .text.gpio_bit_set:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:379    .text.gpio_bit_set:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:380    .text.gpio_bit_set:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:382    .text.gpio_bit_set:0000000000000002 .L0 
+     /tmp/ccsCKFkX.s:383    .text.gpio_bit_set:0000000000000004 .L0 
+     /tmp/ccsCKFkX.s:390    .text.gpio_bit_reset:0000000000000000 gpio_bit_reset
+GAS LISTING /tmp/ccsCKFkX.s 			page 31
+
+
+     /tmp/ccsCKFkX.s:393    .text.gpio_bit_reset:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:395    .text.gpio_bit_reset:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:396    .text.gpio_bit_reset:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:397    .text.gpio_bit_reset:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:399    .text.gpio_bit_reset:0000000000000002 .L0 
+     /tmp/ccsCKFkX.s:400    .text.gpio_bit_reset:0000000000000004 .L0 
+     /tmp/ccsCKFkX.s:407    .text.gpio_bit_write:0000000000000000 gpio_bit_write
+     /tmp/ccsCKFkX.s:410    .text.gpio_bit_write:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:412    .text.gpio_bit_write:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:413    .text.gpio_bit_write:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:414    .text.gpio_bit_write:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:416    .text.gpio_bit_write:0000000000000002 .L0 
+     /tmp/ccsCKFkX.s:417    .text.gpio_bit_write:0000000000000002 .L0 
+     /tmp/ccsCKFkX.s:421    .text.gpio_bit_write:0000000000000006 .L0 
+     /tmp/ccsCKFkX.s:422    .text.gpio_bit_write:0000000000000006 .L0 
+     /tmp/ccsCKFkX.s:424    .text.gpio_bit_write:0000000000000008 .L0 
+     /tmp/ccsCKFkX.s:425    .text.gpio_bit_write:000000000000000a .L0 
+     /tmp/ccsCKFkX.s:432    .text.gpio_port_write:0000000000000000 gpio_port_write
+     /tmp/ccsCKFkX.s:435    .text.gpio_port_write:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:437    .text.gpio_port_write:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:438    .text.gpio_port_write:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:439    .text.gpio_port_write:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:441    .text.gpio_port_write:0000000000000002 .L0 
+     /tmp/ccsCKFkX.s:442    .text.gpio_port_write:0000000000000004 .L0 
+     /tmp/ccsCKFkX.s:449    .text.gpio_input_bit_get:0000000000000000 gpio_input_bit_get
+     /tmp/ccsCKFkX.s:452    .text.gpio_input_bit_get:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:454    .text.gpio_input_bit_get:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:455    .text.gpio_input_bit_get:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:456    .text.gpio_input_bit_get:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:459    .text.gpio_input_bit_get:0000000000000002 .L0 
+     /tmp/ccsCKFkX.s:461    .text.gpio_input_bit_get:0000000000000004 .L0 
+     /tmp/ccsCKFkX.s:463    .text.gpio_input_bit_get:000000000000000a .L0 
+     /tmp/ccsCKFkX.s:470    .text.gpio_input_port_get:0000000000000000 gpio_input_port_get
+     /tmp/ccsCKFkX.s:473    .text.gpio_input_port_get:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:475    .text.gpio_input_port_get:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:476    .text.gpio_input_port_get:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:477    .text.gpio_input_port_get:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:480    .text.gpio_input_port_get:0000000000000002 .L0 
+     /tmp/ccsCKFkX.s:483    .text.gpio_input_port_get:0000000000000008 .L0 
+     /tmp/ccsCKFkX.s:490    .text.gpio_output_bit_get:0000000000000000 gpio_output_bit_get
+     /tmp/ccsCKFkX.s:493    .text.gpio_output_bit_get:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:495    .text.gpio_output_bit_get:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:496    .text.gpio_output_bit_get:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:497    .text.gpio_output_bit_get:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:500    .text.gpio_output_bit_get:0000000000000002 .L0 
+     /tmp/ccsCKFkX.s:502    .text.gpio_output_bit_get:0000000000000004 .L0 
+     /tmp/ccsCKFkX.s:504    .text.gpio_output_bit_get:000000000000000a .L0 
+     /tmp/ccsCKFkX.s:511    .text.gpio_output_port_get:0000000000000000 gpio_output_port_get
+     /tmp/ccsCKFkX.s:514    .text.gpio_output_port_get:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:516    .text.gpio_output_port_get:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:517    .text.gpio_output_port_get:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:518    .text.gpio_output_port_get:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:521    .text.gpio_output_port_get:0000000000000002 .L0 
+     /tmp/ccsCKFkX.s:524    .text.gpio_output_port_get:0000000000000008 .L0 
+     /tmp/ccsCKFkX.s:531    .text.gpio_pin_remap_config:0000000000000000 gpio_pin_remap_config
+     /tmp/ccsCKFkX.s:534    .text.gpio_pin_remap_config:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:536    .text.gpio_pin_remap_config:0000000000000000 .L0 
+GAS LISTING /tmp/ccsCKFkX.s 			page 32
+
+
+     /tmp/ccsCKFkX.s:537    .text.gpio_pin_remap_config:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:538    .text.gpio_pin_remap_config:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:539    .text.gpio_pin_remap_config:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:541    .text.gpio_pin_remap_config:0000000000000004 .L0 
+     /tmp/ccsCKFkX.s:543    .text.gpio_pin_remap_config:0000000000000008 .L0 
+     /tmp/ccsCKFkX.s:544    .text.gpio_pin_remap_config:0000000000000008 .L0 
+     /tmp/ccsCKFkX.s:546    .text.gpio_pin_remap_config:000000000000000c .L0 
+     /tmp/ccsCKFkX.s:549    .text.gpio_pin_remap_config:000000000000000e .L0 
+     /tmp/ccsCKFkX.s:550    .text.gpio_pin_remap_config:000000000000000e .L0 
+     /tmp/ccsCKFkX.s:551    .text.gpio_pin_remap_config:000000000000000e .L0 
+     /tmp/ccsCKFkX.s:553    .text.gpio_pin_remap_config:0000000000000012 .L0 
+     /tmp/ccsCKFkX.s:555    .text.gpio_pin_remap_config:0000000000000016 .L0 
+     /tmp/ccsCKFkX.s:558    .text.gpio_pin_remap_config:0000000000000018 .L0 
+     /tmp/ccsCKFkX.s:559    .text.gpio_pin_remap_config:0000000000000018 .L0 
+     /tmp/ccsCKFkX.s:563    .text.gpio_pin_remap_config:000000000000001c .L0 
+     /tmp/ccsCKFkX.s:564    .text.gpio_pin_remap_config:000000000000001c .L0 
+     /tmp/ccsCKFkX.s:567    .text.gpio_pin_remap_config:0000000000000022 .L0 
+     /tmp/ccsCKFkX.s:570    .text.gpio_pin_remap_config:0000000000000024 .L0 
+     /tmp/ccsCKFkX.s:571    .text.gpio_pin_remap_config:0000000000000024 .L0 
+     /tmp/ccsCKFkX.s:572    .text.gpio_pin_remap_config:0000000000000024 .L0 
+     /tmp/ccsCKFkX.s:574    .text.gpio_pin_remap_config:0000000000000028 .L0 
+     /tmp/ccsCKFkX.s:576    .text.gpio_pin_remap_config:000000000000002c .L0 
+     /tmp/ccsCKFkX.s:579    .text.gpio_pin_remap_config:0000000000000032 .L0 
+     /tmp/ccsCKFkX.s:581    .text.gpio_pin_remap_config:0000000000000036 .L0 
+     /tmp/ccsCKFkX.s:584    .text.gpio_pin_remap_config:0000000000000038 .L0 
+     /tmp/ccsCKFkX.s:585    .text.gpio_pin_remap_config:0000000000000038 .L0 
+     /tmp/ccsCKFkX.s:590    .text.gpio_pin_remap_config:000000000000003e .L0 
+     /tmp/ccsCKFkX.s:591    .text.gpio_pin_remap_config:000000000000003e .L0 
+     /tmp/ccsCKFkX.s:593    .text.gpio_pin_remap_config:0000000000000040 .L0 
+     /tmp/ccsCKFkX.s:594    .text.gpio_pin_remap_config:0000000000000040 .L0 
+     /tmp/ccsCKFkX.s:596    .text.gpio_pin_remap_config:0000000000000044 .L0 
+     /tmp/ccsCKFkX.s:598    .text.gpio_pin_remap_config:0000000000000046 .L0 
+     /tmp/ccsCKFkX.s:600    .text.gpio_pin_remap_config:000000000000004a .L0 
+     /tmp/ccsCKFkX.s:604    .text.gpio_pin_remap_config:000000000000004c .L0 
+     /tmp/ccsCKFkX.s:605    .text.gpio_pin_remap_config:000000000000004c .L0 
+     /tmp/ccsCKFkX.s:607    .text.gpio_pin_remap_config:0000000000000050 .L0 
+     /tmp/ccsCKFkX.s:609    .text.gpio_pin_remap_config:0000000000000054 .L0 
+     /tmp/ccsCKFkX.s:610    .text.gpio_pin_remap_config:0000000000000054 .L0 
+     /tmp/ccsCKFkX.s:612    .text.gpio_pin_remap_config:0000000000000056 .L0 
+     /tmp/ccsCKFkX.s:616    .text.gpio_pin_remap_config:0000000000000058 .L0 
+     /tmp/ccsCKFkX.s:617    .text.gpio_pin_remap_config:0000000000000058 .L0 
+     /tmp/ccsCKFkX.s:619    .text.gpio_pin_remap_config:000000000000005c .L0 
+     /tmp/ccsCKFkX.s:621    .text.gpio_pin_remap_config:000000000000005e .L0 
+     /tmp/ccsCKFkX.s:623    .text.gpio_pin_remap_config:0000000000000062 .L0 
+     /tmp/ccsCKFkX.s:625    .text.gpio_pin_remap_config:0000000000000066 .L0 
+     /tmp/ccsCKFkX.s:628    .text.gpio_pin_remap_config:0000000000000068 .L0 
+     /tmp/ccsCKFkX.s:629    .text.gpio_pin_remap_config:0000000000000068 .L0 
+     /tmp/ccsCKFkX.s:636    .text.gpio_pin_remap_config:0000000000000070 .L0 
+     /tmp/ccsCKFkX.s:637    .text.gpio_pin_remap_config:0000000000000070 .L0 
+     /tmp/ccsCKFkX.s:642    .text.gpio_pin_remap_config:0000000000000074 .L0 
+     /tmp/ccsCKFkX.s:643    .text.gpio_pin_remap_config:0000000000000074 .L0 
+     /tmp/ccsCKFkX.s:645    .text.gpio_pin_remap_config:0000000000000078 .L0 
+     /tmp/ccsCKFkX.s:648    .text.gpio_pin_remap_config:000000000000007a .L0 
+     /tmp/ccsCKFkX.s:649    .text.gpio_pin_remap_config:000000000000007a .L0 
+     /tmp/ccsCKFkX.s:650    .text.gpio_pin_remap_config:000000000000007a .L0 
+     /tmp/ccsCKFkX.s:652    .text.gpio_pin_remap_config:000000000000007e .L0 
+     /tmp/ccsCKFkX.s:654    .text.gpio_pin_remap_config:0000000000000082 .L0 
+GAS LISTING /tmp/ccsCKFkX.s 			page 33
+
+
+     /tmp/ccsCKFkX.s:657    .text.gpio_pin_remap_config:0000000000000084 .L0 
+     /tmp/ccsCKFkX.s:658    .text.gpio_pin_remap_config:0000000000000084 .L0 
+     /tmp/ccsCKFkX.s:662    .text.gpio_pin_remap_config:0000000000000088 .L0 
+     /tmp/ccsCKFkX.s:663    .text.gpio_pin_remap_config:0000000000000088 .L0 
+     /tmp/ccsCKFkX.s:666    .text.gpio_pin_remap_config:0000000000000090 .L0 
+     /tmp/ccsCKFkX.s:669    .text.gpio_pin_remap_config:0000000000000096 .L0 
+     /tmp/ccsCKFkX.s:671    .text.gpio_pin_remap_config:0000000000000098 .L0 
+     /tmp/ccsCKFkX.s:674    .text.gpio_pin_remap_config:000000000000009a .L0 
+     /tmp/ccsCKFkX.s:675    .text.gpio_pin_remap_config:000000000000009a .L0 
+     /tmp/ccsCKFkX.s:677    .text.gpio_pin_remap_config:00000000000000a0 .L0 
+     /tmp/ccsCKFkX.s:684    .text.gpio_exti_source_select:0000000000000000 gpio_exti_source_select
+     /tmp/ccsCKFkX.s:687    .text.gpio_exti_source_select:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:689    .text.gpio_exti_source_select:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:690    .text.gpio_exti_source_select:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:691    .text.gpio_exti_source_select:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:692    .text.gpio_exti_source_select:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:694    .text.gpio_exti_source_select:0000000000000004 .L0 
+     /tmp/ccsCKFkX.s:697    .text.gpio_exti_source_select:0000000000000006 .L0 
+     /tmp/ccsCKFkX.s:698    .text.gpio_exti_source_select:0000000000000006 .L0 
+     /tmp/ccsCKFkX.s:701    .text.gpio_exti_source_select:000000000000000c .L0 
+     /tmp/ccsCKFkX.s:703    .text.gpio_exti_source_select:000000000000000e .L0 
+     /tmp/ccsCKFkX.s:705    .text.gpio_exti_source_select:0000000000000012 .L0 
+     /tmp/ccsCKFkX.s:708    .text.gpio_exti_source_select:0000000000000016 .L0 
+     /tmp/ccsCKFkX.s:710    .text.gpio_exti_source_select:000000000000001a .L0 
+     /tmp/ccsCKFkX.s:711    .text.gpio_exti_source_select:000000000000001a .L0 
+     /tmp/ccsCKFkX.s:716    .text.gpio_exti_source_select:0000000000000024 .L0 
+     /tmp/ccsCKFkX.s:717    .text.gpio_exti_source_select:0000000000000024 .L0 
+     /tmp/ccsCKFkX.s:725    .text.gpio_exti_source_select:000000000000002c .L0 
+     /tmp/ccsCKFkX.s:726    .text.gpio_exti_source_select:000000000000002c .L0 
+     /tmp/ccsCKFkX.s:729    .text.gpio_exti_source_select:0000000000000032 .L0 
+     /tmp/ccsCKFkX.s:730    .text.gpio_exti_source_select:0000000000000032 .L0 
+     /tmp/ccsCKFkX.s:735    .text.gpio_exti_source_select:000000000000003c .L0 
+     /tmp/ccsCKFkX.s:736    .text.gpio_exti_source_select:000000000000003c .L0 
+     /tmp/ccsCKFkX.s:744    .text.gpio_exti_source_select:0000000000000044 .L0 
+     /tmp/ccsCKFkX.s:745    .text.gpio_exti_source_select:0000000000000044 .L0 
+     /tmp/ccsCKFkX.s:748    .text.gpio_exti_source_select:000000000000004a .L0 
+     /tmp/ccsCKFkX.s:749    .text.gpio_exti_source_select:000000000000004a .L0 
+     /tmp/ccsCKFkX.s:754    .text.gpio_exti_source_select:0000000000000054 .L0 
+     /tmp/ccsCKFkX.s:755    .text.gpio_exti_source_select:0000000000000054 .L0 
+     /tmp/ccsCKFkX.s:763    .text.gpio_exti_source_select:000000000000005c .L0 
+     /tmp/ccsCKFkX.s:764    .text.gpio_exti_source_select:000000000000005c .L0 
+     /tmp/ccsCKFkX.s:769    .text.gpio_exti_source_select:0000000000000066 .L0 
+     /tmp/ccsCKFkX.s:770    .text.gpio_exti_source_select:0000000000000066 .L0 
+     /tmp/ccsCKFkX.s:775    .text.gpio_exti_source_select:000000000000006c .L0 
+     /tmp/ccsCKFkX.s:776    .text.gpio_exti_source_select:000000000000006e .L0 
+     /tmp/ccsCKFkX.s:783    .text.gpio_event_output_config:0000000000000000 gpio_event_output_config
+     /tmp/ccsCKFkX.s:786    .text.gpio_event_output_config:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:788    .text.gpio_event_output_config:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:789    .text.gpio_event_output_config:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:790    .text.gpio_event_output_config:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:791    .text.gpio_event_output_config:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:795    .text.gpio_event_output_config:0000000000000006 .L0 
+     /tmp/ccsCKFkX.s:796    .text.gpio_event_output_config:0000000000000006 .L0 
+     /tmp/ccsCKFkX.s:797    .text.gpio_event_output_config:0000000000000006 .L0 
+     /tmp/ccsCKFkX.s:798    .text.gpio_event_output_config:0000000000000006 .L0 
+     /tmp/ccsCKFkX.s:801    .text.gpio_event_output_config:0000000000000008 .L0 
+     /tmp/ccsCKFkX.s:804    .text.gpio_event_output_config:000000000000000e .L0 
+GAS LISTING /tmp/ccsCKFkX.s 			page 34
+
+
+     /tmp/ccsCKFkX.s:807    .text.gpio_event_output_config:0000000000000010 .L0 
+     /tmp/ccsCKFkX.s:808    .text.gpio_event_output_config:0000000000000010 .L0 
+     /tmp/ccsCKFkX.s:810    .text.gpio_event_output_config:0000000000000012 .L0 
+     /tmp/ccsCKFkX.s:811    .text.gpio_event_output_config:0000000000000014 .L0 
+     /tmp/ccsCKFkX.s:818    .text.gpio_event_output_enable:0000000000000000 gpio_event_output_enable
+     /tmp/ccsCKFkX.s:821    .text.gpio_event_output_enable:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:822    .text.gpio_event_output_enable:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:823    .text.gpio_event_output_enable:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:824    .text.gpio_event_output_enable:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:829    .text.gpio_event_output_enable:000000000000000c .L0 
+     /tmp/ccsCKFkX.s:830    .text.gpio_event_output_enable:000000000000000e .L0 
+     /tmp/ccsCKFkX.s:837    .text.gpio_event_output_disable:0000000000000000 gpio_event_output_disable
+     /tmp/ccsCKFkX.s:840    .text.gpio_event_output_disable:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:841    .text.gpio_event_output_disable:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:842    .text.gpio_event_output_disable:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:843    .text.gpio_event_output_disable:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:848    .text.gpio_event_output_disable:000000000000000c .L0 
+     /tmp/ccsCKFkX.s:849    .text.gpio_event_output_disable:000000000000000e .L0 
+     /tmp/ccsCKFkX.s:856    .text.gpio_pin_lock:0000000000000000 gpio_pin_lock
+     /tmp/ccsCKFkX.s:859    .text.gpio_pin_lock:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:861    .text.gpio_pin_lock:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:862    .text.gpio_pin_lock:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:863    .text.gpio_pin_lock:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:864    .text.gpio_pin_lock:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:868    .text.gpio_pin_lock:0000000000000004 .L0 
+     /tmp/ccsCKFkX.s:869    .text.gpio_pin_lock:0000000000000004 .L0 
+     /tmp/ccsCKFkX.s:871    .text.gpio_pin_lock:0000000000000006 .L0 
+     /tmp/ccsCKFkX.s:872    .text.gpio_pin_lock:0000000000000006 .L0 
+     /tmp/ccsCKFkX.s:874    .text.gpio_pin_lock:0000000000000008 .L0 
+     /tmp/ccsCKFkX.s:875    .text.gpio_pin_lock:0000000000000008 .L0 
+     /tmp/ccsCKFkX.s:877    .text.gpio_pin_lock:000000000000000a .L0 
+     /tmp/ccsCKFkX.s:878    .text.gpio_pin_lock:000000000000000a .L0 
+     /tmp/ccsCKFkX.s:881    .text.gpio_pin_lock:000000000000000c .L0 
+     /tmp/ccsCKFkX.s:882    .text.gpio_pin_lock:000000000000000c .L0 
+     /tmp/ccsCKFkX.s:884    .text.gpio_pin_lock:000000000000000e .L0 
+     /tmp/ccsCKFkX.s:885    .text.gpio_pin_lock:0000000000000010 .L0 
+     /tmp/ccsCKFkX.s:160    .text.gpio_deinit:00000000000000c6 .L0 
+     /tmp/ccsCKFkX.s:197    .text.gpio_afio_deinit:0000000000000020 .L0 
+     /tmp/ccsCKFkX.s:369    .text.gpio_init:00000000000000a6 .L0 
+     /tmp/ccsCKFkX.s:386    .text.gpio_bit_set:0000000000000004 .L0 
+     /tmp/ccsCKFkX.s:403    .text.gpio_bit_reset:0000000000000004 .L0 
+     /tmp/ccsCKFkX.s:428    .text.gpio_bit_write:000000000000000a .L0 
+     /tmp/ccsCKFkX.s:445    .text.gpio_port_write:0000000000000004 .L0 
+     /tmp/ccsCKFkX.s:466    .text.gpio_input_bit_get:000000000000000a .L0 
+     /tmp/ccsCKFkX.s:486    .text.gpio_input_port_get:0000000000000008 .L0 
+     /tmp/ccsCKFkX.s:507    .text.gpio_output_bit_get:000000000000000a .L0 
+     /tmp/ccsCKFkX.s:527    .text.gpio_output_port_get:0000000000000008 .L0 
+     /tmp/ccsCKFkX.s:680    .text.gpio_pin_remap_config:00000000000000a0 .L0 
+     /tmp/ccsCKFkX.s:779    .text.gpio_exti_source_select:000000000000006e .L0 
+     /tmp/ccsCKFkX.s:814    .text.gpio_event_output_config:0000000000000014 .L0 
+     /tmp/ccsCKFkX.s:833    .text.gpio_event_output_enable:000000000000000e .L0 
+     /tmp/ccsCKFkX.s:852    .text.gpio_event_output_disable:000000000000000e .L0 
+     /tmp/ccsCKFkX.s:888    .text.gpio_pin_lock:0000000000000010 .L0 
+                     .debug_frame:0000000000000000 .L0 
+     /tmp/ccsCKFkX.s:81     .text.gpio_deinit:000000000000006c .L2
+     /tmp/ccsCKFkX.s:54     .text.gpio_deinit:0000000000000040 .L11
+     /tmp/ccsCKFkX.s:103    .text.gpio_deinit:0000000000000088 .L7
+GAS LISTING /tmp/ccsCKFkX.s 			page 35
+
+
+     /tmp/ccsCKFkX.s:125    .text.gpio_deinit:00000000000000a4 .L1
+     /tmp/ccsCKFkX.s:136    .text.gpio_deinit:00000000000000aa .L4
+     /tmp/ccsCKFkX.s:222    .text.gpio_init:000000000000000e .L15
+     /tmp/ccsCKFkX.s:276    .text.gpio_init:000000000000004c .L16
+     /tmp/ccsCKFkX.s:355    .text.gpio_init:000000000000009e .L35
+     /tmp/ccsCKFkX.s:343    .text.gpio_init:0000000000000096 .L36
+     /tmp/ccsCKFkX.s:238    .text.gpio_init:000000000000001e .L19
+     /tmp/ccsCKFkX.s:332    .text.gpio_init:000000000000008c .L20
+     /tmp/ccsCKFkX.s:361    .text.gpio_init:00000000000000a2 .L37
+     /tmp/ccsCKFkX.s:349    .text.gpio_init:000000000000009a .L38
+     /tmp/ccsCKFkX.s:294    .text.gpio_init:0000000000000062 .L23
+     /tmp/ccsCKFkX.s:271    .text.gpio_init:000000000000004a .L18
+     /tmp/ccsCKFkX.s:327    .text.gpio_init:000000000000008a .L22
+     /tmp/ccsCKFkX.s:419    .text.gpio_bit_write:0000000000000006 .L42
+     /tmp/ccsCKFkX.s:640    .text.gpio_pin_remap_config:0000000000000074 .L61
+     /tmp/ccsCKFkX.s:660    .text.gpio_pin_remap_config:0000000000000088 .L62
+     /tmp/ccsCKFkX.s:614    .text.gpio_pin_remap_config:0000000000000058 .L54
+     /tmp/ccsCKFkX.s:602    .text.gpio_pin_remap_config:000000000000004c .L55
+     /tmp/ccsCKFkX.s:634    .text.gpio_pin_remap_config:0000000000000070 .L63
+     /tmp/ccsCKFkX.s:588    .text.gpio_pin_remap_config:000000000000003e .L53
+     /tmp/ccsCKFkX.s:561    .text.gpio_pin_remap_config:000000000000001c .L52
+     /tmp/ccsCKFkX.s:723    .text.gpio_exti_source_select:000000000000002c .L65
+     /tmp/ccsCKFkX.s:742    .text.gpio_exti_source_select:0000000000000044 .L67
+     /tmp/ccsCKFkX.s:761    .text.gpio_exti_source_select:000000000000005c .L68
+     /tmp/ccsCKFkX.s:1837   .debug_abbrev:0000000000000000 .Ldebug_abbrev0
+     /tmp/ccsCKFkX.s:3153   .debug_str:0000000000000471 .LASF89
+     /tmp/ccsCKFkX.s:3059   .debug_str:00000000000001a2 .LASF90
+     /tmp/ccsCKFkX.s:3149   .debug_str:0000000000000433 .LASF91
+     /tmp/ccsCKFkX.s:2953   .debug_ranges:0000000000000000 .Ldebug_ranges0
+     /tmp/ccsCKFkX.s:2991   .debug_line:0000000000000000 .Ldebug_line0
+     /tmp/ccsCKFkX.s:3089   .debug_str:00000000000002b2 .LASF0
+     /tmp/ccsCKFkX.s:3077   .debug_str:0000000000000258 .LASF1
+     /tmp/ccsCKFkX.s:3051   .debug_str:000000000000017d .LASF4
+     /tmp/ccsCKFkX.s:3069   .debug_str:000000000000021c .LASF2
+     /tmp/ccsCKFkX.s:3029   .debug_str:00000000000000ff .LASF3
+     /tmp/ccsCKFkX.s:3023   .debug_str:00000000000000d0 .LASF5
+     /tmp/ccsCKFkX.s:3103   .debug_str:0000000000000303 .LASF6
+     /tmp/ccsCKFkX.s:3045   .debug_str:000000000000015c .LASF7
+     /tmp/ccsCKFkX.s:3015   .debug_str:00000000000000a9 .LASF8
+     /tmp/ccsCKFkX.s:3131   .debug_str:00000000000003c5 .LASF9
+     /tmp/ccsCKFkX.s:3043   .debug_str:000000000000014e .LASF10
+     /tmp/ccsCKFkX.s:3081   .debug_str:000000000000026f .LASF11
+     /tmp/ccsCKFkX.s:3031   .debug_str:0000000000000109 .LASF12
+     /tmp/ccsCKFkX.s:3091   .debug_str:00000000000002bf .LASF13
+     /tmp/ccsCKFkX.s:3085   .debug_str:0000000000000293 .LASF14
+     /tmp/ccsCKFkX.s:3033   .debug_str:0000000000000111 .LASF15
+     /tmp/ccsCKFkX.s:3171   .debug_str:0000000000000575 .LASF16
+     /tmp/ccsCKFkX.s:3109   .debug_str:0000000000000338 .LASF17
+     /tmp/ccsCKFkX.s:3147   .debug_str:000000000000042d .LASF18
+     /tmp/ccsCKFkX.s:3167   .debug_str:000000000000055e .LASF19
+     /tmp/ccsCKFkX.s:2997   .debug_str:0000000000000021 .LASF20
+     /tmp/ccsCKFkX.s:3111   .debug_str:0000000000000346 .LASF21
+     /tmp/ccsCKFkX.s:3035   .debug_str:0000000000000119 .LASF22
+     /tmp/ccsCKFkX.s:3061   .debug_str:00000000000001e4 .LASF23
+     /tmp/ccsCKFkX.s:3055   .debug_str:000000000000018e .LASF24
+     /tmp/ccsCKFkX.s:3121   .debug_str:0000000000000381 .LASF25
+     /tmp/ccsCKFkX.s:3165   .debug_str:0000000000000550 .LASF26
+GAS LISTING /tmp/ccsCKFkX.s 			page 36
+
+
+     /tmp/ccsCKFkX.s:3175   .debug_str:000000000000058a .LASF27
+     /tmp/ccsCKFkX.s:3009   .debug_str:000000000000006b .LASF28
+     /tmp/ccsCKFkX.s:3049   .debug_str:0000000000000171 .LASF29
+     /tmp/ccsCKFkX.s:3127   .debug_str:00000000000003a3 .LASF30
+     /tmp/ccsCKFkX.s:3173   .debug_str:000000000000057c .LASF31
+     /tmp/ccsCKFkX.s:3133   .debug_str:00000000000003d7 .LASF32
+     /tmp/ccsCKFkX.s:2999   .debug_str:000000000000002e .LASF33
+     /tmp/ccsCKFkX.s:3169   .debug_str:0000000000000569 .LASF34
+     /tmp/ccsCKFkX.s:3141   .debug_str:000000000000040c .LASF35
+     /tmp/ccsCKFkX.s:3003   .debug_str:0000000000000048 .LASF36
+     /tmp/ccsCKFkX.s:3039   .debug_str:0000000000000134 .LASF37
+     /tmp/ccsCKFkX.s:3007   .debug_str:000000000000005f .LASF38
+     /tmp/ccsCKFkX.s:3143   .debug_str:0000000000000418 .LASF39
+     /tmp/ccsCKFkX.s:3079   .debug_str:0000000000000264 .LASF40
+     /tmp/ccsCKFkX.s:3071   .debug_str:000000000000022a .LASF41
+     /tmp/ccsCKFkX.s:3083   .debug_str:0000000000000286 .LASF42
+     /tmp/ccsCKFkX.s:3137   .debug_str:00000000000003f5 .LASF43
+     /tmp/ccsCKFkX.s:3001   .debug_str:000000000000003b .LASF44
+     /tmp/ccsCKFkX.s:3037   .debug_str:0000000000000127 .LASF45
+     /tmp/ccsCKFkX.s:3093   .debug_str:00000000000002c8 .LASF46
+     /tmp/ccsCKFkX.s:3099   .debug_str:00000000000002e2 .LASF47
+     /tmp/ccsCKFkX.s:3161   .debug_str:000000000000052c .LASF48
+     /tmp/ccsCKFkX.s:2995   .debug_str:0000000000000013 .LASF49
+     /tmp/ccsCKFkX.s:3155   .debug_str:000000000000050a .LASF50
+     /tmp/ccsCKFkX.s:3065   .debug_str:0000000000000202 .LASF51
+     /tmp/ccsCKFkX.s:3067   .debug_str:0000000000000210 .LASF52
+     /tmp/ccsCKFkX.s:3005   .debug_str:0000000000000054 .LASF53
+     /tmp/ccsCKFkX.s:3041   .debug_str:0000000000000140 .LASF57
+     /tmp/ccsCKFkX.s:857    .text.gpio_pin_lock:0000000000000000 .LFB18
+     /tmp/ccsCKFkX.s:886    .text.gpio_pin_lock:0000000000000010 .LFE18
+     /tmp/ccsCKFkX.s:3073   .debug_str:0000000000000234 .LASF54
+     /tmp/ccsCKFkX.s:3119   .debug_str:000000000000037c .LASF61
+     /tmp/ccsCKFkX.s:2356   .debug_loc:0000000000000000 .LLST19
+     /tmp/ccsCKFkX.s:3027   .debug_str:00000000000000e5 .LASF55
+     /tmp/ccsCKFkX.s:838    .text.gpio_event_output_disable:0000000000000000 .LFB17
+     /tmp/ccsCKFkX.s:850    .text.gpio_event_output_disable:000000000000000e .LFE17
+     /tmp/ccsCKFkX.s:3013   .debug_str:0000000000000090 .LASF56
+     /tmp/ccsCKFkX.s:819    .text.gpio_event_output_enable:0000000000000000 .LFB16
+     /tmp/ccsCKFkX.s:831    .text.gpio_event_output_enable:000000000000000e .LFE16
+     /tmp/ccsCKFkX.s:3107   .debug_str:000000000000031f .LASF58
+     /tmp/ccsCKFkX.s:784    .text.gpio_event_output_config:0000000000000000 .LFB15
+     /tmp/ccsCKFkX.s:812    .text.gpio_event_output_config:0000000000000014 .LFE15
+     /tmp/ccsCKFkX.s:3047   .debug_str:0000000000000165 .LASF59
+     /tmp/ccsCKFkX.s:2370   .debug_loc:0000000000000021 .LLST17
+     /tmp/ccsCKFkX.s:3113   .debug_str:0000000000000354 .LASF60
+     /tmp/ccsCKFkX.s:2384   .debug_loc:0000000000000042 .LLST18
+     /tmp/ccsCKFkX.s:3075   .debug_str:0000000000000240 .LASF62
+     /tmp/ccsCKFkX.s:685    .text.gpio_exti_source_select:0000000000000000 .LFB14
+     /tmp/ccsCKFkX.s:777    .text.gpio_exti_source_select:000000000000006e .LFE14
+     /tmp/ccsCKFkX.s:2410   .debug_loc:0000000000000076 .LLST15
+     /tmp/ccsCKFkX.s:3053   .debug_str:0000000000000187 .LASF63
+     /tmp/ccsCKFkX.s:2457   .debug_loc:00000000000000e2 .LLST16
+     /tmp/ccsCKFkX.s:3087   .debug_str:000000000000029c .LASF64
+     /tmp/ccsCKFkX.s:532    .text.gpio_pin_remap_config:0000000000000000 .LFB13
+     /tmp/ccsCKFkX.s:678    .text.gpio_pin_remap_config:00000000000000a0 .LFE13
+     /tmp/ccsCKFkX.s:3057   .debug_str:000000000000019c .LASF65
+     /tmp/ccsCKFkX.s:3105   .debug_str:0000000000000316 .LASF66
+GAS LISTING /tmp/ccsCKFkX.s 			page 37
+
+
+     /tmp/ccsCKFkX.s:3159   .debug_str:0000000000000525 .LASF67
+     /tmp/ccsCKFkX.s:2485   .debug_loc:0000000000000118 .LLST11
+     /tmp/ccsCKFkX.s:3097   .debug_str:00000000000002db .LASF68
+     /tmp/ccsCKFkX.s:2506   .debug_loc:000000000000014e .LLST12
+     /tmp/ccsCKFkX.s:3115   .debug_str:000000000000035f .LASF69
+     /tmp/ccsCKFkX.s:2536   .debug_loc:000000000000018d .LLST13
+     /tmp/ccsCKFkX.s:3145   .debug_str:0000000000000423 .LASF70
+     /tmp/ccsCKFkX.s:2573   .debug_loc:00000000000001ef .LLST14
+     /tmp/ccsCKFkX.s:3101   .debug_str:00000000000002ee .LASF71
+     /tmp/ccsCKFkX.s:512    .text.gpio_output_port_get:0000000000000000 .LFB12
+     /tmp/ccsCKFkX.s:525    .text.gpio_output_port_get:0000000000000008 .LFE12
+     /tmp/ccsCKFkX.s:2606   .debug_loc:0000000000000231 .LLST10
+     /tmp/ccsCKFkX.s:3117   .debug_str:0000000000000368 .LASF72
+     /tmp/ccsCKFkX.s:491    .text.gpio_output_bit_get:0000000000000000 .LFB11
+     /tmp/ccsCKFkX.s:505    .text.gpio_output_bit_get:000000000000000a .LFE11
+     /tmp/ccsCKFkX.s:2620   .debug_loc:0000000000000252 .LLST9
+     /tmp/ccsCKFkX.s:3129   .debug_str:00000000000003b1 .LASF73
+     /tmp/ccsCKFkX.s:471    .text.gpio_input_port_get:0000000000000000 .LFB10
+     /tmp/ccsCKFkX.s:484    .text.gpio_input_port_get:0000000000000008 .LFE10
+     /tmp/ccsCKFkX.s:2634   .debug_loc:0000000000000273 .LLST8
+     /tmp/ccsCKFkX.s:2993   .debug_str:0000000000000000 .LASF74
+     /tmp/ccsCKFkX.s:450    .text.gpio_input_bit_get:0000000000000000 .LFB9
+     /tmp/ccsCKFkX.s:464    .text.gpio_input_bit_get:000000000000000a .LFE9
+     /tmp/ccsCKFkX.s:2648   .debug_loc:0000000000000294 .LLST7
+     /tmp/ccsCKFkX.s:3063   .debug_str:00000000000001f2 .LASF75
+     /tmp/ccsCKFkX.s:433    .text.gpio_port_write:0000000000000000 .LFB8
+     /tmp/ccsCKFkX.s:443    .text.gpio_port_write:0000000000000004 .LFE8
+     /tmp/ccsCKFkX.s:3125   .debug_str:000000000000039e .LASF76
+     /tmp/ccsCKFkX.s:3157   .debug_str:0000000000000516 .LASF77
+     /tmp/ccsCKFkX.s:408    .text.gpio_bit_write:0000000000000000 .LFB7
+     /tmp/ccsCKFkX.s:426    .text.gpio_bit_write:000000000000000a .LFE7
+     /tmp/ccsCKFkX.s:3025   .debug_str:00000000000000db .LASF78
+     /tmp/ccsCKFkX.s:3123   .debug_str:000000000000038f .LASF79
+     /tmp/ccsCKFkX.s:391    .text.gpio_bit_reset:0000000000000000 .LFB6
+     /tmp/ccsCKFkX.s:401    .text.gpio_bit_reset:0000000000000004 .LFE6
+     /tmp/ccsCKFkX.s:3017   .debug_str:00000000000000b4 .LASF80
+     /tmp/ccsCKFkX.s:374    .text.gpio_bit_set:0000000000000000 .LFB5
+     /tmp/ccsCKFkX.s:384    .text.gpio_bit_set:0000000000000004 .LFE5
+     /tmp/ccsCKFkX.s:3139   .debug_str:0000000000000402 .LASF81
+     /tmp/ccsCKFkX.s:202    .text.gpio_init:0000000000000000 .LFB4
+     /tmp/ccsCKFkX.s:367    .text.gpio_init:00000000000000a6 .LFE4
+     /tmp/ccsCKFkX.s:3019   .debug_str:00000000000000c1 .LASF82
+     /tmp/ccsCKFkX.s:3095   .debug_str:00000000000002d5 .LASF83
+     /tmp/ccsCKFkX.s:2662   .debug_loc:00000000000002b5 .LLST3
+     /tmp/ccsCKFkX.s:2676   .debug_loc:00000000000002d6 .LLST4
+     /tmp/ccsCKFkX.s:3021   .debug_str:00000000000000c6 .LASF84
+     /tmp/ccsCKFkX.s:2708   .debug_loc:0000000000000325 .LLST5
+     /tmp/ccsCKFkX.s:2720   .debug_loc:0000000000000344 .LLST6
+     /tmp/ccsCKFkX.s:3135   .debug_str:00000000000003e4 .LASF85
+     /tmp/ccsCKFkX.s:165    .text.gpio_afio_deinit:0000000000000000 .LFB3
+     /tmp/ccsCKFkX.s:195    .text.gpio_afio_deinit:0000000000000020 .LFE3
+     /tmp/ccsCKFkX.s:2764   .debug_loc:00000000000003bb .LLST2
+     /tmp/ccsCKFkX.s:180    .text.gpio_afio_deinit:0000000000000010 .LVL16
+     /tmp/ccsCKFkX.s:193    .text.gpio_afio_deinit:0000000000000020 .LVL17
+     /tmp/ccsCKFkX.s:3151   .debug_str:0000000000000465 .LASF86
+     /tmp/ccsCKFkX.s:14     .text.gpio_deinit:0000000000000000 .LFB2
+     /tmp/ccsCKFkX.s:158    .text.gpio_deinit:00000000000000c6 .LFE2
+GAS LISTING /tmp/ccsCKFkX.s 			page 38
+
+
+     /tmp/ccsCKFkX.s:2782   .debug_loc:00000000000003e7 .LLST0
+     /tmp/ccsCKFkX.s:2850   .debug_loc:000000000000048b .LLST1
+     /tmp/ccsCKFkX.s:39     .text.gpio_deinit:0000000000000030 .LVL2
+     /tmp/ccsCKFkX.s:53     .text.gpio_deinit:0000000000000040 .LVL3
+     /tmp/ccsCKFkX.s:66     .text.gpio_deinit:000000000000005c .LVL5
+     /tmp/ccsCKFkX.s:80     .text.gpio_deinit:000000000000006c .LVL6
+     /tmp/ccsCKFkX.s:88     .text.gpio_deinit:0000000000000078 .LVL8
+     /tmp/ccsCKFkX.s:102    .text.gpio_deinit:0000000000000088 .LVL9
+     /tmp/ccsCKFkX.s:110    .text.gpio_deinit:0000000000000094 .LVL11
+     /tmp/ccsCKFkX.s:124    .text.gpio_deinit:00000000000000a4 .LVL12
+     /tmp/ccsCKFkX.s:143    .text.gpio_deinit:00000000000000b6 .LVL14
+     /tmp/ccsCKFkX.s:156    .text.gpio_deinit:00000000000000c6 .LVL15
+     /tmp/ccsCKFkX.s:3163   .debug_str:0000000000000538 .LASF87
+     /tmp/ccsCKFkX.s:3011   .debug_str:0000000000000077 .LASF88
+     /tmp/ccsCKFkX.s:860    .text.gpio_pin_lock:0000000000000000 .LVL80
+     /tmp/ccsCKFkX.s:866    .text.gpio_pin_lock:0000000000000004 .LVL81
+     /tmp/ccsCKFkX.s:879    .text.gpio_pin_lock:000000000000000c .LVL82
+     /tmp/ccsCKFkX.s:787    .text.gpio_event_output_config:0000000000000000 .LVL76
+     /tmp/ccsCKFkX.s:799    .text.gpio_event_output_config:0000000000000008 .LVL78
+     /tmp/ccsCKFkX.s:793    .text.gpio_event_output_config:0000000000000006 .LVL77
+     /tmp/ccsCKFkX.s:805    .text.gpio_event_output_config:0000000000000010 .LVL79
+     /tmp/ccsCKFkX.s:688    .text.gpio_exti_source_select:0000000000000000 .LVL66
+     /tmp/ccsCKFkX.s:718    .text.gpio_exti_source_select:0000000000000026 .LVL69
+     /tmp/ccsCKFkX.s:722    .text.gpio_exti_source_select:000000000000002c .LVL70
+     /tmp/ccsCKFkX.s:737    .text.gpio_exti_source_select:000000000000003e .LVL71
+     /tmp/ccsCKFkX.s:741    .text.gpio_exti_source_select:0000000000000044 .LVL72
+     /tmp/ccsCKFkX.s:756    .text.gpio_exti_source_select:0000000000000056 .LVL73
+     /tmp/ccsCKFkX.s:760    .text.gpio_exti_source_select:000000000000005c .LVL74
+     /tmp/ccsCKFkX.s:771    .text.gpio_exti_source_select:0000000000000068 .LVL75
+     /tmp/ccsCKFkX.s:695    .text.gpio_exti_source_select:0000000000000006 .LVL67
+     /tmp/ccsCKFkX.s:706    .text.gpio_exti_source_select:0000000000000016 .LVL68
+     /tmp/ccsCKFkX.s:535    .text.gpio_pin_remap_config:0000000000000000 .LVL49
+     /tmp/ccsCKFkX.s:556    .text.gpio_pin_remap_config:0000000000000018 .LVL51
+     /tmp/ccsCKFkX.s:639    .text.gpio_pin_remap_config:0000000000000074 .LVL61
+     /tmp/ccsCKFkX.s:655    .text.gpio_pin_remap_config:0000000000000084 .LVL63
+     /tmp/ccsCKFkX.s:569    .text.gpio_pin_remap_config:0000000000000024 .LVL53
+     /tmp/ccsCKFkX.s:587    .text.gpio_pin_remap_config:000000000000003e .LVL55
+     /tmp/ccsCKFkX.s:613    .text.gpio_pin_remap_config:0000000000000058 .LVL57
+     /tmp/ccsCKFkX.s:633    .text.gpio_pin_remap_config:0000000000000070 .LVL60
+     /tmp/ccsCKFkX.s:547    .text.gpio_pin_remap_config:000000000000000e .LVL50
+     /tmp/ccsCKFkX.s:582    .text.gpio_pin_remap_config:0000000000000038 .LVL54
+     /tmp/ccsCKFkX.s:626    .text.gpio_pin_remap_config:0000000000000068 .LVL58
+     /tmp/ccsCKFkX.s:631    .text.gpio_pin_remap_config:000000000000006e .LVL59
+     /tmp/ccsCKFkX.s:646    .text.gpio_pin_remap_config:000000000000007a .LVL62
+     /tmp/ccsCKFkX.s:560    .text.gpio_pin_remap_config:000000000000001c .LVL52
+     /tmp/ccsCKFkX.s:659    .text.gpio_pin_remap_config:0000000000000088 .LVL64
+     /tmp/ccsCKFkX.s:515    .text.gpio_output_port_get:0000000000000000 .LVL47
+     /tmp/ccsCKFkX.s:519    .text.gpio_output_port_get:0000000000000002 .LVL48
+     /tmp/ccsCKFkX.s:494    .text.gpio_output_bit_get:0000000000000000 .LVL45
+     /tmp/ccsCKFkX.s:498    .text.gpio_output_bit_get:0000000000000002 .LVL46
+     /tmp/ccsCKFkX.s:474    .text.gpio_input_port_get:0000000000000000 .LVL43
+     /tmp/ccsCKFkX.s:478    .text.gpio_input_port_get:0000000000000002 .LVL44
+     /tmp/ccsCKFkX.s:453    .text.gpio_input_bit_get:0000000000000000 .LVL41
+     /tmp/ccsCKFkX.s:457    .text.gpio_input_bit_get:0000000000000002 .LVL42
+     /tmp/ccsCKFkX.s:205    .text.gpio_init:0000000000000000 .LVL18
+     /tmp/ccsCKFkX.s:237    .text.gpio_init:000000000000001e .LVL21
+     /tmp/ccsCKFkX.s:221    .text.gpio_init:000000000000000e .LVL20
+GAS LISTING /tmp/ccsCKFkX.s 			page 39
+
+
+     /tmp/ccsCKFkX.s:275    .text.gpio_init:000000000000004c .LVL25
+     /tmp/ccsCKFkX.s:281    .text.gpio_init:000000000000004e .LVL26
+     /tmp/ccsCKFkX.s:295    .text.gpio_init:0000000000000062 .LVL27
+     /tmp/ccsCKFkX.s:331    .text.gpio_init:000000000000008c .LVL31
+     /tmp/ccsCKFkX.s:337    .text.gpio_init:000000000000008e .LVL32
+     /tmp/ccsCKFkX.s:342    .text.gpio_init:0000000000000096 .LVL33
+     /tmp/ccsCKFkX.s:214    .text.gpio_init:0000000000000008 .LVL19
+     /tmp/ccsCKFkX.s:257    .text.gpio_init:000000000000003a .LVL22
+     /tmp/ccsCKFkX.s:261    .text.gpio_init:000000000000003e .LVL23
+     /tmp/ccsCKFkX.s:265    .text.gpio_init:0000000000000042 .LVL24
+     /tmp/ccsCKFkX.s:313    .text.gpio_init:000000000000007a .LVL28
+     /tmp/ccsCKFkX.s:317    .text.gpio_init:000000000000007e .LVL29
+     /tmp/ccsCKFkX.s:348    .text.gpio_init:000000000000009a .LVL34
+     /tmp/ccsCKFkX.s:354    .text.gpio_init:000000000000009e .LVL35
+     /tmp/ccsCKFkX.s:360    .text.gpio_init:00000000000000a2 .LVL36
+     /tmp/ccsCKFkX.s:171    .text.gpio_afio_deinit:0000000000000002 .LCFI12
+     /tmp/ccsCKFkX.s:189    .text.gpio_afio_deinit:0000000000000018 .LCFI13
+     /tmp/ccsCKFkX.s:22     .text.gpio_deinit:0000000000000002 .LCFI0
+     /tmp/ccsCKFkX.s:49     .text.gpio_deinit:0000000000000038 .LCFI1
+     /tmp/ccsCKFkX.s:55     .text.gpio_deinit:0000000000000040 .LCFI2
+     /tmp/ccsCKFkX.s:76     .text.gpio_deinit:0000000000000064 .LCFI3
+     /tmp/ccsCKFkX.s:82     .text.gpio_deinit:000000000000006c .LCFI4
+     /tmp/ccsCKFkX.s:98     .text.gpio_deinit:0000000000000080 .LCFI5
+     /tmp/ccsCKFkX.s:104    .text.gpio_deinit:0000000000000088 .LCFI6
+     /tmp/ccsCKFkX.s:120    .text.gpio_deinit:000000000000009c .LCFI7
+     /tmp/ccsCKFkX.s:126    .text.gpio_deinit:00000000000000a4 .LCFI8
+     /tmp/ccsCKFkX.s:133    .text.gpio_deinit:00000000000000a8 .LCFI9
+     /tmp/ccsCKFkX.s:137    .text.gpio_deinit:00000000000000aa .LCFI10
+     /tmp/ccsCKFkX.s:152    .text.gpio_deinit:00000000000000be .LCFI11
+     /tmp/ccsCKFkX.s:18     .text.gpio_deinit:0000000000000000 .LVL0
+     /tmp/ccsCKFkX.s:37     .text.gpio_deinit:0000000000000028 .LVL1
+     /tmp/ccsCKFkX.s:64     .text.gpio_deinit:0000000000000054 .LVL4
+     /tmp/ccsCKFkX.s:86     .text.gpio_deinit:0000000000000070 .LVL7
+     /tmp/ccsCKFkX.s:108    .text.gpio_deinit:000000000000008c .LVL10
+     /tmp/ccsCKFkX.s:141    .text.gpio_deinit:00000000000000ae .LVL13
+     /tmp/ccsCKFkX.s:896    .debug_info:0000000000000000 .Ldebug_info0
+
+UNDEFINED SYMBOLS
+rcu_periph_reset_enable
+rcu_periph_reset_disable

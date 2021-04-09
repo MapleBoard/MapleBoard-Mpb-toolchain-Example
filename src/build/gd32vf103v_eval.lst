@@ -1,0 +1,1535 @@
+GAS LISTING /tmp/ccriHlE5.s 			page 1
+
+
+   1              		.file	"gd32vf103v_eval.c"
+   2              		.option nopic
+   3              		.attribute arch, "rv32i2p0_m2p0_a2p0_c2p0"
+   4              		.attribute unaligned_access, 0
+   5              		.attribute stack_align, 16
+   6              		.text
+   7              	.Ltext0:
+   8              		.cfi_sections	.debug_frame
+   9              		.section	.text.gd_eval_led_init,"ax",@progbits
+  10              		.align	1
+  11              		.globl	gd_eval_led_init
+  13              	gd_eval_led_init:
+  14              	.LFB2:
+  15              		.file 1 "gd32vf103v_eval.c"
+   1:gd32vf103v_eval.c **** /*!
+   2:gd32vf103v_eval.c ****     \file    gd32v103v_eval.c
+   3:gd32vf103v_eval.c ****     \brief   firmware functions to manage leds, keys, COM ports
+   4:gd32vf103v_eval.c **** 
+   5:gd32vf103v_eval.c ****     \version 2019-6-5, V1.0.0, demo for GD32VF103
+   6:gd32vf103v_eval.c **** */
+   7:gd32vf103v_eval.c **** 
+   8:gd32vf103v_eval.c **** /*
+   9:gd32vf103v_eval.c ****     Copyright (c) 2019, GigaDevice Semiconductor Inc.
+  10:gd32vf103v_eval.c **** 
+  11:gd32vf103v_eval.c ****     Redistribution and use in source and binary forms, with or without modification, 
+  12:gd32vf103v_eval.c **** are permitted provided that the following conditions are met:
+  13:gd32vf103v_eval.c **** 
+  14:gd32vf103v_eval.c ****     1. Redistributions of source code must retain the above copyright notice, this 
+  15:gd32vf103v_eval.c ****        list of conditions and the following disclaimer.
+  16:gd32vf103v_eval.c ****     2. Redistributions in binary form must reproduce the above copyright notice, 
+  17:gd32vf103v_eval.c ****        this list of conditions and the following disclaimer in the documentation 
+  18:gd32vf103v_eval.c ****        and/or other materials provided with the distribution.
+  19:gd32vf103v_eval.c ****     3. Neither the name of the copyright holder nor the names of its contributors 
+  20:gd32vf103v_eval.c ****        may be used to endorse or promote products derived from this software without 
+  21:gd32vf103v_eval.c ****        specific prior written permission.
+  22:gd32vf103v_eval.c **** 
+  23:gd32vf103v_eval.c ****     THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
+  24:gd32vf103v_eval.c **** AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+  25:gd32vf103v_eval.c **** WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
+  26:gd32vf103v_eval.c **** IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, 
+  27:gd32vf103v_eval.c **** INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT 
+  28:gd32vf103v_eval.c **** NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR 
+  29:gd32vf103v_eval.c **** PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
+  30:gd32vf103v_eval.c **** WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+  31:gd32vf103v_eval.c **** ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY 
+  32:gd32vf103v_eval.c **** OF SUCH DAMAGE.
+  33:gd32vf103v_eval.c **** */
+  34:gd32vf103v_eval.c **** 
+  35:gd32vf103v_eval.c **** #include "gd32vf103v_eval.h"
+  36:gd32vf103v_eval.c **** 
+  37:gd32vf103v_eval.c **** /* private variables */
+  38:gd32vf103v_eval.c **** static uint32_t GPIO_PORT[LEDn] = {LED1_GPIO_PORT, LED2_GPIO_PORT,
+  39:gd32vf103v_eval.c ****                                    LED3_GPIO_PORT, LED4_GPIO_PORT};
+  40:gd32vf103v_eval.c **** static uint32_t GPIO_PIN[LEDn] = {LED1_PIN, LED2_PIN, LED3_PIN, LED4_PIN};
+  41:gd32vf103v_eval.c **** 
+  42:gd32vf103v_eval.c **** static rcu_periph_enum COM_CLK[COMn] = {EVAL_COM0_CLK, EVAL_COM1_CLK};
+  43:gd32vf103v_eval.c **** static uint32_t COM_TX_PIN[COMn] = {EVAL_COM0_TX_PIN, EVAL_COM1_TX_PIN};
+GAS LISTING /tmp/ccriHlE5.s 			page 2
+
+
+  44:gd32vf103v_eval.c **** static uint32_t COM_RX_PIN[COMn] = {EVAL_COM0_RX_PIN, EVAL_COM1_RX_PIN};
+  45:gd32vf103v_eval.c **** static uint32_t COM_GPIO_PORT[COMn] = {EVAL_COM0_GPIO_PORT, EVAL_COM1_GPIO_PORT};
+  46:gd32vf103v_eval.c **** static rcu_periph_enum COM_GPIO_CLK[COMn] = {EVAL_COM0_GPIO_CLK, EVAL_COM1_GPIO_CLK};
+  47:gd32vf103v_eval.c **** 
+  48:gd32vf103v_eval.c **** static rcu_periph_enum GPIO_CLK[LEDn] = {LED1_GPIO_CLK, LED2_GPIO_CLK,
+  49:gd32vf103v_eval.c ****                                          LED3_GPIO_CLK, LED4_GPIO_CLK};
+  50:gd32vf103v_eval.c **** 
+  51:gd32vf103v_eval.c **** static uint32_t KEY_PORT[KEYn] = {KEY_A_GPIO_PORT,
+  52:gd32vf103v_eval.c ****                                   KEY_B_GPIO_PORT,
+  53:gd32vf103v_eval.c ****                                   KEY_C_GPIO_PORT,
+  54:gd32vf103v_eval.c ****                                   KEY_D_GPIO_PORT,
+  55:gd32vf103v_eval.c ****                                   KEY_CET_GPIO_PORT};
+  56:gd32vf103v_eval.c **** static uint32_t KEY_PIN[KEYn] = {KEY_A_PIN,
+  57:gd32vf103v_eval.c ****                                  KEY_B_PIN,
+  58:gd32vf103v_eval.c ****                                  KEY_C_PIN,
+  59:gd32vf103v_eval.c ****                                  KEY_D_PIN,
+  60:gd32vf103v_eval.c ****                                  KEY_CET_PIN};
+  61:gd32vf103v_eval.c **** static rcu_periph_enum KEY_CLK[KEYn] = {KEY_A_GPIO_CLK,
+  62:gd32vf103v_eval.c ****                                         KEY_B_GPIO_CLK,
+  63:gd32vf103v_eval.c ****                                         KEY_C_GPIO_CLK,
+  64:gd32vf103v_eval.c ****                                         KEY_D_GPIO_CLK,
+  65:gd32vf103v_eval.c ****                                         KEY_CET_GPIO_CLK};
+  66:gd32vf103v_eval.c **** static exti_line_enum KEY_EXTI_LINE[KEYn] = {KEY_A_EXTI_LINE,
+  67:gd32vf103v_eval.c ****                                              KEY_B_EXTI_LINE,
+  68:gd32vf103v_eval.c ****                                              KEY_C_EXTI_LINE,
+  69:gd32vf103v_eval.c ****                                              KEY_D_EXTI_LINE,
+  70:gd32vf103v_eval.c ****                                              KEY_CET_EXTI_LINE};
+  71:gd32vf103v_eval.c **** static uint8_t KEY_PORT_SOURCE[KEYn] = {KEY_A_EXTI_PORT_SOURCE,
+  72:gd32vf103v_eval.c ****                                         KEY_B_EXTI_PORT_SOURCE,
+  73:gd32vf103v_eval.c ****                                         KEY_C_EXTI_PORT_SOURCE,
+  74:gd32vf103v_eval.c ****                                         KEY_D_EXTI_PORT_SOURCE,
+  75:gd32vf103v_eval.c ****                                         KEY_CET_EXTI_PORT_SOURCE};
+  76:gd32vf103v_eval.c **** static uint8_t KEY_PIN_SOURCE[KEYn] = {KEY_A_EXTI_PIN_SOURCE,
+  77:gd32vf103v_eval.c ****                                        KEY_B_EXTI_PIN_SOURCE,
+  78:gd32vf103v_eval.c ****                                        KEY_C_EXTI_PIN_SOURCE,
+  79:gd32vf103v_eval.c ****                                        KEY_D_EXTI_PIN_SOURCE,
+  80:gd32vf103v_eval.c ****                                        KEY_CET_EXTI_PIN_SOURCE};
+  81:gd32vf103v_eval.c **** static uint8_t KEY_IRQn[KEYn] = {KEY_A_EXTI_IRQn,
+  82:gd32vf103v_eval.c ****                                  KEY_B_EXTI_IRQn,
+  83:gd32vf103v_eval.c ****                                  KEY_C_EXTI_IRQn,
+  84:gd32vf103v_eval.c ****                                  KEY_D_EXTI_IRQn,
+  85:gd32vf103v_eval.c ****                                  KEY_CET_EXTI_IRQn};
+  86:gd32vf103v_eval.c **** 
+  87:gd32vf103v_eval.c **** /*!
+  88:gd32vf103v_eval.c ****     \brief      configure led GPIO
+  89:gd32vf103v_eval.c ****     \param[in]  lednum: specify the led to be configured
+  90:gd32vf103v_eval.c ****       \arg        LED1
+  91:gd32vf103v_eval.c ****       \arg        LED2
+  92:gd32vf103v_eval.c ****       \arg        LED3
+  93:gd32vf103v_eval.c ****       \arg        LED4
+  94:gd32vf103v_eval.c ****     \param[out] none
+  95:gd32vf103v_eval.c ****     \retval     none
+  96:gd32vf103v_eval.c **** */
+  97:gd32vf103v_eval.c **** void gd_eval_led_init(led_typedef_enum lednum)
+  98:gd32vf103v_eval.c **** {
+  16              		.loc 1 98 1
+  17              		.cfi_startproc
+GAS LISTING /tmp/ccriHlE5.s 			page 3
+
+
+  18              	.LVL0:
+  99:gd32vf103v_eval.c ****     /* enable the led clock */
+ 100:gd32vf103v_eval.c ****     rcu_periph_clock_enable(GPIO_CLK[lednum]);
+  19              		.loc 1 100 5
+  98:gd32vf103v_eval.c ****     /* enable the led clock */
+  20              		.loc 1 98 1 is_stmt 0
+  21 0000 4111     		addi	sp,sp,-16
+  22              	.LCFI0:
+  23              		.cfi_def_cfa_offset 16
+  24              		.loc 1 100 5
+  25 0002 B7070000 		lui	a5,%hi(.LANCHOR0)
+  98:gd32vf103v_eval.c ****     /* enable the led clock */
+  26              		.loc 1 98 1
+  27 0006 22C4     		sw	s0,8(sp)
+  28              		.loc 1 100 5
+  29 0008 93870700 		addi	a5,a5,%lo(.LANCHOR0)
+  30              		.cfi_offset 8, -8
+  31 000c 13142500 		slli	s0,a0,2
+  32 0010 A297     		add	a5,a5,s0
+  33 0012 8843     		lw	a0,0(a5)
+  34              	.LVL1:
+  98:gd32vf103v_eval.c ****     /* enable the led clock */
+  35              		.loc 1 98 1
+  36 0014 06C6     		sw	ra,12(sp)
+  37 0016 26C2     		sw	s1,4(sp)
+  38              		.cfi_offset 1, -4
+  39              		.cfi_offset 9, -12
+  40              		.loc 1 100 5
+  41 0018 97000000 		call	rcu_periph_clock_enable
+  41      E7800000 
+  42              	.LVL2:
+ 101:gd32vf103v_eval.c ****     /* configure led GPIO port */ 
+ 102:gd32vf103v_eval.c ****     gpio_init(GPIO_PORT[lednum], GPIO_MODE_OUT_PP, GPIO_OSPEED_50MHZ, GPIO_PIN[lednum]);
+  43              		.loc 1 102 5 is_stmt 1
+  44 0020 37070000 		lui	a4,%hi(.LANCHOR1)
+  45 0024 B7070000 		lui	a5,%hi(.LANCHOR2)
+  46 0028 13070700 		addi	a4,a4,%lo(.LANCHOR1)
+  47 002c 93870700 		addi	a5,a5,%lo(.LANCHOR2)
+  48 0030 A297     		add	a5,a5,s0
+  49 0032 2297     		add	a4,a4,s0
+  50 0034 0043     		lw	s0,0(a4)
+  51 0036 8443     		lw	s1,0(a5)
+  52 0038 0D46     		li	a2,3
+  53 003a 2285     		mv	a0,s0
+  54 003c A686     		mv	a3,s1
+  55 003e C145     		li	a1,16
+  56 0040 97000000 		call	gpio_init
+  56      E7800000 
+  57              	.LVL3:
+ 103:gd32vf103v_eval.c **** 
+ 104:gd32vf103v_eval.c ****     GPIO_BOP(GPIO_PORT[lednum]) = GPIO_PIN[lednum];
+  58              		.loc 1 104 5
+ 105:gd32vf103v_eval.c **** }
+  59              		.loc 1 105 1 is_stmt 0
+  60 0048 B240     		lw	ra,12(sp)
+  61              		.cfi_restore 1
+ 104:gd32vf103v_eval.c **** }
+GAS LISTING /tmp/ccriHlE5.s 			page 4
+
+
+  62              		.loc 1 104 33
+  63 004a 04C8     		sw	s1,16(s0)
+  64              		.loc 1 105 1
+  65 004c 2244     		lw	s0,8(sp)
+  66              		.cfi_restore 8
+  67 004e 9244     		lw	s1,4(sp)
+  68              		.cfi_restore 9
+  69 0050 4101     		addi	sp,sp,16
+  70              	.LCFI1:
+  71              		.cfi_def_cfa_offset 0
+  72 0052 8280     		jr	ra
+  73              		.cfi_endproc
+  74              	.LFE2:
+  76              		.section	.text.gd_eval_led_off,"ax",@progbits
+  77              		.align	1
+  78              		.globl	gd_eval_led_off
+  80              	gd_eval_led_off:
+  81              	.LFB3:
+ 106:gd32vf103v_eval.c **** 
+ 107:gd32vf103v_eval.c **** /*!
+ 108:gd32vf103v_eval.c ****     \brief      turn on selected led
+ 109:gd32vf103v_eval.c ****     \param[in]  lednum: specify the led to be turned on
+ 110:gd32vf103v_eval.c ****       \arg        LED1
+ 111:gd32vf103v_eval.c ****       \arg        LED2
+ 112:gd32vf103v_eval.c ****       \arg        LED3
+ 113:gd32vf103v_eval.c ****       \arg        LED4
+ 114:gd32vf103v_eval.c ****     \param[out] none
+ 115:gd32vf103v_eval.c ****     \retval     none
+ 116:gd32vf103v_eval.c **** */
+ 117:gd32vf103v_eval.c **** void gd_eval_led_off(led_typedef_enum lednum)
+ 118:gd32vf103v_eval.c **** {
+  82              		.loc 1 118 1 is_stmt 1
+  83              		.cfi_startproc
+  84              	.LVL4:
+ 119:gd32vf103v_eval.c ****     GPIO_BOP(GPIO_PORT[lednum]) = GPIO_PIN[lednum];
+  85              		.loc 1 119 5
+  86 0000 13172500 		slli	a4,a0,2
+  87 0004 B7070000 		lui	a5,%hi(.LANCHOR1)
+  88              		.loc 1 119 43 is_stmt 0
+  89 0008 37050000 		lui	a0,%hi(.LANCHOR2)
+  90              	.LVL5:
+  91              		.loc 1 119 5
+  92 000c 93870700 		addi	a5,a5,%lo(.LANCHOR1)
+  93              		.loc 1 119 43
+  94 0010 13050500 		addi	a0,a0,%lo(.LANCHOR2)
+  95              		.loc 1 119 5
+  96 0014 BA97     		add	a5,a5,a4
+  97              		.loc 1 119 43
+  98 0016 3A95     		add	a0,a0,a4
+  99              		.loc 1 119 5
+ 100 0018 9C43     		lw	a5,0(a5)
+ 101              		.loc 1 119 43
+ 102 001a 1841     		lw	a4,0(a0)
+ 103              		.loc 1 119 33
+ 104 001c 98CB     		sw	a4,16(a5)
+ 120:gd32vf103v_eval.c **** }
+ 105              		.loc 1 120 1
+GAS LISTING /tmp/ccriHlE5.s 			page 5
+
+
+ 106 001e 8280     		ret
+ 107              		.cfi_endproc
+ 108              	.LFE3:
+ 110              		.section	.text.gd_eval_led_on,"ax",@progbits
+ 111              		.align	1
+ 112              		.globl	gd_eval_led_on
+ 114              	gd_eval_led_on:
+ 115              	.LFB4:
+ 121:gd32vf103v_eval.c **** 
+ 122:gd32vf103v_eval.c **** /*!
+ 123:gd32vf103v_eval.c ****     \brief      turn off selected led
+ 124:gd32vf103v_eval.c ****     \param[in]  lednum: specify the led to be turned off
+ 125:gd32vf103v_eval.c ****       \arg        LED1
+ 126:gd32vf103v_eval.c ****       \arg        LED2
+ 127:gd32vf103v_eval.c ****       \arg        LED3
+ 128:gd32vf103v_eval.c ****       \arg        LED4
+ 129:gd32vf103v_eval.c ****     \param[out] none
+ 130:gd32vf103v_eval.c ****     \retval     none
+ 131:gd32vf103v_eval.c **** */
+ 132:gd32vf103v_eval.c **** void gd_eval_led_on(led_typedef_enum lednum)
+ 133:gd32vf103v_eval.c **** {
+ 116              		.loc 1 133 1 is_stmt 1
+ 117              		.cfi_startproc
+ 118              	.LVL6:
+ 134:gd32vf103v_eval.c ****     GPIO_BC(GPIO_PORT[lednum]) = GPIO_PIN[lednum];
+ 119              		.loc 1 134 5
+ 120 0000 13172500 		slli	a4,a0,2
+ 121 0004 B7070000 		lui	a5,%hi(.LANCHOR1)
+ 122              		.loc 1 134 42 is_stmt 0
+ 123 0008 37050000 		lui	a0,%hi(.LANCHOR2)
+ 124              	.LVL7:
+ 125              		.loc 1 134 5
+ 126 000c 93870700 		addi	a5,a5,%lo(.LANCHOR1)
+ 127              		.loc 1 134 42
+ 128 0010 13050500 		addi	a0,a0,%lo(.LANCHOR2)
+ 129              		.loc 1 134 5
+ 130 0014 BA97     		add	a5,a5,a4
+ 131              		.loc 1 134 42
+ 132 0016 3A95     		add	a0,a0,a4
+ 133              		.loc 1 134 5
+ 134 0018 9C43     		lw	a5,0(a5)
+ 135              		.loc 1 134 42
+ 136 001a 1841     		lw	a4,0(a0)
+ 137              		.loc 1 134 32
+ 138 001c D8CB     		sw	a4,20(a5)
+ 135:gd32vf103v_eval.c **** }
+ 139              		.loc 1 135 1
+ 140 001e 8280     		ret
+ 141              		.cfi_endproc
+ 142              	.LFE4:
+ 144              		.section	.text.gd_eval_led_toggle,"ax",@progbits
+ 145              		.align	1
+ 146              		.globl	gd_eval_led_toggle
+ 148              	gd_eval_led_toggle:
+ 149              	.LFB5:
+ 136:gd32vf103v_eval.c **** 
+ 137:gd32vf103v_eval.c **** /*!
+GAS LISTING /tmp/ccriHlE5.s 			page 6
+
+
+ 138:gd32vf103v_eval.c ****     \brief      toggle selected led
+ 139:gd32vf103v_eval.c ****     \param[in]  lednum: specify the led to be toggled
+ 140:gd32vf103v_eval.c ****       \arg        LED1
+ 141:gd32vf103v_eval.c ****       \arg        LED2
+ 142:gd32vf103v_eval.c ****       \arg        LED3
+ 143:gd32vf103v_eval.c ****       \arg        LED4
+ 144:gd32vf103v_eval.c ****     \param[out] none
+ 145:gd32vf103v_eval.c ****     \retval     none
+ 146:gd32vf103v_eval.c **** */
+ 147:gd32vf103v_eval.c **** void gd_eval_led_toggle(led_typedef_enum lednum)
+ 148:gd32vf103v_eval.c **** {
+ 150              		.loc 1 148 1 is_stmt 1
+ 151              		.cfi_startproc
+ 152              	.LVL8:
+ 149:gd32vf103v_eval.c ****     gpio_bit_write(GPIO_PORT[lednum], GPIO_PIN[lednum], 
+ 153              		.loc 1 149 5
+ 154 0000 13172500 		slli	a4,a0,2
+ 155 0004 B7070000 		lui	a5,%hi(.LANCHOR1)
+ 156 0008 37050000 		lui	a0,%hi(.LANCHOR2)
+ 157              	.LVL9:
+ 158 000c 93870700 		addi	a5,a5,%lo(.LANCHOR1)
+ 159 0010 13050500 		addi	a0,a0,%lo(.LANCHOR2)
+ 148:gd32vf103v_eval.c ****     gpio_bit_write(GPIO_PORT[lednum], GPIO_PIN[lednum], 
+ 160              		.loc 1 148 1 is_stmt 0
+ 161 0014 4111     		addi	sp,sp,-16
+ 162              	.LCFI2:
+ 163              		.cfi_def_cfa_offset 16
+ 164              		.loc 1 149 5
+ 165 0016 3A95     		add	a0,a0,a4
+ 166 0018 BA97     		add	a5,a5,a4
+ 148:gd32vf103v_eval.c ****     gpio_bit_write(GPIO_PORT[lednum], GPIO_PIN[lednum], 
+ 167              		.loc 1 148 1
+ 168 001a 22C4     		sw	s0,8(sp)
+ 169 001c 26C2     		sw	s1,4(sp)
+ 170              		.cfi_offset 8, -8
+ 171              		.cfi_offset 9, -12
+ 172              		.loc 1 149 5
+ 173 001e 8043     		lw	s0,0(a5)
+ 174 0020 0441     		lw	s1,0(a0)
+ 148:gd32vf103v_eval.c ****     gpio_bit_write(GPIO_PORT[lednum], GPIO_PIN[lednum], 
+ 175              		.loc 1 148 1
+ 176 0022 06C6     		sw	ra,12(sp)
+ 177              		.cfi_offset 1, -4
+ 150:gd32vf103v_eval.c ****         (bit_status)(1-gpio_input_bit_get(GPIO_PORT[lednum], GPIO_PIN[lednum])));
+ 178              		.loc 1 150 24
+ 179 0024 2285     		mv	a0,s0
+ 180 0026 A685     		mv	a1,s1
+ 181 0028 97000000 		call	gpio_input_bit_get
+ 181      E7800000 
+ 182              	.LVL10:
+ 183              		.loc 1 150 23
+ 184 0030 0546     		li	a2,1
+ 149:gd32vf103v_eval.c ****     gpio_bit_write(GPIO_PORT[lednum], GPIO_PIN[lednum], 
+ 185              		.loc 1 149 5
+ 186 0032 098E     		sub	a2,a2,a0
+ 187 0034 2285     		mv	a0,s0
+ 151:gd32vf103v_eval.c **** }
+GAS LISTING /tmp/ccriHlE5.s 			page 7
+
+
+ 188              		.loc 1 151 1
+ 189 0036 2244     		lw	s0,8(sp)
+ 190              		.cfi_restore 8
+ 191 0038 B240     		lw	ra,12(sp)
+ 192              		.cfi_restore 1
+ 149:gd32vf103v_eval.c ****         (bit_status)(1-gpio_input_bit_get(GPIO_PORT[lednum], GPIO_PIN[lednum])));
+ 193              		.loc 1 149 5
+ 194 003a A685     		mv	a1,s1
+ 195              		.loc 1 151 1
+ 196 003c 9244     		lw	s1,4(sp)
+ 197              		.cfi_restore 9
+ 198 003e 4101     		addi	sp,sp,16
+ 199              	.LCFI3:
+ 200              		.cfi_def_cfa_offset 0
+ 149:gd32vf103v_eval.c ****         (bit_status)(1-gpio_input_bit_get(GPIO_PORT[lednum], GPIO_PIN[lednum])));
+ 201              		.loc 1 149 5
+ 202 0040 17030000 		tail	gpio_bit_write
+ 202      67000300 
+ 203              	.LVL11:
+ 204              		.cfi_endproc
+ 205              	.LFE5:
+ 207              		.section	.text.gd_eval_key_init,"ax",@progbits
+ 208              		.align	1
+ 209              		.globl	gd_eval_key_init
+ 211              	gd_eval_key_init:
+ 212              	.LFB6:
+ 152:gd32vf103v_eval.c **** 
+ 153:gd32vf103v_eval.c **** /*!
+ 154:gd32vf103v_eval.c ****     \brief      configure key
+ 155:gd32vf103v_eval.c ****     \param[in]  key_num: specify the key to be configured
+ 156:gd32vf103v_eval.c ****       \arg        KEY_A: wakeup key
+ 157:gd32vf103v_eval.c ****       \arg        KEY_B: tamper key
+ 158:gd32vf103v_eval.c ****       \arg        KEY_C: user key
+ 159:gd32vf103v_eval.c ****       \arg        KEY_D: user key
+ 160:gd32vf103v_eval.c ****       \arg        KEY_CET: user key
+ 161:gd32vf103v_eval.c ****     \param[in]  key_mode: specify button mode
+ 162:gd32vf103v_eval.c ****       \arg        KEY_MODE_GPIO: key will be used as simple IO
+ 163:gd32vf103v_eval.c ****       \arg        KEY_MODE_EXTI: key will be connected to EXTI line with interrupt
+ 164:gd32vf103v_eval.c ****     \param[out] none
+ 165:gd32vf103v_eval.c ****     \retval     none
+ 166:gd32vf103v_eval.c **** */
+ 167:gd32vf103v_eval.c **** 
+ 168:gd32vf103v_eval.c **** void gd_eval_key_init(key_typedef_enum key_num, keymode_typedef_enum key_mode)
+ 169:gd32vf103v_eval.c **** {
+ 213              		.loc 1 169 1 is_stmt 1
+ 214              		.cfi_startproc
+ 215              	.LVL12:
+ 170:gd32vf103v_eval.c ****     /* enable the key clock */
+ 171:gd32vf103v_eval.c ****     rcu_periph_clock_enable(KEY_CLK[key_num]);
+ 216              		.loc 1 171 5
+ 169:gd32vf103v_eval.c ****     /* enable the key clock */
+ 217              		.loc 1 169 1 is_stmt 0
+ 218 0000 4111     		addi	sp,sp,-16
+ 219              	.LCFI4:
+ 220              		.cfi_def_cfa_offset 16
+ 221              		.loc 1 171 5
+ 222 0002 B7070000 		lui	a5,%hi(.LANCHOR3)
+GAS LISTING /tmp/ccriHlE5.s 			page 8
+
+
+ 169:gd32vf103v_eval.c ****     /* enable the key clock */
+ 223              		.loc 1 169 1
+ 224 0006 26C2     		sw	s1,4(sp)
+ 225              		.loc 1 171 5
+ 226 0008 93870700 		addi	a5,a5,%lo(.LANCHOR3)
+ 227              		.cfi_offset 9, -12
+ 228 000c 93142500 		slli	s1,a0,2
+ 229 0010 A697     		add	a5,a5,s1
+ 169:gd32vf103v_eval.c ****     /* enable the key clock */
+ 230              		.loc 1 169 1
+ 231 0012 22C4     		sw	s0,8(sp)
+ 232              		.cfi_offset 8, -8
+ 233 0014 2A84     		mv	s0,a0
+ 234              		.loc 1 171 5
+ 235 0016 8843     		lw	a0,0(a5)
+ 236              	.LVL13:
+ 169:gd32vf103v_eval.c ****     /* enable the key clock */
+ 237              		.loc 1 169 1
+ 238 0018 06C6     		sw	ra,12(sp)
+ 239 001a 4AC0     		sw	s2,0(sp)
+ 240              		.cfi_offset 1, -4
+ 241              		.cfi_offset 18, -16
+ 169:gd32vf103v_eval.c ****     /* enable the key clock */
+ 242              		.loc 1 169 1
+ 243 001c 2E89     		mv	s2,a1
+ 244              		.loc 1 171 5
+ 245 001e 97000000 		call	rcu_periph_clock_enable
+ 245      E7800000 
+ 246              	.LVL14:
+ 172:gd32vf103v_eval.c ****     rcu_periph_clock_enable(RCU_AF);
+ 247              		.loc 1 172 5 is_stmt 1
+ 248 0026 13050060 		li	a0,1536
+ 249 002a 97000000 		call	rcu_periph_clock_enable
+ 249      E7800000 
+ 250              	.LVL15:
+ 173:gd32vf103v_eval.c **** 
+ 174:gd32vf103v_eval.c ****     /* configure button pin as input */
+ 175:gd32vf103v_eval.c ****     gpio_init(KEY_PORT[key_num], GPIO_MODE_IN_FLOATING, GPIO_OSPEED_50MHZ, KEY_PIN[key_num]);
+ 251              		.loc 1 175 5
+ 252 0032 37070000 		lui	a4,%hi(.LANCHOR4)
+ 253 0036 B7070000 		lui	a5,%hi(.LANCHOR5)
+ 254 003a 13070700 		addi	a4,a4,%lo(.LANCHOR4)
+ 255 003e 93870700 		addi	a5,a5,%lo(.LANCHOR5)
+ 256 0042 A697     		add	a5,a5,s1
+ 257 0044 2697     		add	a4,a4,s1
+ 258 0046 8843     		lw	a0,0(a5)
+ 259 0048 1443     		lw	a3,0(a4)
+ 260 004a 0D46     		li	a2,3
+ 261 004c 9145     		li	a1,4
+ 262 004e 97000000 		call	gpio_init
+ 262      E7800000 
+ 263              	.LVL16:
+ 176:gd32vf103v_eval.c **** 
+ 177:gd32vf103v_eval.c ****     if (key_mode == KEY_MODE_EXTI) {
+ 264              		.loc 1 177 5
+ 265              		.loc 1 177 8 is_stmt 0
+ 266 0056 8547     		li	a5,1
+GAS LISTING /tmp/ccriHlE5.s 			page 9
+
+
+ 267 0058 6308F900 		beq	s2,a5,.L11
+ 178:gd32vf103v_eval.c ****         /* enable and set key EXTI interrupt to the lowest priority */
+ 179:gd32vf103v_eval.c ****         eclic_irq_enable(KEY_IRQn[key_num],1, 1);
+ 180:gd32vf103v_eval.c **** 
+ 181:gd32vf103v_eval.c ****         /* connect key EXTI line to key GPIO pin */
+ 182:gd32vf103v_eval.c ****         gpio_exti_source_select(KEY_PORT_SOURCE[key_num], KEY_PIN_SOURCE[key_num]);
+ 183:gd32vf103v_eval.c **** 
+ 184:gd32vf103v_eval.c ****         /* configure key EXTI line */
+ 185:gd32vf103v_eval.c ****         exti_init(KEY_EXTI_LINE[key_num], EXTI_INTERRUPT, EXTI_TRIG_FALLING);
+ 186:gd32vf103v_eval.c ****         exti_interrupt_flag_clear(KEY_EXTI_LINE[key_num]);
+ 187:gd32vf103v_eval.c ****     }
+ 188:gd32vf103v_eval.c **** }
+ 268              		.loc 1 188 1
+ 269 005c B240     		lw	ra,12(sp)
+ 270              		.cfi_remember_state
+ 271              		.cfi_restore 1
+ 272 005e 2244     		lw	s0,8(sp)
+ 273              		.cfi_restore 8
+ 274              	.LVL17:
+ 275 0060 9244     		lw	s1,4(sp)
+ 276              		.cfi_restore 9
+ 277 0062 0249     		lw	s2,0(sp)
+ 278              		.cfi_restore 18
+ 279              	.LVL18:
+ 280 0064 4101     		addi	sp,sp,16
+ 281              	.LCFI5:
+ 282              		.cfi_def_cfa_offset 0
+ 283 0066 8280     		jr	ra
+ 284              	.LVL19:
+ 285              	.L11:
+ 286              	.LCFI6:
+ 287              		.cfi_restore_state
+ 179:gd32vf103v_eval.c **** 
+ 288              		.loc 1 179 9 is_stmt 1
+ 179:gd32vf103v_eval.c **** 
+ 289              		.loc 1 179 34 is_stmt 0
+ 290 0068 B7070000 		lui	a5,%hi(.LANCHOR6)
+ 291 006c 93870700 		addi	a5,a5,%lo(.LANCHOR6)
+ 292 0070 A297     		add	a5,a5,s0
+ 179:gd32vf103v_eval.c **** 
+ 293              		.loc 1 179 9
+ 294 0072 03C50700 		lbu	a0,0(a5)
+ 295 0076 0546     		li	a2,1
+ 296 0078 8545     		li	a1,1
+ 297 007a 97000000 		call	eclic_irq_enable
+ 297      E7800000 
+ 298              	.LVL20:
+ 182:gd32vf103v_eval.c **** 
+ 299              		.loc 1 182 9 is_stmt 1
+ 300 0082 B7070000 		lui	a5,%hi(.LANCHOR7)
+ 301 0086 37050000 		lui	a0,%hi(.LANCHOR8)
+ 302 008a 13050500 		addi	a0,a0,%lo(.LANCHOR8)
+ 303 008e 93870700 		addi	a5,a5,%lo(.LANCHOR7)
+ 304 0092 A297     		add	a5,a5,s0
+ 305 0094 2A94     		add	s0,a0,s0
+ 306              	.LVL21:
+ 307 0096 83C50700 		lbu	a1,0(a5)
+GAS LISTING /tmp/ccriHlE5.s 			page 10
+
+
+ 308 009a 03450400 		lbu	a0,0(s0)
+ 309 009e 97000000 		call	gpio_exti_source_select
+ 309      E7800000 
+ 310              	.LVL22:
+ 185:gd32vf103v_eval.c ****         exti_interrupt_flag_clear(KEY_EXTI_LINE[key_num]);
+ 311              		.loc 1 185 9
+ 312 00a6 B7070000 		lui	a5,%hi(KEY_EXTI_LINE)
+ 313 00aa 93870700 		addi	a5,a5,%lo(KEY_EXTI_LINE)
+ 314 00ae BE94     		add	s1,a5,s1
+ 315 00b0 8040     		lw	s0,0(s1)
+ 316 00b2 0546     		li	a2,1
+ 317 00b4 8145     		li	a1,0
+ 318 00b6 2285     		mv	a0,s0
+ 319 00b8 97000000 		call	exti_init
+ 319      E7800000 
+ 320              	.LVL23:
+ 186:gd32vf103v_eval.c ****     }
+ 321              		.loc 1 186 9
+ 322 00c0 2285     		mv	a0,s0
+ 323              		.loc 1 188 1 is_stmt 0
+ 324 00c2 2244     		lw	s0,8(sp)
+ 325              		.cfi_restore 8
+ 326 00c4 B240     		lw	ra,12(sp)
+ 327              		.cfi_restore 1
+ 328 00c6 9244     		lw	s1,4(sp)
+ 329              		.cfi_restore 9
+ 330 00c8 0249     		lw	s2,0(sp)
+ 331              		.cfi_restore 18
+ 332              	.LVL24:
+ 333 00ca 4101     		addi	sp,sp,16
+ 334              	.LCFI7:
+ 335              		.cfi_def_cfa_offset 0
+ 186:gd32vf103v_eval.c ****     }
+ 336              		.loc 1 186 9
+ 337 00cc 17030000 		tail	exti_interrupt_flag_clear
+ 337      67000300 
+ 338              	.LVL25:
+ 339              		.cfi_endproc
+ 340              	.LFE6:
+ 342              		.section	.text.gd_eval_key_state_get,"ax",@progbits
+ 343              		.align	1
+ 344              		.globl	gd_eval_key_state_get
+ 346              	gd_eval_key_state_get:
+ 347              	.LFB7:
+ 189:gd32vf103v_eval.c **** 
+ 190:gd32vf103v_eval.c **** /*!
+ 191:gd32vf103v_eval.c ****     \brief      return the selected key state
+ 192:gd32vf103v_eval.c ****     \param[in]  key: specify the key to be checked
+ 193:gd32vf103v_eval.c ****       \arg        KEY_A: wakeup key
+ 194:gd32vf103v_eval.c ****       \arg        KEY_B: tamper key
+ 195:gd32vf103v_eval.c ****       \arg        KEY_C: user key
+ 196:gd32vf103v_eval.c ****       \arg        KEY_D: user key
+ 197:gd32vf103v_eval.c ****       \arg        KEY_CET: user key
+ 198:gd32vf103v_eval.c ****     \param[out] none
+ 199:gd32vf103v_eval.c ****     \retval     the key's GPIO pin value
+ 200:gd32vf103v_eval.c **** */
+ 201:gd32vf103v_eval.c **** uint8_t gd_eval_key_state_get(key_typedef_enum key)
+GAS LISTING /tmp/ccriHlE5.s 			page 11
+
+
+ 202:gd32vf103v_eval.c **** {
+ 348              		.loc 1 202 1 is_stmt 1
+ 349              		.cfi_startproc
+ 350              	.LVL26:
+ 203:gd32vf103v_eval.c ****     return gpio_input_bit_get(KEY_PORT[key], KEY_PIN[key]);
+ 351              		.loc 1 203 5
+ 352              		.loc 1 203 12 is_stmt 0
+ 353 0000 13172500 		slli	a4,a0,2
+ 354 0004 B7070000 		lui	a5,%hi(.LANCHOR4)
+ 355 0008 37050000 		lui	a0,%hi(.LANCHOR5)
+ 356              	.LVL27:
+ 357 000c 93870700 		addi	a5,a5,%lo(.LANCHOR4)
+ 358 0010 13050500 		addi	a0,a0,%lo(.LANCHOR5)
+ 359 0014 BA97     		add	a5,a5,a4
+ 360 0016 3A95     		add	a0,a0,a4
+ 361 0018 8C43     		lw	a1,0(a5)
+ 362 001a 0841     		lw	a0,0(a0)
+ 202:gd32vf103v_eval.c ****     return gpio_input_bit_get(KEY_PORT[key], KEY_PIN[key]);
+ 363              		.loc 1 202 1
+ 364 001c 4111     		addi	sp,sp,-16
+ 365              	.LCFI8:
+ 366              		.cfi_def_cfa_offset 16
+ 367 001e 06C6     		sw	ra,12(sp)
+ 368              		.cfi_offset 1, -4
+ 369              		.loc 1 203 12
+ 370 0020 97000000 		call	gpio_input_bit_get
+ 370      E7800000 
+ 371              	.LVL28:
+ 204:gd32vf103v_eval.c **** }
+ 372              		.loc 1 204 1
+ 373 0028 B240     		lw	ra,12(sp)
+ 374              		.cfi_restore 1
+ 375 002a 1375F50F 		andi	a0,a0,0xff
+ 376 002e 4101     		addi	sp,sp,16
+ 377              	.LCFI9:
+ 378              		.cfi_def_cfa_offset 0
+ 379 0030 8280     		jr	ra
+ 380              		.cfi_endproc
+ 381              	.LFE7:
+ 383              		.section	.text.gd_eval_com_init,"ax",@progbits
+ 384              		.align	1
+ 385              		.globl	gd_eval_com_init
+ 387              	gd_eval_com_init:
+ 388              	.LFB8:
+ 205:gd32vf103v_eval.c **** 
+ 206:gd32vf103v_eval.c **** /*!
+ 207:gd32vf103v_eval.c ****     \brief      configure COM port
+ 208:gd32vf103v_eval.c ****     \param[in]  com: COM on the board
+ 209:gd32vf103v_eval.c ****       \arg        EVAL_COM0: COM0 on the board
+ 210:gd32vf103v_eval.c ****       \arg        EVAL_COM1: COM1 on the board
+ 211:gd32vf103v_eval.c ****     \param[out] none
+ 212:gd32vf103v_eval.c ****     \retval     none
+ 213:gd32vf103v_eval.c **** */
+ 214:gd32vf103v_eval.c **** void gd_eval_com_init(uint32_t com)
+ 215:gd32vf103v_eval.c **** {
+ 389              		.loc 1 215 1 is_stmt 1
+ 390              		.cfi_startproc
+GAS LISTING /tmp/ccriHlE5.s 			page 12
+
+
+ 391              	.LVL29:
+ 216:gd32vf103v_eval.c ****     uint32_t com_id = 0U;
+ 392              		.loc 1 216 5
+ 217:gd32vf103v_eval.c ****     if(EVAL_COM0 == com){
+ 393              		.loc 1 217 5
+ 218:gd32vf103v_eval.c ****         com_id = 0U;
+ 219:gd32vf103v_eval.c ****     }else if(EVAL_COM1 == com){
+ 394              		.loc 1 219 11
+ 215:gd32vf103v_eval.c ****     uint32_t com_id = 0U;
+ 395              		.loc 1 215 1 is_stmt 0
+ 396 0000 4111     		addi	sp,sp,-16
+ 397              	.LCFI10:
+ 398              		.cfi_def_cfa_offset 16
+ 399 0002 26C2     		sw	s1,4(sp)
+ 400              		.cfi_offset 9, -12
+ 401              		.loc 1 219 13
+ 402 0004 B7C4FFBF 		li	s1,-1073758208
+ 403 0008 938404C0 		addi	s1,s1,-1024
+ 404 000c AA94     		add	s1,a0,s1
+ 405 000e 93B41400 		seqz	s1,s1
+ 406              	.LVL30:
+ 220:gd32vf103v_eval.c ****         com_id = 1U;
+ 221:gd32vf103v_eval.c ****     }
+ 222:gd32vf103v_eval.c ****     
+ 223:gd32vf103v_eval.c ****     /* enable GPIO clock */
+ 224:gd32vf103v_eval.c ****     rcu_periph_clock_enable(COM_GPIO_CLK[com_id]);
+ 407              		.loc 1 224 5 is_stmt 1
+ 408 0012 B7070000 		lui	a5,%hi(.LANCHOR9)
+ 409 0016 8A04     		slli	s1,s1,2
+ 410              	.LVL31:
+ 411 0018 93870700 		addi	a5,a5,%lo(.LANCHOR9)
+ 412 001c A697     		add	a5,a5,s1
+ 215:gd32vf103v_eval.c ****     uint32_t com_id = 0U;
+ 413              		.loc 1 215 1 is_stmt 0
+ 414 001e 22C4     		sw	s0,8(sp)
+ 415              		.cfi_offset 8, -8
+ 416 0020 2A84     		mv	s0,a0
+ 417              		.loc 1 224 5
+ 418 0022 8843     		lw	a0,0(a5)
+ 419              	.LVL32:
+ 215:gd32vf103v_eval.c ****     uint32_t com_id = 0U;
+ 420              		.loc 1 215 1
+ 421 0024 06C6     		sw	ra,12(sp)
+ 422 0026 4AC0     		sw	s2,0(sp)
+ 423              		.cfi_offset 1, -4
+ 424              		.cfi_offset 18, -16
+ 425              		.loc 1 224 5
+ 426 0028 97000000 		call	rcu_periph_clock_enable
+ 426      E7800000 
+ 427              	.LVL33:
+ 225:gd32vf103v_eval.c **** 
+ 226:gd32vf103v_eval.c ****     /* enable USART clock */
+ 227:gd32vf103v_eval.c ****     rcu_periph_clock_enable(COM_CLK[com_id]);
+ 428              		.loc 1 227 5 is_stmt 1
+ 429 0030 B7070000 		lui	a5,%hi(.LANCHOR10)
+ 430 0034 93870700 		addi	a5,a5,%lo(.LANCHOR10)
+ 431 0038 A697     		add	a5,a5,s1
+GAS LISTING /tmp/ccriHlE5.s 			page 13
+
+
+ 432 003a 8843     		lw	a0,0(a5)
+ 433 003c 97000000 		call	rcu_periph_clock_enable
+ 433      E7800000 
+ 434              	.LVL34:
+ 228:gd32vf103v_eval.c **** 
+ 229:gd32vf103v_eval.c ****     /* connect port to USARTx_Tx */
+ 230:gd32vf103v_eval.c ****     gpio_init(COM_GPIO_PORT[com_id], GPIO_MODE_AF_PP, GPIO_OSPEED_50MHZ, COM_TX_PIN[com_id]);
+ 435              		.loc 1 230 5
+ 436 0044 B7070000 		lui	a5,%hi(.LANCHOR11)
+ 437 0048 93870700 		addi	a5,a5,%lo(.LANCHOR11)
+ 438 004c A697     		add	a5,a5,s1
+ 439 004e 03A90700 		lw	s2,0(a5)
+ 440 0052 B7070000 		lui	a5,%hi(.LANCHOR12)
+ 441 0056 93870700 		addi	a5,a5,%lo(.LANCHOR12)
+ 442 005a A697     		add	a5,a5,s1
+ 443 005c 9443     		lw	a3,0(a5)
+ 444 005e 4A85     		mv	a0,s2
+ 445 0060 0D46     		li	a2,3
+ 446 0062 E145     		li	a1,24
+ 447 0064 97000000 		call	gpio_init
+ 447      E7800000 
+ 448              	.LVL35:
+ 231:gd32vf103v_eval.c **** 
+ 232:gd32vf103v_eval.c ****     /* connect port to USARTx_Rx */
+ 233:gd32vf103v_eval.c ****     gpio_init(COM_GPIO_PORT[com_id], GPIO_MODE_IN_FLOATING, GPIO_OSPEED_50MHZ, COM_RX_PIN[com_id]);
+ 449              		.loc 1 233 5
+ 450 006c B7070000 		lui	a5,%hi(.LANCHOR13)
+ 451 0070 93870700 		addi	a5,a5,%lo(.LANCHOR13)
+ 452 0074 BE94     		add	s1,a5,s1
+ 453 0076 9440     		lw	a3,0(s1)
+ 454 0078 0D46     		li	a2,3
+ 455 007a 9145     		li	a1,4
+ 456 007c 4A85     		mv	a0,s2
+ 457 007e 97000000 		call	gpio_init
+ 457      E7800000 
+ 458              	.LVL36:
+ 234:gd32vf103v_eval.c **** 
+ 235:gd32vf103v_eval.c ****     /* USART configure */
+ 236:gd32vf103v_eval.c ****     usart_deinit(com);
+ 459              		.loc 1 236 5
+ 460 0086 2285     		mv	a0,s0
+ 461 0088 97000000 		call	usart_deinit
+ 461      E7800000 
+ 462              	.LVL37:
+ 237:gd32vf103v_eval.c ****     usart_baudrate_set(com, 115200U);
+ 463              		.loc 1 237 5
+ 464 0090 F165     		li	a1,114688
+ 465 0092 2285     		mv	a0,s0
+ 466 0094 93850520 		addi	a1,a1,512
+ 467 0098 97000000 		call	usart_baudrate_set
+ 467      E7800000 
+ 468              	.LVL38:
+ 238:gd32vf103v_eval.c ****     usart_word_length_set(com, USART_WL_8BIT);
+ 469              		.loc 1 238 5
+ 470 00a0 2285     		mv	a0,s0
+ 471 00a2 8145     		li	a1,0
+ 472 00a4 97000000 		call	usart_word_length_set
+GAS LISTING /tmp/ccriHlE5.s 			page 14
+
+
+ 472      E7800000 
+ 473              	.LVL39:
+ 239:gd32vf103v_eval.c ****     usart_stop_bit_set(com, USART_STB_1BIT);
+ 474              		.loc 1 239 5
+ 475 00ac 2285     		mv	a0,s0
+ 476 00ae 8145     		li	a1,0
+ 477 00b0 97000000 		call	usart_stop_bit_set
+ 477      E7800000 
+ 478              	.LVL40:
+ 240:gd32vf103v_eval.c ****     usart_parity_config(com, USART_PM_NONE);
+ 479              		.loc 1 240 5
+ 480 00b8 2285     		mv	a0,s0
+ 481 00ba 8145     		li	a1,0
+ 482 00bc 97000000 		call	usart_parity_config
+ 482      E7800000 
+ 483              	.LVL41:
+ 241:gd32vf103v_eval.c ****     usart_hardware_flow_rts_config(com, USART_RTS_DISABLE);
+ 484              		.loc 1 241 5
+ 485 00c4 2285     		mv	a0,s0
+ 486 00c6 8145     		li	a1,0
+ 487 00c8 97000000 		call	usart_hardware_flow_rts_config
+ 487      E7800000 
+ 488              	.LVL42:
+ 242:gd32vf103v_eval.c ****     usart_hardware_flow_cts_config(com, USART_CTS_DISABLE);
+ 489              		.loc 1 242 5
+ 490 00d0 2285     		mv	a0,s0
+ 491 00d2 8145     		li	a1,0
+ 492 00d4 97000000 		call	usart_hardware_flow_cts_config
+ 492      E7800000 
+ 493              	.LVL43:
+ 243:gd32vf103v_eval.c ****     usart_receive_config(com, USART_RECEIVE_ENABLE);
+ 494              		.loc 1 243 5
+ 495 00dc 2285     		mv	a0,s0
+ 496 00de 9145     		li	a1,4
+ 497 00e0 97000000 		call	usart_receive_config
+ 497      E7800000 
+ 498              	.LVL44:
+ 244:gd32vf103v_eval.c ****     usart_transmit_config(com, USART_TRANSMIT_ENABLE);
+ 499              		.loc 1 244 5
+ 500 00e8 2285     		mv	a0,s0
+ 501 00ea A145     		li	a1,8
+ 502 00ec 97000000 		call	usart_transmit_config
+ 502      E7800000 
+ 503              	.LVL45:
+ 245:gd32vf103v_eval.c ****     usart_enable(com);
+ 504              		.loc 1 245 5
+ 505 00f4 2285     		mv	a0,s0
+ 246:gd32vf103v_eval.c **** }
+ 506              		.loc 1 246 1 is_stmt 0
+ 507 00f6 2244     		lw	s0,8(sp)
+ 508              		.cfi_restore 8
+ 509              	.LVL46:
+ 510 00f8 B240     		lw	ra,12(sp)
+ 511              		.cfi_restore 1
+ 512 00fa 9244     		lw	s1,4(sp)
+ 513              		.cfi_restore 9
+ 514 00fc 0249     		lw	s2,0(sp)
+GAS LISTING /tmp/ccriHlE5.s 			page 15
+
+
+ 515              		.cfi_restore 18
+ 516 00fe 4101     		addi	sp,sp,16
+ 517              	.LCFI11:
+ 518              		.cfi_def_cfa_offset 0
+ 245:gd32vf103v_eval.c ****     usart_enable(com);
+ 519              		.loc 1 245 5
+ 520 0100 17030000 		tail	usart_enable
+ 520      67000300 
+ 521              	.LVL47:
+ 522              		.cfi_endproc
+ 523              	.LFE8:
+ 525              		.set	KEY_EXTI_LINE,KEY_PIN
+ 526              		.section	.rodata.GPIO_CLK,"a"
+ 527              		.align	2
+ 528              		.set	.LANCHOR0,. + 0
+ 531              	GPIO_CLK:
+ 532 0000 04060000 		.word	1540
+ 533 0004 02060000 		.word	1538
+ 534 0008 02060000 		.word	1538
+ 535 000c 06060000 		.word	1542
+ 536              		.section	.rodata.GPIO_PIN,"a"
+ 537              		.align	2
+ 538              		.set	.LANCHOR2,. + 0
+ 541              	GPIO_PIN:
+ 542 0000 00200000 		.word	8192
+ 543 0004 02000000 		.word	2
+ 544 0008 04000000 		.word	4
+ 545 000c 02000000 		.word	2
+ 546              		.section	.rodata.GPIO_PORT,"a"
+ 547              		.align	2
+ 548              		.set	.LANCHOR1,. + 0
+ 551              	GPIO_PORT:
+ 552 0000 00100140 		.word	1073811456
+ 553 0004 00080140 		.word	1073809408
+ 554 0008 00080140 		.word	1073809408
+ 555 000c 00180140 		.word	1073813504
+ 556              		.section	.rodata.KEY_CLK,"a"
+ 557              		.align	2
+ 558              		.set	.LANCHOR3,. + 0
+ 561              	KEY_CLK:
+ 562 0000 02060000 		.word	1538
+ 563 0004 04060000 		.word	1540
+ 564 0008 03060000 		.word	1539
+ 565 000c 04060000 		.word	1540
+ 566 0010 04060000 		.word	1540
+ 567              		.section	.rodata.KEY_PIN,"a"
+ 568              		.align	2
+ 569              		.set	.LANCHOR4,. + 0
+ 572              	KEY_PIN:
+ 573 0000 01000000 		.word	1
+ 574 0004 00200000 		.word	8192
+ 575 0008 00400000 		.word	16384
+ 576 000c 20000000 		.word	32
+ 577 0010 10000000 		.word	16
+ 578              		.section	.rodata.KEY_PORT,"a"
+ 579              		.align	2
+ 580              		.set	.LANCHOR5,. + 0
+GAS LISTING /tmp/ccriHlE5.s 			page 16
+
+
+ 583              	KEY_PORT:
+ 584 0000 00080140 		.word	1073809408
+ 585 0004 00100140 		.word	1073811456
+ 586 0008 000C0140 		.word	1073810432
+ 587 000c 00100140 		.word	1073811456
+ 588 0010 00100140 		.word	1073811456
+ 589              		.section	.srodata.COM_CLK,"a"
+ 590              		.align	2
+ 591              		.set	.LANCHOR10,. + 0
+ 594              	COM_CLK:
+ 595 0000 0E060000 		.word	1550
+ 596 0004 11070000 		.word	1809
+ 597              		.section	.srodata.COM_GPIO_CLK,"a"
+ 598              		.align	2
+ 599              		.set	.LANCHOR9,. + 0
+ 602              	COM_GPIO_CLK:
+ 603 0000 02060000 		.word	1538
+ 604 0004 02060000 		.word	1538
+ 605              		.section	.srodata.COM_GPIO_PORT,"a"
+ 606              		.align	2
+ 607              		.set	.LANCHOR11,. + 0
+ 610              	COM_GPIO_PORT:
+ 611 0000 00080140 		.word	1073809408
+ 612 0004 00080140 		.word	1073809408
+ 613              		.section	.srodata.COM_RX_PIN,"a"
+ 614              		.align	2
+ 615              		.set	.LANCHOR13,. + 0
+ 618              	COM_RX_PIN:
+ 619 0000 00040000 		.word	1024
+ 620 0004 08000000 		.word	8
+ 621              		.section	.srodata.COM_TX_PIN,"a"
+ 622              		.align	2
+ 623              		.set	.LANCHOR12,. + 0
+ 626              	COM_TX_PIN:
+ 627 0000 00020000 		.word	512
+ 628 0004 04000000 		.word	4
+ 629              		.section	.srodata.KEY_IRQn,"a"
+ 630              		.align	2
+ 631              		.set	.LANCHOR6,. + 0
+ 634              	KEY_IRQn:
+ 635 0000 193B3B2A 		.ascii	"\031;;*\035"
+ 635      1D
+ 636              		.section	.srodata.KEY_PIN_SOURCE,"a"
+ 637              		.align	2
+ 638              		.set	.LANCHOR7,. + 0
+ 641              	KEY_PIN_SOURCE:
+ 642 0000 00       		.string	""
+ 643 0001 0D0E0504 		.ascii	"\r\016\005\004"
+ 644              		.section	.srodata.KEY_PORT_SOURCE,"a"
+ 645              		.align	2
+ 646              		.set	.LANCHOR8,. + 0
+ 649              	KEY_PORT_SOURCE:
+ 650 0000 00       		.string	""
+ 651 0001 02010202 		.ascii	"\002\001\002\002"
+ 652              		.text
+ 653              	.Letext0:
+ 654              		.file 2 "/home/johnson/Documents/mpb-toolchain/build/riscv32-mapleboard-elf/include/machine/_defau
+GAS LISTING /tmp/ccriHlE5.s 			page 17
+
+
+ 655              		.file 3 "/home/johnson/Documents/mpb-toolchain/build/riscv32-mapleboard-elf/include/sys/_stdint.h"
+ 656              		.file 4 "../Firmware/GD32VF103_standard_peripheral/gd32vf103.h"
+ 657              		.file 5 "../Firmware/GD32VF103_standard_peripheral/Include/gd32vf103_exti.h"
+ 658              		.file 6 "../Firmware/GD32VF103_standard_peripheral/Include/gd32vf103_gpio.h"
+ 659              		.file 7 "../Firmware/GD32VF103_standard_peripheral/Include/gd32vf103_rcu.h"
+ 660              		.file 8 "gd32vf103v_eval.h"
+ 661              		.file 9 "../Firmware/GD32VF103_standard_peripheral/Include/gd32vf103_usart.h"
+ 662              		.file 10 "../Firmware/GD32VF103_standard_peripheral/Include/gd32vf103_eclic.h"
+GAS LISTING /tmp/ccriHlE5.s 			page 18
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 gd32vf103v_eval.c
+     /tmp/ccriHlE5.s:13     .text.gd_eval_led_init:0000000000000000 gd_eval_led_init
+     /tmp/ccriHlE5.s:17     .text.gd_eval_led_init:0000000000000000 .L0 
+     /tmp/ccriHlE5.s:19     .text.gd_eval_led_init:0000000000000000 .L0 
+     /tmp/ccriHlE5.s:20     .text.gd_eval_led_init:0000000000000000 .L0 
+     /tmp/ccriHlE5.s:21     .text.gd_eval_led_init:0000000000000000 .L0 
+     /tmp/ccriHlE5.s:23     .text.gd_eval_led_init:0000000000000002 .L0 
+     /tmp/ccriHlE5.s:25     .text.gd_eval_led_init:0000000000000002 .L0 
+     /tmp/ccriHlE5.s:27     .text.gd_eval_led_init:0000000000000006 .L0 
+     /tmp/ccriHlE5.s:29     .text.gd_eval_led_init:0000000000000008 .L0 
+     /tmp/ccriHlE5.s:30     .text.gd_eval_led_init:000000000000000c .L0 
+     /tmp/ccriHlE5.s:36     .text.gd_eval_led_init:0000000000000014 .L0 
+     /tmp/ccriHlE5.s:38     .text.gd_eval_led_init:0000000000000018 .L0 
+     /tmp/ccriHlE5.s:39     .text.gd_eval_led_init:0000000000000018 .L0 
+     /tmp/ccriHlE5.s:41     .text.gd_eval_led_init:0000000000000018 .L0 
+     /tmp/ccriHlE5.s:44     .text.gd_eval_led_init:0000000000000020 .L0 
+     /tmp/ccriHlE5.s:59     .text.gd_eval_led_init:0000000000000048 .L0 
+     /tmp/ccriHlE5.s:60     .text.gd_eval_led_init:0000000000000048 .L0 
+     /tmp/ccriHlE5.s:61     .text.gd_eval_led_init:000000000000004a .L0 
+     /tmp/ccriHlE5.s:63     .text.gd_eval_led_init:000000000000004a .L0 
+     /tmp/ccriHlE5.s:65     .text.gd_eval_led_init:000000000000004c .L0 
+     /tmp/ccriHlE5.s:66     .text.gd_eval_led_init:000000000000004e .L0 
+     /tmp/ccriHlE5.s:68     .text.gd_eval_led_init:0000000000000050 .L0 
+     /tmp/ccriHlE5.s:71     .text.gd_eval_led_init:0000000000000052 .L0 
+     /tmp/ccriHlE5.s:73     .text.gd_eval_led_init:0000000000000054 .L0 
+     /tmp/ccriHlE5.s:80     .text.gd_eval_led_off:0000000000000000 gd_eval_led_off
+     /tmp/ccriHlE5.s:83     .text.gd_eval_led_off:0000000000000000 .L0 
+     /tmp/ccriHlE5.s:85     .text.gd_eval_led_off:0000000000000000 .L0 
+     /tmp/ccriHlE5.s:86     .text.gd_eval_led_off:0000000000000000 .L0 
+     /tmp/ccriHlE5.s:89     .text.gd_eval_led_off:0000000000000008 .L0 
+     /tmp/ccriHlE5.s:92     .text.gd_eval_led_off:000000000000000c .L0 
+     /tmp/ccriHlE5.s:94     .text.gd_eval_led_off:0000000000000010 .L0 
+     /tmp/ccriHlE5.s:96     .text.gd_eval_led_off:0000000000000014 .L0 
+     /tmp/ccriHlE5.s:98     .text.gd_eval_led_off:0000000000000016 .L0 
+     /tmp/ccriHlE5.s:100    .text.gd_eval_led_off:0000000000000018 .L0 
+     /tmp/ccriHlE5.s:102    .text.gd_eval_led_off:000000000000001a .L0 
+     /tmp/ccriHlE5.s:104    .text.gd_eval_led_off:000000000000001c .L0 
+     /tmp/ccriHlE5.s:106    .text.gd_eval_led_off:000000000000001e .L0 
+     /tmp/ccriHlE5.s:107    .text.gd_eval_led_off:0000000000000020 .L0 
+     /tmp/ccriHlE5.s:114    .text.gd_eval_led_on:0000000000000000 gd_eval_led_on
+     /tmp/ccriHlE5.s:117    .text.gd_eval_led_on:0000000000000000 .L0 
+     /tmp/ccriHlE5.s:119    .text.gd_eval_led_on:0000000000000000 .L0 
+     /tmp/ccriHlE5.s:120    .text.gd_eval_led_on:0000000000000000 .L0 
+     /tmp/ccriHlE5.s:123    .text.gd_eval_led_on:0000000000000008 .L0 
+     /tmp/ccriHlE5.s:126    .text.gd_eval_led_on:000000000000000c .L0 
+     /tmp/ccriHlE5.s:128    .text.gd_eval_led_on:0000000000000010 .L0 
+     /tmp/ccriHlE5.s:130    .text.gd_eval_led_on:0000000000000014 .L0 
+     /tmp/ccriHlE5.s:132    .text.gd_eval_led_on:0000000000000016 .L0 
+     /tmp/ccriHlE5.s:134    .text.gd_eval_led_on:0000000000000018 .L0 
+     /tmp/ccriHlE5.s:136    .text.gd_eval_led_on:000000000000001a .L0 
+     /tmp/ccriHlE5.s:138    .text.gd_eval_led_on:000000000000001c .L0 
+     /tmp/ccriHlE5.s:140    .text.gd_eval_led_on:000000000000001e .L0 
+     /tmp/ccriHlE5.s:141    .text.gd_eval_led_on:0000000000000020 .L0 
+     /tmp/ccriHlE5.s:148    .text.gd_eval_led_toggle:0000000000000000 gd_eval_led_toggle
+     /tmp/ccriHlE5.s:151    .text.gd_eval_led_toggle:0000000000000000 .L0 
+     /tmp/ccriHlE5.s:153    .text.gd_eval_led_toggle:0000000000000000 .L0 
+GAS LISTING /tmp/ccriHlE5.s 			page 19
+
+
+     /tmp/ccriHlE5.s:154    .text.gd_eval_led_toggle:0000000000000000 .L0 
+     /tmp/ccriHlE5.s:161    .text.gd_eval_led_toggle:0000000000000014 .L0 
+     /tmp/ccriHlE5.s:163    .text.gd_eval_led_toggle:0000000000000016 .L0 
+     /tmp/ccriHlE5.s:165    .text.gd_eval_led_toggle:0000000000000016 .L0 
+     /tmp/ccriHlE5.s:168    .text.gd_eval_led_toggle:000000000000001a .L0 
+     /tmp/ccriHlE5.s:170    .text.gd_eval_led_toggle:000000000000001e .L0 
+     /tmp/ccriHlE5.s:171    .text.gd_eval_led_toggle:000000000000001e .L0 
+     /tmp/ccriHlE5.s:173    .text.gd_eval_led_toggle:000000000000001e .L0 
+     /tmp/ccriHlE5.s:176    .text.gd_eval_led_toggle:0000000000000022 .L0 
+     /tmp/ccriHlE5.s:177    .text.gd_eval_led_toggle:0000000000000024 .L0 
+     /tmp/ccriHlE5.s:179    .text.gd_eval_led_toggle:0000000000000024 .L0 
+     /tmp/ccriHlE5.s:184    .text.gd_eval_led_toggle:0000000000000030 .L0 
+     /tmp/ccriHlE5.s:186    .text.gd_eval_led_toggle:0000000000000032 .L0 
+     /tmp/ccriHlE5.s:189    .text.gd_eval_led_toggle:0000000000000036 .L0 
+     /tmp/ccriHlE5.s:190    .text.gd_eval_led_toggle:0000000000000038 .L0 
+     /tmp/ccriHlE5.s:192    .text.gd_eval_led_toggle:000000000000003a .L0 
+     /tmp/ccriHlE5.s:194    .text.gd_eval_led_toggle:000000000000003a .L0 
+     /tmp/ccriHlE5.s:196    .text.gd_eval_led_toggle:000000000000003c .L0 
+     /tmp/ccriHlE5.s:197    .text.gd_eval_led_toggle:000000000000003e .L0 
+     /tmp/ccriHlE5.s:200    .text.gd_eval_led_toggle:0000000000000040 .L0 
+     /tmp/ccriHlE5.s:202    .text.gd_eval_led_toggle:0000000000000040 .L0 
+     /tmp/ccriHlE5.s:204    .text.gd_eval_led_toggle:0000000000000048 .L0 
+     /tmp/ccriHlE5.s:211    .text.gd_eval_key_init:0000000000000000 gd_eval_key_init
+     /tmp/ccriHlE5.s:214    .text.gd_eval_key_init:0000000000000000 .L0 
+     /tmp/ccriHlE5.s:216    .text.gd_eval_key_init:0000000000000000 .L0 
+     /tmp/ccriHlE5.s:217    .text.gd_eval_key_init:0000000000000000 .L0 
+     /tmp/ccriHlE5.s:218    .text.gd_eval_key_init:0000000000000000 .L0 
+     /tmp/ccriHlE5.s:220    .text.gd_eval_key_init:0000000000000002 .L0 
+     /tmp/ccriHlE5.s:222    .text.gd_eval_key_init:0000000000000002 .L0 
+     /tmp/ccriHlE5.s:224    .text.gd_eval_key_init:0000000000000006 .L0 
+     /tmp/ccriHlE5.s:226    .text.gd_eval_key_init:0000000000000008 .L0 
+     /tmp/ccriHlE5.s:227    .text.gd_eval_key_init:000000000000000c .L0 
+     /tmp/ccriHlE5.s:231    .text.gd_eval_key_init:0000000000000012 .L0 
+     /tmp/ccriHlE5.s:232    .text.gd_eval_key_init:0000000000000014 .L0 
+     /tmp/ccriHlE5.s:235    .text.gd_eval_key_init:0000000000000016 .L0 
+     /tmp/ccriHlE5.s:238    .text.gd_eval_key_init:0000000000000018 .L0 
+     /tmp/ccriHlE5.s:240    .text.gd_eval_key_init:000000000000001c .L0 
+     /tmp/ccriHlE5.s:241    .text.gd_eval_key_init:000000000000001c .L0 
+     /tmp/ccriHlE5.s:243    .text.gd_eval_key_init:000000000000001c .L0 
+     /tmp/ccriHlE5.s:245    .text.gd_eval_key_init:000000000000001e .L0 
+     /tmp/ccriHlE5.s:248    .text.gd_eval_key_init:0000000000000026 .L0 
+     /tmp/ccriHlE5.s:252    .text.gd_eval_key_init:0000000000000032 .L0 
+     /tmp/ccriHlE5.s:265    .text.gd_eval_key_init:0000000000000056 .L0 
+     /tmp/ccriHlE5.s:266    .text.gd_eval_key_init:0000000000000056 .L0 
+     /tmp/ccriHlE5.s:269    .text.gd_eval_key_init:000000000000005c .L0 
+     /tmp/ccriHlE5.s:270    .text.gd_eval_key_init:000000000000005e .L0 
+     /tmp/ccriHlE5.s:271    .text.gd_eval_key_init:000000000000005e .L0 
+     /tmp/ccriHlE5.s:273    .text.gd_eval_key_init:0000000000000060 .L0 
+     /tmp/ccriHlE5.s:276    .text.gd_eval_key_init:0000000000000062 .L0 
+     /tmp/ccriHlE5.s:278    .text.gd_eval_key_init:0000000000000064 .L0 
+     /tmp/ccriHlE5.s:282    .text.gd_eval_key_init:0000000000000066 .L0 
+     /tmp/ccriHlE5.s:287    .text.gd_eval_key_init:0000000000000068 .L0 
+     /tmp/ccriHlE5.s:289    .text.gd_eval_key_init:0000000000000068 .L0 
+     /tmp/ccriHlE5.s:290    .text.gd_eval_key_init:0000000000000068 .L0 
+     /tmp/ccriHlE5.s:294    .text.gd_eval_key_init:0000000000000072 .L0 
+     /tmp/ccriHlE5.s:300    .text.gd_eval_key_init:0000000000000082 .L0 
+                  .rodata.KEY_PIN:0000000000000000 KEY_EXTI_LINE
+GAS LISTING /tmp/ccriHlE5.s 			page 20
+
+
+     /tmp/ccriHlE5.s:312    .text.gd_eval_key_init:00000000000000a6 .L0 
+     /tmp/ccriHlE5.s:322    .text.gd_eval_key_init:00000000000000c0 .L0 
+     /tmp/ccriHlE5.s:324    .text.gd_eval_key_init:00000000000000c2 .L0 
+     /tmp/ccriHlE5.s:325    .text.gd_eval_key_init:00000000000000c4 .L0 
+     /tmp/ccriHlE5.s:327    .text.gd_eval_key_init:00000000000000c6 .L0 
+     /tmp/ccriHlE5.s:329    .text.gd_eval_key_init:00000000000000c8 .L0 
+     /tmp/ccriHlE5.s:331    .text.gd_eval_key_init:00000000000000ca .L0 
+     /tmp/ccriHlE5.s:335    .text.gd_eval_key_init:00000000000000cc .L0 
+     /tmp/ccriHlE5.s:337    .text.gd_eval_key_init:00000000000000cc .L0 
+     /tmp/ccriHlE5.s:339    .text.gd_eval_key_init:00000000000000d4 .L0 
+     /tmp/ccriHlE5.s:346    .text.gd_eval_key_state_get:0000000000000000 gd_eval_key_state_get
+     /tmp/ccriHlE5.s:349    .text.gd_eval_key_state_get:0000000000000000 .L0 
+     /tmp/ccriHlE5.s:351    .text.gd_eval_key_state_get:0000000000000000 .L0 
+     /tmp/ccriHlE5.s:352    .text.gd_eval_key_state_get:0000000000000000 .L0 
+     /tmp/ccriHlE5.s:353    .text.gd_eval_key_state_get:0000000000000000 .L0 
+     /tmp/ccriHlE5.s:364    .text.gd_eval_key_state_get:000000000000001c .L0 
+     /tmp/ccriHlE5.s:366    .text.gd_eval_key_state_get:000000000000001e .L0 
+     /tmp/ccriHlE5.s:368    .text.gd_eval_key_state_get:0000000000000020 .L0 
+     /tmp/ccriHlE5.s:370    .text.gd_eval_key_state_get:0000000000000020 .L0 
+     /tmp/ccriHlE5.s:373    .text.gd_eval_key_state_get:0000000000000028 .L0 
+     /tmp/ccriHlE5.s:374    .text.gd_eval_key_state_get:000000000000002a .L0 
+     /tmp/ccriHlE5.s:378    .text.gd_eval_key_state_get:0000000000000030 .L0 
+     /tmp/ccriHlE5.s:380    .text.gd_eval_key_state_get:0000000000000032 .L0 
+     /tmp/ccriHlE5.s:387    .text.gd_eval_com_init:0000000000000000 gd_eval_com_init
+     /tmp/ccriHlE5.s:390    .text.gd_eval_com_init:0000000000000000 .L0 
+     /tmp/ccriHlE5.s:392    .text.gd_eval_com_init:0000000000000000 .L0 
+     /tmp/ccriHlE5.s:393    .text.gd_eval_com_init:0000000000000000 .L0 
+     /tmp/ccriHlE5.s:394    .text.gd_eval_com_init:0000000000000000 .L0 
+     /tmp/ccriHlE5.s:395    .text.gd_eval_com_init:0000000000000000 .L0 
+     /tmp/ccriHlE5.s:396    .text.gd_eval_com_init:0000000000000000 .L0 
+     /tmp/ccriHlE5.s:398    .text.gd_eval_com_init:0000000000000002 .L0 
+     /tmp/ccriHlE5.s:400    .text.gd_eval_com_init:0000000000000004 .L0 
+     /tmp/ccriHlE5.s:402    .text.gd_eval_com_init:0000000000000004 .L0 
+     /tmp/ccriHlE5.s:408    .text.gd_eval_com_init:0000000000000012 .L0 
+     /tmp/ccriHlE5.s:414    .text.gd_eval_com_init:000000000000001e .L0 
+     /tmp/ccriHlE5.s:415    .text.gd_eval_com_init:0000000000000020 .L0 
+     /tmp/ccriHlE5.s:418    .text.gd_eval_com_init:0000000000000022 .L0 
+     /tmp/ccriHlE5.s:421    .text.gd_eval_com_init:0000000000000024 .L0 
+     /tmp/ccriHlE5.s:423    .text.gd_eval_com_init:0000000000000028 .L0 
+     /tmp/ccriHlE5.s:424    .text.gd_eval_com_init:0000000000000028 .L0 
+     /tmp/ccriHlE5.s:426    .text.gd_eval_com_init:0000000000000028 .L0 
+     /tmp/ccriHlE5.s:429    .text.gd_eval_com_init:0000000000000030 .L0 
+     /tmp/ccriHlE5.s:436    .text.gd_eval_com_init:0000000000000044 .L0 
+     /tmp/ccriHlE5.s:450    .text.gd_eval_com_init:000000000000006c .L0 
+     /tmp/ccriHlE5.s:460    .text.gd_eval_com_init:0000000000000086 .L0 
+     /tmp/ccriHlE5.s:464    .text.gd_eval_com_init:0000000000000090 .L0 
+     /tmp/ccriHlE5.s:470    .text.gd_eval_com_init:00000000000000a0 .L0 
+     /tmp/ccriHlE5.s:475    .text.gd_eval_com_init:00000000000000ac .L0 
+     /tmp/ccriHlE5.s:480    .text.gd_eval_com_init:00000000000000b8 .L0 
+     /tmp/ccriHlE5.s:485    .text.gd_eval_com_init:00000000000000c4 .L0 
+     /tmp/ccriHlE5.s:490    .text.gd_eval_com_init:00000000000000d0 .L0 
+     /tmp/ccriHlE5.s:495    .text.gd_eval_com_init:00000000000000dc .L0 
+     /tmp/ccriHlE5.s:500    .text.gd_eval_com_init:00000000000000e8 .L0 
+     /tmp/ccriHlE5.s:505    .text.gd_eval_com_init:00000000000000f4 .L0 
+     /tmp/ccriHlE5.s:507    .text.gd_eval_com_init:00000000000000f6 .L0 
+     /tmp/ccriHlE5.s:508    .text.gd_eval_com_init:00000000000000f8 .L0 
+     /tmp/ccriHlE5.s:511    .text.gd_eval_com_init:00000000000000fa .L0 
+GAS LISTING /tmp/ccriHlE5.s 			page 21
+
+
+     /tmp/ccriHlE5.s:513    .text.gd_eval_com_init:00000000000000fc .L0 
+     /tmp/ccriHlE5.s:515    .text.gd_eval_com_init:00000000000000fe .L0 
+     /tmp/ccriHlE5.s:518    .text.gd_eval_com_init:0000000000000100 .L0 
+     /tmp/ccriHlE5.s:520    .text.gd_eval_com_init:0000000000000100 .L0 
+     /tmp/ccriHlE5.s:522    .text.gd_eval_com_init:0000000000000108 .L0 
+     /tmp/ccriHlE5.s:572    .rodata.KEY_PIN:0000000000000000 KEY_PIN
+     /tmp/ccriHlE5.s:528    .rodata.GPIO_CLK:0000000000000000 .LANCHOR0
+     /tmp/ccriHlE5.s:531    .rodata.GPIO_CLK:0000000000000000 GPIO_CLK
+     /tmp/ccriHlE5.s:538    .rodata.GPIO_PIN:0000000000000000 .LANCHOR2
+     /tmp/ccriHlE5.s:541    .rodata.GPIO_PIN:0000000000000000 GPIO_PIN
+     /tmp/ccriHlE5.s:548    .rodata.GPIO_PORT:0000000000000000 .LANCHOR1
+     /tmp/ccriHlE5.s:551    .rodata.GPIO_PORT:0000000000000000 GPIO_PORT
+     /tmp/ccriHlE5.s:558    .rodata.KEY_CLK:0000000000000000 .LANCHOR3
+     /tmp/ccriHlE5.s:561    .rodata.KEY_CLK:0000000000000000 KEY_CLK
+     /tmp/ccriHlE5.s:569    .rodata.KEY_PIN:0000000000000000 .LANCHOR4
+     /tmp/ccriHlE5.s:580    .rodata.KEY_PORT:0000000000000000 .LANCHOR5
+     /tmp/ccriHlE5.s:583    .rodata.KEY_PORT:0000000000000000 KEY_PORT
+     /tmp/ccriHlE5.s:591    .srodata.COM_CLK:0000000000000000 .LANCHOR10
+     /tmp/ccriHlE5.s:594    .srodata.COM_CLK:0000000000000000 COM_CLK
+     /tmp/ccriHlE5.s:599    .srodata.COM_GPIO_CLK:0000000000000000 .LANCHOR9
+     /tmp/ccriHlE5.s:602    .srodata.COM_GPIO_CLK:0000000000000000 COM_GPIO_CLK
+     /tmp/ccriHlE5.s:607    .srodata.COM_GPIO_PORT:0000000000000000 .LANCHOR11
+     /tmp/ccriHlE5.s:610    .srodata.COM_GPIO_PORT:0000000000000000 COM_GPIO_PORT
+     /tmp/ccriHlE5.s:615    .srodata.COM_RX_PIN:0000000000000000 .LANCHOR13
+     /tmp/ccriHlE5.s:618    .srodata.COM_RX_PIN:0000000000000000 COM_RX_PIN
+     /tmp/ccriHlE5.s:623    .srodata.COM_TX_PIN:0000000000000000 .LANCHOR12
+     /tmp/ccriHlE5.s:626    .srodata.COM_TX_PIN:0000000000000000 COM_TX_PIN
+     /tmp/ccriHlE5.s:631    .srodata.KEY_IRQn:0000000000000000 .LANCHOR6
+     /tmp/ccriHlE5.s:634    .srodata.KEY_IRQn:0000000000000000 KEY_IRQn
+     /tmp/ccriHlE5.s:638    .srodata.KEY_PIN_SOURCE:0000000000000000 .LANCHOR7
+     /tmp/ccriHlE5.s:641    .srodata.KEY_PIN_SOURCE:0000000000000000 KEY_PIN_SOURCE
+     /tmp/ccriHlE5.s:646    .srodata.KEY_PORT_SOURCE:0000000000000000 .LANCHOR8
+     /tmp/ccriHlE5.s:649    .srodata.KEY_PORT_SOURCE:0000000000000000 KEY_PORT_SOURCE
+     /tmp/ccriHlE5.s:76     .text.gd_eval_led_init:0000000000000054 .L0 
+     /tmp/ccriHlE5.s:110    .text.gd_eval_led_off:0000000000000020 .L0 
+     /tmp/ccriHlE5.s:144    .text.gd_eval_led_on:0000000000000020 .L0 
+     /tmp/ccriHlE5.s:207    .text.gd_eval_led_toggle:0000000000000048 .L0 
+     /tmp/ccriHlE5.s:342    .text.gd_eval_key_init:00000000000000d4 .L0 
+     /tmp/ccriHlE5.s:383    .text.gd_eval_key_state_get:0000000000000032 .L0 
+     /tmp/ccriHlE5.s:526    .text.gd_eval_com_init:0000000000000108 .L0 
+                     .debug_frame:0000000000000000 .L0 
+     /tmp/ccriHlE5.s:285    .text.gd_eval_key_init:0000000000000068 .L11
+     /tmp/ccriHlE5.s:2305   .debug_abbrev:0000000000000000 .Ldebug_abbrev0
+     /tmp/ccriHlE5.s:3500   .debug_str:0000000000000a16 .LASF203
+     /tmp/ccriHlE5.s:3348   .debug_str:0000000000000605 .LASF204
+     /tmp/ccriHlE5.s:3332   .debug_str:0000000000000572 .LASF205
+     /tmp/ccriHlE5.s:3072   .debug_ranges:0000000000000000 .Ldebug_ranges0
+     /tmp/ccriHlE5.s:3090   .debug_line:0000000000000000 .Ldebug_line0
+     /tmp/ccriHlE5.s:3362   .debug_str:000000000000066b .LASF206
+     /tmp/ccriHlE5.s:3364   .debug_str:0000000000000670 .LASF0
+     /tmp/ccriHlE5.s:3382   .debug_str:00000000000006e4 .LASF1
+     /tmp/ccriHlE5.s:3324   .debug_str:000000000000053f .LASF2
+     /tmp/ccriHlE5.s:3394   .debug_str:0000000000000743 .LASF3
+     /tmp/ccriHlE5.s:3338   .debug_str:00000000000005b6 .LASF4
+     /tmp/ccriHlE5.s:3482   .debug_str:000000000000098e .LASF5
+     /tmp/ccriHlE5.s:3160   .debug_str:0000000000000199 .LASF6
+     /tmp/ccriHlE5.s:3502   .debug_str:0000000000000aaf .LASF7
+GAS LISTING /tmp/ccriHlE5.s 			page 22
+
+
+     /tmp/ccriHlE5.s:3372   .debug_str:00000000000006a8 .LASF8
+     /tmp/ccriHlE5.s:3226   .debug_str:00000000000002d3 .LASF9
+     /tmp/ccriHlE5.s:3320   .debug_str:000000000000052a .LASF10
+     /tmp/ccriHlE5.s:3140   .debug_str:0000000000000124 .LASF11
+     /tmp/ccriHlE5.s:3404   .debug_str:0000000000000780 .LASF12
+     /tmp/ccriHlE5.s:3252   .debug_str:0000000000000377 .LASF13
+     /tmp/ccriHlE5.s:3478   .debug_str:000000000000097a .LASF14
+     /tmp/ccriHlE5.s:3328   .debug_str:0000000000000558 .LASF15
+     /tmp/ccriHlE5.s:3472   .debug_str:0000000000000943 .LASF16
+     /tmp/ccriHlE5.s:3270   .debug_str:00000000000003e1 .LASF17
+     /tmp/ccriHlE5.s:3132   .debug_str:00000000000000ee .LASF18
+     /tmp/ccriHlE5.s:3392   .debug_str:0000000000000730 .LASF19
+     /tmp/ccriHlE5.s:3184   .debug_str:0000000000000225 .LASF20
+     /tmp/ccriHlE5.s:3460   .debug_str:00000000000008ea .LASF21
+     /tmp/ccriHlE5.s:3316   .debug_str:0000000000000509 .LASF22
+     /tmp/ccriHlE5.s:3128   .debug_str:00000000000000d5 .LASF23
+     /tmp/ccriHlE5.s:3236   .debug_str:000000000000031e .LASF24
+     /tmp/ccriHlE5.s:3258   .debug_str:0000000000000396 .LASF25
+     /tmp/ccriHlE5.s:3118   .debug_str:0000000000000095 .LASF26
+     /tmp/ccriHlE5.s:3424   .debug_str:0000000000000802 .LASF27
+     /tmp/ccriHlE5.s:3414   .debug_str:00000000000007bb .LASF28
+     /tmp/ccriHlE5.s:3448   .debug_str:00000000000008a9 .LASF29
+     /tmp/ccriHlE5.s:3340   .debug_str:00000000000005c5 .LASF30
+     /tmp/ccriHlE5.s:3492   .debug_str:00000000000009ca .LASF31
+     /tmp/ccriHlE5.s:3114   .debug_str:0000000000000076 .LASF32
+     /tmp/ccriHlE5.s:3136   .debug_str:0000000000000109 .LASF33
+     /tmp/ccriHlE5.s:3398   .debug_str:0000000000000760 .LASF34
+     /tmp/ccriHlE5.s:3248   .debug_str:0000000000000363 .LASF35
+     /tmp/ccriHlE5.s:3432   .debug_str:0000000000000843 .LASF36
+     /tmp/ccriHlE5.s:3288   .debug_str:0000000000000461 .LASF37
+     /tmp/ccriHlE5.s:3352   .debug_str:000000000000062f .LASF38
+     /tmp/ccriHlE5.s:3406   .debug_str:000000000000078b .LASF39
+     /tmp/ccriHlE5.s:3344   .debug_str:00000000000005e8 .LASF40
+     /tmp/ccriHlE5.s:3178   .debug_str:00000000000001f1 .LASF41
+     /tmp/ccriHlE5.s:3150   .debug_str:000000000000015b .LASF42
+     /tmp/ccriHlE5.s:3380   .debug_str:00000000000006d8 .LASF43
+     /tmp/ccriHlE5.s:3230   .debug_str:00000000000002ea .LASF44
+     /tmp/ccriHlE5.s:3374   .debug_str:00000000000006b1 .LASF45
+     /tmp/ccriHlE5.s:3376   .debug_str:00000000000006c0 .LASF46
+     /tmp/ccriHlE5.s:3420   .debug_str:00000000000007e9 .LASF47
+     /tmp/ccriHlE5.s:3176   .debug_str:00000000000001e7 .LASF48
+     /tmp/ccriHlE5.s:3470   .debug_str:0000000000000937 .LASF49
+     /tmp/ccriHlE5.s:3442   .debug_str:000000000000087c .LASF50
+     /tmp/ccriHlE5.s:3314   .debug_str:00000000000004fe .LASF51
+     /tmp/ccriHlE5.s:3152   .debug_str:0000000000000167 .LASF52
+     /tmp/ccriHlE5.s:3326   .debug_str:000000000000054c .LASF53
+     /tmp/ccriHlE5.s:3162   .debug_str:00000000000001a2 .LASF54
+     /tmp/ccriHlE5.s:3416   .debug_str:00000000000007c8 .LASF55
+     /tmp/ccriHlE5.s:3266   .debug_str:00000000000003bf .LASF56
+     /tmp/ccriHlE5.s:3126   .debug_str:00000000000000c2 .LASF57
+     /tmp/ccriHlE5.s:3346   .debug_str:00000000000005f2 .LASF58
+     /tmp/ccriHlE5.s:3180   .debug_str:00000000000001fb .LASF59
+     /tmp/ccriHlE5.s:3356   .debug_str:0000000000000647 .LASF60
+     /tmp/ccriHlE5.s:3368   .debug_str:000000000000068f .LASF61
+     /tmp/ccriHlE5.s:3212   .debug_str:0000000000000299 .LASF62
+     /tmp/ccriHlE5.s:3330   .debug_str:0000000000000563 .LASF63
+     /tmp/ccriHlE5.s:3280   .debug_str:0000000000000435 .LASF64
+GAS LISTING /tmp/ccriHlE5.s 			page 23
+
+
+     /tmp/ccriHlE5.s:3430   .debug_str:000000000000082e .LASF65
+     /tmp/ccriHlE5.s:3130   .debug_str:00000000000000e1 .LASF66
+     /tmp/ccriHlE5.s:3278   .debug_str:0000000000000429 .LASF67
+     /tmp/ccriHlE5.s:3456   .debug_str:00000000000008d5 .LASF72
+     /tmp/ccriHlE5.s:3436   .debug_str:000000000000085b .LASF68
+     /tmp/ccriHlE5.s:3146   .debug_str:0000000000000147 .LASF69
+     /tmp/ccriHlE5.s:3476   .debug_str:0000000000000967 .LASF70
+     /tmp/ccriHlE5.s:3378   .debug_str:00000000000006cf .LASF71
+     /tmp/ccriHlE5.s:3440   .debug_str:0000000000000871 .LASF73
+     /tmp/ccriHlE5.s:3412   .debug_str:00000000000007a9 .LASF74
+     /tmp/ccriHlE5.s:3298   .debug_str:000000000000049b .LASF75
+     /tmp/ccriHlE5.s:3182   .debug_str:000000000000020e .LASF76
+     /tmp/ccriHlE5.s:3274   .debug_str:0000000000000413 .LASF77
+     /tmp/ccriHlE5.s:3168   .debug_str:00000000000001cc .LASF78
+     /tmp/ccriHlE5.s:3390   .debug_str:000000000000072a .LASF79
+     /tmp/ccriHlE5.s:3360   .debug_str:0000000000000660 .LASF80
+     /tmp/ccriHlE5.s:3188   .debug_str:0000000000000243 .LASF81
+     /tmp/ccriHlE5.s:3190   .debug_str:000000000000024a .LASF82
+     /tmp/ccriHlE5.s:3192   .debug_str:0000000000000251 .LASF83
+     /tmp/ccriHlE5.s:3194   .debug_str:0000000000000258 .LASF84
+     /tmp/ccriHlE5.s:3196   .debug_str:000000000000025f .LASF85
+     /tmp/ccriHlE5.s:3198   .debug_str:0000000000000266 .LASF86
+     /tmp/ccriHlE5.s:3200   .debug_str:000000000000026d .LASF87
+     /tmp/ccriHlE5.s:3202   .debug_str:0000000000000274 .LASF88
+     /tmp/ccriHlE5.s:3204   .debug_str:000000000000027b .LASF89
+     /tmp/ccriHlE5.s:3206   .debug_str:0000000000000282 .LASF90
+     /tmp/ccriHlE5.s:3094   .debug_str:000000000000001f .LASF91
+     /tmp/ccriHlE5.s:3096   .debug_str:0000000000000027 .LASF92
+     /tmp/ccriHlE5.s:3098   .debug_str:000000000000002f .LASF93
+     /tmp/ccriHlE5.s:3100   .debug_str:0000000000000037 .LASF94
+     /tmp/ccriHlE5.s:3102   .debug_str:000000000000003f .LASF95
+     /tmp/ccriHlE5.s:3104   .debug_str:0000000000000047 .LASF96
+     /tmp/ccriHlE5.s:3106   .debug_str:000000000000004f .LASF97
+     /tmp/ccriHlE5.s:3108   .debug_str:0000000000000057 .LASF98
+     /tmp/ccriHlE5.s:3110   .debug_str:000000000000005f .LASF99
+     /tmp/ccriHlE5.s:3112   .debug_str:0000000000000067 .LASF100
+     /tmp/ccriHlE5.s:3296   .debug_str:000000000000048c .LASF101
+     /tmp/ccriHlE5.s:3434   .debug_str:0000000000000850 .LASF102
+     /tmp/ccriHlE5.s:3474   .debug_str:0000000000000956 .LASF103
+     /tmp/ccriHlE5.s:3310   .debug_str:00000000000004e2 .LASF104
+     /tmp/ccriHlE5.s:3268   .debug_str:00000000000003d2 .LASF105
+     /tmp/ccriHlE5.s:3494   .debug_str:00000000000009de .LASF106
+     /tmp/ccriHlE5.s:3354   .debug_str:000000000000063c .LASF107
+     /tmp/ccriHlE5.s:3120   .debug_str:00000000000000a3 .LASF108
+     /tmp/ccriHlE5.s:3122   .debug_str:00000000000000ac .LASF109
+     /tmp/ccriHlE5.s:3508   .debug_str:0000000000000ae0 .LASF110
+     /tmp/ccriHlE5.s:3422   .debug_str:00000000000007f9 .LASF111
+     /tmp/ccriHlE5.s:3462   .debug_str:00000000000008fd .LASF112
+     /tmp/ccriHlE5.s:3282   .debug_str:0000000000000440 .LASF113
+     /tmp/ccriHlE5.s:3284   .debug_str:000000000000044b .LASF114
+     /tmp/ccriHlE5.s:3286   .debug_str:0000000000000456 .LASF115
+     /tmp/ccriHlE5.s:3116   .debug_str:000000000000008a .LASF116
+     /tmp/ccriHlE5.s:3290   .debug_str:000000000000046e .LASF117
+     /tmp/ccriHlE5.s:3292   .debug_str:0000000000000479 .LASF118
+     /tmp/ccriHlE5.s:3246   .debug_str:0000000000000359 .LASF119
+     /tmp/ccriHlE5.s:3262   .debug_str:00000000000003ad .LASF120
+     /tmp/ccriHlE5.s:3264   .debug_str:00000000000003b6 .LASF121
+GAS LISTING /tmp/ccriHlE5.s 			page 24
+
+
+     /tmp/ccriHlE5.s:3370   .debug_str:000000000000069d .LASF122
+     /tmp/ccriHlE5.s:3458   .debug_str:00000000000008df .LASF123
+     /tmp/ccriHlE5.s:3400   .debug_str:000000000000076c .LASF124
+     /tmp/ccriHlE5.s:3402   .debug_str:0000000000000776 .LASF125
+     /tmp/ccriHlE5.s:3242   .debug_str:0000000000000347 .LASF126
+     /tmp/ccriHlE5.s:3244   .debug_str:0000000000000350 .LASF127
+     /tmp/ccriHlE5.s:3334   .debug_str:00000000000005a4 .LASF128
+     /tmp/ccriHlE5.s:3336   .debug_str:00000000000005ad .LASF129
+     /tmp/ccriHlE5.s:3142   .debug_str:000000000000012f .LASF130
+     /tmp/ccriHlE5.s:3438   .debug_str:0000000000000869 .LASF131
+     /tmp/ccriHlE5.s:3208   .debug_str:0000000000000289 .LASF132
+     /tmp/ccriHlE5.s:3294   .debug_str:0000000000000484 .LASF133
+     /tmp/ccriHlE5.s:3428   .debug_str:0000000000000827 .LASF134
+     /tmp/ccriHlE5.s:3304   .debug_str:00000000000004c4 .LASF135
+     /tmp/ccriHlE5.s:3306   .debug_str:00000000000004ce .LASF136
+     /tmp/ccriHlE5.s:3308   .debug_str:00000000000004d8 .LASF137
+     /tmp/ccriHlE5.s:3410   .debug_str:000000000000079f .LASF138
+     /tmp/ccriHlE5.s:3312   .debug_str:00000000000004f4 .LASF139
+     /tmp/ccriHlE5.s:3452   .debug_str:00000000000008c3 .LASF140
+     /tmp/ccriHlE5.s:3454   .debug_str:00000000000008cc .LASF141
+     /tmp/ccriHlE5.s:3186   .debug_str:0000000000000238 .LASF142
+     /tmp/ccriHlE5.s:3260   .debug_str:00000000000003a4 .LASF143
+     /tmp/ccriHlE5.s:3254   .debug_str:0000000000000382 .LASF144
+     /tmp/ccriHlE5.s:3506   .debug_str:0000000000000ad0 .LASF145
+     /tmp/ccriHlE5.s:3358   .debug_str:0000000000000654 .LASF146
+     /tmp/ccriHlE5.s:3214   .debug_str:00000000000002a7 .LASF147
+     /tmp/ccriHlE5.s:3216   .debug_str:00000000000002ac .LASF148
+     /tmp/ccriHlE5.s:3218   .debug_str:00000000000002b1 .LASF149
+     /tmp/ccriHlE5.s:3220   .debug_str:00000000000002b6 .LASF150
+     /tmp/ccriHlE5.s:3156   .debug_str:0000000000000182 .LASF151
+     /tmp/ccriHlE5.s:3170   .debug_str:00000000000001d5 .LASF152
+     /tmp/ccriHlE5.s:3172   .debug_str:00000000000001db .LASF153
+     /tmp/ccriHlE5.s:3174   .debug_str:00000000000001e1 .LASF154
+     /tmp/ccriHlE5.s:3158   .debug_str:0000000000000193 .LASF155
+     /tmp/ccriHlE5.s:3134   .debug_str:0000000000000101 .LASF156
+     /tmp/ccriHlE5.s:3238   .debug_str:000000000000032b .LASF157
+     /tmp/ccriHlE5.s:3418   .debug_str:00000000000007db .LASF158
+     /tmp/ccriHlE5.s:3318   .debug_str:000000000000051c .LASF159
+     /tmp/ccriHlE5.s:3504   .debug_str:0000000000000abb .LASF160
+     /tmp/ccriHlE5.s:3450   .debug_str:00000000000008b9 .LASF161
+     /tmp/ccriHlE5.s:3480   .debug_str:0000000000000985 .LASF162
+     /tmp/ccriHlE5.s:3210   .debug_str:0000000000000291 .LASF163
+     /tmp/ccriHlE5.s:3240   .debug_str:000000000000033c .LASF164
+     /tmp/ccriHlE5.s:3164   .debug_str:00000000000001ae .LASF165
+     /tmp/ccriHlE5.s:3228   .debug_str:00000000000002dc .LASF166
+     /tmp/ccriHlE5.s:3124   .debug_str:00000000000000b5 .LASF167
+     /tmp/ccriHlE5.s:3490   .debug_str:00000000000009c1 .LASF168
+     /tmp/ccriHlE5.s:3444   .debug_str:0000000000000886 .LASF169
+     /tmp/ccriHlE5.s:3302   .debug_str:00000000000004bc .LASF170
+     /tmp/ccriHlE5.s:3322   .debug_str:0000000000000537 .LASF171
+     /tmp/ccriHlE5.s:3276   .debug_str:000000000000041b .LASF207
+     /tmp/ccriHlE5.s:3154   .debug_str:0000000000000172 .LASF172
+     /tmp/ccriHlE5.s:3144   .debug_str:0000000000000138 .LASF173
+     /tmp/ccriHlE5.s:3468   .debug_str:000000000000092e .LASF174
+     /tmp/ccriHlE5.s:3222   .debug_str:00000000000002bb .LASF176
+     /tmp/ccriHlE5.s:388    .text.gd_eval_com_init:0000000000000000 .LFB8
+     /tmp/ccriHlE5.s:523    .text.gd_eval_com_init:0000000000000108 .LFE8
+GAS LISTING /tmp/ccriHlE5.s 			page 25
+
+
+     /tmp/ccriHlE5.s:2748   .debug_loc:0000000000000000 .LLST11
+     /tmp/ccriHlE5.s:2766   .debug_loc:000000000000002c .LLST12
+     /tmp/ccriHlE5.s:3224   .debug_str:00000000000002cc .LASF175
+     /tmp/ccriHlE5.s:2788   .debug_loc:0000000000000063 .LLST13
+     /tmp/ccriHlE5.s:427    .text.gd_eval_com_init:0000000000000030 .LVL33
+     /tmp/ccriHlE5.s:434    .text.gd_eval_com_init:0000000000000044 .LVL34
+     /tmp/ccriHlE5.s:448    .text.gd_eval_com_init:000000000000006c .LVL35
+     /tmp/ccriHlE5.s:458    .text.gd_eval_com_init:0000000000000086 .LVL36
+     /tmp/ccriHlE5.s:462    .text.gd_eval_com_init:0000000000000090 .LVL37
+     /tmp/ccriHlE5.s:468    .text.gd_eval_com_init:00000000000000a0 .LVL38
+     /tmp/ccriHlE5.s:473    .text.gd_eval_com_init:00000000000000ac .LVL39
+     /tmp/ccriHlE5.s:478    .text.gd_eval_com_init:00000000000000b8 .LVL40
+     /tmp/ccriHlE5.s:483    .text.gd_eval_com_init:00000000000000c4 .LVL41
+     /tmp/ccriHlE5.s:488    .text.gd_eval_com_init:00000000000000d0 .LVL42
+     /tmp/ccriHlE5.s:493    .text.gd_eval_com_init:00000000000000dc .LVL43
+     /tmp/ccriHlE5.s:498    .text.gd_eval_com_init:00000000000000e8 .LVL44
+     /tmp/ccriHlE5.s:503    .text.gd_eval_com_init:00000000000000f4 .LVL45
+     /tmp/ccriHlE5.s:521    .text.gd_eval_com_init:0000000000000108 .LVL47
+     /tmp/ccriHlE5.s:3388   .debug_str:0000000000000714 .LASF208
+     /tmp/ccriHlE5.s:347    .text.gd_eval_key_state_get:0000000000000000 .LFB7
+     /tmp/ccriHlE5.s:381    .text.gd_eval_key_state_get:0000000000000032 .LFE7
+     /tmp/ccriHlE5.s:2837   .debug_loc:00000000000000cf .LLST9
+     /tmp/ccriHlE5.s:2855   .debug_loc:00000000000000fb .LLST10
+     /tmp/ccriHlE5.s:371    .text.gd_eval_key_state_get:0000000000000028 .LVL28
+     /tmp/ccriHlE5.s:3464   .debug_str:0000000000000907 .LASF177
+     /tmp/ccriHlE5.s:212    .text.gd_eval_key_init:0000000000000000 .LFB6
+     /tmp/ccriHlE5.s:340    .text.gd_eval_key_init:00000000000000d4 .LFE6
+     /tmp/ccriHlE5.s:2869   .debug_loc:000000000000011c .LLST6
+     /tmp/ccriHlE5.s:3250   .debug_str:000000000000036f .LASF178
+     /tmp/ccriHlE5.s:2897   .debug_loc:0000000000000160 .LLST7
+     /tmp/ccriHlE5.s:3256   .debug_str:000000000000038d .LASF179
+     /tmp/ccriHlE5.s:2926   .debug_loc:00000000000001a5 .LLST8
+     /tmp/ccriHlE5.s:246    .text.gd_eval_key_init:0000000000000026 .LVL14
+     /tmp/ccriHlE5.s:250    .text.gd_eval_key_init:0000000000000032 .LVL15
+     /tmp/ccriHlE5.s:263    .text.gd_eval_key_init:0000000000000056 .LVL16
+     /tmp/ccriHlE5.s:298    .text.gd_eval_key_init:0000000000000082 .LVL20
+     /tmp/ccriHlE5.s:310    .text.gd_eval_key_init:00000000000000a6 .LVL22
+     /tmp/ccriHlE5.s:320    .text.gd_eval_key_init:00000000000000c0 .LVL23
+     /tmp/ccriHlE5.s:338    .text.gd_eval_key_init:00000000000000d4 .LVL25
+     /tmp/ccriHlE5.s:3300   .debug_str:00000000000004a9 .LASF180
+     /tmp/ccriHlE5.s:149    .text.gd_eval_led_toggle:0000000000000000 .LFB5
+     /tmp/ccriHlE5.s:205    .text.gd_eval_led_toggle:0000000000000048 .LFE5
+     /tmp/ccriHlE5.s:2955   .debug_loc:00000000000001ea .LLST4
+     /tmp/ccriHlE5.s:3408   .debug_str:0000000000000798 .LASF181
+     /tmp/ccriHlE5.s:2973   .debug_loc:0000000000000216 .LLST5
+     /tmp/ccriHlE5.s:182    .text.gd_eval_led_toggle:0000000000000030 .LVL10
+     /tmp/ccriHlE5.s:203    .text.gd_eval_led_toggle:0000000000000048 .LVL11
+     /tmp/ccriHlE5.s:3396   .debug_str:0000000000000751 .LASF182
+     /tmp/ccriHlE5.s:115    .text.gd_eval_led_on:0000000000000000 .LFB4
+     /tmp/ccriHlE5.s:142    .text.gd_eval_led_on:0000000000000020 .LFE4
+     /tmp/ccriHlE5.s:2987   .debug_loc:0000000000000237 .LLST3
+     /tmp/ccriHlE5.s:3384   .debug_str:00000000000006f1 .LASF183
+     /tmp/ccriHlE5.s:81     .text.gd_eval_led_off:0000000000000000 .LFB3
+     /tmp/ccriHlE5.s:108    .text.gd_eval_led_off:0000000000000020 .LFE3
+     /tmp/ccriHlE5.s:3001   .debug_loc:0000000000000258 .LLST2
+     /tmp/ccriHlE5.s:3486   .debug_str:00000000000009a3 .LASF184
+     /tmp/ccriHlE5.s:14     .text.gd_eval_led_init:0000000000000000 .LFB2
+GAS LISTING /tmp/ccriHlE5.s 			page 26
+
+
+     /tmp/ccriHlE5.s:74     .text.gd_eval_led_init:0000000000000054 .LFE2
+     /tmp/ccriHlE5.s:3015   .debug_loc:0000000000000279 .LLST0
+     /tmp/ccriHlE5.s:3033   .debug_loc:00000000000002a5 .LLST1
+     /tmp/ccriHlE5.s:42     .text.gd_eval_led_init:0000000000000020 .LVL2
+     /tmp/ccriHlE5.s:57     .text.gd_eval_led_init:0000000000000048 .LVL3
+     /tmp/ccriHlE5.s:3498   .debug_str:00000000000009fe .LASF185
+     /tmp/ccriHlE5.s:3148   .debug_str:0000000000000151 .LASF186
+     /tmp/ccriHlE5.s:3366   .debug_str:0000000000000682 .LASF187
+     /tmp/ccriHlE5.s:3386   .debug_str:0000000000000701 .LASF188
+     /tmp/ccriHlE5.s:3466   .debug_str:0000000000000918 .LASF189
+     /tmp/ccriHlE5.s:3166   .debug_str:00000000000001b9 .LASF190
+     /tmp/ccriHlE5.s:3342   .debug_str:00000000000005d4 .LASF191
+     /tmp/ccriHlE5.s:3272   .debug_str:00000000000003f4 .LASF192
+     /tmp/ccriHlE5.s:3092   .debug_str:0000000000000000 .LASF193
+     /tmp/ccriHlE5.s:3232   .debug_str:00000000000002f6 .LASF194
+     /tmp/ccriHlE5.s:3426   .debug_str:0000000000000811 .LASF195
+     /tmp/ccriHlE5.s:3488   .debug_str:00000000000009b4 .LASF196
+     /tmp/ccriHlE5.s:3234   .debug_str:000000000000030b .LASF197
+     /tmp/ccriHlE5.s:3496   .debug_str:00000000000009ed .LASF198
+     /tmp/ccriHlE5.s:3350   .debug_str:0000000000000617 .LASF199
+     /tmp/ccriHlE5.s:3484   .debug_str:0000000000000999 .LASF200
+     /tmp/ccriHlE5.s:3446   .debug_str:000000000000088f .LASF201
+     /tmp/ccriHlE5.s:3138   .debug_str:0000000000000115 .LASF202
+     /tmp/ccriHlE5.s:397    .text.gd_eval_com_init:0000000000000002 .LCFI10
+     /tmp/ccriHlE5.s:517    .text.gd_eval_com_init:0000000000000100 .LCFI11
+     /tmp/ccriHlE5.s:391    .text.gd_eval_com_init:0000000000000000 .LVL29
+     /tmp/ccriHlE5.s:419    .text.gd_eval_com_init:0000000000000024 .LVL32
+     /tmp/ccriHlE5.s:509    .text.gd_eval_com_init:00000000000000f8 .LVL46
+     /tmp/ccriHlE5.s:406    .text.gd_eval_com_init:0000000000000012 .LVL30
+     /tmp/ccriHlE5.s:410    .text.gd_eval_com_init:0000000000000018 .LVL31
+     /tmp/ccriHlE5.s:365    .text.gd_eval_key_state_get:000000000000001e .LCFI8
+     /tmp/ccriHlE5.s:377    .text.gd_eval_key_state_get:0000000000000030 .LCFI9
+     /tmp/ccriHlE5.s:350    .text.gd_eval_key_state_get:0000000000000000 .LVL26
+     /tmp/ccriHlE5.s:356    .text.gd_eval_key_state_get:000000000000000c .LVL27
+     /tmp/ccriHlE5.s:219    .text.gd_eval_key_init:0000000000000002 .LCFI4
+     /tmp/ccriHlE5.s:281    .text.gd_eval_key_init:0000000000000066 .LCFI5
+     /tmp/ccriHlE5.s:286    .text.gd_eval_key_init:0000000000000068 .LCFI6
+     /tmp/ccriHlE5.s:334    .text.gd_eval_key_init:00000000000000cc .LCFI7
+     /tmp/ccriHlE5.s:215    .text.gd_eval_key_init:0000000000000000 .LVL12
+     /tmp/ccriHlE5.s:236    .text.gd_eval_key_init:0000000000000018 .LVL13
+     /tmp/ccriHlE5.s:274    .text.gd_eval_key_init:0000000000000060 .LVL17
+     /tmp/ccriHlE5.s:284    .text.gd_eval_key_init:0000000000000068 .LVL19
+     /tmp/ccriHlE5.s:306    .text.gd_eval_key_init:0000000000000096 .LVL21
+     /tmp/ccriHlE5.s:279    .text.gd_eval_key_init:0000000000000064 .LVL18
+     /tmp/ccriHlE5.s:332    .text.gd_eval_key_init:00000000000000ca .LVL24
+     /tmp/ccriHlE5.s:162    .text.gd_eval_led_toggle:0000000000000016 .LCFI2
+     /tmp/ccriHlE5.s:199    .text.gd_eval_led_toggle:0000000000000040 .LCFI3
+     /tmp/ccriHlE5.s:152    .text.gd_eval_led_toggle:0000000000000000 .LVL8
+     /tmp/ccriHlE5.s:157    .text.gd_eval_led_toggle:000000000000000c .LVL9
+     /tmp/ccriHlE5.s:118    .text.gd_eval_led_on:0000000000000000 .LVL6
+     /tmp/ccriHlE5.s:124    .text.gd_eval_led_on:000000000000000c .LVL7
+     /tmp/ccriHlE5.s:84     .text.gd_eval_led_off:0000000000000000 .LVL4
+     /tmp/ccriHlE5.s:90     .text.gd_eval_led_off:000000000000000c .LVL5
+     /tmp/ccriHlE5.s:22     .text.gd_eval_led_init:0000000000000002 .LCFI0
+     /tmp/ccriHlE5.s:70     .text.gd_eval_led_init:0000000000000052 .LCFI1
+     /tmp/ccriHlE5.s:18     .text.gd_eval_led_init:0000000000000000 .LVL0
+     /tmp/ccriHlE5.s:34     .text.gd_eval_led_init:0000000000000014 .LVL1
+GAS LISTING /tmp/ccriHlE5.s 			page 27
+
+
+     /tmp/ccriHlE5.s:664    .debug_info:0000000000000000 .Ldebug_info0
+
+UNDEFINED SYMBOLS
+rcu_periph_clock_enable
+gpio_init
+gpio_input_bit_get
+gpio_bit_write
+eclic_irq_enable
+gpio_exti_source_select
+exti_init
+exti_interrupt_flag_clear
+usart_deinit
+usart_baudrate_set
+usart_word_length_set
+usart_stop_bit_set
+usart_parity_config
+usart_hardware_flow_rts_config
+usart_hardware_flow_cts_config
+usart_receive_config
+usart_transmit_config
+usart_enable

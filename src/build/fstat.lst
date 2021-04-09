@@ -1,0 +1,208 @@
+GAS LISTING /tmp/cczXZt2B.s 			page 1
+
+
+   1              		.file	"fstat.c"
+   2              		.option nopic
+   3              		.attribute arch, "rv32i2p0_m2p0_a2p0_c2p0"
+   4              		.attribute unaligned_access, 0
+   5              		.attribute stack_align, 16
+   6              		.text
+   7              	.Ltext0:
+   8              		.cfi_sections	.debug_frame
+   9              		.section	.text._fstat,"ax",@progbits
+  10              		.align	1
+  11              		.globl	_fstat
+  13              	_fstat:
+  14              	.LFB1:
+  15              		.file 1 "../Firmware/RISCV/stubs/fstat.c"
+   1:../Firmware/RISCV/stubs/fstat.c **** /* See LICENSE of license details. */
+   2:../Firmware/RISCV/stubs/fstat.c **** 
+   3:../Firmware/RISCV/stubs/fstat.c **** #include <errno.h>
+   4:../Firmware/RISCV/stubs/fstat.c **** #include <unistd.h>
+   5:../Firmware/RISCV/stubs/fstat.c **** #include <sys/stat.h>
+   6:../Firmware/RISCV/stubs/fstat.c **** #include "stub.h"
+   7:../Firmware/RISCV/stubs/fstat.c **** 
+   8:../Firmware/RISCV/stubs/fstat.c **** int _fstat(int fd, struct stat* st)
+   9:../Firmware/RISCV/stubs/fstat.c **** {
+  16              		.loc 1 9 1
+  17              		.cfi_startproc
+  18              	.LVL0:
+  10:../Firmware/RISCV/stubs/fstat.c ****   if (isatty(fd)) {
+  19              		.loc 1 10 3
+   9:../Firmware/RISCV/stubs/fstat.c ****   if (isatty(fd)) {
+  20              		.loc 1 9 1 is_stmt 0
+  21 0000 4111     		addi	sp,sp,-16
+  22              	.LCFI0:
+  23              		.cfi_def_cfa_offset 16
+  24 0002 22C4     		sw	s0,8(sp)
+  25 0004 06C6     		sw	ra,12(sp)
+  26              		.cfi_offset 8, -8
+  27              		.cfi_offset 1, -4
+   9:../Firmware/RISCV/stubs/fstat.c ****   if (isatty(fd)) {
+  28              		.loc 1 9 1
+  29 0006 2E84     		mv	s0,a1
+  30              		.loc 1 10 7
+  31 0008 97000000 		call	isatty
+  31      E7800000 
+  32              	.LVL1:
+  33              		.loc 1 10 6
+  34 0010 01C9     		beq	a0,zero,.L3
+  11:../Firmware/RISCV/stubs/fstat.c ****     st->st_mode = S_IFCHR;
+  35              		.loc 1 11 5 is_stmt 1
+  36              		.loc 1 11 17 is_stmt 0
+  37 0012 8967     		li	a5,8192
+  38 0014 5CC0     		sw	a5,4(s0)
+  12:../Firmware/RISCV/stubs/fstat.c ****     return 0;
+  39              		.loc 1 12 5 is_stmt 1
+  40              		.loc 1 12 12 is_stmt 0
+  41 0016 0145     		li	a0,0
+  42              	.L1:
+  13:../Firmware/RISCV/stubs/fstat.c ****   }
+GAS LISTING /tmp/cczXZt2B.s 			page 2
+
+
+  14:../Firmware/RISCV/stubs/fstat.c **** 
+  15:../Firmware/RISCV/stubs/fstat.c ****   return _stub(EBADF);
+  16:../Firmware/RISCV/stubs/fstat.c **** }
+  43              		.loc 1 16 1
+  44 0018 B240     		lw	ra,12(sp)
+  45              		.cfi_remember_state
+  46              		.cfi_restore 1
+  47 001a 2244     		lw	s0,8(sp)
+  48              		.cfi_restore 8
+  49              	.LVL2:
+  50 001c 4101     		addi	sp,sp,16
+  51              	.LCFI1:
+  52              		.cfi_def_cfa_offset 0
+  53 001e 8280     		jr	ra
+  54              	.LVL3:
+  55              	.L3:
+  56              	.LCFI2:
+  57              		.cfi_restore_state
+  15:../Firmware/RISCV/stubs/fstat.c **** }
+  58              		.loc 1 15 10
+  59 0020 7D55     		li	a0,-1
+  60 0022 DDBF     		j	.L1
+  61              		.cfi_endproc
+  62              	.LFE1:
+  64              		.text
+  65              	.Letext0:
+  66              		.file 2 "/home/johnson/Documents/mpb-toolchain/build/riscv32-mapleboard-elf/include/machine/_defau
+  67              		.file 3 "/home/johnson/Documents/mpb-toolchain/build/riscv32-mapleboard-elf/include/sys/_types.h"
+  68              		.file 4 "/home/johnson/Documents/mpb-toolchain/build/riscv32-mapleboard-elf/include/sys/_timeval.h
+  69              		.file 5 "/home/johnson/Documents/mpb-toolchain/build/riscv32-mapleboard-elf/include/sys/_timespec.
+  70              		.file 6 "/home/johnson/Documents/mpb-toolchain/build/riscv32-mapleboard-elf/include/sys/types.h"
+  71              		.file 7 "/home/johnson/Documents/mpb-toolchain/build/riscv32-mapleboard-elf/include/sys/stat.h"
+  72              		.file 8 "../Firmware/RISCV/stubs/stub.h"
+  73              		.file 9 "/home/johnson/Documents/mpb-toolchain/build/riscv32-mapleboard-elf/include/sys/unistd.h"
+GAS LISTING /tmp/cczXZt2B.s 			page 3
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 fstat.c
+     /tmp/cczXZt2B.s:13     .text._fstat:0000000000000000 _fstat
+     /tmp/cczXZt2B.s:17     .text._fstat:0000000000000000 .L0 
+     /tmp/cczXZt2B.s:19     .text._fstat:0000000000000000 .L0 
+     /tmp/cczXZt2B.s:20     .text._fstat:0000000000000000 .L0 
+     /tmp/cczXZt2B.s:21     .text._fstat:0000000000000000 .L0 
+     /tmp/cczXZt2B.s:23     .text._fstat:0000000000000002 .L0 
+     /tmp/cczXZt2B.s:26     .text._fstat:0000000000000006 .L0 
+     /tmp/cczXZt2B.s:27     .text._fstat:0000000000000006 .L0 
+     /tmp/cczXZt2B.s:29     .text._fstat:0000000000000006 .L0 
+     /tmp/cczXZt2B.s:31     .text._fstat:0000000000000008 .L0 
+     /tmp/cczXZt2B.s:34     .text._fstat:0000000000000010 .L0 
+     /tmp/cczXZt2B.s:36     .text._fstat:0000000000000012 .L0 
+     /tmp/cczXZt2B.s:37     .text._fstat:0000000000000012 .L0 
+     /tmp/cczXZt2B.s:40     .text._fstat:0000000000000016 .L0 
+     /tmp/cczXZt2B.s:41     .text._fstat:0000000000000016 .L0 
+     /tmp/cczXZt2B.s:44     .text._fstat:0000000000000018 .L0 
+     /tmp/cczXZt2B.s:45     .text._fstat:000000000000001a .L0 
+     /tmp/cczXZt2B.s:46     .text._fstat:000000000000001a .L0 
+     /tmp/cczXZt2B.s:48     .text._fstat:000000000000001c .L0 
+     /tmp/cczXZt2B.s:52     .text._fstat:000000000000001e .L0 
+     /tmp/cczXZt2B.s:57     .text._fstat:0000000000000020 .L0 
+     /tmp/cczXZt2B.s:59     .text._fstat:0000000000000020 .L0 
+     /tmp/cczXZt2B.s:61     .text._fstat:0000000000000024 .L0 
+     /tmp/cczXZt2B.s:64     .text._fstat:0000000000000024 .L0 
+                     .debug_frame:0000000000000000 .L0 
+     /tmp/cczXZt2B.s:55     .text._fstat:0000000000000020 .L3
+     /tmp/cczXZt2B.s:42     .text._fstat:0000000000000018 .L1
+     /tmp/cczXZt2B.s:504    .debug_abbrev:0000000000000000 .Ldebug_abbrev0
+     /tmp/cczXZt2B.s:858    .debug_str:00000000000000a4 .LASF51
+     /tmp/cczXZt2B.s:928    .debug_str:0000000000000293 .LASF52
+     /tmp/cczXZt2B.s:838    .debug_str:000000000000002a .LASF53
+     /tmp/cczXZt2B.s:818    .debug_ranges:0000000000000000 .Ldebug_ranges0
+     /tmp/cczXZt2B.s:824    .debug_line:0000000000000000 .Ldebug_line0
+     /tmp/cczXZt2B.s:890    .debug_str:00000000000001dd .LASF0
+     /tmp/cczXZt2B.s:912    .debug_str:000000000000024c .LASF1
+     /tmp/cczXZt2B.s:934    .debug_str:00000000000002c1 .LASF2
+     /tmp/cczXZt2B.s:936    .debug_str:00000000000002cd .LASF3
+     /tmp/cczXZt2B.s:862    .debug_str:0000000000000143 .LASF4
+     /tmp/cczXZt2B.s:922    .debug_str:000000000000027b .LASF5
+     /tmp/cczXZt2B.s:876    .debug_str:0000000000000194 .LASF6
+     /tmp/cczXZt2B.s:930    .debug_str:00000000000002b3 .LASF7
+     /tmp/cczXZt2B.s:886    .debug_str:00000000000001ca .LASF10
+     /tmp/cczXZt2B.s:872    .debug_str:000000000000017a .LASF8
+     /tmp/cczXZt2B.s:894    .debug_str:00000000000001f2 .LASF9
+     /tmp/cczXZt2B.s:866    .debug_str:0000000000000158 .LASF11
+     /tmp/cczXZt2B.s:898    .debug_str:0000000000000215 .LASF12
+     /tmp/cczXZt2B.s:896    .debug_str:0000000000000209 .LASF13
+     /tmp/cczXZt2B.s:854    .debug_str:0000000000000093 .LASF14
+     /tmp/cczXZt2B.s:868    .debug_str:0000000000000168 .LASF15
+     /tmp/cczXZt2B.s:836    .debug_str:0000000000000022 .LASF16
+     /tmp/cczXZt2B.s:906    .debug_str:0000000000000235 .LASF17
+     /tmp/cczXZt2B.s:920    .debug_str:0000000000000273 .LASF18
+     /tmp/cczXZt2B.s:918    .debug_str:000000000000026a .LASF19
+     /tmp/cczXZt2B.s:908    .debug_str:000000000000023d .LASF20
+     /tmp/cczXZt2B.s:884    .debug_str:00000000000001c0 .LASF21
+GAS LISTING /tmp/cczXZt2B.s 			page 4
+
+
+     /tmp/cczXZt2B.s:932    .debug_str:00000000000002bc .LASF22
+     /tmp/cczXZt2B.s:882    .debug_str:00000000000001b9 .LASF23
+     /tmp/cczXZt2B.s:914    .debug_str:000000000000025a .LASF35
+     /tmp/cczXZt2B.s:910    .debug_str:0000000000000245 .LASF24
+     /tmp/cczXZt2B.s:842    .debug_str:0000000000000065 .LASF25
+     /tmp/cczXZt2B.s:840    .debug_str:000000000000005c .LASF26
+     /tmp/cczXZt2B.s:880    .debug_str:00000000000001af .LASF27
+     /tmp/cczXZt2B.s:848    .debug_str:000000000000007b .LASF28
+     /tmp/cczXZt2B.s:828    .debug_str:0000000000000006 .LASF29
+     /tmp/cczXZt2B.s:900    .debug_str:0000000000000220 .LASF30
+     /tmp/cczXZt2B.s:860    .debug_str:000000000000013d .LASF31
+     /tmp/cczXZt2B.s:826    .debug_str:0000000000000000 .LASF32
+     /tmp/cczXZt2B.s:938    .debug_str:00000000000002d9 .LASF33
+     /tmp/cczXZt2B.s:834    .debug_str:000000000000001a .LASF34
+     /tmp/cczXZt2B.s:832    .debug_str:0000000000000015 .LASF36
+     /tmp/cczXZt2B.s:924    .debug_str:0000000000000285 .LASF37
+     /tmp/cczXZt2B.s:850    .debug_str:0000000000000081 .LASF38
+     /tmp/cczXZt2B.s:874    .debug_str:000000000000018c .LASF39
+     /tmp/cczXZt2B.s:830    .debug_str:000000000000000c .LASF40
+     /tmp/cczXZt2B.s:904    .debug_str:000000000000022e .LASF41
+     /tmp/cczXZt2B.s:926    .debug_str:000000000000028c .LASF42
+     /tmp/cczXZt2B.s:888    .debug_str:00000000000001d5 .LASF43
+     /tmp/cczXZt2B.s:844    .debug_str:000000000000006d .LASF44
+     /tmp/cczXZt2B.s:878    .debug_str:00000000000001a7 .LASF45
+     /tmp/cczXZt2B.s:892    .debug_str:00000000000001ea .LASF46
+     /tmp/cczXZt2B.s:902    .debug_str:0000000000000226 .LASF47
+     /tmp/cczXZt2B.s:852    .debug_str:0000000000000088 .LASF48
+     /tmp/cczXZt2B.s:870    .debug_str:0000000000000170 .LASF49
+     /tmp/cczXZt2B.s:856    .debug_str:000000000000009a .LASF50
+     /tmp/cczXZt2B.s:916    .debug_str:0000000000000263 .LASF54
+     /tmp/cczXZt2B.s:14     .text._fstat:0000000000000000 .LFB1
+     /tmp/cczXZt2B.s:62     .text._fstat:0000000000000024 .LFE1
+     /tmp/cczXZt2B.s:746    .debug_loc:0000000000000000 .LLST0
+     /tmp/cczXZt2B.s:769    .debug_loc:0000000000000038 .LLST1
+     /tmp/cczXZt2B.s:783    .debug_loc:0000000000000059 .LLST2
+     /tmp/cczXZt2B.s:32     .text._fstat:0000000000000010 .LVL1
+     /tmp/cczXZt2B.s:846    .debug_str:0000000000000075 .LASF55
+     /tmp/cczXZt2B.s:864    .debug_str:0000000000000151 .LASF56
+     /tmp/cczXZt2B.s:22     .text._fstat:0000000000000002 .LCFI0
+     /tmp/cczXZt2B.s:51     .text._fstat:000000000000001e .LCFI1
+     /tmp/cczXZt2B.s:56     .text._fstat:0000000000000020 .LCFI2
+     /tmp/cczXZt2B.s:18     .text._fstat:0000000000000000 .LVL0
+     /tmp/cczXZt2B.s:49     .text._fstat:000000000000001c .LVL2
+     /tmp/cczXZt2B.s:54     .text._fstat:0000000000000020 .LVL3
+     /tmp/cczXZt2B.s:75     .debug_info:0000000000000000 .Ldebug_info0
+
+UNDEFINED SYMBOLS
+isatty

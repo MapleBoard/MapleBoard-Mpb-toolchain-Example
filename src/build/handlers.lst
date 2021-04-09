@@ -1,0 +1,234 @@
+GAS LISTING /tmp/cckxMcio.s 			page 1
+
+
+   1              		.file	"handlers.c"
+   2              		.option nopic
+   3              		.attribute arch, "rv32i2p0_m2p0_a2p0_c2p0"
+   4              		.attribute unaligned_access, 0
+   5              		.attribute stack_align, 16
+   6              		.text
+   7              	.Ltext0:
+   8              		.cfi_sections	.debug_frame
+   9              		.section	.rodata.handle_nmi.str1.4,"aMS",@progbits,1
+  10              		.align	2
+  11              	.LC0:
+  12 0000 6E6D690A 		.string	"nmi\n"
+  12      00
+  13              		.section	.text.handle_nmi,"ax",@progbits
+  14              		.align	1
+  15              		.weak	handle_nmi
+  17              	handle_nmi:
+  18              	.LFB5:
+  19              		.file 1 "handlers.c"
+   1:handlers.c    **** //See LICENSE for license details.
+   2:handlers.c    **** #include <stdint.h>
+   3:handlers.c    **** #include <stdio.h>
+   4:handlers.c    **** #include <unistd.h>
+   5:handlers.c    **** #include "riscv_encoding.h"
+   6:handlers.c    **** #include "n200_func.h"
+   7:handlers.c    **** 
+   8:handlers.c    **** __attribute__((weak)) uintptr_t handle_nmi()
+   9:handlers.c    **** {
+  20              		.loc 1 9 1
+  21              		.cfi_startproc
+  10:handlers.c    ****   write(1, "nmi\n", 5);
+  22              		.loc 1 10 3
+  23 0000 B7050000 		lui	a1,%hi(.LC0)
+   9:handlers.c    ****   write(1, "nmi\n", 5);
+  24              		.loc 1 9 1 is_stmt 0
+  25 0004 4111     		addi	sp,sp,-16
+  26              	.LCFI0:
+  27              		.cfi_def_cfa_offset 16
+  28              		.loc 1 10 3
+  29 0006 1546     		li	a2,5
+  30 0008 93850500 		addi	a1,a1,%lo(.LC0)
+  31 000c 0545     		li	a0,1
+   9:handlers.c    ****   write(1, "nmi\n", 5);
+  32              		.loc 1 9 1
+  33 000e 06C6     		sw	ra,12(sp)
+  34              		.cfi_offset 1, -4
+  35              		.loc 1 10 3
+  36 0010 97000000 		call	write
+  36      E7800000 
+  37              	.LVL0:
+  11:handlers.c    ****   _exit(1);
+  38              		.loc 1 11 3 is_stmt 1
+  39 0018 0545     		li	a0,1
+  40 001a 97000000 		call	_exit
+  40      E7800000 
+  41              	.LVL1:
+  42              		.cfi_endproc
+GAS LISTING /tmp/cckxMcio.s 			page 2
+
+
+  43              	.LFE5:
+  45              		.section	.rodata.handle_trap.str1.4,"aMS",@progbits,1
+  46              		.align	2
+  47              	.LC1:
+  48 0000 74726170 		.string	"trap\n"
+  48      0A00
+  49              		.section	.text.handle_trap,"ax",@progbits
+  50              		.align	1
+  51              		.weak	handle_trap
+  53              	handle_trap:
+  54              	.LFB6:
+  12:handlers.c    ****   return 0;
+  13:handlers.c    **** }
+  14:handlers.c    **** 
+  15:handlers.c    **** 
+  16:handlers.c    **** __attribute__((weak)) uintptr_t handle_trap(uintptr_t mcause, uintptr_t sp)
+  17:handlers.c    **** {
+  55              		.loc 1 17 1
+  56              		.cfi_startproc
+  57              	.LVL2:
+  18:handlers.c    ****   if(mcause == 0xFFF) {
+  58              		.loc 1 18 3
+  17:handlers.c    ****   if(mcause == 0xFFF) {
+  59              		.loc 1 17 1 is_stmt 0
+  60 0000 4111     		addi	sp,sp,-16
+  61              	.LCFI1:
+  62              		.cfi_def_cfa_offset 16
+  63              		.loc 1 18 5
+  64 0002 8567     		li	a5,4096
+  17:handlers.c    ****   if(mcause == 0xFFF) {
+  65              		.loc 1 17 1
+  66 0004 22C4     		sw	s0,8(sp)
+  67 0006 06C6     		sw	ra,12(sp)
+  68              		.cfi_offset 8, -8
+  69              		.cfi_offset 1, -4
+  70              		.loc 1 18 5
+  71 0008 FD17     		addi	a5,a5,-1
+  17:handlers.c    ****   if(mcause == 0xFFF) {
+  72              		.loc 1 17 1
+  73 000a 2A84     		mv	s0,a0
+  74              		.loc 1 18 5
+  75 000c 6301F502 		beq	a0,a5,.L7
+  76              	.LVL3:
+  77              	.L5:
+  19:handlers.c    ****       handle_nmi();
+  20:handlers.c    ****   }
+  21:handlers.c    ****   write(1, "trap\n", 5);
+  78              		.loc 1 21 3 is_stmt 1
+  79 0010 B7050000 		lui	a1,%hi(.LC1)
+  80 0014 1546     		li	a2,5
+  81 0016 93850500 		addi	a1,a1,%lo(.LC1)
+  82 001a 0545     		li	a0,1
+  83 001c 97000000 		call	write
+  83      E7800000 
+  84              	.LVL4:
+  22:handlers.c    ****   //printf("In trap handler, the mcause is %d\n", mcause);
+  23:handlers.c    ****   //printf("In trap handler, the mepc is 0x%x\n", read_csr(mepc));
+GAS LISTING /tmp/cckxMcio.s 			page 3
+
+
+  24:handlers.c    ****   //printf("In trap handler, the mtval is 0x%x\n", read_csr(mbadaddr));
+  25:handlers.c    ****   _exit(mcause);
+  85              		.loc 1 25 3
+  86 0024 2285     		mv	a0,s0
+  87 0026 97000000 		call	_exit
+  87      E7800000 
+  88              	.LVL5:
+  89              	.L7:
+  19:handlers.c    ****       handle_nmi();
+  90              		.loc 1 19 7
+  91 002e 97000000 		call	handle_nmi
+  91      E7800000 
+  92              	.LVL6:
+  93 0036 E9BF     		j	.L5
+  94              		.cfi_endproc
+  95              	.LFE6:
+  97              		.text
+  98              	.Letext0:
+  99              		.file 2 "/home/johnson/Documents/mpb-toolchain/build/riscv32-mapleboard-elf/include/machine/_defau
+ 100              		.file 3 "/home/johnson/Documents/mpb-toolchain/build/riscv32-mapleboard-elf/include/sys/_stdint.h"
+ 101              		.file 4 "/home/johnson/Documents/mpb-toolchain/build/riscv32-mapleboard-elf/include/sys/unistd.h"
+GAS LISTING /tmp/cckxMcio.s 			page 4
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 handlers.c
+     /tmp/cckxMcio.s:17     .text.handle_nmi:0000000000000000 handle_nmi
+     /tmp/cckxMcio.s:21     .text.handle_nmi:0000000000000000 .L0 
+     /tmp/cckxMcio.s:22     .text.handle_nmi:0000000000000000 .L0 
+     /tmp/cckxMcio.s:23     .text.handle_nmi:0000000000000000 .L0 
+     /tmp/cckxMcio.s:25     .text.handle_nmi:0000000000000004 .L0 
+     /tmp/cckxMcio.s:27     .text.handle_nmi:0000000000000006 .L0 
+     /tmp/cckxMcio.s:29     .text.handle_nmi:0000000000000006 .L0 
+     /tmp/cckxMcio.s:33     .text.handle_nmi:000000000000000e .L0 
+     /tmp/cckxMcio.s:34     .text.handle_nmi:0000000000000010 .L0 
+     /tmp/cckxMcio.s:36     .text.handle_nmi:0000000000000010 .L0 
+     /tmp/cckxMcio.s:39     .text.handle_nmi:0000000000000018 .L0 
+     /tmp/cckxMcio.s:42     .text.handle_nmi:0000000000000022 .L0 
+     /tmp/cckxMcio.s:53     .text.handle_trap:0000000000000000 handle_trap
+     /tmp/cckxMcio.s:56     .text.handle_trap:0000000000000000 .L0 
+     /tmp/cckxMcio.s:58     .text.handle_trap:0000000000000000 .L0 
+     /tmp/cckxMcio.s:59     .text.handle_trap:0000000000000000 .L0 
+     /tmp/cckxMcio.s:60     .text.handle_trap:0000000000000000 .L0 
+     /tmp/cckxMcio.s:62     .text.handle_trap:0000000000000002 .L0 
+     /tmp/cckxMcio.s:64     .text.handle_trap:0000000000000002 .L0 
+     /tmp/cckxMcio.s:66     .text.handle_trap:0000000000000004 .L0 
+     /tmp/cckxMcio.s:68     .text.handle_trap:0000000000000008 .L0 
+     /tmp/cckxMcio.s:69     .text.handle_trap:0000000000000008 .L0 
+     /tmp/cckxMcio.s:71     .text.handle_trap:0000000000000008 .L0 
+     /tmp/cckxMcio.s:73     .text.handle_trap:000000000000000a .L0 
+     /tmp/cckxMcio.s:75     .text.handle_trap:000000000000000c .L0 
+     /tmp/cckxMcio.s:79     .text.handle_trap:0000000000000010 .L0 
+     /tmp/cckxMcio.s:86     .text.handle_trap:0000000000000024 .L0 
+     /tmp/cckxMcio.s:91     .text.handle_trap:000000000000002e .L0 
+     /tmp/cckxMcio.s:94     .text.handle_trap:0000000000000038 .L0 
+     /tmp/cckxMcio.s:45     .text.handle_nmi:0000000000000022 .L0 
+     /tmp/cckxMcio.s:97     .text.handle_trap:0000000000000038 .L0 
+                     .debug_frame:0000000000000000 .L0 
+     /tmp/cckxMcio.s:11     .rodata.handle_nmi.str1.4:0000000000000000 .LC0
+     /tmp/cckxMcio.s:47     .rodata.handle_trap.str1.4:0000000000000000 .LC1
+     /tmp/cckxMcio.s:89     .text.handle_trap:000000000000002e .L7
+     /tmp/cckxMcio.s:77     .text.handle_trap:0000000000000010 .L5
+     /tmp/cckxMcio.s:301    .debug_abbrev:0000000000000000 .Ldebug_abbrev0
+     /tmp/cckxMcio.s:637    .debug_str:0000000000000112 .LASF16
+     /tmp/cckxMcio.s:621    .debug_str:0000000000000090 .LASF17
+     /tmp/cckxMcio.s:631    .debug_str:00000000000000d0 .LASF18
+     /tmp/cckxMcio.s:587    .debug_ranges:0000000000000000 .Ldebug_ranges0
+     /tmp/cckxMcio.s:595    .debug_line:0000000000000000 .Ldebug_line0
+     /tmp/cckxMcio.s:625    .debug_str:00000000000000ae .LASF0
+     /tmp/cckxMcio.s:615    .debug_str:000000000000006d .LASF1
+     /tmp/cckxMcio.s:629    .debug_str:00000000000000c6 .LASF2
+     /tmp/cckxMcio.s:623    .debug_str:000000000000009b .LASF3
+     /tmp/cckxMcio.s:619    .debug_str:0000000000000087 .LASF4
+     /tmp/cckxMcio.s:607    .debug_str:0000000000000038 .LASF5
+     /tmp/cckxMcio.s:597    .debug_str:0000000000000000 .LASF6
+     /tmp/cckxMcio.s:609    .debug_str:000000000000004a .LASF7
+     /tmp/cckxMcio.s:601    .debug_str:000000000000001b .LASF9
+     /tmp/cckxMcio.s:599    .debug_str:000000000000000e .LASF8
+     /tmp/cckxMcio.s:605    .debug_str:000000000000002e .LASF10
+     /tmp/cckxMcio.s:627    .debug_str:00000000000000ba .LASF11
+     /tmp/cckxMcio.s:633    .debug_str:0000000000000102 .LASF12
+GAS LISTING /tmp/cckxMcio.s 			page 5
+
+
+     /tmp/cckxMcio.s:617    .debug_str:000000000000007b .LASF19
+     /tmp/cckxMcio.s:54     .text.handle_trap:0000000000000000 .LFB6
+     /tmp/cckxMcio.s:95     .text.handle_trap:0000000000000038 .LFE6
+     /tmp/cckxMcio.s:510    .debug_loc:0000000000000000 .LLST1
+     /tmp/cckxMcio.s:603    .debug_str:0000000000000027 .LASF13
+     /tmp/cckxMcio.s:523    .debug_loc:0000000000000020 .LLST2
+     /tmp/cckxMcio.s:534    .debug_loc:000000000000003e .LLST3
+     /tmp/cckxMcio.s:84     .text.handle_trap:0000000000000024 .LVL4
+     /tmp/cckxMcio.s:88     .text.handle_trap:000000000000002e .LVL5
+     /tmp/cckxMcio.s:92     .text.handle_trap:0000000000000036 .LVL6
+     /tmp/cckxMcio.s:635    .debug_str:0000000000000107 .LASF20
+     /tmp/cckxMcio.s:18     .text.handle_nmi:0000000000000000 .LFB5
+     /tmp/cckxMcio.s:43     .text.handle_nmi:0000000000000022 .LFE5
+     /tmp/cckxMcio.s:559    .debug_loc:0000000000000078 .LLST0
+     /tmp/cckxMcio.s:37     .text.handle_nmi:0000000000000018 .LVL0
+     /tmp/cckxMcio.s:41     .text.handle_nmi:0000000000000022 .LVL1
+     /tmp/cckxMcio.s:611    .debug_str:0000000000000061 .LASF14
+     /tmp/cckxMcio.s:613    .debug_str:0000000000000067 .LASF15
+     /tmp/cckxMcio.s:61     .text.handle_trap:0000000000000002 .LCFI1
+     /tmp/cckxMcio.s:57     .text.handle_trap:0000000000000000 .LVL2
+     /tmp/cckxMcio.s:76     .text.handle_trap:0000000000000010 .LVL3
+     /tmp/cckxMcio.s:26     .text.handle_nmi:0000000000000006 .LCFI0
+     /tmp/cckxMcio.s:103    .debug_info:0000000000000000 .Ldebug_info0
+
+UNDEFINED SYMBOLS
+write
+_exit

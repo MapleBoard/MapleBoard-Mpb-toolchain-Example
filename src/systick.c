@@ -51,7 +51,7 @@ void delay_1ms(uint32_t count)
     } while(start_mtime == tmp);
 
 
-    uint64_t delay_ticks = SystemCoreClock / 4; // 1 second
+    uint64_t delay_ticks = SystemCoreClock / 55; // 1 millisecond
     delay_ticks = delay_ticks * count / 1000;
 
     do {

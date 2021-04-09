@@ -1,0 +1,84 @@
+GAS LISTING /tmp/ccPm55GS.s 			page 1
+
+
+   1              		.file	"isatty.c"
+   2              		.option nopic
+   3              		.attribute arch, "rv32i2p0_m2p0_a2p0_c2p0"
+   4              		.attribute unaligned_access, 0
+   5              		.attribute stack_align, 16
+   6              		.text
+   7              	.Ltext0:
+   8              		.cfi_sections	.debug_frame
+   9              		.section	.text._isatty,"ax",@progbits
+  10              		.align	1
+  11              		.globl	_isatty
+  13              	_isatty:
+  14              	.LFB0:
+  15              		.file 1 "../Firmware/RISCV/stubs/isatty.c"
+   1:../Firmware/RISCV/stubs/isatty.c **** /* See LICENSE of license details. */
+   2:../Firmware/RISCV/stubs/isatty.c **** 
+   3:../Firmware/RISCV/stubs/isatty.c **** #include <unistd.h>
+   4:../Firmware/RISCV/stubs/isatty.c **** 
+   5:../Firmware/RISCV/stubs/isatty.c **** int _isatty(int fd)
+   6:../Firmware/RISCV/stubs/isatty.c **** {
+  16              		.loc 1 6 1
+  17              		.cfi_startproc
+  18              	.LVL0:
+   7:../Firmware/RISCV/stubs/isatty.c ****   if (fd == STDOUT_FILENO || fd == STDERR_FILENO)
+  19              		.loc 1 7 3
+  20              		.loc 1 7 27 is_stmt 0
+  21 0000 7D15     		addi	a0,a0,-1
+  22              	.LVL1:
+   8:../Firmware/RISCV/stubs/isatty.c ****     return 1;
+   9:../Firmware/RISCV/stubs/isatty.c **** 
+  10:../Firmware/RISCV/stubs/isatty.c ****   return 0;
+  11:../Firmware/RISCV/stubs/isatty.c **** }
+  23              		.loc 1 11 1
+  24 0002 13352500 		sltiu	a0,a0,2
+  25              	.LVL2:
+  26 0006 8280     		ret
+  27              		.cfi_endproc
+  28              	.LFE0:
+  30              		.text
+  31              	.Letext0:
+GAS LISTING /tmp/ccPm55GS.s 			page 2
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 isatty.c
+     /tmp/ccPm55GS.s:13     .text._isatty:0000000000000000 _isatty
+     /tmp/ccPm55GS.s:17     .text._isatty:0000000000000000 .L0 
+     /tmp/ccPm55GS.s:19     .text._isatty:0000000000000000 .L0 
+     /tmp/ccPm55GS.s:20     .text._isatty:0000000000000000 .L0 
+     /tmp/ccPm55GS.s:21     .text._isatty:0000000000000000 .L0 
+     /tmp/ccPm55GS.s:24     .text._isatty:0000000000000002 .L0 
+     /tmp/ccPm55GS.s:27     .text._isatty:0000000000000008 .L0 
+     /tmp/ccPm55GS.s:30     .text._isatty:0000000000000008 .L0 
+                     .debug_frame:0000000000000000 .L0 
+     /tmp/ccPm55GS.s:119    .debug_abbrev:0000000000000000 .Ldebug_abbrev0
+     /tmp/ccPm55GS.s:279    .debug_str:00000000000000f0 .LASF11
+     /tmp/ccPm55GS.s:265    .debug_str:0000000000000060 .LASF12
+     /tmp/ccPm55GS.s:277    .debug_str:00000000000000be .LASF13
+     /tmp/ccPm55GS.s:243    .debug_ranges:0000000000000000 .Ldebug_ranges0
+     /tmp/ccPm55GS.s:249    .debug_line:0000000000000000 .Ldebug_line0
+     /tmp/ccPm55GS.s:269    .debug_str:0000000000000094 .LASF0
+     /tmp/ccPm55GS.s:259    .debug_str:0000000000000044 .LASF1
+     /tmp/ccPm55GS.s:275    .debug_str:00000000000000b4 .LASF2
+     /tmp/ccPm55GS.s:267    .debug_str:0000000000000081 .LASF3
+     /tmp/ccPm55GS.s:263    .debug_str:0000000000000057 .LASF4
+     /tmp/ccPm55GS.s:255    .debug_str:000000000000001b .LASF5
+     /tmp/ccPm55GS.s:251    .debug_str:0000000000000000 .LASF6
+     /tmp/ccPm55GS.s:257    .debug_str:000000000000002d .LASF7
+     /tmp/ccPm55GS.s:253    .debug_str:000000000000000e .LASF8
+     /tmp/ccPm55GS.s:261    .debug_str:0000000000000052 .LASF9
+     /tmp/ccPm55GS.s:271    .debug_str:00000000000000a0 .LASF10
+     /tmp/ccPm55GS.s:273    .debug_str:00000000000000ac .LASF14
+     /tmp/ccPm55GS.s:14     .text._isatty:0000000000000000 .LFB0
+     /tmp/ccPm55GS.s:28     .text._isatty:0000000000000008 .LFE0
+     /tmp/ccPm55GS.s:210    .debug_loc:0000000000000000 .LLST0
+     /tmp/ccPm55GS.s:18     .text._isatty:0000000000000000 .LVL0
+     /tmp/ccPm55GS.s:22     .text._isatty:0000000000000002 .LVL1
+     /tmp/ccPm55GS.s:25     .text._isatty:0000000000000006 .LVL2
+     /tmp/ccPm55GS.s:33     .debug_info:0000000000000000 .Ldebug_info0
+
+NO UNDEFINED SYMBOLS

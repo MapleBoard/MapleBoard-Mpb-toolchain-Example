@@ -1,0 +1,1226 @@
+GAS LISTING /tmp/ccCw9s1C.s 			page 1
+
+
+   1              		.file	"gd32vf103_bkp.c"
+   2              		.option nopic
+   3              		.attribute arch, "rv32i2p0_m2p0_a2p0_c2p0"
+   4              		.attribute unaligned_access, 0
+   5              		.attribute stack_align, 16
+   6              		.text
+   7              	.Ltext0:
+   8              		.cfi_sections	.debug_frame
+   9              		.section	.text.bkp_deinit,"ax",@progbits
+  10              		.align	1
+  11              		.globl	bkp_deinit
+  13              	bkp_deinit:
+  14              	.LFB2:
+  15              		.file 1 "../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c"
+   1:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** /*!
+   2:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \file    gd32vf103_bkp.c
+   3:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \brief   BKP driver
+   4:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** 
+   5:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \version 2019-6-5, V1.0.0, firmware for GD32VF103
+   6:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** */
+   7:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** 
+   8:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** /*
+   9:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     Copyright (c) 2019, GigaDevice Semiconductor Inc.
+  10:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** 
+  11:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     Redistribution and use in source and binary forms, with or without modification, 
+  12:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** are permitted provided that the following conditions are met:
+  13:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** 
+  14:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     1. Redistributions of source code must retain the above copyright notice, this 
+  15:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****        list of conditions and the following disclaimer.
+  16:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     2. Redistributions in binary form must reproduce the above copyright notice, 
+  17:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****        this list of conditions and the following disclaimer in the documentation 
+  18:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****        and/or other materials provided with the distribution.
+  19:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     3. Neither the name of the copyright holder nor the names of its contributors 
+  20:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****        may be used to endorse or promote products derived from this software without 
+  21:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****        specific prior written permission.
+  22:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** 
+  23:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
+  24:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+  25:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
+  26:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, 
+  27:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT 
+  28:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR 
+  29:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
+  30:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+  31:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY 
+  32:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** OF SUCH DAMAGE.
+  33:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** */
+  34:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** 
+  35:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** #include "gd32vf103_bkp.h"
+  36:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** 
+  37:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** /* BKP register bits offset */
+  38:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** #define BKP_TAMPER_BITS_OFFSET          ((uint32_t)8U)
+  39:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** 
+  40:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** /*!
+  41:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \brief      reset BKP registers
+  42:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \param[in]  none
+  43:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \param[out] none
+GAS LISTING /tmp/ccCw9s1C.s 			page 2
+
+
+  44:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \retval     none
+  45:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** */
+  46:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** void bkp_deinit(void)
+  47:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** {
+  16              		.loc 1 47 1
+  17              		.cfi_startproc
+  48:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     /* reset BKP domain register*/
+  49:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     rcu_bkp_reset_enable();
+  18              		.loc 1 49 5
+  47:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     /* reset BKP domain register*/
+  19              		.loc 1 47 1 is_stmt 0
+  20 0000 4111     		addi	sp,sp,-16
+  21              	.LCFI0:
+  22              		.cfi_def_cfa_offset 16
+  23 0002 06C6     		sw	ra,12(sp)
+  24              		.cfi_offset 1, -4
+  25              		.loc 1 49 5
+  26 0004 97000000 		call	rcu_bkp_reset_enable
+  26      E7800000 
+  27              	.LVL0:
+  50:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     rcu_bkp_reset_disable();
+  28              		.loc 1 50 5 is_stmt 1
+  51:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** }
+  29              		.loc 1 51 1 is_stmt 0
+  30 000c B240     		lw	ra,12(sp)
+  31              		.cfi_restore 1
+  32 000e 4101     		addi	sp,sp,16
+  33              	.LCFI1:
+  34              		.cfi_def_cfa_offset 0
+  50:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     rcu_bkp_reset_disable();
+  35              		.loc 1 50 5
+  36 0010 17030000 		tail	rcu_bkp_reset_disable
+  36      67000300 
+  37              	.LVL1:
+  38              		.cfi_endproc
+  39              	.LFE2:
+  41              		.section	.text.bkp_data_write,"ax",@progbits
+  42              		.align	1
+  43              		.globl	bkp_data_write
+  45              	bkp_data_write:
+  46              	.LFB3:
+  52:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** 
+  53:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** /*!
+  54:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \brief      write BKP data register
+  55:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \param[in]  register_number: refer to bkp_data_register_enum
+  56:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****                 only one parameter can be selected which is shown as below:
+  57:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****       \arg        BKP_DATA_x(x = 0..41): bkp data register number x
+  58:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \param[in]  data: the data to be write in BKP data register
+  59:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \param[out] none
+  60:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \retval     none
+  61:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** */
+  62:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** void bkp_data_write(bkp_data_register_enum register_number, uint16_t data)
+  63:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** {
+  47              		.loc 1 63 1 is_stmt 1
+  48              		.cfi_startproc
+  49              	.LVL2:
+  64:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     if((register_number >= BKP_DATA_10) && (register_number <= BKP_DATA_41)){
+GAS LISTING /tmp/ccCw9s1C.s 			page 3
+
+
+  50              		.loc 1 64 5
+  51              		.loc 1 64 41 is_stmt 0
+  52 0000 130755FF 		addi	a4,a0,-11
+  53              		.loc 1 64 7
+  54 0004 FD47     		li	a5,31
+  55 0006 63EBE700 		bgtu	a4,a5,.L5
+  65:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****         BKP_DATA10_41(register_number - 1U) = data;
+  56              		.loc 1 65 9 is_stmt 1
+  57 000a B7270010 		li	a5,268443648
+  58 000e 938757B0 		addi	a5,a5,-1275
+  59 0012 3E95     		add	a0,a0,a5
+  60              	.LVL3:
+  61 0014 0A05     		slli	a0,a0,2
+  62              	.LVL4:
+  63              		.loc 1 65 45 is_stmt 0
+  64 0016 2310B500 		sh	a1,0(a0)
+  65 001a 8280     		ret
+  66              	.LVL5:
+  67              	.L5:
+  66:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     }else if((register_number >= BKP_DATA_0) && (register_number <= BKP_DATA_9)){
+  68              		.loc 1 66 11 is_stmt 1
+  69              		.loc 1 66 46 is_stmt 0
+  70 001c 9307F5FF 		addi	a5,a0,-1
+  71              		.loc 1 66 13
+  72 0020 2547     		li	a4,9
+  73 0022 636AF700 		bgtu	a5,a4,.L4
+  67:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****         BKP_DATA0_9(register_number - 1U) = data;
+  74              		.loc 1 67 9 is_stmt 1
+  75 0026 B7270010 		li	a5,268443648
+  76 002a 938707B0 		addi	a5,a5,-1280
+  77 002e 3E95     		add	a0,a0,a5
+  78              	.LVL6:
+  79 0030 0A05     		slli	a0,a0,2
+  80              	.LVL7:
+  81              		.loc 1 67 43 is_stmt 0
+  82 0032 2310B500 		sh	a1,0(a0)
+  68:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     }else{
+  69:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****         /* illegal parameters */
+  70:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     }
+  83              		.loc 1 70 5 is_stmt 1
+  84              	.L4:
+  71:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** }
+  85              		.loc 1 71 1 is_stmt 0
+  86 0036 8280     		ret
+  87              		.cfi_endproc
+  88              	.LFE3:
+  90              		.section	.text.bkp_data_read,"ax",@progbits
+  91              		.align	1
+  92              		.globl	bkp_data_read
+  94              	bkp_data_read:
+  95              	.LFB4:
+  72:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** 
+  73:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** /*!
+  74:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \brief      read BKP data register
+  75:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \param[in]  register_number: refer to bkp_data_register_enum
+  76:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****                 only one parameter can be selected which is shown as below:
+  77:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****       \arg        BKP_DATA_x(x = 0..41): bkp data register number x
+GAS LISTING /tmp/ccCw9s1C.s 			page 4
+
+
+  78:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \param[out] none
+  79:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \retval     data of BKP data register
+  80:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** */
+  81:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** uint16_t bkp_data_read(bkp_data_register_enum register_number)
+  82:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** {
+  96              		.loc 1 82 1 is_stmt 1
+  97              		.cfi_startproc
+  98              	.LVL8:
+  83:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     uint16_t data = 0U;
+  99              		.loc 1 83 5
+  84:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     
+  85:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     /* get the data from the BKP data register */
+  86:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     if((register_number >= BKP_DATA_10) && (register_number <= BKP_DATA_41)){
+ 100              		.loc 1 86 5
+ 101              		.loc 1 86 41 is_stmt 0
+ 102 0000 930655FF 		addi	a3,a0,-11
+ 103              		.loc 1 86 7
+ 104 0004 7D47     		li	a4,31
+  82:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     uint16_t data = 0U;
+ 105              		.loc 1 82 1
+ 106 0006 AA87     		mv	a5,a0
+ 107              		.loc 1 86 7
+ 108 0008 636DD700 		bgtu	a3,a4,.L8
+  87:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****         data = BKP_DATA10_41(register_number - 1U);
+ 109              		.loc 1 87 9 is_stmt 1
+ 110              		.loc 1 87 16 is_stmt 0
+ 111 000c 37250010 		li	a0,268443648
+ 112              	.LVL9:
+ 113 0010 130555B0 		addi	a0,a0,-1275
+ 114              	.L11:
+  88:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     }else if((register_number >= BKP_DATA_0) && (register_number <= BKP_DATA_9)){
+  89:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****         data = BKP_DATA0_9(register_number - 1U);
+ 115              		.loc 1 89 16
+ 116 0014 AA97     		add	a5,a5,a0
+ 117              	.LVL10:
+ 118 0016 8A07     		slli	a5,a5,2
+ 119              		.loc 1 89 14
+ 120 0018 03D50700 		lhu	a0,0(a5)
+ 121 001c 4205     		slli	a0,a0,16
+ 122 001e 4181     		srli	a0,a0,16
+ 123              	.LVL11:
+ 124              	.L9:
+  90:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     }else{
+  91:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****         /* illegal parameters */
+  92:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     }
+ 125              		.loc 1 92 5 is_stmt 1
+  93:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     return data;
+ 126              		.loc 1 93 5
+  94:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** }
+ 127              		.loc 1 94 1 is_stmt 0
+ 128 0020 8280     		ret
+ 129              	.LVL12:
+ 130              	.L8:
+  88:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****         data = BKP_DATA0_9(register_number - 1U);
+ 131              		.loc 1 88 11 is_stmt 1
+  88:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****         data = BKP_DATA0_9(register_number - 1U);
+ 132              		.loc 1 88 46 is_stmt 0
+GAS LISTING /tmp/ccCw9s1C.s 			page 5
+
+
+ 133 0022 1307F5FF 		addi	a4,a0,-1
+  88:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****         data = BKP_DATA0_9(register_number - 1U);
+ 134              		.loc 1 88 13
+ 135 0026 A546     		li	a3,9
+  83:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     
+ 136              		.loc 1 83 14
+ 137 0028 0145     		li	a0,0
+ 138              	.LVL13:
+  88:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****         data = BKP_DATA0_9(register_number - 1U);
+ 139              		.loc 1 88 13
+ 140 002a E3EBE6FE 		bgtu	a4,a3,.L9
+  89:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     }else{
+ 141              		.loc 1 89 9 is_stmt 1
+  89:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     }else{
+ 142              		.loc 1 89 16 is_stmt 0
+ 143 002e 37250010 		li	a0,268443648
+ 144 0032 130505B0 		addi	a0,a0,-1280
+ 145 0036 F9BF     		j	.L11
+ 146              		.cfi_endproc
+ 147              	.LFE4:
+ 149              		.section	.text.bkp_rtc_calibration_output_enable,"ax",@progbits
+ 150              		.align	1
+ 151              		.globl	bkp_rtc_calibration_output_enable
+ 153              	bkp_rtc_calibration_output_enable:
+ 154              	.LFB5:
+  95:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** 
+  96:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** /*!
+  97:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \brief      enable RTC clock calibration output
+  98:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \param[in]  none
+  99:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \param[out] none
+ 100:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \retval     none
+ 101:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** */
+ 102:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** void bkp_rtc_calibration_output_enable(void)
+ 103:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** {
+ 155              		.loc 1 103 1 is_stmt 1
+ 156              		.cfi_startproc
+ 104:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     BKP_OCTL |= (uint16_t)BKP_OCTL_COEN;
+ 157              		.loc 1 104 5
+ 158              		.loc 1 104 14 is_stmt 0
+ 159 0000 37770040 		li	a4,1073770496
+ 160 0004 8357C7C2 		lhu	a5,-980(a4)
+ 161 0008 C207     		slli	a5,a5,16
+ 162 000a C183     		srli	a5,a5,16
+ 163 000c 93E70708 		ori	a5,a5,128
+ 164 0010 2316F7C2 		sh	a5,-980(a4)
+ 105:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** }
+ 165              		.loc 1 105 1
+ 166 0014 8280     		ret
+ 167              		.cfi_endproc
+ 168              	.LFE5:
+ 170              		.section	.text.bkp_rtc_calibration_output_disable,"ax",@progbits
+ 171              		.align	1
+ 172              		.globl	bkp_rtc_calibration_output_disable
+ 174              	bkp_rtc_calibration_output_disable:
+ 175              	.LFB6:
+ 106:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** 
+ 107:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** /*!
+GAS LISTING /tmp/ccCw9s1C.s 			page 6
+
+
+ 108:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \brief      disable RTC clock calibration output
+ 109:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \param[in]  none
+ 110:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \param[out] none
+ 111:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \retval     none
+ 112:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** */
+ 113:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** void bkp_rtc_calibration_output_disable(void)
+ 114:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** {
+ 176              		.loc 1 114 1 is_stmt 1
+ 177              		.cfi_startproc
+ 115:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     BKP_OCTL &= (uint16_t)~BKP_OCTL_COEN;
+ 178              		.loc 1 115 5
+ 179              		.loc 1 115 14 is_stmt 0
+ 180 0000 37770040 		li	a4,1073770496
+ 181 0004 8357C7C2 		lhu	a5,-980(a4)
+ 182 0008 C207     		slli	a5,a5,16
+ 183 000a C183     		srli	a5,a5,16
+ 184 000c 93F7F7F7 		andi	a5,a5,-129
+ 185 0010 C207     		slli	a5,a5,16
+ 186 0012 C183     		srli	a5,a5,16
+ 187 0014 2316F7C2 		sh	a5,-980(a4)
+ 116:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** }
+ 188              		.loc 1 116 1
+ 189 0018 8280     		ret
+ 190              		.cfi_endproc
+ 191              	.LFE6:
+ 193              		.section	.text.bkp_rtc_signal_output_enable,"ax",@progbits
+ 194              		.align	1
+ 195              		.globl	bkp_rtc_signal_output_enable
+ 197              	bkp_rtc_signal_output_enable:
+ 198              	.LFB7:
+ 117:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** 
+ 118:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** /*!
+ 119:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \brief      enable RTC alarm or second signal output
+ 120:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \param[in]  none
+ 121:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \param[out] none
+ 122:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \retval     none
+ 123:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** */
+ 124:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** void bkp_rtc_signal_output_enable(void)
+ 125:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** {
+ 199              		.loc 1 125 1 is_stmt 1
+ 200              		.cfi_startproc
+ 126:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     BKP_OCTL |= (uint16_t)BKP_OCTL_ASOEN;
+ 201              		.loc 1 126 5
+ 202              		.loc 1 126 14 is_stmt 0
+ 203 0000 37770040 		li	a4,1073770496
+ 204 0004 8357C7C2 		lhu	a5,-980(a4)
+ 205 0008 C207     		slli	a5,a5,16
+ 206 000a C183     		srli	a5,a5,16
+ 207 000c 93E70710 		ori	a5,a5,256
+ 208 0010 2316F7C2 		sh	a5,-980(a4)
+ 127:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** }
+ 209              		.loc 1 127 1
+ 210 0014 8280     		ret
+ 211              		.cfi_endproc
+ 212              	.LFE7:
+ 214              		.section	.text.bkp_rtc_signal_output_disable,"ax",@progbits
+ 215              		.align	1
+GAS LISTING /tmp/ccCw9s1C.s 			page 7
+
+
+ 216              		.globl	bkp_rtc_signal_output_disable
+ 218              	bkp_rtc_signal_output_disable:
+ 219              	.LFB8:
+ 128:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** 
+ 129:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** /*!
+ 130:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \brief      disable RTC alarm or second signal output
+ 131:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \param[in]  none
+ 132:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \param[out] none
+ 133:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \retval     none
+ 134:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** */
+ 135:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** void bkp_rtc_signal_output_disable(void)
+ 136:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** {
+ 220              		.loc 1 136 1 is_stmt 1
+ 221              		.cfi_startproc
+ 137:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     BKP_OCTL &= (uint16_t)~BKP_OCTL_ASOEN;
+ 222              		.loc 1 137 5
+ 223              		.loc 1 137 14 is_stmt 0
+ 224 0000 37770040 		li	a4,1073770496
+ 225 0004 8357C7C2 		lhu	a5,-980(a4)
+ 226 0008 C207     		slli	a5,a5,16
+ 227 000a C183     		srli	a5,a5,16
+ 228 000c 93F7F7EF 		andi	a5,a5,-257
+ 229 0010 C207     		slli	a5,a5,16
+ 230 0012 C183     		srli	a5,a5,16
+ 231 0014 2316F7C2 		sh	a5,-980(a4)
+ 138:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** }
+ 232              		.loc 1 138 1
+ 233 0018 8280     		ret
+ 234              		.cfi_endproc
+ 235              	.LFE8:
+ 237              		.section	.text.bkp_rtc_output_select,"ax",@progbits
+ 238              		.align	1
+ 239              		.globl	bkp_rtc_output_select
+ 241              	bkp_rtc_output_select:
+ 242              	.LFB9:
+ 139:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** 
+ 140:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** /*!
+ 141:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \brief      select RTC output
+ 142:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \param[in]  outputsel: RTC output selection
+ 143:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****                 only one parameter can be selected which is shown as below:
+ 144:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****       \arg        RTC_OUTPUT_ALARM_PULSE: RTC alarm pulse is selected as the RTC output
+ 145:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****       \arg        RTC_OUTPUT_SECOND_PULSE: RTC second pulse is selected as the RTC output
+ 146:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \param[out] none
+ 147:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \retval     none
+ 148:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** */
+ 149:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** void bkp_rtc_output_select(uint16_t outputsel)
+ 150:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** {
+ 243              		.loc 1 150 1 is_stmt 1
+ 244              		.cfi_startproc
+ 245              	.LVL14:
+ 151:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     uint16_t ctl = 0U;
+ 246              		.loc 1 151 5
+ 152:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     
+ 153:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     /* configure BKP_OCTL_ROSEL with outputsel */
+ 154:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     ctl = BKP_OCTL;
+ 247              		.loc 1 154 5
+ 248              		.loc 1 154 9 is_stmt 0
+GAS LISTING /tmp/ccCw9s1C.s 			page 8
+
+
+ 249 0000 37770040 		li	a4,1073770496
+ 250 0004 8357C7C2 		lhu	a5,-980(a4)
+ 251 0008 C207     		slli	a5,a5,16
+ 252 000a C183     		srli	a5,a5,16
+ 253              	.LVL15:
+ 155:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     ctl &= (uint16_t)~BKP_OCTL_ROSEL;
+ 254              		.loc 1 155 5 is_stmt 1
+ 255              		.loc 1 155 9 is_stmt 0
+ 256 000c 93F7F7DF 		andi	a5,a5,-513
+ 257              	.LVL16:
+ 156:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     ctl |= outputsel;
+ 258              		.loc 1 156 5 is_stmt 1
+ 259              		.loc 1 156 9 is_stmt 0
+ 260 0010 C98F     		or	a5,a5,a0
+ 261              	.LVL17:
+ 157:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     BKP_OCTL = ctl;
+ 262              		.loc 1 157 5 is_stmt 1
+ 263              		.loc 1 157 14 is_stmt 0
+ 264 0012 2316F7C2 		sh	a5,-980(a4)
+ 158:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** }
+ 265              		.loc 1 158 1
+ 266 0016 8280     		ret
+ 267              		.cfi_endproc
+ 268              	.LFE9:
+ 270              		.section	.text.bkp_rtc_calibration_value_set,"ax",@progbits
+ 271              		.align	1
+ 272              		.globl	bkp_rtc_calibration_value_set
+ 274              	bkp_rtc_calibration_value_set:
+ 275              	.LFB10:
+ 159:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** 
+ 160:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** /*!
+ 161:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \brief      set RTC clock calibration value 
+ 162:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \param[in]  value: RTC clock calibration value
+ 163:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****       \arg        0x00 - 0x7F
+ 164:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \param[out] none
+ 165:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \retval     none
+ 166:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** */
+ 167:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** void bkp_rtc_calibration_value_set(uint8_t value)
+ 168:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** {
+ 276              		.loc 1 168 1 is_stmt 1
+ 277              		.cfi_startproc
+ 278              	.LVL18:
+ 169:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     uint16_t ctl;
+ 279              		.loc 1 169 5
+ 170:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     
+ 171:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     /* configure BKP_OCTL_RCCV with value */
+ 172:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     ctl = BKP_OCTL;
+ 280              		.loc 1 172 5
+ 281              		.loc 1 172 9 is_stmt 0
+ 282 0000 37770040 		li	a4,1073770496
+ 283 0004 8357C7C2 		lhu	a5,-980(a4)
+ 173:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     ctl &= (uint16_t)~BKP_OCTL_RCCV;
+ 174:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     ctl |= (uint16_t)OCTL_RCCV(value);
+ 284              		.loc 1 174 12
+ 285 0008 1375F507 		andi	a0,a0,127
+ 286              	.LVL19:
+ 172:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     ctl &= (uint16_t)~BKP_OCTL_RCCV;
+GAS LISTING /tmp/ccCw9s1C.s 			page 9
+
+
+ 287              		.loc 1 172 9
+ 288 000c C207     		slli	a5,a5,16
+ 289 000e C183     		srli	a5,a5,16
+ 290              	.LVL20:
+ 173:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     ctl &= (uint16_t)~BKP_OCTL_RCCV;
+ 291              		.loc 1 173 5 is_stmt 1
+ 292              		.loc 1 174 5
+ 173:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     ctl &= (uint16_t)~BKP_OCTL_RCCV;
+ 293              		.loc 1 173 9 is_stmt 0
+ 294 0010 93F707F8 		andi	a5,a5,-128
+ 295              	.LVL21:
+ 296              		.loc 1 174 9
+ 297 0014 C98F     		or	a5,a5,a0
+ 298              	.LVL22:
+ 175:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     BKP_OCTL = ctl;
+ 299              		.loc 1 175 5 is_stmt 1
+ 300              		.loc 1 175 14 is_stmt 0
+ 301 0016 2316F7C2 		sh	a5,-980(a4)
+ 176:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** }
+ 302              		.loc 1 176 1
+ 303 001a 8280     		ret
+ 304              		.cfi_endproc
+ 305              	.LFE10:
+ 307              		.section	.text.bkp_tamper_detection_enable,"ax",@progbits
+ 308              		.align	1
+ 309              		.globl	bkp_tamper_detection_enable
+ 311              	bkp_tamper_detection_enable:
+ 312              	.LFB11:
+ 177:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** 
+ 178:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** /*!
+ 179:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \brief      enable tamper detection
+ 180:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \param[in]  none
+ 181:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \param[out] none
+ 182:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \retval     none
+ 183:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** */
+ 184:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** void bkp_tamper_detection_enable(void)
+ 185:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** {
+ 313              		.loc 1 185 1 is_stmt 1
+ 314              		.cfi_startproc
+ 186:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     BKP_TPCTL |= (uint16_t)BKP_TPCTL_TPEN;
+ 315              		.loc 1 186 5
+ 316              		.loc 1 186 15 is_stmt 0
+ 317 0000 37770040 		li	a4,1073770496
+ 318 0004 835707C3 		lhu	a5,-976(a4)
+ 319 0008 C207     		slli	a5,a5,16
+ 320 000a C183     		srli	a5,a5,16
+ 321 000c 93E71700 		ori	a5,a5,1
+ 322 0010 2318F7C2 		sh	a5,-976(a4)
+ 187:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** }
+ 323              		.loc 1 187 1
+ 324 0014 8280     		ret
+ 325              		.cfi_endproc
+ 326              	.LFE11:
+ 328              		.section	.text.bkp_tamper_detection_disable,"ax",@progbits
+ 329              		.align	1
+ 330              		.globl	bkp_tamper_detection_disable
+ 332              	bkp_tamper_detection_disable:
+GAS LISTING /tmp/ccCw9s1C.s 			page 10
+
+
+ 333              	.LFB12:
+ 188:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** 
+ 189:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** /*!
+ 190:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \brief      disable tamper detection
+ 191:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \param[in]  none
+ 192:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \param[out] none
+ 193:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \retval     none
+ 194:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** */
+ 195:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** void bkp_tamper_detection_disable(void)
+ 196:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** {
+ 334              		.loc 1 196 1 is_stmt 1
+ 335              		.cfi_startproc
+ 197:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     BKP_TPCTL &= (uint16_t)~BKP_TPCTL_TPEN;
+ 336              		.loc 1 197 5
+ 337              		.loc 1 197 15 is_stmt 0
+ 338 0000 37770040 		li	a4,1073770496
+ 339 0004 835707C3 		lhu	a5,-976(a4)
+ 340 0008 C207     		slli	a5,a5,16
+ 341 000a C183     		srli	a5,a5,16
+ 342 000c F99B     		andi	a5,a5,-2
+ 343 000e C207     		slli	a5,a5,16
+ 344 0010 C183     		srli	a5,a5,16
+ 345 0012 2318F7C2 		sh	a5,-976(a4)
+ 198:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** }
+ 346              		.loc 1 198 1
+ 347 0016 8280     		ret
+ 348              		.cfi_endproc
+ 349              	.LFE12:
+ 351              		.section	.text.bkp_tamper_active_level_set,"ax",@progbits
+ 352              		.align	1
+ 353              		.globl	bkp_tamper_active_level_set
+ 355              	bkp_tamper_active_level_set:
+ 356              	.LFB13:
+ 199:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** 
+ 200:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** /*!
+ 201:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \brief      set tamper pin active level
+ 202:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \param[in]  level: tamper active level
+ 203:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****                 only one parameter can be selected which is shown as below:
+ 204:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****       \arg        TAMPER_PIN_ACTIVE_HIGH: the tamper pin is active high
+ 205:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****       \arg        TAMPER_PIN_ACTIVE_LOW: the tamper pin is active low
+ 206:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \param[out] none
+ 207:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \retval     none
+ 208:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** */
+ 209:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** void bkp_tamper_active_level_set(uint16_t level)
+ 210:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** {
+ 357              		.loc 1 210 1 is_stmt 1
+ 358              		.cfi_startproc
+ 359              	.LVL23:
+ 211:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     uint16_t ctl = 0U;
+ 360              		.loc 1 211 5
+ 212:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     
+ 213:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     /* configure BKP_TPCTL_TPAL with level */
+ 214:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     ctl = BKP_TPCTL;
+ 361              		.loc 1 214 5
+ 362              		.loc 1 214 9 is_stmt 0
+ 363 0000 37770040 		li	a4,1073770496
+ 364 0004 835707C3 		lhu	a5,-976(a4)
+GAS LISTING /tmp/ccCw9s1C.s 			page 11
+
+
+ 365 0008 C207     		slli	a5,a5,16
+ 366 000a C183     		srli	a5,a5,16
+ 367              	.LVL24:
+ 215:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     ctl &= (uint16_t)~BKP_TPCTL_TPAL;
+ 368              		.loc 1 215 5 is_stmt 1
+ 369              		.loc 1 215 9 is_stmt 0
+ 370 000c F59B     		andi	a5,a5,-3
+ 371              	.LVL25:
+ 216:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     ctl |= level;
+ 372              		.loc 1 216 5 is_stmt 1
+ 373              		.loc 1 216 9 is_stmt 0
+ 374 000e C98F     		or	a5,a5,a0
+ 375              	.LVL26:
+ 217:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     BKP_TPCTL = ctl;
+ 376              		.loc 1 217 5 is_stmt 1
+ 377              		.loc 1 217 15 is_stmt 0
+ 378 0010 2318F7C2 		sh	a5,-976(a4)
+ 218:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** }
+ 379              		.loc 1 218 1
+ 380 0014 8280     		ret
+ 381              		.cfi_endproc
+ 382              	.LFE13:
+ 384              		.section	.text.bkp_interrupt_enable,"ax",@progbits
+ 385              		.align	1
+ 386              		.globl	bkp_interrupt_enable
+ 388              	bkp_interrupt_enable:
+ 389              	.LFB14:
+ 219:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** 
+ 220:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** /*!
+ 221:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \brief      enable tamper interrupt
+ 222:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \param[in]  none
+ 223:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \param[out] none
+ 224:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \retval     none
+ 225:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** */
+ 226:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** void bkp_interrupt_enable(void)
+ 227:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** {
+ 390              		.loc 1 227 1 is_stmt 1
+ 391              		.cfi_startproc
+ 228:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     BKP_TPCS |= (uint16_t)BKP_TPCS_TPIE;
+ 392              		.loc 1 228 5
+ 393              		.loc 1 228 14 is_stmt 0
+ 394 0000 37770040 		li	a4,1073770496
+ 395 0004 835747C3 		lhu	a5,-972(a4)
+ 396 0008 C207     		slli	a5,a5,16
+ 397 000a C183     		srli	a5,a5,16
+ 398 000c 93E74700 		ori	a5,a5,4
+ 399 0010 231AF7C2 		sh	a5,-972(a4)
+ 229:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** }
+ 400              		.loc 1 229 1
+ 401 0014 8280     		ret
+ 402              		.cfi_endproc
+ 403              	.LFE14:
+ 405              		.section	.text.bkp_interrupt_disable,"ax",@progbits
+ 406              		.align	1
+ 407              		.globl	bkp_interrupt_disable
+ 409              	bkp_interrupt_disable:
+ 410              	.LFB15:
+GAS LISTING /tmp/ccCw9s1C.s 			page 12
+
+
+ 230:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** 
+ 231:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** /*!
+ 232:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \brief      disable tamper interrupt
+ 233:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \param[in]  none
+ 234:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \param[out] none
+ 235:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \retval     none
+ 236:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** */
+ 237:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** void bkp_interrupt_disable(void)
+ 238:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** {
+ 411              		.loc 1 238 1 is_stmt 1
+ 412              		.cfi_startproc
+ 239:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     BKP_TPCS &= (uint16_t)~BKP_TPCS_TPIE;
+ 413              		.loc 1 239 5
+ 414              		.loc 1 239 14 is_stmt 0
+ 415 0000 37770040 		li	a4,1073770496
+ 416 0004 835747C3 		lhu	a5,-972(a4)
+ 417 0008 C207     		slli	a5,a5,16
+ 418 000a C183     		srli	a5,a5,16
+ 419 000c ED9B     		andi	a5,a5,-5
+ 420 000e C207     		slli	a5,a5,16
+ 421 0010 C183     		srli	a5,a5,16
+ 422 0012 231AF7C2 		sh	a5,-972(a4)
+ 240:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** }
+ 423              		.loc 1 240 1
+ 424 0016 8280     		ret
+ 425              		.cfi_endproc
+ 426              	.LFE15:
+ 428              		.section	.text.bkp_flag_get,"ax",@progbits
+ 429              		.align	1
+ 430              		.globl	bkp_flag_get
+ 432              	bkp_flag_get:
+ 433              	.LFB16:
+ 241:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** 
+ 242:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** /*!
+ 243:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \brief      get tamper flag state
+ 244:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \param[in]  none
+ 245:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \param[out] none
+ 246:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \retval     FlagStatus: SET or RESET
+ 247:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** */
+ 248:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** FlagStatus bkp_flag_get(void)
+ 249:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** {
+ 434              		.loc 1 249 1 is_stmt 1
+ 435              		.cfi_startproc
+ 250:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     if(RESET != (BKP_TPCS & BKP_FLAG_TAMPER)){
+ 436              		.loc 1 250 5
+ 437              		.loc 1 250 18 is_stmt 0
+ 438 0000 B7770040 		li	a5,1073770496
+ 439 0004 03D547C3 		lhu	a0,-972(a5)
+ 440              		.loc 1 250 7
+ 441 0008 2181     		srli	a0,a0,8
+ 251:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****         return SET;
+ 252:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     }else{
+ 253:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****         return RESET;
+ 254:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     }
+ 255:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** }
+ 442              		.loc 1 255 1
+ 443 000a 0589     		andi	a0,a0,1
+GAS LISTING /tmp/ccCw9s1C.s 			page 13
+
+
+ 444 000c 8280     		ret
+ 445              		.cfi_endproc
+ 446              	.LFE16:
+ 448              		.section	.text.bkp_flag_clear,"ax",@progbits
+ 449              		.align	1
+ 450              		.globl	bkp_flag_clear
+ 452              	bkp_flag_clear:
+ 453              	.LFB17:
+ 256:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** 
+ 257:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** /*!
+ 258:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \brief      clear tamper flag state
+ 259:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \param[in]  none
+ 260:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \param[out] none
+ 261:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \retval     none
+ 262:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** */
+ 263:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** void bkp_flag_clear(void)
+ 264:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** {
+ 454              		.loc 1 264 1 is_stmt 1
+ 455              		.cfi_startproc
+ 265:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     BKP_TPCS |= (uint16_t)(BKP_FLAG_TAMPER >> BKP_TAMPER_BITS_OFFSET);
+ 456              		.loc 1 265 5
+ 457              		.loc 1 265 14 is_stmt 0
+ 458 0000 37770040 		li	a4,1073770496
+ 459 0004 835747C3 		lhu	a5,-972(a4)
+ 460 0008 C207     		slli	a5,a5,16
+ 461 000a C183     		srli	a5,a5,16
+ 462 000c 93E71700 		ori	a5,a5,1
+ 463 0010 231AF7C2 		sh	a5,-972(a4)
+ 266:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** }
+ 464              		.loc 1 266 1
+ 465 0014 8280     		ret
+ 466              		.cfi_endproc
+ 467              	.LFE17:
+ 469              		.section	.text.bkp_interrupt_flag_get,"ax",@progbits
+ 470              		.align	1
+ 471              		.globl	bkp_interrupt_flag_get
+ 473              	bkp_interrupt_flag_get:
+ 474              	.LFB18:
+ 267:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** 
+ 268:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** /*!
+ 269:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \brief      get tamper interrupt flag state
+ 270:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \param[in]  none
+ 271:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \param[out] none
+ 272:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \retval     FlagStatus: SET or RESET
+ 273:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** */
+ 274:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** FlagStatus bkp_interrupt_flag_get(void)
+ 275:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** {
+ 475              		.loc 1 275 1 is_stmt 1
+ 476              		.cfi_startproc
+ 276:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     if(RESET != (BKP_TPCS & BKP_INT_FLAG_TAMPER)){
+ 477              		.loc 1 276 5
+ 478              		.loc 1 276 18 is_stmt 0
+ 479 0000 B7770040 		li	a5,1073770496
+ 480 0004 03D547C3 		lhu	a0,-972(a5)
+ 481              		.loc 1 276 7
+ 482 0008 2581     		srli	a0,a0,9
+ 277:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****         return SET;
+GAS LISTING /tmp/ccCw9s1C.s 			page 14
+
+
+ 278:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     }else{
+ 279:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****         return RESET;
+ 280:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     }
+ 281:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** }
+ 483              		.loc 1 281 1
+ 484 000a 0589     		andi	a0,a0,1
+ 485 000c 8280     		ret
+ 486              		.cfi_endproc
+ 487              	.LFE18:
+ 489              		.section	.text.bkp_interrupt_flag_clear,"ax",@progbits
+ 490              		.align	1
+ 491              		.globl	bkp_interrupt_flag_clear
+ 493              	bkp_interrupt_flag_clear:
+ 494              	.LFB19:
+ 282:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** 
+ 283:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** /*!
+ 284:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \brief      clear tamper interrupt flag state
+ 285:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \param[in]  none
+ 286:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \param[out] none
+ 287:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     \retval     none
+ 288:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** */
+ 289:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** void bkp_interrupt_flag_clear(void)
+ 290:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** {
+ 495              		.loc 1 290 1 is_stmt 1
+ 496              		.cfi_startproc
+ 291:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c ****     BKP_TPCS |= (uint16_t)(BKP_INT_FLAG_TAMPER >> BKP_TAMPER_BITS_OFFSET);
+ 497              		.loc 1 291 5
+ 498              		.loc 1 291 14 is_stmt 0
+ 499 0000 37770040 		li	a4,1073770496
+ 500 0004 835747C3 		lhu	a5,-972(a4)
+ 501 0008 C207     		slli	a5,a5,16
+ 502 000a C183     		srli	a5,a5,16
+ 503 000c 93E72700 		ori	a5,a5,2
+ 504 0010 231AF7C2 		sh	a5,-972(a4)
+ 292:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c **** }
+ 505              		.loc 1 292 1
+ 506 0014 8280     		ret
+ 507              		.cfi_endproc
+ 508              	.LFE19:
+ 510              		.text
+ 511              	.Letext0:
+ 512              		.file 2 "/home/johnson/Documents/mpb-toolchain/build/riscv32-mapleboard-elf/include/machine/_defau
+ 513              		.file 3 "/home/johnson/Documents/mpb-toolchain/build/riscv32-mapleboard-elf/include/sys/_stdint.h"
+ 514              		.file 4 "../Firmware/GD32VF103_standard_peripheral/gd32vf103.h"
+ 515              		.file 5 "../Firmware/GD32VF103_standard_peripheral/Include/gd32vf103_bkp.h"
+ 516              		.file 6 "../Firmware/GD32VF103_standard_peripheral/Include/gd32vf103_rcu.h"
+GAS LISTING /tmp/ccCw9s1C.s 			page 15
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 gd32vf103_bkp.c
+     /tmp/ccCw9s1C.s:13     .text.bkp_deinit:0000000000000000 bkp_deinit
+     /tmp/ccCw9s1C.s:17     .text.bkp_deinit:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:18     .text.bkp_deinit:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:19     .text.bkp_deinit:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:20     .text.bkp_deinit:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:22     .text.bkp_deinit:0000000000000002 .L0 
+     /tmp/ccCw9s1C.s:24     .text.bkp_deinit:0000000000000004 .L0 
+     /tmp/ccCw9s1C.s:26     .text.bkp_deinit:0000000000000004 .L0 
+     /tmp/ccCw9s1C.s:29     .text.bkp_deinit:000000000000000c .L0 
+     /tmp/ccCw9s1C.s:30     .text.bkp_deinit:000000000000000c .L0 
+     /tmp/ccCw9s1C.s:31     .text.bkp_deinit:000000000000000e .L0 
+     /tmp/ccCw9s1C.s:34     .text.bkp_deinit:0000000000000010 .L0 
+     /tmp/ccCw9s1C.s:36     .text.bkp_deinit:0000000000000010 .L0 
+     /tmp/ccCw9s1C.s:38     .text.bkp_deinit:0000000000000018 .L0 
+     /tmp/ccCw9s1C.s:45     .text.bkp_data_write:0000000000000000 bkp_data_write
+     /tmp/ccCw9s1C.s:48     .text.bkp_data_write:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:50     .text.bkp_data_write:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:51     .text.bkp_data_write:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:52     .text.bkp_data_write:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:54     .text.bkp_data_write:0000000000000004 .L0 
+     /tmp/ccCw9s1C.s:57     .text.bkp_data_write:000000000000000a .L0 
+     /tmp/ccCw9s1C.s:64     .text.bkp_data_write:0000000000000016 .L0 
+     /tmp/ccCw9s1C.s:69     .text.bkp_data_write:000000000000001c .L0 
+     /tmp/ccCw9s1C.s:70     .text.bkp_data_write:000000000000001c .L0 
+     /tmp/ccCw9s1C.s:72     .text.bkp_data_write:0000000000000020 .L0 
+     /tmp/ccCw9s1C.s:75     .text.bkp_data_write:0000000000000026 .L0 
+     /tmp/ccCw9s1C.s:82     .text.bkp_data_write:0000000000000032 .L0 
+     /tmp/ccCw9s1C.s:85     .text.bkp_data_write:0000000000000036 .L0 
+     /tmp/ccCw9s1C.s:86     .text.bkp_data_write:0000000000000036 .L0 
+     /tmp/ccCw9s1C.s:87     .text.bkp_data_write:0000000000000038 .L0 
+     /tmp/ccCw9s1C.s:94     .text.bkp_data_read:0000000000000000 bkp_data_read
+     /tmp/ccCw9s1C.s:97     .text.bkp_data_read:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:99     .text.bkp_data_read:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:100    .text.bkp_data_read:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:101    .text.bkp_data_read:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:102    .text.bkp_data_read:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:104    .text.bkp_data_read:0000000000000004 .L0 
+     /tmp/ccCw9s1C.s:106    .text.bkp_data_read:0000000000000006 .L0 
+     /tmp/ccCw9s1C.s:108    .text.bkp_data_read:0000000000000008 .L0 
+     /tmp/ccCw9s1C.s:110    .text.bkp_data_read:000000000000000c .L0 
+     /tmp/ccCw9s1C.s:111    .text.bkp_data_read:000000000000000c .L0 
+     /tmp/ccCw9s1C.s:116    .text.bkp_data_read:0000000000000014 .L0 
+     /tmp/ccCw9s1C.s:120    .text.bkp_data_read:0000000000000018 .L0 
+     /tmp/ccCw9s1C.s:126    .text.bkp_data_read:0000000000000020 .L0 
+     /tmp/ccCw9s1C.s:127    .text.bkp_data_read:0000000000000020 .L0 
+     /tmp/ccCw9s1C.s:128    .text.bkp_data_read:0000000000000020 .L0 
+     /tmp/ccCw9s1C.s:132    .text.bkp_data_read:0000000000000022 .L0 
+     /tmp/ccCw9s1C.s:133    .text.bkp_data_read:0000000000000022 .L0 
+     /tmp/ccCw9s1C.s:135    .text.bkp_data_read:0000000000000026 .L0 
+     /tmp/ccCw9s1C.s:137    .text.bkp_data_read:0000000000000028 .L0 
+     /tmp/ccCw9s1C.s:140    .text.bkp_data_read:000000000000002a .L0 
+     /tmp/ccCw9s1C.s:142    .text.bkp_data_read:000000000000002e .L0 
+     /tmp/ccCw9s1C.s:143    .text.bkp_data_read:000000000000002e .L0 
+     /tmp/ccCw9s1C.s:146    .text.bkp_data_read:0000000000000038 .L0 
+     /tmp/ccCw9s1C.s:153    .text.bkp_rtc_calibration_output_enable:0000000000000000 bkp_rtc_calibration_output_enable
+GAS LISTING /tmp/ccCw9s1C.s 			page 16
+
+
+     /tmp/ccCw9s1C.s:156    .text.bkp_rtc_calibration_output_enable:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:157    .text.bkp_rtc_calibration_output_enable:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:158    .text.bkp_rtc_calibration_output_enable:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:159    .text.bkp_rtc_calibration_output_enable:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:166    .text.bkp_rtc_calibration_output_enable:0000000000000014 .L0 
+     /tmp/ccCw9s1C.s:167    .text.bkp_rtc_calibration_output_enable:0000000000000016 .L0 
+     /tmp/ccCw9s1C.s:174    .text.bkp_rtc_calibration_output_disable:0000000000000000 bkp_rtc_calibration_output_disable
+     /tmp/ccCw9s1C.s:177    .text.bkp_rtc_calibration_output_disable:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:178    .text.bkp_rtc_calibration_output_disable:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:179    .text.bkp_rtc_calibration_output_disable:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:180    .text.bkp_rtc_calibration_output_disable:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:189    .text.bkp_rtc_calibration_output_disable:0000000000000018 .L0 
+     /tmp/ccCw9s1C.s:190    .text.bkp_rtc_calibration_output_disable:000000000000001a .L0 
+     /tmp/ccCw9s1C.s:197    .text.bkp_rtc_signal_output_enable:0000000000000000 bkp_rtc_signal_output_enable
+     /tmp/ccCw9s1C.s:200    .text.bkp_rtc_signal_output_enable:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:201    .text.bkp_rtc_signal_output_enable:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:202    .text.bkp_rtc_signal_output_enable:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:203    .text.bkp_rtc_signal_output_enable:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:210    .text.bkp_rtc_signal_output_enable:0000000000000014 .L0 
+     /tmp/ccCw9s1C.s:211    .text.bkp_rtc_signal_output_enable:0000000000000016 .L0 
+     /tmp/ccCw9s1C.s:218    .text.bkp_rtc_signal_output_disable:0000000000000000 bkp_rtc_signal_output_disable
+     /tmp/ccCw9s1C.s:221    .text.bkp_rtc_signal_output_disable:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:222    .text.bkp_rtc_signal_output_disable:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:223    .text.bkp_rtc_signal_output_disable:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:224    .text.bkp_rtc_signal_output_disable:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:233    .text.bkp_rtc_signal_output_disable:0000000000000018 .L0 
+     /tmp/ccCw9s1C.s:234    .text.bkp_rtc_signal_output_disable:000000000000001a .L0 
+     /tmp/ccCw9s1C.s:241    .text.bkp_rtc_output_select:0000000000000000 bkp_rtc_output_select
+     /tmp/ccCw9s1C.s:244    .text.bkp_rtc_output_select:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:246    .text.bkp_rtc_output_select:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:247    .text.bkp_rtc_output_select:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:248    .text.bkp_rtc_output_select:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:249    .text.bkp_rtc_output_select:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:255    .text.bkp_rtc_output_select:000000000000000c .L0 
+     /tmp/ccCw9s1C.s:256    .text.bkp_rtc_output_select:000000000000000c .L0 
+     /tmp/ccCw9s1C.s:259    .text.bkp_rtc_output_select:0000000000000010 .L0 
+     /tmp/ccCw9s1C.s:260    .text.bkp_rtc_output_select:0000000000000010 .L0 
+     /tmp/ccCw9s1C.s:263    .text.bkp_rtc_output_select:0000000000000012 .L0 
+     /tmp/ccCw9s1C.s:264    .text.bkp_rtc_output_select:0000000000000012 .L0 
+     /tmp/ccCw9s1C.s:266    .text.bkp_rtc_output_select:0000000000000016 .L0 
+     /tmp/ccCw9s1C.s:267    .text.bkp_rtc_output_select:0000000000000018 .L0 
+     /tmp/ccCw9s1C.s:274    .text.bkp_rtc_calibration_value_set:0000000000000000 bkp_rtc_calibration_value_set
+     /tmp/ccCw9s1C.s:277    .text.bkp_rtc_calibration_value_set:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:279    .text.bkp_rtc_calibration_value_set:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:280    .text.bkp_rtc_calibration_value_set:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:281    .text.bkp_rtc_calibration_value_set:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:282    .text.bkp_rtc_calibration_value_set:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:285    .text.bkp_rtc_calibration_value_set:0000000000000008 .L0 
+     /tmp/ccCw9s1C.s:288    .text.bkp_rtc_calibration_value_set:000000000000000c .L0 
+     /tmp/ccCw9s1C.s:292    .text.bkp_rtc_calibration_value_set:0000000000000010 .L0 
+     /tmp/ccCw9s1C.s:293    .text.bkp_rtc_calibration_value_set:0000000000000010 .L0 
+     /tmp/ccCw9s1C.s:294    .text.bkp_rtc_calibration_value_set:0000000000000010 .L0 
+     /tmp/ccCw9s1C.s:297    .text.bkp_rtc_calibration_value_set:0000000000000014 .L0 
+     /tmp/ccCw9s1C.s:300    .text.bkp_rtc_calibration_value_set:0000000000000016 .L0 
+     /tmp/ccCw9s1C.s:301    .text.bkp_rtc_calibration_value_set:0000000000000016 .L0 
+     /tmp/ccCw9s1C.s:303    .text.bkp_rtc_calibration_value_set:000000000000001a .L0 
+     /tmp/ccCw9s1C.s:304    .text.bkp_rtc_calibration_value_set:000000000000001c .L0 
+GAS LISTING /tmp/ccCw9s1C.s 			page 17
+
+
+     /tmp/ccCw9s1C.s:311    .text.bkp_tamper_detection_enable:0000000000000000 bkp_tamper_detection_enable
+     /tmp/ccCw9s1C.s:314    .text.bkp_tamper_detection_enable:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:315    .text.bkp_tamper_detection_enable:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:316    .text.bkp_tamper_detection_enable:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:317    .text.bkp_tamper_detection_enable:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:324    .text.bkp_tamper_detection_enable:0000000000000014 .L0 
+     /tmp/ccCw9s1C.s:325    .text.bkp_tamper_detection_enable:0000000000000016 .L0 
+     /tmp/ccCw9s1C.s:332    .text.bkp_tamper_detection_disable:0000000000000000 bkp_tamper_detection_disable
+     /tmp/ccCw9s1C.s:335    .text.bkp_tamper_detection_disable:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:336    .text.bkp_tamper_detection_disable:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:337    .text.bkp_tamper_detection_disable:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:338    .text.bkp_tamper_detection_disable:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:347    .text.bkp_tamper_detection_disable:0000000000000016 .L0 
+     /tmp/ccCw9s1C.s:348    .text.bkp_tamper_detection_disable:0000000000000018 .L0 
+     /tmp/ccCw9s1C.s:355    .text.bkp_tamper_active_level_set:0000000000000000 bkp_tamper_active_level_set
+     /tmp/ccCw9s1C.s:358    .text.bkp_tamper_active_level_set:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:360    .text.bkp_tamper_active_level_set:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:361    .text.bkp_tamper_active_level_set:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:362    .text.bkp_tamper_active_level_set:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:363    .text.bkp_tamper_active_level_set:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:369    .text.bkp_tamper_active_level_set:000000000000000c .L0 
+     /tmp/ccCw9s1C.s:370    .text.bkp_tamper_active_level_set:000000000000000c .L0 
+     /tmp/ccCw9s1C.s:373    .text.bkp_tamper_active_level_set:000000000000000e .L0 
+     /tmp/ccCw9s1C.s:374    .text.bkp_tamper_active_level_set:000000000000000e .L0 
+     /tmp/ccCw9s1C.s:377    .text.bkp_tamper_active_level_set:0000000000000010 .L0 
+     /tmp/ccCw9s1C.s:378    .text.bkp_tamper_active_level_set:0000000000000010 .L0 
+     /tmp/ccCw9s1C.s:380    .text.bkp_tamper_active_level_set:0000000000000014 .L0 
+     /tmp/ccCw9s1C.s:381    .text.bkp_tamper_active_level_set:0000000000000016 .L0 
+     /tmp/ccCw9s1C.s:388    .text.bkp_interrupt_enable:0000000000000000 bkp_interrupt_enable
+     /tmp/ccCw9s1C.s:391    .text.bkp_interrupt_enable:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:392    .text.bkp_interrupt_enable:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:393    .text.bkp_interrupt_enable:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:394    .text.bkp_interrupt_enable:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:401    .text.bkp_interrupt_enable:0000000000000014 .L0 
+     /tmp/ccCw9s1C.s:402    .text.bkp_interrupt_enable:0000000000000016 .L0 
+     /tmp/ccCw9s1C.s:409    .text.bkp_interrupt_disable:0000000000000000 bkp_interrupt_disable
+     /tmp/ccCw9s1C.s:412    .text.bkp_interrupt_disable:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:413    .text.bkp_interrupt_disable:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:414    .text.bkp_interrupt_disable:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:415    .text.bkp_interrupt_disable:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:424    .text.bkp_interrupt_disable:0000000000000016 .L0 
+     /tmp/ccCw9s1C.s:425    .text.bkp_interrupt_disable:0000000000000018 .L0 
+     /tmp/ccCw9s1C.s:432    .text.bkp_flag_get:0000000000000000 bkp_flag_get
+     /tmp/ccCw9s1C.s:435    .text.bkp_flag_get:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:436    .text.bkp_flag_get:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:437    .text.bkp_flag_get:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:438    .text.bkp_flag_get:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:441    .text.bkp_flag_get:0000000000000008 .L0 
+     /tmp/ccCw9s1C.s:443    .text.bkp_flag_get:000000000000000a .L0 
+     /tmp/ccCw9s1C.s:445    .text.bkp_flag_get:000000000000000e .L0 
+     /tmp/ccCw9s1C.s:452    .text.bkp_flag_clear:0000000000000000 bkp_flag_clear
+     /tmp/ccCw9s1C.s:455    .text.bkp_flag_clear:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:456    .text.bkp_flag_clear:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:457    .text.bkp_flag_clear:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:458    .text.bkp_flag_clear:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:465    .text.bkp_flag_clear:0000000000000014 .L0 
+     /tmp/ccCw9s1C.s:466    .text.bkp_flag_clear:0000000000000016 .L0 
+GAS LISTING /tmp/ccCw9s1C.s 			page 18
+
+
+     /tmp/ccCw9s1C.s:473    .text.bkp_interrupt_flag_get:0000000000000000 bkp_interrupt_flag_get
+     /tmp/ccCw9s1C.s:476    .text.bkp_interrupt_flag_get:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:477    .text.bkp_interrupt_flag_get:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:478    .text.bkp_interrupt_flag_get:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:479    .text.bkp_interrupt_flag_get:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:482    .text.bkp_interrupt_flag_get:0000000000000008 .L0 
+     /tmp/ccCw9s1C.s:484    .text.bkp_interrupt_flag_get:000000000000000a .L0 
+     /tmp/ccCw9s1C.s:486    .text.bkp_interrupt_flag_get:000000000000000e .L0 
+     /tmp/ccCw9s1C.s:493    .text.bkp_interrupt_flag_clear:0000000000000000 bkp_interrupt_flag_clear
+     /tmp/ccCw9s1C.s:496    .text.bkp_interrupt_flag_clear:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:497    .text.bkp_interrupt_flag_clear:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:498    .text.bkp_interrupt_flag_clear:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:499    .text.bkp_interrupt_flag_clear:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:506    .text.bkp_interrupt_flag_clear:0000000000000014 .L0 
+     /tmp/ccCw9s1C.s:507    .text.bkp_interrupt_flag_clear:0000000000000016 .L0 
+     /tmp/ccCw9s1C.s:41     .text.bkp_deinit:0000000000000018 .L0 
+     /tmp/ccCw9s1C.s:90     .text.bkp_data_write:0000000000000038 .L0 
+     /tmp/ccCw9s1C.s:149    .text.bkp_data_read:0000000000000038 .L0 
+     /tmp/ccCw9s1C.s:170    .text.bkp_rtc_calibration_output_enable:0000000000000016 .L0 
+     /tmp/ccCw9s1C.s:193    .text.bkp_rtc_calibration_output_disable:000000000000001a .L0 
+     /tmp/ccCw9s1C.s:214    .text.bkp_rtc_signal_output_enable:0000000000000016 .L0 
+     /tmp/ccCw9s1C.s:237    .text.bkp_rtc_signal_output_disable:000000000000001a .L0 
+     /tmp/ccCw9s1C.s:270    .text.bkp_rtc_output_select:0000000000000018 .L0 
+     /tmp/ccCw9s1C.s:307    .text.bkp_rtc_calibration_value_set:000000000000001c .L0 
+     /tmp/ccCw9s1C.s:328    .text.bkp_tamper_detection_enable:0000000000000016 .L0 
+     /tmp/ccCw9s1C.s:351    .text.bkp_tamper_detection_disable:0000000000000018 .L0 
+     /tmp/ccCw9s1C.s:384    .text.bkp_tamper_active_level_set:0000000000000016 .L0 
+     /tmp/ccCw9s1C.s:405    .text.bkp_interrupt_enable:0000000000000016 .L0 
+     /tmp/ccCw9s1C.s:428    .text.bkp_interrupt_disable:0000000000000018 .L0 
+     /tmp/ccCw9s1C.s:448    .text.bkp_flag_get:000000000000000e .L0 
+     /tmp/ccCw9s1C.s:469    .text.bkp_flag_clear:0000000000000016 .L0 
+     /tmp/ccCw9s1C.s:489    .text.bkp_interrupt_flag_get:000000000000000e .L0 
+     /tmp/ccCw9s1C.s:510    .text.bkp_interrupt_flag_clear:0000000000000016 .L0 
+                     .debug_frame:0000000000000000 .L0 
+     /tmp/ccCw9s1C.s:67     .text.bkp_data_write:000000000000001c .L5
+     /tmp/ccCw9s1C.s:84     .text.bkp_data_write:0000000000000036 .L4
+     /tmp/ccCw9s1C.s:130    .text.bkp_data_read:0000000000000022 .L8
+     /tmp/ccCw9s1C.s:124    .text.bkp_data_read:0000000000000020 .L9
+     /tmp/ccCw9s1C.s:114    .text.bkp_data_read:0000000000000014 .L11
+     /tmp/ccCw9s1C.s:1122   .debug_abbrev:0000000000000000 .Ldebug_abbrev0
+     /tmp/ccCw9s1C.s:1918   .debug_str:00000000000004c5 .LASF85
+     /tmp/ccCw9s1C.s:1830   .debug_str:0000000000000213 .LASF86
+     /tmp/ccCw9s1C.s:1914   .debug_str:000000000000048b .LASF87
+     /tmp/ccCw9s1C.s:1722   .debug_ranges:0000000000000000 .Ldebug_ranges0
+     /tmp/ccCw9s1C.s:1762   .debug_line:0000000000000000 .Ldebug_line0
+     /tmp/ccCw9s1C.s:1864   .debug_str:000000000000033a .LASF0
+     /tmp/ccCw9s1C.s:1808   .debug_str:0000000000000141 .LASF1
+     /tmp/ccCw9s1C.s:1820   .debug_str:00000000000001ba .LASF4
+     /tmp/ccCw9s1C.s:1836   .debug_str:000000000000027d .LASF2
+     /tmp/ccCw9s1C.s:1780   .debug_str:0000000000000091 .LASF3
+     /tmp/ccCw9s1C.s:1778   .debug_str:0000000000000086 .LASF5
+     /tmp/ccCw9s1C.s:1888   .debug_str:00000000000003c9 .LASF6
+     /tmp/ccCw9s1C.s:1814   .debug_str:0000000000000179 .LASF7
+     /tmp/ccCw9s1C.s:1908   .debug_str:000000000000046b .LASF8
+     /tmp/ccCw9s1C.s:1902   .debug_str:0000000000000441 .LASF9
+     /tmp/ccCw9s1C.s:1812   .debug_str:000000000000016b .LASF10
+     /tmp/ccCw9s1C.s:1858   .debug_str:0000000000000303 .LASF11
+GAS LISTING /tmp/ccCw9s1C.s 			page 19
+
+
+     /tmp/ccCw9s1C.s:1916   .debug_str:00000000000004bd .LASF12
+     /tmp/ccCw9s1C.s:1866   .debug_str:0000000000000347 .LASF13
+     /tmp/ccCw9s1C.s:1860   .debug_str:000000000000031a .LASF14
+     /tmp/ccCw9s1C.s:1894   .debug_str:00000000000003fe .LASF15
+     /tmp/ccCw9s1C.s:1926   .debug_str:000000000000058b .LASF16
+     /tmp/ccCw9s1C.s:1832   .debug_str:0000000000000254 .LASF17
+     /tmp/ccCw9s1C.s:1868   .debug_str:0000000000000350 .LASF18
+     /tmp/ccCw9s1C.s:1870   .debug_str:000000000000035b .LASF19
+     /tmp/ccCw9s1C.s:1872   .debug_str:0000000000000366 .LASF20
+     /tmp/ccCw9s1C.s:1874   .debug_str:0000000000000371 .LASF21
+     /tmp/ccCw9s1C.s:1876   .debug_str:000000000000037c .LASF22
+     /tmp/ccCw9s1C.s:1878   .debug_str:0000000000000387 .LASF23
+     /tmp/ccCw9s1C.s:1804   .debug_str:0000000000000119 .LASF24
+     /tmp/ccCw9s1C.s:1882   .debug_str:00000000000003a8 .LASF25
+     /tmp/ccCw9s1C.s:1884   .debug_str:00000000000003b3 .LASF26
+     /tmp/ccCw9s1C.s:1886   .debug_str:00000000000003be .LASF27
+     /tmp/ccCw9s1C.s:1922   .debug_str:0000000000000573 .LASF28
+     /tmp/ccCw9s1C.s:1924   .debug_str:000000000000057f .LASF29
+     /tmp/ccCw9s1C.s:1774   .debug_str:0000000000000070 .LASF30
+     /tmp/ccCw9s1C.s:1928   .debug_str:0000000000000596 .LASF31
+     /tmp/ccCw9s1C.s:1930   .debug_str:00000000000005a2 .LASF32
+     /tmp/ccCw9s1C.s:1932   .debug_str:00000000000005ae .LASF33
+     /tmp/ccCw9s1C.s:1934   .debug_str:00000000000005ba .LASF34
+     /tmp/ccCw9s1C.s:1936   .debug_str:00000000000005c6 .LASF35
+     /tmp/ccCw9s1C.s:1938   .debug_str:00000000000005d2 .LASF36
+     /tmp/ccCw9s1C.s:1940   .debug_str:00000000000005de .LASF37
+     /tmp/ccCw9s1C.s:1784   .debug_str:00000000000000a1 .LASF38
+     /tmp/ccCw9s1C.s:1786   .debug_str:00000000000000ad .LASF39
+     /tmp/ccCw9s1C.s:1788   .debug_str:00000000000000b9 .LASF40
+     /tmp/ccCw9s1C.s:1790   .debug_str:00000000000000c5 .LASF41
+     /tmp/ccCw9s1C.s:1792   .debug_str:00000000000000d1 .LASF42
+     /tmp/ccCw9s1C.s:1794   .debug_str:00000000000000dd .LASF43
+     /tmp/ccCw9s1C.s:1796   .debug_str:00000000000000e9 .LASF44
+     /tmp/ccCw9s1C.s:1798   .debug_str:00000000000000f5 .LASF45
+     /tmp/ccCw9s1C.s:1800   .debug_str:0000000000000101 .LASF46
+     /tmp/ccCw9s1C.s:1802   .debug_str:000000000000010d .LASF47
+     /tmp/ccCw9s1C.s:1838   .debug_str:000000000000028b .LASF48
+     /tmp/ccCw9s1C.s:1840   .debug_str:0000000000000297 .LASF49
+     /tmp/ccCw9s1C.s:1842   .debug_str:00000000000002a3 .LASF50
+     /tmp/ccCw9s1C.s:1844   .debug_str:00000000000002af .LASF51
+     /tmp/ccCw9s1C.s:1846   .debug_str:00000000000002bb .LASF52
+     /tmp/ccCw9s1C.s:1848   .debug_str:00000000000002c7 .LASF53
+     /tmp/ccCw9s1C.s:1850   .debug_str:00000000000002d3 .LASF54
+     /tmp/ccCw9s1C.s:1852   .debug_str:00000000000002df .LASF55
+     /tmp/ccCw9s1C.s:1854   .debug_str:00000000000002eb .LASF56
+     /tmp/ccCw9s1C.s:1856   .debug_str:00000000000002f7 .LASF57
+     /tmp/ccCw9s1C.s:1904   .debug_str:0000000000000453 .LASF58
+     /tmp/ccCw9s1C.s:1906   .debug_str:000000000000045f .LASF59
+     /tmp/ccCw9s1C.s:1892   .debug_str:00000000000003e7 .LASF60
+     /tmp/ccCw9s1C.s:1770   .debug_str:0000000000000047 .LASF61
+     /tmp/ccCw9s1C.s:494    .text.bkp_interrupt_flag_clear:0000000000000000 .LFB19
+     /tmp/ccCw9s1C.s:508    .text.bkp_interrupt_flag_clear:0000000000000016 .LFE19
+     /tmp/ccCw9s1C.s:1862   .debug_str:0000000000000323 .LASF63
+     /tmp/ccCw9s1C.s:474    .text.bkp_interrupt_flag_get:0000000000000000 .LFB18
+     /tmp/ccCw9s1C.s:487    .text.bkp_interrupt_flag_get:000000000000000e .LFE18
+     /tmp/ccCw9s1C.s:1910   .debug_str:0000000000000476 .LASF62
+     /tmp/ccCw9s1C.s:453    .text.bkp_flag_clear:0000000000000000 .LFB17
+GAS LISTING /tmp/ccCw9s1C.s 			page 20
+
+
+     /tmp/ccCw9s1C.s:467    .text.bkp_flag_clear:0000000000000016 .LFE17
+     /tmp/ccCw9s1C.s:1824   .debug_str:00000000000001da .LASF64
+     /tmp/ccCw9s1C.s:433    .text.bkp_flag_get:0000000000000000 .LFB16
+     /tmp/ccCw9s1C.s:446    .text.bkp_flag_get:000000000000000e .LFE16
+     /tmp/ccCw9s1C.s:1880   .debug_str:0000000000000392 .LASF65
+     /tmp/ccCw9s1C.s:410    .text.bkp_interrupt_disable:0000000000000000 .LFB15
+     /tmp/ccCw9s1C.s:426    .text.bkp_interrupt_disable:0000000000000018 .LFE15
+     /tmp/ccCw9s1C.s:1768   .debug_str:0000000000000032 .LASF66
+     /tmp/ccCw9s1C.s:389    .text.bkp_interrupt_enable:0000000000000000 .LFB14
+     /tmp/ccCw9s1C.s:403    .text.bkp_interrupt_enable:0000000000000016 .LFE14
+     /tmp/ccCw9s1C.s:1816   .debug_str:0000000000000182 .LASF69
+     /tmp/ccCw9s1C.s:356    .text.bkp_tamper_active_level_set:0000000000000000 .LFB13
+     /tmp/ccCw9s1C.s:382    .text.bkp_tamper_active_level_set:0000000000000016 .LFE13
+     /tmp/ccCw9s1C.s:1912   .debug_str:0000000000000485 .LASF71
+     /tmp/ccCw9s1C.s:1524   .debug_loc:0000000000000000 .LLST7
+     /tmp/ccCw9s1C.s:1834   .debug_str:0000000000000260 .LASF67
+     /tmp/ccCw9s1C.s:333    .text.bkp_tamper_detection_disable:0000000000000000 .LFB12
+     /tmp/ccCw9s1C.s:349    .text.bkp_tamper_detection_disable:0000000000000018 .LFE12
+     /tmp/ccCw9s1C.s:1818   .debug_str:000000000000019e .LASF68
+     /tmp/ccCw9s1C.s:312    .text.bkp_tamper_detection_enable:0000000000000000 .LFB11
+     /tmp/ccCw9s1C.s:326    .text.bkp_tamper_detection_enable:0000000000000016 .LFE11
+     /tmp/ccCw9s1C.s:1810   .debug_str:000000000000014d .LASF70
+     /tmp/ccCw9s1C.s:275    .text.bkp_rtc_calibration_value_set:0000000000000000 .LFB10
+     /tmp/ccCw9s1C.s:305    .text.bkp_rtc_calibration_value_set:000000000000001c .LFE10
+     /tmp/ccCw9s1C.s:1782   .debug_str:000000000000009b .LASF72
+     /tmp/ccCw9s1C.s:1536   .debug_loc:000000000000001f .LLST5
+     /tmp/ccCw9s1C.s:1550   .debug_loc:0000000000000040 .LLST6
+     /tmp/ccCw9s1C.s:1898   .debug_str:0000000000000409 .LASF73
+     /tmp/ccCw9s1C.s:242    .text.bkp_rtc_output_select:0000000000000000 .LFB9
+     /tmp/ccCw9s1C.s:268    .text.bkp_rtc_output_select:0000000000000018 .LFE9
+     /tmp/ccCw9s1C.s:1776   .debug_str:000000000000007c .LASF74
+     /tmp/ccCw9s1C.s:1566   .debug_loc:0000000000000063 .LLST4
+     /tmp/ccCw9s1C.s:1826   .debug_str:00000000000001e7 .LASF75
+     /tmp/ccCw9s1C.s:219    .text.bkp_rtc_signal_output_disable:0000000000000000 .LFB8
+     /tmp/ccCw9s1C.s:235    .text.bkp_rtc_signal_output_disable:000000000000001a .LFE8
+     /tmp/ccCw9s1C.s:1806   .debug_str:0000000000000124 .LASF76
+     /tmp/ccCw9s1C.s:198    .text.bkp_rtc_signal_output_enable:0000000000000000 .LFB7
+     /tmp/ccCw9s1C.s:212    .text.bkp_rtc_signal_output_enable:0000000000000016 .LFE7
+     /tmp/ccCw9s1C.s:1766   .debug_str:000000000000000f .LASF77
+     /tmp/ccCw9s1C.s:175    .text.bkp_rtc_calibration_output_disable:0000000000000000 .LFB6
+     /tmp/ccCw9s1C.s:191    .text.bkp_rtc_calibration_output_disable:000000000000001a .LFE6
+     /tmp/ccCw9s1C.s:1900   .debug_str:000000000000041f .LASF78
+     /tmp/ccCw9s1C.s:154    .text.bkp_rtc_calibration_output_enable:0000000000000000 .LFB5
+     /tmp/ccCw9s1C.s:168    .text.bkp_rtc_calibration_output_enable:0000000000000016 .LFE5
+     /tmp/ccCw9s1C.s:1828   .debug_str:0000000000000205 .LASF88
+     /tmp/ccCw9s1C.s:95     .text.bkp_data_read:0000000000000000 .LFB4
+     /tmp/ccCw9s1C.s:147    .text.bkp_data_read:0000000000000038 .LFE4
+     /tmp/ccCw9s1C.s:1772   .debug_str:0000000000000060 .LASF79
+     /tmp/ccCw9s1C.s:1578   .debug_loc:0000000000000082 .LLST2
+     /tmp/ccCw9s1C.s:1896   .debug_str:0000000000000404 .LASF80
+     /tmp/ccCw9s1C.s:1604   .debug_loc:00000000000000c4 .LLST3
+     /tmp/ccCw9s1C.s:1764   .debug_str:0000000000000000 .LASF81
+     /tmp/ccCw9s1C.s:46     .text.bkp_data_write:0000000000000000 .LFB3
+     /tmp/ccCw9s1C.s:88     .text.bkp_data_write:0000000000000038 .LFE3
+     /tmp/ccCw9s1C.s:1621   .debug_loc:00000000000000ef .LLST1
+     /tmp/ccCw9s1C.s:1890   .debug_str:00000000000003dc .LASF82
+     /tmp/ccCw9s1C.s:14     .text.bkp_deinit:0000000000000000 .LFB2
+GAS LISTING /tmp/ccCw9s1C.s 			page 21
+
+
+     /tmp/ccCw9s1C.s:39     .text.bkp_deinit:0000000000000018 .LFE2
+     /tmp/ccCw9s1C.s:1657   .debug_loc:000000000000014a .LLST0
+     /tmp/ccCw9s1C.s:27     .text.bkp_deinit:000000000000000c .LVL0
+     /tmp/ccCw9s1C.s:37     .text.bkp_deinit:0000000000000018 .LVL1
+     /tmp/ccCw9s1C.s:1920   .debug_str:000000000000055e .LASF83
+     /tmp/ccCw9s1C.s:1822   .debug_str:00000000000001c4 .LASF84
+     /tmp/ccCw9s1C.s:359    .text.bkp_tamper_active_level_set:0000000000000000 .LVL23
+     /tmp/ccCw9s1C.s:367    .text.bkp_tamper_active_level_set:000000000000000c .LVL24
+     /tmp/ccCw9s1C.s:278    .text.bkp_rtc_calibration_value_set:0000000000000000 .LVL18
+     /tmp/ccCw9s1C.s:286    .text.bkp_rtc_calibration_value_set:000000000000000c .LVL19
+     /tmp/ccCw9s1C.s:290    .text.bkp_rtc_calibration_value_set:0000000000000010 .LVL20
+     /tmp/ccCw9s1C.s:295    .text.bkp_rtc_calibration_value_set:0000000000000014 .LVL21
+     /tmp/ccCw9s1C.s:298    .text.bkp_rtc_calibration_value_set:0000000000000016 .LVL22
+     /tmp/ccCw9s1C.s:245    .text.bkp_rtc_output_select:0000000000000000 .LVL14
+     /tmp/ccCw9s1C.s:253    .text.bkp_rtc_output_select:000000000000000c .LVL15
+     /tmp/ccCw9s1C.s:98     .text.bkp_data_read:0000000000000000 .LVL8
+     /tmp/ccCw9s1C.s:112    .text.bkp_data_read:0000000000000010 .LVL9
+     /tmp/ccCw9s1C.s:117    .text.bkp_data_read:0000000000000016 .LVL10
+     /tmp/ccCw9s1C.s:129    .text.bkp_data_read:0000000000000022 .LVL12
+     /tmp/ccCw9s1C.s:138    .text.bkp_data_read:000000000000002a .LVL13
+     /tmp/ccCw9s1C.s:123    .text.bkp_data_read:0000000000000020 .LVL11
+     /tmp/ccCw9s1C.s:49     .text.bkp_data_write:0000000000000000 .LVL2
+     /tmp/ccCw9s1C.s:60     .text.bkp_data_write:0000000000000014 .LVL3
+     /tmp/ccCw9s1C.s:62     .text.bkp_data_write:0000000000000016 .LVL4
+     /tmp/ccCw9s1C.s:66     .text.bkp_data_write:000000000000001c .LVL5
+     /tmp/ccCw9s1C.s:78     .text.bkp_data_write:0000000000000030 .LVL6
+     /tmp/ccCw9s1C.s:80     .text.bkp_data_write:0000000000000032 .LVL7
+     /tmp/ccCw9s1C.s:21     .text.bkp_deinit:0000000000000002 .LCFI0
+     /tmp/ccCw9s1C.s:33     .text.bkp_deinit:0000000000000010 .LCFI1
+     /tmp/ccCw9s1C.s:518    .debug_info:0000000000000000 .Ldebug_info0
+
+UNDEFINED SYMBOLS
+rcu_bkp_reset_enable
+rcu_bkp_reset_disable

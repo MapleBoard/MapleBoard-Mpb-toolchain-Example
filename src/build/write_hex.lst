@@ -1,0 +1,348 @@
+GAS LISTING /tmp/cch8EoHu.s 			page 1
+
+
+   1              		.file	"write_hex.c"
+   2              		.option nopic
+   3              		.attribute arch, "rv32i2p0_m2p0_a2p0_c2p0"
+   4              		.attribute unaligned_access, 0
+   5              		.attribute stack_align, 16
+   6              		.text
+   7              	.Ltext0:
+   8              		.cfi_sections	.debug_frame
+   9              		.section	.rodata.write_hex.str1.4,"aMS",@progbits,1
+  10              		.align	2
+  11              	.LC0:
+  12 0000 307800   		.string	"0x"
+  13              		.section	.text.write_hex,"ax",@progbits
+  14              		.align	1
+  15              		.globl	write_hex
+  17              	write_hex:
+  18              	.LFB0:
+  19              		.file 1 "../Firmware/RISCV/stubs/write_hex.c"
+   1:../Firmware/RISCV/stubs/write_hex.c **** /* See LICENSE of license details. */
+   2:../Firmware/RISCV/stubs/write_hex.c **** 
+   3:../Firmware/RISCV/stubs/write_hex.c **** #include <stdint.h>
+   4:../Firmware/RISCV/stubs/write_hex.c **** #include <unistd.h>
+   5:../Firmware/RISCV/stubs/write_hex.c **** 
+   6:../Firmware/RISCV/stubs/write_hex.c **** void write_hex(int fd, unsigned long int hex)
+   7:../Firmware/RISCV/stubs/write_hex.c **** {
+  20              		.loc 1 7 1
+  21              		.cfi_startproc
+  22              	.LVL0:
+   8:../Firmware/RISCV/stubs/write_hex.c ****   uint8_t ii;
+  23              		.loc 1 8 3
+   9:../Firmware/RISCV/stubs/write_hex.c ****   uint8_t jj;
+  24              		.loc 1 9 3
+  10:../Firmware/RISCV/stubs/write_hex.c ****   char towrite;
+  25              		.loc 1 10 3
+  11:../Firmware/RISCV/stubs/write_hex.c ****   write(fd , "0x", 2);
+  26              		.loc 1 11 3
+   7:../Firmware/RISCV/stubs/write_hex.c ****   uint8_t ii;
+  27              		.loc 1 7 1 is_stmt 0
+  28 0000 7971     		addi	sp,sp,-48
+  29              	.LCFI0:
+  30              		.cfi_def_cfa_offset 48
+  31 0002 26D2     		sw	s1,36(sp)
+  32              		.cfi_offset 9, -12
+  33 0004 AE84     		mv	s1,a1
+  34              		.loc 1 11 3
+  35 0006 B7050000 		lui	a1,%hi(.LC0)
+  36              	.LVL1:
+  37 000a 0946     		li	a2,2
+  38 000c 93850500 		addi	a1,a1,%lo(.LC0)
+   7:../Firmware/RISCV/stubs/write_hex.c ****   uint8_t ii;
+  39              		.loc 1 7 1
+  40 0010 22D4     		sw	s0,40(sp)
+  41 0012 4AD0     		sw	s2,32(sp)
+  42 0014 4ECE     		sw	s3,28(sp)
+  43 0016 52CC     		sw	s4,24(sp)
+  44 0018 56CA     		sw	s5,20(sp)
+  45 001a 06D6     		sw	ra,44(sp)
+GAS LISTING /tmp/cch8EoHu.s 			page 2
+
+
+  46              		.cfi_offset 8, -8
+  47              		.cfi_offset 18, -16
+  48              		.cfi_offset 19, -20
+  49              		.cfi_offset 20, -24
+  50              		.cfi_offset 21, -28
+  51              		.cfi_offset 1, -4
+   7:../Firmware/RISCV/stubs/write_hex.c ****   uint8_t ii;
+  52              		.loc 1 7 1
+  53 001c 2A89     		mv	s2,a0
+  54              		.loc 1 11 3
+  55 001e 7144     		li	s0,28
+  56 0020 97000000 		call	write
+  56      E7800000 
+  57              	.LVL2:
+  12:../Firmware/RISCV/stubs/write_hex.c ****   for (ii = sizeof(unsigned long int) * 2 ; ii > 0; ii--) {
+  58              		.loc 1 12 3 is_stmt 1
+  59              		.loc 1 12 45
+  60              	.LBB2:
+  13:../Firmware/RISCV/stubs/write_hex.c ****     jj = ii - 1;
+  14:../Firmware/RISCV/stubs/write_hex.c ****     uint8_t digit = ((hex & (0xF << (jj*4))) >> (jj*4));
+  61              		.loc 1 14 34 is_stmt 0
+  62 0028 BD4A     		li	s5,15
+  15:../Firmware/RISCV/stubs/write_hex.c ****     towrite = digit < 0xA ? ('0' + digit) : ('A' +  (digit - 0xA));
+  63              		.loc 1 15 13
+  64 002a 254A     		li	s4,9
+  65              	.LBE2:
+  12:../Firmware/RISCV/stubs/write_hex.c ****   for (ii = sizeof(unsigned long int) * 2 ; ii > 0; ii--) {
+  66              		.loc 1 12 3
+  67 002c F159     		li	s3,-4
+  68 002e 05A0     		j	.L4
+  69              	.LVL3:
+  70              	.L9:
+  71              	.LBB3:
+  72              		.loc 1 15 13 discriminator 1
+  73 0030 93F7F60F 		andi	a5,a3,0xff
+  74              	.LVL4:
+  75              	.LBE3:
+  12:../Firmware/RISCV/stubs/write_hex.c ****   for (ii = sizeof(unsigned long int) * 2 ; ii > 0; ii--) {
+  76              		.loc 1 12 3 discriminator 1
+  77 0034 7114     		addi	s0,s0,-4
+  78              	.LBB4:
+  16:../Firmware/RISCV/stubs/write_hex.c ****     write(fd, &towrite, 1);
+  79              		.loc 1 16 5 discriminator 1
+  80 0036 0546     		li	a2,1
+  81 0038 9305F100 		addi	a1,sp,15
+  82 003c 4A85     		mv	a0,s2
+  15:../Firmware/RISCV/stubs/write_hex.c ****     towrite = digit < 0xA ? ('0' + digit) : ('A' +  (digit - 0xA));
+  83              		.loc 1 15 13 discriminator 1
+  84 003e A307F100 		sb	a5,15(sp)
+  85              		.loc 1 16 5 is_stmt 1 discriminator 1
+  86 0042 97000000 		call	write
+  86      E7800000 
+  87              	.LVL5:
+  88              	.LBE4:
+  12:../Firmware/RISCV/stubs/write_hex.c ****     jj = ii - 1;
+  89              		.loc 1 12 53 discriminator 1
+  12:../Firmware/RISCV/stubs/write_hex.c ****     jj = ii - 1;
+GAS LISTING /tmp/cch8EoHu.s 			page 3
+
+
+  90              		.loc 1 12 45 discriminator 1
+  12:../Firmware/RISCV/stubs/write_hex.c ****     jj = ii - 1;
+  91              		.loc 1 12 3 is_stmt 0 discriminator 1
+  92 004a 630E3403 		beq	s0,s3,.L8
+  93              	.L4:
+  94              	.LBB5:
+  13:../Firmware/RISCV/stubs/write_hex.c ****     uint8_t digit = ((hex & (0xF << (jj*4))) >> (jj*4));
+  95              		.loc 1 13 5 is_stmt 1
+  14:../Firmware/RISCV/stubs/write_hex.c ****     towrite = digit < 0xA ? ('0' + digit) : ('A' +  (digit - 0xA));
+  96              		.loc 1 14 5
+  14:../Firmware/RISCV/stubs/write_hex.c ****     towrite = digit < 0xA ? ('0' + digit) : ('A' +  (digit - 0xA));
+  97              		.loc 1 14 34 is_stmt 0
+  98 004e B3978A00 		sll	a5,s5,s0
+  14:../Firmware/RISCV/stubs/write_hex.c ****     towrite = digit < 0xA ? ('0' + digit) : ('A' +  (digit - 0xA));
+  99              		.loc 1 14 27
+ 100 0052 E58F     		and	a5,a5,s1
+  14:../Firmware/RISCV/stubs/write_hex.c ****     towrite = digit < 0xA ? ('0' + digit) : ('A' +  (digit - 0xA));
+ 101              		.loc 1 14 46
+ 102 0054 B3D78700 		srl	a5,a5,s0
+  14:../Firmware/RISCV/stubs/write_hex.c ****     towrite = digit < 0xA ? ('0' + digit) : ('A' +  (digit - 0xA));
+ 103              		.loc 1 14 13
+ 104 0058 93F7F70F 		andi	a5,a5,0xff
+ 105              	.LVL6:
+  15:../Firmware/RISCV/stubs/write_hex.c ****     write(fd, &towrite, 1);
+ 106              		.loc 1 15 5 is_stmt 1
+  15:../Firmware/RISCV/stubs/write_hex.c ****     write(fd, &towrite, 1);
+ 107              		.loc 1 15 13 is_stmt 0
+ 108 005c 93860703 		addi	a3,a5,48
+ 109 0060 13877703 		addi	a4,a5,55
+ 110 0064 E376FAFC 		bleu	a5,s4,.L9
+  15:../Firmware/RISCV/stubs/write_hex.c ****     write(fd, &towrite, 1);
+ 111              		.loc 1 15 13 discriminator 2
+ 112 0068 9377F70F 		andi	a5,a4,0xff
+ 113              	.LVL7:
+ 114              	.LBE5:
+  12:../Firmware/RISCV/stubs/write_hex.c ****     jj = ii - 1;
+ 115              		.loc 1 12 3 discriminator 2
+ 116 006c 7114     		addi	s0,s0,-4
+ 117              	.LBB6:
+ 118              		.loc 1 16 5 discriminator 2
+ 119 006e 0546     		li	a2,1
+ 120 0070 9305F100 		addi	a1,sp,15
+ 121 0074 4A85     		mv	a0,s2
+  15:../Firmware/RISCV/stubs/write_hex.c ****     write(fd, &towrite, 1);
+ 122              		.loc 1 15 13 discriminator 2
+ 123 0076 A307F100 		sb	a5,15(sp)
+ 124              		.loc 1 16 5 is_stmt 1 discriminator 2
+ 125 007a 97000000 		call	write
+ 125      E7800000 
+ 126              	.LVL8:
+ 127              	.LBE6:
+  12:../Firmware/RISCV/stubs/write_hex.c ****     jj = ii - 1;
+ 128              		.loc 1 12 53 discriminator 2
+  12:../Firmware/RISCV/stubs/write_hex.c ****     jj = ii - 1;
+ 129              		.loc 1 12 45 discriminator 2
+  12:../Firmware/RISCV/stubs/write_hex.c ****     jj = ii - 1;
+ 130              		.loc 1 12 3 is_stmt 0 discriminator 2
+GAS LISTING /tmp/cch8EoHu.s 			page 4
+
+
+ 131 0082 E31634FD 		bne	s0,s3,.L4
+ 132              	.L8:
+  17:../Firmware/RISCV/stubs/write_hex.c ****   }
+  18:../Firmware/RISCV/stubs/write_hex.c **** }
+ 133              		.loc 1 18 1
+ 134 0086 B250     		lw	ra,44(sp)
+ 135              		.cfi_restore 1
+ 136 0088 2254     		lw	s0,40(sp)
+ 137              		.cfi_restore 8
+ 138 008a 9254     		lw	s1,36(sp)
+ 139              		.cfi_restore 9
+ 140              	.LVL9:
+ 141 008c 0259     		lw	s2,32(sp)
+ 142              		.cfi_restore 18
+ 143              	.LVL10:
+ 144 008e F249     		lw	s3,28(sp)
+ 145              		.cfi_restore 19
+ 146 0090 624A     		lw	s4,24(sp)
+ 147              		.cfi_restore 20
+ 148 0092 D24A     		lw	s5,20(sp)
+ 149              		.cfi_restore 21
+ 150 0094 4561     		addi	sp,sp,48
+ 151              	.LCFI1:
+ 152              		.cfi_def_cfa_offset 0
+ 153 0096 8280     		jr	ra
+ 154              		.cfi_endproc
+ 155              	.LFE0:
+ 157              		.text
+ 158              	.Letext0:
+ 159              		.file 2 "/home/johnson/Documents/mpb-toolchain/build/riscv32-mapleboard-elf/include/machine/_defau
+ 160              		.file 3 "/home/johnson/Documents/mpb-toolchain/build/riscv32-mapleboard-elf/include/sys/_stdint.h"
+ 161              		.file 4 "/home/johnson/Documents/mpb-toolchain/build/riscv32-mapleboard-elf/include/sys/unistd.h"
+GAS LISTING /tmp/cch8EoHu.s 			page 5
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 write_hex.c
+     /tmp/cch8EoHu.s:17     .text.write_hex:0000000000000000 write_hex
+     /tmp/cch8EoHu.s:21     .text.write_hex:0000000000000000 .L0 
+     /tmp/cch8EoHu.s:23     .text.write_hex:0000000000000000 .L0 
+     /tmp/cch8EoHu.s:24     .text.write_hex:0000000000000000 .L0 
+     /tmp/cch8EoHu.s:25     .text.write_hex:0000000000000000 .L0 
+     /tmp/cch8EoHu.s:26     .text.write_hex:0000000000000000 .L0 
+     /tmp/cch8EoHu.s:27     .text.write_hex:0000000000000000 .L0 
+     /tmp/cch8EoHu.s:28     .text.write_hex:0000000000000000 .L0 
+     /tmp/cch8EoHu.s:30     .text.write_hex:0000000000000002 .L0 
+     /tmp/cch8EoHu.s:32     .text.write_hex:0000000000000004 .L0 
+     /tmp/cch8EoHu.s:35     .text.write_hex:0000000000000006 .L0 
+     /tmp/cch8EoHu.s:40     .text.write_hex:0000000000000010 .L0 
+     /tmp/cch8EoHu.s:46     .text.write_hex:000000000000001c .L0 
+     /tmp/cch8EoHu.s:47     .text.write_hex:000000000000001c .L0 
+     /tmp/cch8EoHu.s:48     .text.write_hex:000000000000001c .L0 
+     /tmp/cch8EoHu.s:49     .text.write_hex:000000000000001c .L0 
+     /tmp/cch8EoHu.s:50     .text.write_hex:000000000000001c .L0 
+     /tmp/cch8EoHu.s:51     .text.write_hex:000000000000001c .L0 
+     /tmp/cch8EoHu.s:53     .text.write_hex:000000000000001c .L0 
+     /tmp/cch8EoHu.s:55     .text.write_hex:000000000000001e .L0 
+     /tmp/cch8EoHu.s:59     .text.write_hex:0000000000000028 .L0 
+     /tmp/cch8EoHu.s:61     .text.write_hex:0000000000000028 .L0 
+     /tmp/cch8EoHu.s:62     .text.write_hex:0000000000000028 .L0 
+     /tmp/cch8EoHu.s:64     .text.write_hex:000000000000002a .L0 
+     /tmp/cch8EoHu.s:67     .text.write_hex:000000000000002c .L0 
+     /tmp/cch8EoHu.s:73     .text.write_hex:0000000000000030 .L0 
+     /tmp/cch8EoHu.s:77     .text.write_hex:0000000000000034 .L0 
+     /tmp/cch8EoHu.s:80     .text.write_hex:0000000000000036 .L0 
+     /tmp/cch8EoHu.s:84     .text.write_hex:000000000000003e .L0 
+     /tmp/cch8EoHu.s:86     .text.write_hex:0000000000000042 .L0 
+     /tmp/cch8EoHu.s:90     .text.write_hex:000000000000004a .L0 
+     /tmp/cch8EoHu.s:91     .text.write_hex:000000000000004a .L0 
+     /tmp/cch8EoHu.s:92     .text.write_hex:000000000000004a .L0 
+     /tmp/cch8EoHu.s:96     .text.write_hex:000000000000004e .L0 
+     /tmp/cch8EoHu.s:97     .text.write_hex:000000000000004e .L0 
+     /tmp/cch8EoHu.s:98     .text.write_hex:000000000000004e .L0 
+     /tmp/cch8EoHu.s:100    .text.write_hex:0000000000000052 .L0 
+     /tmp/cch8EoHu.s:102    .text.write_hex:0000000000000054 .L0 
+     /tmp/cch8EoHu.s:104    .text.write_hex:0000000000000058 .L0 
+     /tmp/cch8EoHu.s:107    .text.write_hex:000000000000005c .L0 
+     /tmp/cch8EoHu.s:108    .text.write_hex:000000000000005c .L0 
+     /tmp/cch8EoHu.s:112    .text.write_hex:0000000000000068 .L0 
+     /tmp/cch8EoHu.s:116    .text.write_hex:000000000000006c .L0 
+     /tmp/cch8EoHu.s:119    .text.write_hex:000000000000006e .L0 
+     /tmp/cch8EoHu.s:123    .text.write_hex:0000000000000076 .L0 
+     /tmp/cch8EoHu.s:125    .text.write_hex:000000000000007a .L0 
+     /tmp/cch8EoHu.s:129    .text.write_hex:0000000000000082 .L0 
+     /tmp/cch8EoHu.s:130    .text.write_hex:0000000000000082 .L0 
+     /tmp/cch8EoHu.s:131    .text.write_hex:0000000000000082 .L0 
+     /tmp/cch8EoHu.s:134    .text.write_hex:0000000000000086 .L0 
+     /tmp/cch8EoHu.s:135    .text.write_hex:0000000000000088 .L0 
+     /tmp/cch8EoHu.s:137    .text.write_hex:000000000000008a .L0 
+     /tmp/cch8EoHu.s:139    .text.write_hex:000000000000008c .L0 
+     /tmp/cch8EoHu.s:142    .text.write_hex:000000000000008e .L0 
+     /tmp/cch8EoHu.s:145    .text.write_hex:0000000000000090 .L0 
+GAS LISTING /tmp/cch8EoHu.s 			page 6
+
+
+     /tmp/cch8EoHu.s:147    .text.write_hex:0000000000000092 .L0 
+     /tmp/cch8EoHu.s:149    .text.write_hex:0000000000000094 .L0 
+     /tmp/cch8EoHu.s:152    .text.write_hex:0000000000000096 .L0 
+     /tmp/cch8EoHu.s:154    .text.write_hex:0000000000000098 .L0 
+     /tmp/cch8EoHu.s:157    .text.write_hex:0000000000000098 .L0 
+                     .debug_frame:0000000000000000 .L0 
+     /tmp/cch8EoHu.s:11     .rodata.write_hex.str1.4:0000000000000000 .LC0
+     /tmp/cch8EoHu.s:93     .text.write_hex:000000000000004e .L4
+     /tmp/cch8EoHu.s:132    .text.write_hex:0000000000000086 .L8
+     /tmp/cch8EoHu.s:70     .text.write_hex:0000000000000030 .L9
+     /tmp/cch8EoHu.s:371    .debug_abbrev:0000000000000000 .Ldebug_abbrev0
+     /tmp/cch8EoHu.s:756    .debug_str:000000000000011b .LASF15
+     /tmp/cch8EoHu.s:740    .debug_str:0000000000000081 .LASF16
+     /tmp/cch8EoHu.s:754    .debug_str:00000000000000e9 .LASF17
+     /tmp/cch8EoHu.s:698    .debug_ranges:0000000000000000 .Ldebug_ranges0
+     /tmp/cch8EoHu.s:716    .debug_line:0000000000000000 .Ldebug_line0
+     /tmp/cch8EoHu.s:746    .debug_str:00000000000000c1 .LASF0
+     /tmp/cch8EoHu.s:728    .debug_str:000000000000004c .LASF9
+     /tmp/cch8EoHu.s:736    .debug_str:000000000000006e .LASF1
+     /tmp/cch8EoHu.s:752    .debug_str:00000000000000df .LASF2
+     /tmp/cch8EoHu.s:744    .debug_str:00000000000000ae .LASF3
+     /tmp/cch8EoHu.s:742    .debug_str:00000000000000a5 .LASF4
+     /tmp/cch8EoHu.s:724    .debug_str:0000000000000023 .LASF5
+     /tmp/cch8EoHu.s:718    .debug_str:0000000000000000 .LASF6
+     /tmp/cch8EoHu.s:726    .debug_str:0000000000000035 .LASF7
+     /tmp/cch8EoHu.s:720    .debug_str:000000000000000e .LASF8
+     /tmp/cch8EoHu.s:734    .debug_str:0000000000000066 .LASF10
+     /tmp/cch8EoHu.s:738    .debug_str:000000000000007c .LASF11
+     /tmp/cch8EoHu.s:750    .debug_str:00000000000000d3 .LASF12
+     /tmp/cch8EoHu.s:730    .debug_str:0000000000000056 .LASF18
+     /tmp/cch8EoHu.s:18     .text.write_hex:0000000000000000 .LFB0
+     /tmp/cch8EoHu.s:155    .text.write_hex:0000000000000098 .LFE0
+     /tmp/cch8EoHu.s:600    .debug_loc:0000000000000000 .LLST0
+     /tmp/cch8EoHu.s:618    .debug_loc:000000000000002c .LLST1
+     /tmp/cch8EoHu.s:636    .debug_loc:0000000000000058 .LLST2
+     /tmp/cch8EoHu.s:654    .debug_loc:0000000000000084 .LLST3
+     /tmp/cch8EoHu.s:722    .debug_str:000000000000001b .LASF13
+     /tmp/cch8EoHu.s:748    .debug_str:00000000000000cd .LASF14
+     /tmp/cch8EoHu.s:662    .debug_loc:0000000000000098 .LLST4
+     /tmp/cch8EoHu.s:87     .text.write_hex:000000000000004a .LVL5
+     /tmp/cch8EoHu.s:126    .text.write_hex:0000000000000082 .LVL8
+     /tmp/cch8EoHu.s:57     .text.write_hex:0000000000000028 .LVL2
+     /tmp/cch8EoHu.s:732    .debug_str:0000000000000060 .LASF19
+     /tmp/cch8EoHu.s:29     .text.write_hex:0000000000000002 .LCFI0
+     /tmp/cch8EoHu.s:151    .text.write_hex:0000000000000096 .LCFI1
+     /tmp/cch8EoHu.s:22     .text.write_hex:0000000000000000 .LVL0
+     /tmp/cch8EoHu.s:143    .text.write_hex:000000000000008e .LVL10
+     /tmp/cch8EoHu.s:36     .text.write_hex:000000000000000a .LVL1
+     /tmp/cch8EoHu.s:140    .text.write_hex:000000000000008c .LVL9
+     /tmp/cch8EoHu.s:69     .text.write_hex:0000000000000030 .LVL3
+     /tmp/cch8EoHu.s:74     .text.write_hex:0000000000000034 .LVL4
+     /tmp/cch8EoHu.s:105    .text.write_hex:000000000000005c .LVL6
+     /tmp/cch8EoHu.s:113    .text.write_hex:000000000000006c .LVL7
+     /tmp/cch8EoHu.s:163    .debug_info:0000000000000000 .Ldebug_info0
+     /tmp/cch8EoHu.s:60     .text.write_hex:0000000000000028 .LBB2
+     /tmp/cch8EoHu.s:65     .text.write_hex:000000000000002c .LBE2
+     /tmp/cch8EoHu.s:71     .text.write_hex:0000000000000030 .LBB3
+GAS LISTING /tmp/cch8EoHu.s 			page 7
+
+
+     /tmp/cch8EoHu.s:75     .text.write_hex:0000000000000034 .LBE3
+     /tmp/cch8EoHu.s:78     .text.write_hex:0000000000000036 .LBB4
+     /tmp/cch8EoHu.s:88     .text.write_hex:000000000000004a .LBE4
+     /tmp/cch8EoHu.s:94     .text.write_hex:000000000000004e .LBB5
+     /tmp/cch8EoHu.s:114    .text.write_hex:000000000000006c .LBE5
+     /tmp/cch8EoHu.s:117    .text.write_hex:000000000000006e .LBB6
+     /tmp/cch8EoHu.s:127    .text.write_hex:0000000000000082 .LBE6
+
+UNDEFINED SYMBOLS
+write

@@ -1,0 +1,127 @@
+GAS LISTING /tmp/ccXKX8be.s 			page 1
+
+
+   1              		.file	"lseek.c"
+   2              		.option nopic
+   3              		.attribute arch, "rv32i2p0_m2p0_a2p0_c2p0"
+   4              		.attribute unaligned_access, 0
+   5              		.attribute stack_align, 16
+   6              		.text
+   7              	.Ltext0:
+   8              		.cfi_sections	.debug_frame
+   9              		.section	.text._lseek,"ax",@progbits
+  10              		.align	1
+  11              		.globl	_lseek
+  13              	_lseek:
+  14              	.LFB1:
+  15              		.file 1 "../Firmware/RISCV/stubs/lseek.c"
+   1:../Firmware/RISCV/stubs/lseek.c **** /* See LICENSE of license details. */
+   2:../Firmware/RISCV/stubs/lseek.c **** 
+   3:../Firmware/RISCV/stubs/lseek.c **** #include <errno.h>
+   4:../Firmware/RISCV/stubs/lseek.c **** #include <unistd.h>
+   5:../Firmware/RISCV/stubs/lseek.c **** #include <sys/types.h>
+   6:../Firmware/RISCV/stubs/lseek.c **** #include "stub.h"
+   7:../Firmware/RISCV/stubs/lseek.c **** 
+   8:../Firmware/RISCV/stubs/lseek.c **** off_t _lseek(int fd, off_t ptr, int dir)
+   9:../Firmware/RISCV/stubs/lseek.c **** {
+  16              		.loc 1 9 1
+  17              		.cfi_startproc
+  18              	.LVL0:
+  10:../Firmware/RISCV/stubs/lseek.c ****   if (isatty(fd))
+  19              		.loc 1 10 3
+   9:../Firmware/RISCV/stubs/lseek.c ****   if (isatty(fd))
+  20              		.loc 1 9 1 is_stmt 0
+  21 0000 4111     		addi	sp,sp,-16
+  22              	.LCFI0:
+  23              		.cfi_def_cfa_offset 16
+  24 0002 06C6     		sw	ra,12(sp)
+  25              		.cfi_offset 1, -4
+  26              		.loc 1 10 7
+  27 0004 97000000 		call	isatty
+  27      E7800000 
+  28              	.LVL1:
+  11:../Firmware/RISCV/stubs/lseek.c ****     return 0;
+  12:../Firmware/RISCV/stubs/lseek.c **** 
+  13:../Firmware/RISCV/stubs/lseek.c ****   return _stub(EBADF);
+  14:../Firmware/RISCV/stubs/lseek.c **** }
+  29              		.loc 1 14 1
+  30 000c B240     		lw	ra,12(sp)
+  31              		.cfi_restore 1
+  10:../Firmware/RISCV/stubs/lseek.c ****     return 0;
+  32              		.loc 1 10 6
+  33 000e 13351500 		seqz	a0,a0
+  34              		.loc 1 14 1
+  35 0012 3305A040 		neg	a0,a0
+  36 0016 4101     		addi	sp,sp,16
+  37              	.LCFI1:
+  38              		.cfi_def_cfa_offset 0
+  39 0018 8280     		jr	ra
+  40              		.cfi_endproc
+  41              	.LFE1:
+GAS LISTING /tmp/ccXKX8be.s 			page 2
+
+
+  43              		.text
+  44              	.Letext0:
+  45              		.file 2 "/home/johnson/Documents/mpb-toolchain/build/riscv32-mapleboard-elf/include/sys/_types.h"
+  46              		.file 3 "/home/johnson/Documents/mpb-toolchain/build/riscv32-mapleboard-elf/include/sys/types.h"
+  47              		.file 4 "../Firmware/RISCV/stubs/stub.h"
+  48              		.file 5 "/home/johnson/Documents/mpb-toolchain/build/riscv32-mapleboard-elf/include/sys/unistd.h"
+GAS LISTING /tmp/ccXKX8be.s 			page 3
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 lseek.c
+     /tmp/ccXKX8be.s:13     .text._lseek:0000000000000000 _lseek
+     /tmp/ccXKX8be.s:17     .text._lseek:0000000000000000 .L0 
+     /tmp/ccXKX8be.s:19     .text._lseek:0000000000000000 .L0 
+     /tmp/ccXKX8be.s:20     .text._lseek:0000000000000000 .L0 
+     /tmp/ccXKX8be.s:21     .text._lseek:0000000000000000 .L0 
+     /tmp/ccXKX8be.s:23     .text._lseek:0000000000000002 .L0 
+     /tmp/ccXKX8be.s:25     .text._lseek:0000000000000004 .L0 
+     /tmp/ccXKX8be.s:27     .text._lseek:0000000000000004 .L0 
+     /tmp/ccXKX8be.s:30     .text._lseek:000000000000000c .L0 
+     /tmp/ccXKX8be.s:31     .text._lseek:000000000000000e .L0 
+     /tmp/ccXKX8be.s:33     .text._lseek:000000000000000e .L0 
+     /tmp/ccXKX8be.s:35     .text._lseek:0000000000000012 .L0 
+     /tmp/ccXKX8be.s:38     .text._lseek:0000000000000018 .L0 
+     /tmp/ccXKX8be.s:40     .text._lseek:000000000000001a .L0 
+     /tmp/ccXKX8be.s:43     .text._lseek:000000000000001a .L0 
+                     .debug_frame:0000000000000000 .L0 
+     /tmp/ccXKX8be.s:202    .debug_abbrev:0000000000000000 .Ldebug_abbrev0
+     /tmp/ccXKX8be.s:502    .debug_str:0000000000000110 .LASF14
+     /tmp/ccXKX8be.s:482    .debug_str:000000000000006e .LASF15
+     /tmp/ccXKX8be.s:498    .debug_str:00000000000000d9 .LASF16
+     /tmp/ccXKX8be.s:456    .debug_ranges:0000000000000000 .Ldebug_ranges0
+     /tmp/ccXKX8be.s:462    .debug_line:0000000000000000 .Ldebug_line0
+     /tmp/ccXKX8be.s:468    .debug_str:0000000000000015 .LASF0
+     /tmp/ccXKX8be.s:464    .debug_str:0000000000000000 .LASF1
+     /tmp/ccXKX8be.s:492    .debug_str:00000000000000bc .LASF2
+     /tmp/ccXKX8be.s:490    .debug_str:00000000000000b0 .LASF3
+     /tmp/ccXKX8be.s:480    .debug_str:0000000000000060 .LASF4
+     /tmp/ccXKX8be.s:496    .debug_str:00000000000000cf .LASF5
+     /tmp/ccXKX8be.s:488    .debug_str:000000000000009d .LASF6
+     /tmp/ccXKX8be.s:486    .debug_str:0000000000000094 .LASF7
+     /tmp/ccXKX8be.s:472    .debug_str:000000000000002a .LASF8
+     /tmp/ccXKX8be.s:476    .debug_str:0000000000000042 .LASF9
+     /tmp/ccXKX8be.s:478    .debug_str:0000000000000059 .LASF10
+     /tmp/ccXKX8be.s:470    .debug_str:0000000000000022 .LASF11
+     /tmp/ccXKX8be.s:500    .debug_str:000000000000010b .LASF12
+     /tmp/ccXKX8be.s:474    .debug_str:000000000000003c .LASF13
+     /tmp/ccXKX8be.s:494    .debug_str:00000000000000c8 .LASF17
+     /tmp/ccXKX8be.s:14     .text._lseek:0000000000000000 .LFB1
+     /tmp/ccXKX8be.s:41     .text._lseek:000000000000001a .LFE1
+     /tmp/ccXKX8be.s:383    .debug_loc:0000000000000000 .LLST0
+     /tmp/ccXKX8be.s:401    .debug_loc:000000000000002c .LLST1
+     /tmp/ccXKX8be.s:415    .debug_loc:000000000000004d .LLST2
+     /tmp/ccXKX8be.s:429    .debug_loc:000000000000006e .LLST3
+     /tmp/ccXKX8be.s:28     .text._lseek:000000000000000c .LVL1
+     /tmp/ccXKX8be.s:484    .debug_str:000000000000008e .LASF18
+     /tmp/ccXKX8be.s:466    .debug_str:000000000000000e .LASF19
+     /tmp/ccXKX8be.s:22     .text._lseek:0000000000000002 .LCFI0
+     /tmp/ccXKX8be.s:37     .text._lseek:0000000000000018 .LCFI1
+     /tmp/ccXKX8be.s:18     .text._lseek:0000000000000000 .LVL0
+     /tmp/ccXKX8be.s:50     .debug_info:0000000000000000 .Ldebug_info0
+
+UNDEFINED SYMBOLS
+isatty

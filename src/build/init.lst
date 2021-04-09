@@ -1,0 +1,250 @@
+GAS LISTING /tmp/cc4TR7DJ.s 			page 1
+
+
+   1              		.file	"init.c"
+   2              		.option nopic
+   3              		.attribute arch, "rv32i2p0_m2p0_a2p0_c2p0"
+   4              		.attribute unaligned_access, 0
+   5              		.attribute stack_align, 16
+   6              		.text
+   7              	.Ltext0:
+   8              		.cfi_sections	.debug_frame
+   9              		.section	.text._init,"ax",@progbits
+  10              		.align	1
+  11              		.globl	_init
+  13              	_init:
+  14              	.LFB5:
+  15              		.file 1 "init.c"
+   1:init.c        **** //See LICENSE for license details.
+   2:init.c        **** #include <gd32vf103.h>
+   3:init.c        **** #include <stdint.h>
+   4:init.c        **** #include <stdio.h>
+   5:init.c        **** #include <unistd.h>
+   6:init.c        **** #include "riscv_encoding.h"
+   7:init.c        **** #include "n200_func.h"
+   8:init.c        **** 
+   9:init.c        **** extern uint32_t disable_mcycle_minstret();
+  10:init.c        **** void _init()
+  11:init.c        **** {
+  16              		.loc 1 11 1
+  17              		.cfi_startproc
+  12:init.c        **** 	SystemInit();
+  18              		.loc 1 12 2
+  11:init.c        **** 	SystemInit();
+  19              		.loc 1 11 1 is_stmt 0
+  20 0000 4111     		addi	sp,sp,-16
+  21              	.LCFI0:
+  22              		.cfi_def_cfa_offset 16
+  23 0002 06C6     		sw	ra,12(sp)
+  24              		.cfi_offset 1, -4
+  25              		.loc 1 12 2
+  26 0004 97000000 		call	SystemInit
+  26      E7800000 
+  27              	.LVL0:
+  13:init.c        **** 
+  14:init.c        **** 	//ECLIC init
+  15:init.c        **** 	eclic_init(ECLIC_NUM_INTERRUPTS);
+  28              		.loc 1 15 2 is_stmt 1
+  29 000c 13057005 		li	a0,87
+  30 0010 97000000 		call	eclic_init
+  30      E7800000 
+  31              	.LVL1:
+  16:init.c        **** 	eclic_mode_enable();
+  32              		.loc 1 16 2
+  33 0018 97000000 		call	eclic_mode_enable
+  33      E7800000 
+  34              	.LVL2:
+  17:init.c        **** 
+  18:init.c        **** 	//printf("After ECLIC mode enabled, the mtvec value is %x \n\n\r", read_csr(mtvec));
+  19:init.c        **** 
+  20:init.c        **** 	// // It must be NOTED:
+GAS LISTING /tmp/cc4TR7DJ.s 			page 2
+
+
+  21:init.c        **** 	//  //    * In the RISC-V arch, if user mode and PMP supported, then by default if PMP is not conf
+  22:init.c        **** 	//  //      with valid entries, then user mode cannot access any memory, and cannot execute any in
+  23:init.c        **** 	//  //    * So if switch to user-mode and still want to continue, then you must configure PMP firs
+  24:init.c        **** 	//pmp_open_all_space();
+  25:init.c        **** 	//switch_m2u_mode();
+  26:init.c        **** 	
+  27:init.c        ****     /* Before enter into main, add the cycle/instret disable by default to save power,
+  28:init.c        ****     only use them when needed to measure the cycle/instret */
+  29:init.c        **** 	disable_mcycle_minstret();
+  35              		.loc 1 29 2
+  30:init.c        **** }
+  36              		.loc 1 30 1 is_stmt 0
+  37 0020 B240     		lw	ra,12(sp)
+  38              		.cfi_restore 1
+  39 0022 4101     		addi	sp,sp,16
+  40              	.LCFI1:
+  41              		.cfi_def_cfa_offset 0
+  29:init.c        **** }
+  42              		.loc 1 29 2
+  43 0024 17030000 		tail	disable_mcycle_minstret
+  43      67000300 
+  44              	.LVL3:
+  45              		.cfi_endproc
+  46              	.LFE5:
+  48              		.section	.text._fini,"ax",@progbits
+  49              		.align	1
+  50              		.globl	_fini
+  52              	_fini:
+  53              	.LFB6:
+  31:init.c        **** 
+  32:init.c        **** void _fini()
+  33:init.c        **** {
+  54              		.loc 1 33 1 is_stmt 1
+  55              		.cfi_startproc
+  34:init.c        **** }
+  56              		.loc 1 34 1
+  57 0000 8280     		ret
+  58              		.cfi_endproc
+  59              	.LFE6:
+  61              		.text
+  62              	.Letext0:
+  63              		.file 2 "../Firmware/GD32VF103_standard_peripheral/system_gd32vf103.h"
+  64              		.file 3 "../Firmware/RISCV/drivers/n200_func.h"
+  65              		.file 4 "../Firmware/GD32VF103_standard_peripheral/gd32vf103.h"
+GAS LISTING /tmp/cc4TR7DJ.s 			page 3
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 init.c
+     /tmp/cc4TR7DJ.s:13     .text._init:0000000000000000 _init
+     /tmp/cc4TR7DJ.s:17     .text._init:0000000000000000 .L0 
+     /tmp/cc4TR7DJ.s:18     .text._init:0000000000000000 .L0 
+     /tmp/cc4TR7DJ.s:19     .text._init:0000000000000000 .L0 
+     /tmp/cc4TR7DJ.s:20     .text._init:0000000000000000 .L0 
+     /tmp/cc4TR7DJ.s:22     .text._init:0000000000000002 .L0 
+     /tmp/cc4TR7DJ.s:24     .text._init:0000000000000004 .L0 
+     /tmp/cc4TR7DJ.s:26     .text._init:0000000000000004 .L0 
+     /tmp/cc4TR7DJ.s:29     .text._init:000000000000000c .L0 
+     /tmp/cc4TR7DJ.s:33     .text._init:0000000000000018 .L0 
+     /tmp/cc4TR7DJ.s:36     .text._init:0000000000000020 .L0 
+     /tmp/cc4TR7DJ.s:37     .text._init:0000000000000020 .L0 
+     /tmp/cc4TR7DJ.s:38     .text._init:0000000000000022 .L0 
+     /tmp/cc4TR7DJ.s:41     .text._init:0000000000000024 .L0 
+     /tmp/cc4TR7DJ.s:43     .text._init:0000000000000024 .L0 
+     /tmp/cc4TR7DJ.s:45     .text._init:000000000000002c .L0 
+     /tmp/cc4TR7DJ.s:52     .text._fini:0000000000000000 _fini
+     /tmp/cc4TR7DJ.s:55     .text._fini:0000000000000000 .L0 
+     /tmp/cc4TR7DJ.s:56     .text._fini:0000000000000000 .L0 
+     /tmp/cc4TR7DJ.s:57     .text._fini:0000000000000000 .L0 
+     /tmp/cc4TR7DJ.s:58     .text._fini:0000000000000002 .L0 
+     /tmp/cc4TR7DJ.s:48     .text._init:000000000000002c .L0 
+     /tmp/cc4TR7DJ.s:61     .text._fini:0000000000000002 .L0 
+                     .debug_frame:0000000000000000 .L0 
+     /tmp/cc4TR7DJ.s:416    .debug_abbrev:0000000000000000 .Ldebug_abbrev0
+     /tmp/cc4TR7DJ.s:801    .debug_str:0000000000000468 .LASF81
+     /tmp/cc4TR7DJ.s:665    .debug_str:0000000000000098 .LASF82
+     /tmp/cc4TR7DJ.s:799    .debug_str:0000000000000436 .LASF83
+     /tmp/cc4TR7DJ.s:633    .debug_ranges:0000000000000000 .Ldebug_ranges0
+     /tmp/cc4TR7DJ.s:641    .debug_line:0000000000000000 .Ldebug_line0
+     /tmp/cc4TR7DJ.s:669    .debug_str:00000000000000ad .LASF84
+     /tmp/cc4TR7DJ.s:813    .debug_str:0000000000000532 .LASF0
+     /tmp/cc4TR7DJ.s:767    .debug_str:0000000000000335 .LASF1
+     /tmp/cc4TR7DJ.s:719    .debug_str:00000000000001e0 .LASF2
+     /tmp/cc4TR7DJ.s:671    .debug_str:00000000000000b2 .LASF3
+     /tmp/cc4TR7DJ.s:785    .debug_str:00000000000003ce .LASF4
+     /tmp/cc4TR7DJ.s:807    .debug_str:0000000000000517 .LASF5
+     /tmp/cc4TR7DJ.s:687    .debug_str:0000000000000126 .LASF6
+     /tmp/cc4TR7DJ.s:657    .debug_str:0000000000000062 .LASF7
+     /tmp/cc4TR7DJ.s:699    .debug_str:000000000000016f .LASF8
+     /tmp/cc4TR7DJ.s:703    .debug_str:0000000000000184 .LASF9
+     /tmp/cc4TR7DJ.s:755    .debug_str:00000000000002f4 .LASF10
+     /tmp/cc4TR7DJ.s:745    .debug_str:00000000000002a8 .LASF11
+     /tmp/cc4TR7DJ.s:655    .debug_str:0000000000000057 .LASF12
+     /tmp/cc4TR7DJ.s:739    .debug_str:0000000000000285 .LASF13
+     /tmp/cc4TR7DJ.s:803    .debug_str:0000000000000501 .LASF14
+     /tmp/cc4TR7DJ.s:651    .debug_str:0000000000000041 .LASF15
+     /tmp/cc4TR7DJ.s:795    .debug_str:0000000000000417 .LASF16
+     /tmp/cc4TR7DJ.s:647    .debug_str:0000000000000022 .LASF17
+     /tmp/cc4TR7DJ.s:733    .debug_str:000000000000024f .LASF18
+     /tmp/cc4TR7DJ.s:769    .debug_str:0000000000000342 .LASF19
+     /tmp/cc4TR7DJ.s:643    .debug_str:0000000000000000 .LASF20
+     /tmp/cc4TR7DJ.s:731    .debug_str:000000000000023c .LASF21
+     /tmp/cc4TR7DJ.s:815    .debug_str:0000000000000544 .LASF22
+     /tmp/cc4TR7DJ.s:659    .debug_str:000000000000006e .LASF23
+GAS LISTING /tmp/cc4TR7DJ.s 			page 4
+
+
+     /tmp/cc4TR7DJ.s:689    .debug_str:000000000000012f .LASF24
+     /tmp/cc4TR7DJ.s:747    .debug_str:00000000000002b3 .LASF25
+     /tmp/cc4TR7DJ.s:693    .debug_str:0000000000000148 .LASF26
+     /tmp/cc4TR7DJ.s:707    .debug_str:0000000000000196 .LASF27
+     /tmp/cc4TR7DJ.s:765    .debug_str:0000000000000328 .LASF28
+     /tmp/cc4TR7DJ.s:675    .debug_str:00000000000000ca .LASF29
+     /tmp/cc4TR7DJ.s:645    .debug_str:0000000000000013 .LASF30
+     /tmp/cc4TR7DJ.s:771    .debug_str:0000000000000355 .LASF31
+     /tmp/cc4TR7DJ.s:663    .debug_str:0000000000000084 .LASF32
+     /tmp/cc4TR7DJ.s:793    .debug_str:000000000000040b .LASF33
+     /tmp/cc4TR7DJ.s:685    .debug_str:000000000000011a .LASF34
+     /tmp/cc4TR7DJ.s:649    .debug_str:0000000000000035 .LASF35
+     /tmp/cc4TR7DJ.s:709    .debug_str:00000000000001a5 .LASF36
+     /tmp/cc4TR7DJ.s:715    .debug_str:00000000000001c3 .LASF37
+     /tmp/cc4TR7DJ.s:721    .debug_str:00000000000001ed .LASF38
+     /tmp/cc4TR7DJ.s:725    .debug_str:0000000000000209 .LASF39
+     /tmp/cc4TR7DJ.s:763    .debug_str:000000000000031e .LASF40
+     /tmp/cc4TR7DJ.s:673    .debug_str:00000000000000c0 .LASF41
+     /tmp/cc4TR7DJ.s:697    .debug_str:0000000000000163 .LASF42
+     /tmp/cc4TR7DJ.s:701    .debug_str:0000000000000178 .LASF43
+     /tmp/cc4TR7DJ.s:797    .debug_str:000000000000042a .LASF44
+     /tmp/cc4TR7DJ.s:723    .debug_str:00000000000001fa .LASF45
+     /tmp/cc4TR7DJ.s:777    .debug_str:000000000000038e .LASF46
+     /tmp/cc4TR7DJ.s:717    .debug_str:00000000000001d0 .LASF47
+     /tmp/cc4TR7DJ.s:811    .debug_str:0000000000000528 .LASF48
+     /tmp/cc4TR7DJ.s:787    .debug_str:00000000000003dd .LASF49
+     /tmp/cc4TR7DJ.s:761    .debug_str:0000000000000314 .LASF50
+     /tmp/cc4TR7DJ.s:805    .debug_str:000000000000050c .LASF51
+     /tmp/cc4TR7DJ.s:711    .debug_str:00000000000001b2 .LASF52
+     /tmp/cc4TR7DJ.s:681    .debug_str:00000000000000fb .LASF53
+     /tmp/cc4TR7DJ.s:781    .debug_str:00000000000003af .LASF54
+     /tmp/cc4TR7DJ.s:789    .debug_str:00000000000003e9 .LASF55
+     /tmp/cc4TR7DJ.s:683    .debug_str:0000000000000107 .LASF56
+     /tmp/cc4TR7DJ.s:775    .debug_str:000000000000037b .LASF57
+     /tmp/cc4TR7DJ.s:783    .debug_str:00000000000003bb .LASF58
+     /tmp/cc4TR7DJ.s:679    .debug_str:00000000000000e8 .LASF59
+     /tmp/cc4TR7DJ.s:695    .debug_str:0000000000000156 .LASF60
+     /tmp/cc4TR7DJ.s:677    .debug_str:00000000000000da .LASF61
+     /tmp/cc4TR7DJ.s:757    .debug_str:0000000000000301 .LASF62
+     /tmp/cc4TR7DJ.s:791    .debug_str:00000000000003fc .LASF63
+     /tmp/cc4TR7DJ.s:743    .debug_str:000000000000029d .LASF64
+     /tmp/cc4TR7DJ.s:753    .debug_str:00000000000002df .LASF65
+     /tmp/cc4TR7DJ.s:741    .debug_str:0000000000000290 .LASF66
+     /tmp/cc4TR7DJ.s:735    .debug_str:0000000000000262 .LASF67
+     /tmp/cc4TR7DJ.s:729    .debug_str:000000000000022e .LASF68
+     /tmp/cc4TR7DJ.s:661    .debug_str:000000000000007a .LASF69
+     /tmp/cc4TR7DJ.s:751    .debug_str:00000000000002cc .LASF70
+     /tmp/cc4TR7DJ.s:705    .debug_str:000000000000018d .LASF71
+     /tmp/cc4TR7DJ.s:779    .debug_str:000000000000039d .LASF72
+     /tmp/cc4TR7DJ.s:667    .debug_str:000000000000009f .LASF73
+     /tmp/cc4TR7DJ.s:737    .debug_str:000000000000026e .LASF74
+     /tmp/cc4TR7DJ.s:691    .debug_str:000000000000013c .LASF75
+     /tmp/cc4TR7DJ.s:759    .debug_str:000000000000030f .LASF76
+     /tmp/cc4TR7DJ.s:713    .debug_str:00000000000001bd .LASF85
+     /tmp/cc4TR7DJ.s:53     .text._fini:0000000000000000 .LFB6
+     /tmp/cc4TR7DJ.s:59     .text._fini:0000000000000002 .LFE6
+     /tmp/cc4TR7DJ.s:809    .debug_str:0000000000000522 .LASF86
+GAS LISTING /tmp/cc4TR7DJ.s 			page 5
+
+
+     /tmp/cc4TR7DJ.s:14     .text._init:0000000000000000 .LFB5
+     /tmp/cc4TR7DJ.s:46     .text._init:000000000000002c .LFE5
+     /tmp/cc4TR7DJ.s:600    .debug_loc:0000000000000000 .LLST0
+     /tmp/cc4TR7DJ.s:27     .text._init:000000000000000c .LVL0
+     /tmp/cc4TR7DJ.s:31     .text._init:0000000000000018 .LVL1
+     /tmp/cc4TR7DJ.s:34     .text._init:0000000000000020 .LVL2
+     /tmp/cc4TR7DJ.s:44     .text._init:000000000000002c .LVL3
+     /tmp/cc4TR7DJ.s:749    .debug_str:00000000000002c1 .LASF77
+     /tmp/cc4TR7DJ.s:653    .debug_str:000000000000004c .LASF78
+     /tmp/cc4TR7DJ.s:773    .debug_str:0000000000000369 .LASF79
+     /tmp/cc4TR7DJ.s:727    .debug_str:0000000000000216 .LASF80
+     /tmp/cc4TR7DJ.s:21     .text._init:0000000000000002 .LCFI0
+     /tmp/cc4TR7DJ.s:40     .text._init:0000000000000024 .LCFI1
+     /tmp/cc4TR7DJ.s:67     .debug_info:0000000000000000 .Ldebug_info0
+
+UNDEFINED SYMBOLS
+SystemInit
+eclic_init
+eclic_mode_enable
+disable_mcycle_minstret

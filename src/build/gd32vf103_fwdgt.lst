@@ -1,0 +1,630 @@
+GAS LISTING /tmp/ccnoKUtE.s 			page 1
+
+
+   1              		.file	"gd32vf103_fwdgt.c"
+   2              		.option nopic
+   3              		.attribute arch, "rv32i2p0_m2p0_a2p0_c2p0"
+   4              		.attribute unaligned_access, 0
+   5              		.attribute stack_align, 16
+   6              		.text
+   7              	.Ltext0:
+   8              		.cfi_sections	.debug_frame
+   9              		.section	.text.fwdgt_write_enable,"ax",@progbits
+  10              		.align	1
+  11              		.globl	fwdgt_write_enable
+  13              	fwdgt_write_enable:
+  14              	.LFB2:
+  15              		.file 1 "../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c"
+   1:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c **** /*!
+   2:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****     \file  gd32vf103_fwdgt.c
+   3:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****     \brief FWDGT driver
+   4:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****        
+   5:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****     \version 2019-6-5, V1.0.0, firmware for GD32VF103
+   6:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c **** */
+   7:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c **** 
+   8:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c **** /*
+   9:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****     Copyright (c) 2019, GigaDevice Semiconductor Inc.
+  10:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c **** 
+  11:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****     Redistribution and use in source and binary forms, with or without modification, 
+  12:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c **** are permitted provided that the following conditions are met:
+  13:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c **** 
+  14:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****     1. Redistributions of source code must retain the above copyright notice, this 
+  15:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****        list of conditions and the following disclaimer.
+  16:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****     2. Redistributions in binary form must reproduce the above copyright notice, 
+  17:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****        this list of conditions and the following disclaimer in the documentation 
+  18:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****        and/or other materials provided with the distribution.
+  19:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****     3. Neither the name of the copyright holder nor the names of its contributors 
+  20:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****        may be used to endorse or promote products derived from this software without 
+  21:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****        specific prior written permission.
+  22:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c **** 
+  23:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****     THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
+  24:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c **** AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+  25:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c **** WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
+  26:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c **** IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, 
+  27:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c **** INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT 
+  28:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c **** NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR 
+  29:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c **** PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
+  30:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c **** WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+  31:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c **** ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY 
+  32:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c **** OF SUCH DAMAGE.
+  33:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c **** */
+  34:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c **** 
+  35:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c **** #include "gd32vf103_fwdgt.h"
+  36:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c **** 
+  37:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c **** /* write value to FWDGT_CTL_CMD bit field */
+  38:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c **** #define CTL_CMD(regval)             (BITS(0,15) & ((uint32_t)(regval) << 0))
+  39:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c **** /* write value to FWDGT_RLD_RLD bit field */
+  40:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c **** #define RLD_RLD(regval)             (BITS(0,11) & ((uint32_t)(regval) << 0))
+  41:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c **** 
+  42:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c **** /*!
+  43:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****     \brief      enable write access to FWDGT_PSC and FWDGT_RLD
+GAS LISTING /tmp/ccnoKUtE.s 			page 2
+
+
+  44:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****     \param[in]  none
+  45:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****     \param[out] none
+  46:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****     \retval     none
+  47:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c **** */
+  48:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c **** void fwdgt_write_enable(void)
+  49:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c **** {
+  16              		.loc 1 49 1
+  17              		.cfi_startproc
+  50:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****     FWDGT_CTL = FWDGT_WRITEACCESS_ENABLE;
+  18              		.loc 1 50 5
+  19              		.loc 1 50 15 is_stmt 0
+  20 0000 9567     		li	a5,20480
+  21 0002 37370040 		li	a4,1073754112
+  22 0006 93875755 		addi	a5,a5,1365
+  23 000a 1CC3     		sw	a5,0(a4)
+  51:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c **** }
+  24              		.loc 1 51 1
+  25 000c 8280     		ret
+  26              		.cfi_endproc
+  27              	.LFE2:
+  29              		.section	.text.fwdgt_write_disable,"ax",@progbits
+  30              		.align	1
+  31              		.globl	fwdgt_write_disable
+  33              	fwdgt_write_disable:
+  34              	.LFB3:
+  52:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c **** 
+  53:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c **** /*!
+  54:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****     \brief      disable write access to FWDGT_PSC and FWDGT_RLD
+  55:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****     \param[in]  none
+  56:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****     \param[out] none
+  57:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****     \retval     none
+  58:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c **** */
+  59:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c **** void fwdgt_write_disable(void)
+  60:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c **** {
+  35              		.loc 1 60 1 is_stmt 1
+  36              		.cfi_startproc
+  61:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****     FWDGT_CTL = FWDGT_WRITEACCESS_DISABLE;
+  37              		.loc 1 61 5
+  38              		.loc 1 61 15 is_stmt 0
+  39 0000 B7370040 		li	a5,1073754112
+  40 0004 23A00700 		sw	zero,0(a5)
+  62:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c **** }
+  41              		.loc 1 62 1
+  42 0008 8280     		ret
+  43              		.cfi_endproc
+  44              	.LFE3:
+  46              		.section	.text.fwdgt_enable,"ax",@progbits
+  47              		.align	1
+  48              		.globl	fwdgt_enable
+  50              	fwdgt_enable:
+  51              	.LFB4:
+  63:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c **** 
+  64:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c **** /*!
+  65:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****     \brief      start the free watchdog timer counter
+  66:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****     \param[in]  none
+  67:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****     \param[out] none
+  68:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****     \retval     none
+GAS LISTING /tmp/ccnoKUtE.s 			page 3
+
+
+  69:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c **** */
+  70:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c **** void fwdgt_enable(void)
+  71:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c **** {
+  52              		.loc 1 71 1 is_stmt 1
+  53              		.cfi_startproc
+  72:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****     FWDGT_CTL = FWDGT_KEY_ENABLE;
+  54              		.loc 1 72 5
+  55              		.loc 1 72 15 is_stmt 0
+  56 0000 B567     		li	a5,53248
+  57 0002 37370040 		li	a4,1073754112
+  58 0006 9387C7CC 		addi	a5,a5,-820
+  59 000a 1CC3     		sw	a5,0(a4)
+  73:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c **** }
+  60              		.loc 1 73 1
+  61 000c 8280     		ret
+  62              		.cfi_endproc
+  63              	.LFE4:
+  65              		.section	.text.fwdgt_counter_reload,"ax",@progbits
+  66              		.align	1
+  67              		.globl	fwdgt_counter_reload
+  69              	fwdgt_counter_reload:
+  70              	.LFB5:
+  74:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c **** 
+  75:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c **** /*!
+  76:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****     \brief      reload the counter of FWDGT
+  77:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****     \param[in]  none
+  78:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****     \param[out] none
+  79:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****     \retval     none
+  80:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c **** */
+  81:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c **** void fwdgt_counter_reload(void)
+  82:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c **** {
+  71              		.loc 1 82 1 is_stmt 1
+  72              		.cfi_startproc
+  83:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****     FWDGT_CTL = FWDGT_KEY_RELOAD;
+  73              		.loc 1 83 5
+  74              		.loc 1 83 15 is_stmt 0
+  75 0000 AD67     		li	a5,45056
+  76 0002 37370040 		li	a4,1073754112
+  77 0006 9387A7AA 		addi	a5,a5,-1366
+  78 000a 1CC3     		sw	a5,0(a4)
+  84:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c **** }
+  79              		.loc 1 84 1
+  80 000c 8280     		ret
+  81              		.cfi_endproc
+  82              	.LFE5:
+  84              		.section	.text.fwdgt_config,"ax",@progbits
+  85              		.align	1
+  86              		.globl	fwdgt_config
+  88              	fwdgt_config:
+  89              	.LFB6:
+  85:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c **** 
+  86:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c **** /*!
+  87:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****     \brief      configure counter reload value, and prescaler divider value
+  88:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****     \param[in]  reload_value: specify reload value(0x0000 - 0x0FFF)
+  89:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****     \param[in]  prescaler_div: FWDGT prescaler value
+  90:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****                 only one parameter can be selected which is shown as below:
+  91:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****       \arg        FWDGT_PSC_DIV4: FWDGT prescaler set to 4
+GAS LISTING /tmp/ccnoKUtE.s 			page 4
+
+
+  92:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****       \arg        FWDGT_PSC_DIV8: FWDGT prescaler set to 8
+  93:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****       \arg        FWDGT_PSC_DIV16: FWDGT prescaler set to 16
+  94:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****       \arg        FWDGT_PSC_DIV32: FWDGT prescaler set to 32
+  95:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****       \arg        FWDGT_PSC_DIV64: FWDGT prescaler set to 64
+  96:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****       \arg        FWDGT_PSC_DIV128: FWDGT prescaler set to 128
+  97:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****       \arg        FWDGT_PSC_DIV256: FWDGT prescaler set to 256
+  98:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****     \param[out] none
+  99:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****     \retval     ErrStatus: ERROR or SUCCESS
+ 100:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c **** */
+ 101:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c **** ErrStatus fwdgt_config(uint16_t reload_value, uint8_t prescaler_div)
+ 102:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c **** {
+  90              		.loc 1 102 1 is_stmt 1
+  91              		.cfi_startproc
+  92              	.LVL0:
+ 103:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****     uint32_t timeout = FWDGT_PSC_TIMEOUT;
+  93              		.loc 1 103 5
+ 104:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****     uint32_t flag_status = RESET;
+  94              		.loc 1 104 5
+ 105:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****   
+ 106:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****     /* enable write access to FWDGT_PSC,and FWDGT_RLD */
+ 107:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****     FWDGT_CTL = FWDGT_WRITEACCESS_ENABLE;
+  95              		.loc 1 107 5
+  96              		.loc 1 107 15 is_stmt 0
+  97 0000 9567     		li	a5,20480
+  98 0002 37370040 		li	a4,1073754112
+  99 0006 93875755 		addi	a5,a5,1365
+ 100 000a 1CC3     		sw	a5,0(a4)
+ 108:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****     /* wait until the PUD flag to be reset */
+ 109:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****     do{
+ 101              		.loc 1 109 5 is_stmt 1
+ 110:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****        flag_status = FWDGT_STAT & FWDGT_STAT_PUD;
+ 102              		.loc 1 110 8
+ 103              		.loc 1 110 22 is_stmt 0
+ 104 000c 5C47     		lw	a5,12(a4)
+ 105              		.loc 1 110 20
+ 106 000e 37071000 		li	a4,1048576
+ 107 0012 7917     		addi	a4,a4,-2
+ 108 0014 858B     		andi	a5,a5,1
+ 109              	.LVL1:
+ 111:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****     }while((--timeout > 0U) && ((uint32_t)RESET != flag_status));
+ 110              		.loc 1 111 11 is_stmt 1
+ 110:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****        flag_status = FWDGT_STAT & FWDGT_STAT_PUD;
+ 111              		.loc 1 110 22 is_stmt 0
+ 112 0016 B7360040 		li	a3,1073754112
+ 113 001a 21A0     		j	.L7
+ 114              	.LVL2:
+ 115              	.L9:
+ 110:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****        flag_status = FWDGT_STAT & FWDGT_STAT_PUD;
+ 116              		.loc 1 110 22 discriminator 2
+ 117 001c DC46     		lw	a5,12(a3)
+ 118              	.LVL3:
+ 110:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****        flag_status = FWDGT_STAT & FWDGT_STAT_PUD;
+ 119              		.loc 1 110 20 discriminator 2
+ 120 001e 858B     		andi	a5,a5,1
+ 121              	.LVL4:
+ 122              		.loc 1 111 11 is_stmt 1 discriminator 2
+ 123              		.loc 1 111 5 is_stmt 0 discriminator 2
+GAS LISTING /tmp/ccnoKUtE.s 			page 5
+
+
+ 124 0020 15CF     		beq	a4,zero,.L8
+ 125              	.L7:
+ 109:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****        flag_status = FWDGT_STAT & FWDGT_STAT_PUD;
+ 126              		.loc 1 109 5 is_stmt 1 discriminator 1
+ 110:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****        flag_status = FWDGT_STAT & FWDGT_STAT_PUD;
+ 127              		.loc 1 110 8 discriminator 1
+ 128              	.LVL5:
+ 129              		.loc 1 111 5 is_stmt 0 discriminator 1
+ 130 0022 7D17     		addi	a4,a4,-1
+ 131              	.LVL6:
+ 132              		.loc 1 111 29 discriminator 1
+ 133 0024 E5FF     		bne	a5,zero,.L9
+ 134              	.LVL7:
+ 135              	.L10:
+ 112:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****     
+ 113:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****     if((uint32_t)RESET != flag_status){
+ 114:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****         return ERROR;
+ 115:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****     }
+ 116:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****     /* configure FWDGT */
+ 117:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****     FWDGT_PSC = (uint32_t)prescaler_div;
+ 136              		.loc 1 117 5 is_stmt 1
+ 137              		.loc 1 117 15 is_stmt 0
+ 138 0026 B7370040 		li	a5,1073754112
+ 139              	.LVL8:
+ 140 002a CCC3     		sw	a1,4(a5)
+ 118:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c **** 
+ 119:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****     timeout = FWDGT_RLD_TIMEOUT;
+ 141              		.loc 1 119 5 is_stmt 1
+ 142              	.LVL9:
+ 120:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****     /* wait until the RUD flag to be reset */
+ 121:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****     do{
+ 143              		.loc 1 121 5
+ 122:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****        flag_status = FWDGT_STAT & FWDGT_STAT_RUD;
+ 144              		.loc 1 122 8
+ 145              		.loc 1 122 22 is_stmt 0
+ 146 002c DC47     		lw	a5,12(a5)
+ 147              		.loc 1 122 20
+ 148 002e 37071000 		li	a4,1048576
+ 149 0032 7917     		addi	a4,a4,-2
+ 150 0034 898B     		andi	a5,a5,2
+ 151              	.LVL10:
+ 123:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****     }while((--timeout > 0U) && ((uint32_t)RESET != flag_status));
+ 152              		.loc 1 123 11 is_stmt 1
+ 122:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****        flag_status = FWDGT_STAT & FWDGT_STAT_RUD;
+ 153              		.loc 1 122 22 is_stmt 0
+ 154 0036 B7360040 		li	a3,1073754112
+ 155 003a 21A0     		j	.L12
+ 156              	.LVL11:
+ 157              	.L14:
+ 122:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****        flag_status = FWDGT_STAT & FWDGT_STAT_RUD;
+ 158              		.loc 1 122 22 discriminator 2
+ 159 003c DC46     		lw	a5,12(a3)
+ 160              	.LVL12:
+ 122:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****        flag_status = FWDGT_STAT & FWDGT_STAT_RUD;
+ 161              		.loc 1 122 20 discriminator 2
+ 162 003e 898B     		andi	a5,a5,2
+ 163              	.LVL13:
+GAS LISTING /tmp/ccnoKUtE.s 			page 6
+
+
+ 164              		.loc 1 123 11 is_stmt 1 discriminator 2
+ 165              		.loc 1 123 5 is_stmt 0 discriminator 2
+ 166 0040 0DC3     		beq	a4,zero,.L13
+ 167              	.L12:
+ 121:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****        flag_status = FWDGT_STAT & FWDGT_STAT_RUD;
+ 168              		.loc 1 121 5 is_stmt 1 discriminator 1
+ 122:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****        flag_status = FWDGT_STAT & FWDGT_STAT_RUD;
+ 169              		.loc 1 122 8 discriminator 1
+ 170              	.LVL14:
+ 171              		.loc 1 123 5 is_stmt 0 discriminator 1
+ 172 0042 7D17     		addi	a4,a4,-1
+ 173              	.LVL15:
+ 174              		.loc 1 123 29 discriminator 1
+ 175 0044 E5FF     		bne	a5,zero,.L14
+ 176              	.LVL16:
+ 177              	.L15:
+ 124:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****    
+ 125:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****     if((uint32_t)RESET != flag_status){
+ 126:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****         return ERROR;
+ 127:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****     }
+ 128:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****     FWDGT_RLD = RLD_RLD(reload_value);
+ 178              		.loc 1 128 5 is_stmt 1
+ 179              		.loc 1 128 17 is_stmt 0
+ 180 0046 5205     		slli	a0,a0,20
+ 181              	.LVL17:
+ 182              		.loc 1 128 15
+ 183 0048 37370040 		li	a4,1073754112
+ 184              		.loc 1 128 17
+ 185 004c 5181     		srli	a0,a0,20
+ 129:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****     /* reload the counter */
+ 130:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****     FWDGT_CTL = FWDGT_KEY_RELOAD;
+ 186              		.loc 1 130 15
+ 187 004e AD67     		li	a5,45056
+ 188              	.LVL18:
+ 128:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****     /* reload the counter */
+ 189              		.loc 1 128 15
+ 190 0050 08C7     		sw	a0,8(a4)
+ 191              		.loc 1 130 5 is_stmt 1
+ 192              		.loc 1 130 15 is_stmt 0
+ 193 0052 9387A7AA 		addi	a5,a5,-1366
+ 194 0056 1CC3     		sw	a5,0(a4)
+ 131:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c **** 
+ 132:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****     return SUCCESS;
+ 195              		.loc 1 132 5 is_stmt 1
+ 196              		.loc 1 132 12 is_stmt 0
+ 197 0058 0545     		li	a0,1
+ 133:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c **** }
+ 198              		.loc 1 133 1
+ 199 005a 8280     		ret
+ 200              	.LVL19:
+ 201              	.L8:
+ 113:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****         return ERROR;
+ 202              		.loc 1 113 5 is_stmt 1
+ 113:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****         return ERROR;
+ 203              		.loc 1 113 7 is_stmt 0
+ 204 005c E9D7     		beq	a5,zero,.L10
+ 114:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****     }
+GAS LISTING /tmp/ccnoKUtE.s 			page 7
+
+
+ 205              		.loc 1 114 16
+ 206 005e 0145     		li	a0,0
+ 207              	.LVL20:
+ 208 0060 8280     		ret
+ 209              	.LVL21:
+ 210              	.L13:
+ 125:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****         return ERROR;
+ 211              		.loc 1 125 5 is_stmt 1
+ 125:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****         return ERROR;
+ 212              		.loc 1 125 7 is_stmt 0
+ 213 0062 F5D3     		beq	a5,zero,.L15
+ 114:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****     }
+ 214              		.loc 1 114 16
+ 215 0064 0145     		li	a0,0
+ 216              	.LVL22:
+ 217 0066 8280     		ret
+ 218              		.cfi_endproc
+ 219              	.LFE6:
+ 221              		.section	.text.fwdgt_flag_get,"ax",@progbits
+ 222              		.align	1
+ 223              		.globl	fwdgt_flag_get
+ 225              	fwdgt_flag_get:
+ 226              	.LFB7:
+ 134:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c **** 
+ 135:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c **** /*!
+ 136:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****     \brief      get flag state of FWDGT
+ 137:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****     \param[in]  flag: flag to get 
+ 138:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****                 only one parameter can be selected which is shown as below:
+ 139:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****       \arg        FWDGT_FLAG_PUD: a write operation to FWDGT_PSC register is on going
+ 140:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****       \arg        FWDGT_FLAG_RUD: a write operation to FWDGT_RLD register is on going
+ 141:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****     \param[out] none
+ 142:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****     \retval     FlagStatus: SET or RESET
+ 143:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c **** */
+ 144:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c **** FlagStatus fwdgt_flag_get(uint16_t flag)
+ 145:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c **** {
+ 227              		.loc 1 145 1 is_stmt 1
+ 228              		.cfi_startproc
+ 229              	.LVL23:
+ 146:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****     if(FWDGT_STAT & flag){
+ 230              		.loc 1 146 5
+ 231              		.loc 1 146 8 is_stmt 0
+ 232 0000 B7370040 		li	a5,1073754112
+ 233 0004 DC47     		lw	a5,12(a5)
+ 234              		.loc 1 146 19
+ 235 0006 7D8D     		and	a0,a0,a5
+ 236              	.LVL24:
+ 147:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****         return SET;
+ 148:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****     }
+ 149:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****     
+ 150:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c ****     return RESET;
+ 151:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_fwdgt.c **** }
+ 237              		.loc 1 151 1
+ 238 0008 3335A000 		snez	a0,a0
+ 239 000c 8280     		ret
+ 240              		.cfi_endproc
+ 241              	.LFE7:
+ 243              		.text
+GAS LISTING /tmp/ccnoKUtE.s 			page 8
+
+
+ 244              	.Letext0:
+ 245              		.file 2 "/home/johnson/Documents/mpb-toolchain/build/riscv32-mapleboard-elf/include/machine/_defau
+ 246              		.file 3 "/home/johnson/Documents/mpb-toolchain/build/riscv32-mapleboard-elf/include/sys/_stdint.h"
+ 247              		.file 4 "../Firmware/GD32VF103_standard_peripheral/gd32vf103.h"
+GAS LISTING /tmp/ccnoKUtE.s 			page 9
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 gd32vf103_fwdgt.c
+     /tmp/ccnoKUtE.s:13     .text.fwdgt_write_enable:0000000000000000 fwdgt_write_enable
+     /tmp/ccnoKUtE.s:17     .text.fwdgt_write_enable:0000000000000000 .L0 
+     /tmp/ccnoKUtE.s:18     .text.fwdgt_write_enable:0000000000000000 .L0 
+     /tmp/ccnoKUtE.s:19     .text.fwdgt_write_enable:0000000000000000 .L0 
+     /tmp/ccnoKUtE.s:20     .text.fwdgt_write_enable:0000000000000000 .L0 
+     /tmp/ccnoKUtE.s:25     .text.fwdgt_write_enable:000000000000000c .L0 
+     /tmp/ccnoKUtE.s:26     .text.fwdgt_write_enable:000000000000000e .L0 
+     /tmp/ccnoKUtE.s:33     .text.fwdgt_write_disable:0000000000000000 fwdgt_write_disable
+     /tmp/ccnoKUtE.s:36     .text.fwdgt_write_disable:0000000000000000 .L0 
+     /tmp/ccnoKUtE.s:37     .text.fwdgt_write_disable:0000000000000000 .L0 
+     /tmp/ccnoKUtE.s:38     .text.fwdgt_write_disable:0000000000000000 .L0 
+     /tmp/ccnoKUtE.s:39     .text.fwdgt_write_disable:0000000000000000 .L0 
+     /tmp/ccnoKUtE.s:42     .text.fwdgt_write_disable:0000000000000008 .L0 
+     /tmp/ccnoKUtE.s:43     .text.fwdgt_write_disable:000000000000000a .L0 
+     /tmp/ccnoKUtE.s:50     .text.fwdgt_enable:0000000000000000 fwdgt_enable
+     /tmp/ccnoKUtE.s:53     .text.fwdgt_enable:0000000000000000 .L0 
+     /tmp/ccnoKUtE.s:54     .text.fwdgt_enable:0000000000000000 .L0 
+     /tmp/ccnoKUtE.s:55     .text.fwdgt_enable:0000000000000000 .L0 
+     /tmp/ccnoKUtE.s:56     .text.fwdgt_enable:0000000000000000 .L0 
+     /tmp/ccnoKUtE.s:61     .text.fwdgt_enable:000000000000000c .L0 
+     /tmp/ccnoKUtE.s:62     .text.fwdgt_enable:000000000000000e .L0 
+     /tmp/ccnoKUtE.s:69     .text.fwdgt_counter_reload:0000000000000000 fwdgt_counter_reload
+     /tmp/ccnoKUtE.s:72     .text.fwdgt_counter_reload:0000000000000000 .L0 
+     /tmp/ccnoKUtE.s:73     .text.fwdgt_counter_reload:0000000000000000 .L0 
+     /tmp/ccnoKUtE.s:74     .text.fwdgt_counter_reload:0000000000000000 .L0 
+     /tmp/ccnoKUtE.s:75     .text.fwdgt_counter_reload:0000000000000000 .L0 
+     /tmp/ccnoKUtE.s:80     .text.fwdgt_counter_reload:000000000000000c .L0 
+     /tmp/ccnoKUtE.s:81     .text.fwdgt_counter_reload:000000000000000e .L0 
+     /tmp/ccnoKUtE.s:88     .text.fwdgt_config:0000000000000000 fwdgt_config
+     /tmp/ccnoKUtE.s:91     .text.fwdgt_config:0000000000000000 .L0 
+     /tmp/ccnoKUtE.s:93     .text.fwdgt_config:0000000000000000 .L0 
+     /tmp/ccnoKUtE.s:94     .text.fwdgt_config:0000000000000000 .L0 
+     /tmp/ccnoKUtE.s:95     .text.fwdgt_config:0000000000000000 .L0 
+     /tmp/ccnoKUtE.s:96     .text.fwdgt_config:0000000000000000 .L0 
+     /tmp/ccnoKUtE.s:97     .text.fwdgt_config:0000000000000000 .L0 
+     /tmp/ccnoKUtE.s:102    .text.fwdgt_config:000000000000000c .L0 
+     /tmp/ccnoKUtE.s:103    .text.fwdgt_config:000000000000000c .L0 
+     /tmp/ccnoKUtE.s:104    .text.fwdgt_config:000000000000000c .L0 
+     /tmp/ccnoKUtE.s:106    .text.fwdgt_config:000000000000000e .L0 
+     /tmp/ccnoKUtE.s:111    .text.fwdgt_config:0000000000000016 .L0 
+     /tmp/ccnoKUtE.s:112    .text.fwdgt_config:0000000000000016 .L0 
+     /tmp/ccnoKUtE.s:117    .text.fwdgt_config:000000000000001c .L0 
+     /tmp/ccnoKUtE.s:120    .text.fwdgt_config:000000000000001e .L0 
+     /tmp/ccnoKUtE.s:123    .text.fwdgt_config:0000000000000020 .L0 
+     /tmp/ccnoKUtE.s:124    .text.fwdgt_config:0000000000000020 .L0 
+     /tmp/ccnoKUtE.s:127    .text.fwdgt_config:0000000000000022 .L0 
+     /tmp/ccnoKUtE.s:129    .text.fwdgt_config:0000000000000022 .L0 
+     /tmp/ccnoKUtE.s:130    .text.fwdgt_config:0000000000000022 .L0 
+     /tmp/ccnoKUtE.s:133    .text.fwdgt_config:0000000000000024 .L0 
+     /tmp/ccnoKUtE.s:137    .text.fwdgt_config:0000000000000026 .L0 
+     /tmp/ccnoKUtE.s:138    .text.fwdgt_config:0000000000000026 .L0 
+     /tmp/ccnoKUtE.s:143    .text.fwdgt_config:000000000000002c .L0 
+     /tmp/ccnoKUtE.s:144    .text.fwdgt_config:000000000000002c .L0 
+     /tmp/ccnoKUtE.s:145    .text.fwdgt_config:000000000000002c .L0 
+     /tmp/ccnoKUtE.s:146    .text.fwdgt_config:000000000000002c .L0 
+GAS LISTING /tmp/ccnoKUtE.s 			page 10
+
+
+     /tmp/ccnoKUtE.s:148    .text.fwdgt_config:000000000000002e .L0 
+     /tmp/ccnoKUtE.s:153    .text.fwdgt_config:0000000000000036 .L0 
+     /tmp/ccnoKUtE.s:154    .text.fwdgt_config:0000000000000036 .L0 
+     /tmp/ccnoKUtE.s:159    .text.fwdgt_config:000000000000003c .L0 
+     /tmp/ccnoKUtE.s:162    .text.fwdgt_config:000000000000003e .L0 
+     /tmp/ccnoKUtE.s:165    .text.fwdgt_config:0000000000000040 .L0 
+     /tmp/ccnoKUtE.s:166    .text.fwdgt_config:0000000000000040 .L0 
+     /tmp/ccnoKUtE.s:169    .text.fwdgt_config:0000000000000042 .L0 
+     /tmp/ccnoKUtE.s:171    .text.fwdgt_config:0000000000000042 .L0 
+     /tmp/ccnoKUtE.s:172    .text.fwdgt_config:0000000000000042 .L0 
+     /tmp/ccnoKUtE.s:175    .text.fwdgt_config:0000000000000044 .L0 
+     /tmp/ccnoKUtE.s:179    .text.fwdgt_config:0000000000000046 .L0 
+     /tmp/ccnoKUtE.s:180    .text.fwdgt_config:0000000000000046 .L0 
+     /tmp/ccnoKUtE.s:183    .text.fwdgt_config:0000000000000048 .L0 
+     /tmp/ccnoKUtE.s:185    .text.fwdgt_config:000000000000004c .L0 
+     /tmp/ccnoKUtE.s:187    .text.fwdgt_config:000000000000004e .L0 
+     /tmp/ccnoKUtE.s:190    .text.fwdgt_config:0000000000000050 .L0 
+     /tmp/ccnoKUtE.s:192    .text.fwdgt_config:0000000000000052 .L0 
+     /tmp/ccnoKUtE.s:193    .text.fwdgt_config:0000000000000052 .L0 
+     /tmp/ccnoKUtE.s:196    .text.fwdgt_config:0000000000000058 .L0 
+     /tmp/ccnoKUtE.s:197    .text.fwdgt_config:0000000000000058 .L0 
+     /tmp/ccnoKUtE.s:199    .text.fwdgt_config:000000000000005a .L0 
+     /tmp/ccnoKUtE.s:203    .text.fwdgt_config:000000000000005c .L0 
+     /tmp/ccnoKUtE.s:204    .text.fwdgt_config:000000000000005c .L0 
+     /tmp/ccnoKUtE.s:206    .text.fwdgt_config:000000000000005e .L0 
+     /tmp/ccnoKUtE.s:212    .text.fwdgt_config:0000000000000062 .L0 
+     /tmp/ccnoKUtE.s:213    .text.fwdgt_config:0000000000000062 .L0 
+     /tmp/ccnoKUtE.s:215    .text.fwdgt_config:0000000000000064 .L0 
+     /tmp/ccnoKUtE.s:218    .text.fwdgt_config:0000000000000068 .L0 
+     /tmp/ccnoKUtE.s:225    .text.fwdgt_flag_get:0000000000000000 fwdgt_flag_get
+     /tmp/ccnoKUtE.s:228    .text.fwdgt_flag_get:0000000000000000 .L0 
+     /tmp/ccnoKUtE.s:230    .text.fwdgt_flag_get:0000000000000000 .L0 
+     /tmp/ccnoKUtE.s:231    .text.fwdgt_flag_get:0000000000000000 .L0 
+     /tmp/ccnoKUtE.s:232    .text.fwdgt_flag_get:0000000000000000 .L0 
+     /tmp/ccnoKUtE.s:235    .text.fwdgt_flag_get:0000000000000006 .L0 
+     /tmp/ccnoKUtE.s:238    .text.fwdgt_flag_get:0000000000000008 .L0 
+     /tmp/ccnoKUtE.s:240    .text.fwdgt_flag_get:000000000000000e .L0 
+     /tmp/ccnoKUtE.s:29     .text.fwdgt_write_enable:000000000000000e .L0 
+     /tmp/ccnoKUtE.s:46     .text.fwdgt_write_disable:000000000000000a .L0 
+     /tmp/ccnoKUtE.s:65     .text.fwdgt_enable:000000000000000e .L0 
+     /tmp/ccnoKUtE.s:84     .text.fwdgt_counter_reload:000000000000000e .L0 
+     /tmp/ccnoKUtE.s:221    .text.fwdgt_config:0000000000000068 .L0 
+     /tmp/ccnoKUtE.s:243    .text.fwdgt_flag_get:000000000000000e .L0 
+                     .debug_frame:0000000000000000 .L0 
+     /tmp/ccnoKUtE.s:125    .text.fwdgt_config:0000000000000022 .L7
+     /tmp/ccnoKUtE.s:201    .text.fwdgt_config:000000000000005c .L8
+     /tmp/ccnoKUtE.s:115    .text.fwdgt_config:000000000000001c .L9
+     /tmp/ccnoKUtE.s:167    .text.fwdgt_config:0000000000000042 .L12
+     /tmp/ccnoKUtE.s:210    .text.fwdgt_config:0000000000000062 .L13
+     /tmp/ccnoKUtE.s:157    .text.fwdgt_config:000000000000003c .L14
+     /tmp/ccnoKUtE.s:135    .text.fwdgt_config:0000000000000026 .L10
+     /tmp/ccnoKUtE.s:177    .text.fwdgt_config:0000000000000046 .L15
+     /tmp/ccnoKUtE.s:510    .debug_abbrev:0000000000000000 .Ldebug_abbrev0
+     /tmp/ccnoKUtE.s:901    .debug_str:0000000000000000 .LASF32
+     /tmp/ccnoKUtE.s:967    .debug_str:0000000000000248 .LASF33
+     /tmp/ccnoKUtE.s:907    .debug_str:00000000000000ad .LASF34
+     /tmp/ccnoKUtE.s:883    .debug_ranges:0000000000000000 .Ldebug_ranges0
+GAS LISTING /tmp/ccnoKUtE.s 			page 11
+
+
+     /tmp/ccnoKUtE.s:899    .debug_line:0000000000000000 .Ldebug_line0
+     /tmp/ccnoKUtE.s:941    .debug_str:00000000000001b3 .LASF0
+     /tmp/ccnoKUtE.s:963    .debug_str:0000000000000236 .LASF1
+     /tmp/ccnoKUtE.s:903    .debug_str:0000000000000099 .LASF4
+     /tmp/ccnoKUtE.s:913    .debug_str:0000000000000107 .LASF2
+     /tmp/ccnoKUtE.s:951    .debug_str:00000000000001f5 .LASF3
+     /tmp/ccnoKUtE.s:927    .debug_str:0000000000000159 .LASF5
+     /tmp/ccnoKUtE.s:911    .debug_str:00000000000000f4 .LASF6
+     /tmp/ccnoKUtE.s:925    .debug_str:0000000000000150 .LASF7
+     /tmp/ccnoKUtE.s:933    .debug_str:0000000000000183 .LASF8
+     /tmp/ccnoKUtE.s:929    .debug_str:0000000000000164 .LASF9
+     /tmp/ccnoKUtE.s:947    .debug_str:00000000000001df .LASF10
+     /tmp/ccnoKUtE.s:943    .debug_str:00000000000001c0 .LASF11
+     /tmp/ccnoKUtE.s:945    .debug_str:00000000000001d7 .LASF12
+     /tmp/ccnoKUtE.s:953    .debug_str:00000000000001ff .LASF13
+     /tmp/ccnoKUtE.s:957    .debug_str:000000000000021b .LASF14
+     /tmp/ccnoKUtE.s:965    .debug_str:0000000000000242 .LASF15
+     /tmp/ccnoKUtE.s:917    .debug_str:000000000000011d .LASF16
+     /tmp/ccnoKUtE.s:959    .debug_str:0000000000000224 .LASF17
+     /tmp/ccnoKUtE.s:915    .debug_str:0000000000000115 .LASF18
+     /tmp/ccnoKUtE.s:905    .debug_str:00000000000000a3 .LASF19
+     /tmp/ccnoKUtE.s:961    .debug_str:000000000000022a .LASF20
+     /tmp/ccnoKUtE.s:969    .debug_str:000000000000028b .LASF21
+     /tmp/ccnoKUtE.s:226    .text.fwdgt_flag_get:0000000000000000 .LFB7
+     /tmp/ccnoKUtE.s:241    .text.fwdgt_flag_get:000000000000000e .LFE7
+     /tmp/ccnoKUtE.s:937    .debug_str:00000000000001a2 .LASF23
+     /tmp/ccnoKUtE.s:723    .debug_loc:0000000000000000 .LLST3
+     /tmp/ccnoKUtE.s:931    .debug_str:0000000000000176 .LASF22
+     /tmp/ccnoKUtE.s:89     .text.fwdgt_config:0000000000000000 .LFB6
+     /tmp/ccnoKUtE.s:219    .text.fwdgt_config:0000000000000068 .LFE6
+     /tmp/ccnoKUtE.s:923    .debug_str:0000000000000143 .LASF24
+     /tmp/ccnoKUtE.s:737    .debug_loc:0000000000000021 .LLST0
+     /tmp/ccnoKUtE.s:921    .debug_str:0000000000000135 .LASF25
+     /tmp/ccnoKUtE.s:949    .debug_str:00000000000001ed .LASF26
+     /tmp/ccnoKUtE.s:773    .debug_loc:0000000000000074 .LLST1
+     /tmp/ccnoKUtE.s:939    .debug_str:00000000000001a7 .LASF27
+     /tmp/ccnoKUtE.s:832    .debug_loc:0000000000000106 .LLST2
+     /tmp/ccnoKUtE.s:909    .debug_str:00000000000000df .LASF28
+     /tmp/ccnoKUtE.s:70     .text.fwdgt_counter_reload:0000000000000000 .LFB5
+     /tmp/ccnoKUtE.s:82     .text.fwdgt_counter_reload:000000000000000e .LFE5
+     /tmp/ccnoKUtE.s:919    .debug_str:0000000000000128 .LASF29
+     /tmp/ccnoKUtE.s:51     .text.fwdgt_enable:0000000000000000 .LFB4
+     /tmp/ccnoKUtE.s:63     .text.fwdgt_enable:000000000000000e .LFE4
+     /tmp/ccnoKUtE.s:935    .debug_str:000000000000018e .LASF30
+     /tmp/ccnoKUtE.s:34     .text.fwdgt_write_disable:0000000000000000 .LFB3
+     /tmp/ccnoKUtE.s:44     .text.fwdgt_write_disable:000000000000000a .LFE3
+     /tmp/ccnoKUtE.s:955    .debug_str:0000000000000208 .LASF31
+     /tmp/ccnoKUtE.s:14     .text.fwdgt_write_enable:0000000000000000 .LFB2
+     /tmp/ccnoKUtE.s:27     .text.fwdgt_write_enable:000000000000000e .LFE2
+     /tmp/ccnoKUtE.s:229    .text.fwdgt_flag_get:0000000000000000 .LVL23
+     /tmp/ccnoKUtE.s:236    .text.fwdgt_flag_get:0000000000000008 .LVL24
+     /tmp/ccnoKUtE.s:92     .text.fwdgt_config:0000000000000000 .LVL0
+     /tmp/ccnoKUtE.s:181    .text.fwdgt_config:0000000000000048 .LVL17
+     /tmp/ccnoKUtE.s:200    .text.fwdgt_config:000000000000005c .LVL19
+     /tmp/ccnoKUtE.s:207    .text.fwdgt_config:0000000000000060 .LVL20
+     /tmp/ccnoKUtE.s:209    .text.fwdgt_config:0000000000000062 .LVL21
+     /tmp/ccnoKUtE.s:216    .text.fwdgt_config:0000000000000066 .LVL22
+GAS LISTING /tmp/ccnoKUtE.s 			page 12
+
+
+     /tmp/ccnoKUtE.s:109    .text.fwdgt_config:0000000000000016 .LVL1
+     /tmp/ccnoKUtE.s:114    .text.fwdgt_config:000000000000001c .LVL2
+     /tmp/ccnoKUtE.s:121    .text.fwdgt_config:0000000000000020 .LVL4
+     /tmp/ccnoKUtE.s:128    .text.fwdgt_config:0000000000000022 .LVL5
+     /tmp/ccnoKUtE.s:131    .text.fwdgt_config:0000000000000024 .LVL6
+     /tmp/ccnoKUtE.s:134    .text.fwdgt_config:0000000000000026 .LVL7
+     /tmp/ccnoKUtE.s:142    .text.fwdgt_config:000000000000002c .LVL9
+     /tmp/ccnoKUtE.s:151    .text.fwdgt_config:0000000000000036 .LVL10
+     /tmp/ccnoKUtE.s:156    .text.fwdgt_config:000000000000003c .LVL11
+     /tmp/ccnoKUtE.s:163    .text.fwdgt_config:0000000000000040 .LVL13
+     /tmp/ccnoKUtE.s:170    .text.fwdgt_config:0000000000000042 .LVL14
+     /tmp/ccnoKUtE.s:173    .text.fwdgt_config:0000000000000044 .LVL15
+     /tmp/ccnoKUtE.s:176    .text.fwdgt_config:0000000000000046 .LVL16
+     /tmp/ccnoKUtE.s:118    .text.fwdgt_config:000000000000001e .LVL3
+     /tmp/ccnoKUtE.s:139    .text.fwdgt_config:000000000000002a .LVL8
+     /tmp/ccnoKUtE.s:160    .text.fwdgt_config:000000000000003e .LVL12
+     /tmp/ccnoKUtE.s:188    .text.fwdgt_config:0000000000000050 .LVL18
+     /tmp/ccnoKUtE.s:249    .debug_info:0000000000000000 .Ldebug_info0
+
+NO UNDEFINED SYMBOLS

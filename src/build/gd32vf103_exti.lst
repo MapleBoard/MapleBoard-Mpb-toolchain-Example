@@ -1,0 +1,965 @@
+GAS LISTING /tmp/ccqAhvQ4.s 			page 1
+
+
+   1              		.file	"gd32vf103_exti.c"
+   2              		.option nopic
+   3              		.attribute arch, "rv32i2p0_m2p0_a2p0_c2p0"
+   4              		.attribute unaligned_access, 0
+   5              		.attribute stack_align, 16
+   6              		.text
+   7              	.Ltext0:
+   8              		.cfi_sections	.debug_frame
+   9              		.section	.text.exti_deinit,"ax",@progbits
+  10              		.align	1
+  11              		.globl	exti_deinit
+  13              	exti_deinit:
+  14              	.LFB2:
+  15              		.file 1 "../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c"
+   1:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** /*!
+   2:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     \file    gd32vf103_exti.c
+   3:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     \brief   EXTI driver
+   4:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** 
+   5:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     \version 2019-6-5, V1.0.0, firmware for GD32VF103
+   6:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** */
+   7:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** 
+   8:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** /*
+   9:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     Copyright (c) 2019, GigaDevice Semiconductor Inc.
+  10:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** 
+  11:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     Redistribution and use in source and binary forms, with or without modification,
+  12:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** are permitted provided that the following conditions are met:
+  13:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** 
+  14:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     1. Redistributions of source code must retain the above copyright notice, this
+  15:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****        list of conditions and the following disclaimer.
+  16:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     2. Redistributions in binary form must reproduce the above copyright notice,
+  17:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****        this list of conditions and the following disclaimer in the documentation
+  18:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****        and/or other materials provided with the distribution.
+  19:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     3. Neither the name of the copyright holder nor the names of its contributors
+  20:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****        may be used to endorse or promote products derived from this software without
+  21:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****        specific prior written permission.
+  22:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** 
+  23:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+  24:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+  25:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+  26:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+  27:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+  28:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+  29:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+  30:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+  31:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY
+  32:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** OF SUCH DAMAGE.
+  33:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** */
+  34:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** 
+  35:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** #include "gd32vf103_exti.h"
+  36:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** 
+  37:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** #define EXTI_REG_RESET_VALUE            ((uint32_t)0x00000000U)
+  38:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** 
+  39:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** /*!
+  40:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****  \brief      deinitialize the EXTI
+  41:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****  \param[in]  none
+  42:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****  \param[out] none
+  43:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****  \retval     none
+GAS LISTING /tmp/ccqAhvQ4.s 			page 2
+
+
+  44:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****  */
+  45:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** void exti_deinit(void)
+  46:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** {
+  16              		.loc 1 46 1
+  17              		.cfi_startproc
+  47:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     /* reset the value of all the EXTI registers */
+  48:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     EXTI_INTEN = EXTI_REG_RESET_VALUE;
+  18              		.loc 1 48 5
+  19              		.loc 1 48 16 is_stmt 0
+  20 0000 B7070140 		li	a5,1073807360
+  21 0004 23A00740 		sw	zero,1024(a5)
+  49:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     EXTI_EVEN  = EXTI_REG_RESET_VALUE;
+  22              		.loc 1 49 5 is_stmt 1
+  23              		.loc 1 49 16 is_stmt 0
+  24 0008 23A20740 		sw	zero,1028(a5)
+  50:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     EXTI_RTEN  = EXTI_REG_RESET_VALUE;
+  25              		.loc 1 50 5 is_stmt 1
+  26              		.loc 1 50 16 is_stmt 0
+  27 000c 23A40740 		sw	zero,1032(a5)
+  51:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     EXTI_FTEN  = EXTI_REG_RESET_VALUE;
+  28              		.loc 1 51 5 is_stmt 1
+  29              		.loc 1 51 16 is_stmt 0
+  30 0010 23A60740 		sw	zero,1036(a5)
+  52:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     EXTI_SWIEV = EXTI_REG_RESET_VALUE;
+  31              		.loc 1 52 5 is_stmt 1
+  32              		.loc 1 52 16 is_stmt 0
+  33 0014 23A80740 		sw	zero,1040(a5)
+  53:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** }
+  34              		.loc 1 53 1
+  35 0018 8280     		ret
+  36              		.cfi_endproc
+  37              	.LFE2:
+  39              		.section	.text.exti_init,"ax",@progbits
+  40              		.align	1
+  41              		.globl	exti_init
+  43              	exti_init:
+  44              	.LFB3:
+  54:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** 
+  55:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** /*!
+  56:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     \brief      initialize the EXTI
+  57:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     \param[in]  linex: EXTI line number, refer to exti_line_enum
+  58:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****                 only one parameter can be selected which is shown as below:
+  59:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****       \arg        EXTI_x (x=0..18): EXTI line x
+  60:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     \param[in]  mode: interrupt or event mode, refer to exti_mode_enum
+  61:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****                 only one parameter can be selected which is shown as below:
+  62:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****       \arg        EXTI_INTERRUPT: interrupt mode
+  63:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****       \arg        EXTI_EVENT: event mode
+  64:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     \param[in]  trig_type: trigger type, refer to exti_trig_type_enum
+  65:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****                 only one parameter can be selected which is shown as below:
+  66:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****       \arg        EXTI_TRIG_RISING: rising edge trigger
+  67:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****       \arg        EXTI_TRIG_FALLING: falling edge trigger
+  68:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****       \arg        EXTI_TRIG_BOTH: rising edge and falling edge trigger
+  69:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****       \arg        EXTI_TRIG_NONE: without rising edge or falling edge trigger
+  70:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     \param[out] none
+  71:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     \retval     none
+  72:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****  */
+  73:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** void exti_init(exti_line_enum linex, exti_mode_enum mode, exti_trig_type_enum trig_type)
+GAS LISTING /tmp/ccqAhvQ4.s 			page 3
+
+
+  74:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** {
+  45              		.loc 1 74 1 is_stmt 1
+  46              		.cfi_startproc
+  47              	.LVL0:
+  75:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     /* reset the EXTI line x */
+  76:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     EXTI_INTEN &= ~(uint32_t) linex;
+  48              		.loc 1 76 5
+  49              		.loc 1 76 16 is_stmt 0
+  50 0000 B7070140 		li	a5,1073807360
+  51 0004 83A60740 		lw	a3,1024(a5)
+  52              		.loc 1 76 19
+  53 0008 1347F5FF 		not	a4,a0
+  54              		.loc 1 76 16
+  55 000c F98E     		and	a3,a3,a4
+  56 000e 23A0D740 		sw	a3,1024(a5)
+  77:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     EXTI_EVEN &= ~(uint32_t) linex;
+  57              		.loc 1 77 5 is_stmt 1
+  58              		.loc 1 77 15 is_stmt 0
+  59 0012 83A64740 		lw	a3,1028(a5)
+  60 0016 F98E     		and	a3,a4,a3
+  61 0018 23A2D740 		sw	a3,1028(a5)
+  78:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     EXTI_RTEN &= ~(uint32_t) linex;
+  62              		.loc 1 78 5 is_stmt 1
+  63              		.loc 1 78 15 is_stmt 0
+  64 001c 83A68740 		lw	a3,1032(a5)
+  65 0020 F98E     		and	a3,a4,a3
+  66 0022 23A4D740 		sw	a3,1032(a5)
+  79:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     EXTI_FTEN &= ~(uint32_t) linex;
+  67              		.loc 1 79 5 is_stmt 1
+  68              		.loc 1 79 15 is_stmt 0
+  69 0026 83A6C740 		lw	a3,1036(a5)
+  70 002a F98E     		and	a3,a4,a3
+  71 002c 23A6D740 		sw	a3,1036(a5)
+  80:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** 
+  81:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     /* set the EXTI mode and enable the interrupts or events from EXTI line x */
+  82:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     switch (mode) {
+  72              		.loc 1 82 5 is_stmt 1
+  73 0030 95CD     		beq	a1,zero,.L4
+  74 0032 8546     		li	a3,1
+  75 0034 6397D500 		bne	a1,a3,.L6
+  83:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     case EXTI_INTERRUPT:
+  84:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****         EXTI_INTEN |= (uint32_t) linex;
+  85:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****         break;
+  86:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     case EXTI_EVENT:
+  87:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****         EXTI_EVEN |= (uint32_t) linex;
+  76              		.loc 1 87 9
+  77              		.loc 1 87 19 is_stmt 0
+  78 0038 83A64740 		lw	a3,1028(a5)
+  79 003c C98E     		or	a3,a3,a0
+  80 003e 23A2D740 		sw	a3,1028(a5)
+  88:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****         break;
+  81              		.loc 1 88 9 is_stmt 1
+  82              	.L6:
+  89:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     default:
+  90:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****         break;
+  91:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     }
+  92:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** 
+GAS LISTING /tmp/ccqAhvQ4.s 			page 4
+
+
+  93:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     /* set the EXTI trigger type */
+  94:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     switch (trig_type) {
+  83              		.loc 1 94 5
+  84 0042 8547     		li	a5,1
+  85 0044 630CF602 		beq	a2,a5,.L7
+  86              	.L11:
+  87 0048 8947     		li	a5,2
+  88 004a 6306F604 		beq	a2,a5,.L8
+  89 004e 11C2     		beq	a2,zero,.L10
+  95:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     case EXTI_TRIG_RISING:
+  96:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****         EXTI_RTEN |= (uint32_t) linex;
+  97:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****         EXTI_FTEN &= ~(uint32_t) linex;
+  98:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****         break;
+  99:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     case EXTI_TRIG_FALLING:
+ 100:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****         EXTI_RTEN &= ~(uint32_t) linex;
+ 101:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****         EXTI_FTEN |= (uint32_t) linex;
+ 102:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****         break;
+ 103:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     case EXTI_TRIG_BOTH:
+ 104:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****         EXTI_RTEN |= (uint32_t) linex;
+ 105:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****         EXTI_FTEN |= (uint32_t) linex;
+ 106:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****         break;
+ 107:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     case EXTI_TRIG_NONE:
+ 108:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     default:
+ 109:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****         break;
+ 110:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     }
+ 111:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** }
+  90              		.loc 1 111 1 is_stmt 0
+  91 0050 8280     		ret
+  92              	.L10:
+  96:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****         EXTI_FTEN &= ~(uint32_t) linex;
+  93              		.loc 1 96 9 is_stmt 1
+  96:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****         EXTI_FTEN &= ~(uint32_t) linex;
+  94              		.loc 1 96 19 is_stmt 0
+  95 0052 B7070140 		li	a5,1073807360
+  96 0056 83A68740 		lw	a3,1032(a5)
+  97 005a 558D     		or	a0,a3,a0
+  98              	.LVL1:
+  99 005c 23A4A740 		sw	a0,1032(a5)
+  97:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****         break;
+ 100              		.loc 1 97 9 is_stmt 1
+  97:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****         break;
+ 101              		.loc 1 97 19 is_stmt 0
+ 102 0060 83A6C740 		lw	a3,1036(a5)
+ 103 0064 758F     		and	a4,a4,a3
+ 104              	.LVL2:
+ 105 0066 23A6E740 		sw	a4,1036(a5)
+  98:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     case EXTI_TRIG_FALLING:
+ 106              		.loc 1 98 9 is_stmt 1
+ 107 006a 8280     		ret
+ 108              	.LVL3:
+ 109              	.L4:
+  84:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****         break;
+ 110              		.loc 1 84 9
+  84:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****         break;
+ 111              		.loc 1 84 20 is_stmt 0
+ 112 006c 83A60740 		lw	a3,1024(a5)
+ 113 0070 C98E     		or	a3,a3,a0
+GAS LISTING /tmp/ccqAhvQ4.s 			page 5
+
+
+ 114 0072 23A0D740 		sw	a3,1024(a5)
+  85:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     case EXTI_EVENT:
+ 115              		.loc 1 85 9 is_stmt 1
+  94:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     case EXTI_TRIG_RISING:
+ 116              		.loc 1 94 5
+ 117 0076 8547     		li	a5,1
+ 118 0078 E318F6FC 		bne	a2,a5,.L11
+ 119              	.L7:
+ 100:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****         EXTI_FTEN |= (uint32_t) linex;
+ 120              		.loc 1 100 9
+ 100:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****         EXTI_FTEN |= (uint32_t) linex;
+ 121              		.loc 1 100 19 is_stmt 0
+ 122 007c B7070140 		li	a5,1073807360
+ 123 0080 83A68740 		lw	a3,1032(a5)
+ 124 0084 758F     		and	a4,a4,a3
+ 125 0086 23A4E740 		sw	a4,1032(a5)
+ 101:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****         break;
+ 126              		.loc 1 101 9 is_stmt 1
+ 101:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****         break;
+ 127              		.loc 1 101 19 is_stmt 0
+ 128 008a 03A7C740 		lw	a4,1036(a5)
+ 129 008e 598D     		or	a0,a4,a0
+ 130              	.LVL4:
+ 131 0090 23A6A740 		sw	a0,1036(a5)
+ 102:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     case EXTI_TRIG_BOTH:
+ 132              		.loc 1 102 9 is_stmt 1
+ 133 0094 8280     		ret
+ 134              	.LVL5:
+ 135              	.L8:
+ 104:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****         EXTI_FTEN |= (uint32_t) linex;
+ 136              		.loc 1 104 9
+ 104:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****         EXTI_FTEN |= (uint32_t) linex;
+ 137              		.loc 1 104 19 is_stmt 0
+ 138 0096 B7070140 		li	a5,1073807360
+ 139 009a 03A78740 		lw	a4,1032(a5)
+ 140 009e 498F     		or	a4,a4,a0
+ 141 00a0 23A4E740 		sw	a4,1032(a5)
+ 105:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****         break;
+ 142              		.loc 1 105 9 is_stmt 1
+ 105:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****         break;
+ 143              		.loc 1 105 19 is_stmt 0
+ 144 00a4 03A7C740 		lw	a4,1036(a5)
+ 145 00a8 598D     		or	a0,a4,a0
+ 146              	.LVL6:
+ 147 00aa 23A6A740 		sw	a0,1036(a5)
+ 106:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     case EXTI_TRIG_NONE:
+ 148              		.loc 1 106 9 is_stmt 1
+ 149              		.loc 1 111 1 is_stmt 0
+ 150 00ae 8280     		ret
+ 151              		.cfi_endproc
+ 152              	.LFE3:
+ 154              		.section	.text.exti_interrupt_enable,"ax",@progbits
+ 155              		.align	1
+ 156              		.globl	exti_interrupt_enable
+ 158              	exti_interrupt_enable:
+ 159              	.LFB4:
+ 112:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** 
+GAS LISTING /tmp/ccqAhvQ4.s 			page 6
+
+
+ 113:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** /*!
+ 114:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     \brief      enable the interrupts from EXTI line x
+ 115:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     \param[in]  linex: EXTI line number, refer to exti_line_enum
+ 116:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****                 only one parameter can be selected which is shown as below:
+ 117:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****       \arg        EXTI_x (x=0..18): EXTI line x
+ 118:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     \param[out] none
+ 119:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     \retval     none
+ 120:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** */
+ 121:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** void exti_interrupt_enable(exti_line_enum linex)
+ 122:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** {
+ 160              		.loc 1 122 1 is_stmt 1
+ 161              		.cfi_startproc
+ 162              	.LVL7:
+ 123:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     EXTI_INTEN |= (uint32_t) linex;
+ 163              		.loc 1 123 5
+ 164              		.loc 1 123 16 is_stmt 0
+ 165 0000 37070140 		li	a4,1073807360
+ 166 0004 83270740 		lw	a5,1024(a4)
+ 167 0008 C98F     		or	a5,a5,a0
+ 168 000a 2320F740 		sw	a5,1024(a4)
+ 124:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** }
+ 169              		.loc 1 124 1
+ 170 000e 8280     		ret
+ 171              		.cfi_endproc
+ 172              	.LFE4:
+ 174              		.section	.text.exti_event_enable,"ax",@progbits
+ 175              		.align	1
+ 176              		.globl	exti_event_enable
+ 178              	exti_event_enable:
+ 179              	.LFB5:
+ 125:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** 
+ 126:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** /*!
+ 127:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     \brief      enable the events from EXTI line x
+ 128:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     \param[in]  linex: EXTI line number, refer to exti_line_enum
+ 129:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****                 only one parameter can be selected which is shown as below:
+ 130:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****       \arg        EXTI_x (x=0..18): EXTI line x
+ 131:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     \param[out] none
+ 132:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     \retval     none
+ 133:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** */
+ 134:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** void exti_event_enable(exti_line_enum linex)
+ 135:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** {
+ 180              		.loc 1 135 1 is_stmt 1
+ 181              		.cfi_startproc
+ 182              	.LVL8:
+ 136:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     EXTI_EVEN |= (uint32_t) linex;
+ 183              		.loc 1 136 5
+ 184              		.loc 1 136 15 is_stmt 0
+ 185 0000 37070140 		li	a4,1073807360
+ 186 0004 83274740 		lw	a5,1028(a4)
+ 187 0008 C98F     		or	a5,a5,a0
+ 188 000a 2322F740 		sw	a5,1028(a4)
+ 137:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** }
+ 189              		.loc 1 137 1
+ 190 000e 8280     		ret
+ 191              		.cfi_endproc
+ 192              	.LFE5:
+ 194              		.section	.text.exti_interrupt_disable,"ax",@progbits
+GAS LISTING /tmp/ccqAhvQ4.s 			page 7
+
+
+ 195              		.align	1
+ 196              		.globl	exti_interrupt_disable
+ 198              	exti_interrupt_disable:
+ 199              	.LFB6:
+ 138:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** 
+ 139:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** /*!
+ 140:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     \brief      disable the interrupt from EXTI line x
+ 141:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     \param[in]  linex: EXTI line number, refer to exti_line_enum
+ 142:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****                 only one parameter can be selected which is shown as below:
+ 143:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****       \arg        EXTI_x (x=0..18): EXTI line x
+ 144:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     \param[out] none
+ 145:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     \retval     none
+ 146:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** */
+ 147:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** void exti_interrupt_disable(exti_line_enum linex)
+ 148:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** {
+ 200              		.loc 1 148 1 is_stmt 1
+ 201              		.cfi_startproc
+ 202              	.LVL9:
+ 149:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     EXTI_INTEN &= ~(uint32_t) linex;
+ 203              		.loc 1 149 5
+ 204              		.loc 1 149 16 is_stmt 0
+ 205 0000 B7070140 		li	a5,1073807360
+ 206 0004 03A70740 		lw	a4,1024(a5)
+ 207              		.loc 1 149 19
+ 208 0008 1345F5FF 		not	a0,a0
+ 209              	.LVL10:
+ 210              		.loc 1 149 16
+ 211 000c 798D     		and	a0,a0,a4
+ 212              	.LVL11:
+ 213 000e 23A0A740 		sw	a0,1024(a5)
+ 150:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** }
+ 214              		.loc 1 150 1
+ 215 0012 8280     		ret
+ 216              		.cfi_endproc
+ 217              	.LFE6:
+ 219              		.section	.text.exti_event_disable,"ax",@progbits
+ 220              		.align	1
+ 221              		.globl	exti_event_disable
+ 223              	exti_event_disable:
+ 224              	.LFB7:
+ 151:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** 
+ 152:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** /*!
+ 153:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     \brief      disable the events from EXTI line x
+ 154:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     \param[in]  linex: EXTI line number, refer to exti_line_enum
+ 155:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****                 only one parameter can be selected which is shown as below:
+ 156:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****       \arg        EXTI_x (x=0..18): EXTI line x
+ 157:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     \param[out] none
+ 158:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     \retval     none
+ 159:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** */
+ 160:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** void exti_event_disable(exti_line_enum linex)
+ 161:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** {
+ 225              		.loc 1 161 1 is_stmt 1
+ 226              		.cfi_startproc
+ 227              	.LVL12:
+ 162:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     EXTI_EVEN &= ~(uint32_t) linex;
+ 228              		.loc 1 162 5
+ 229              		.loc 1 162 15 is_stmt 0
+GAS LISTING /tmp/ccqAhvQ4.s 			page 8
+
+
+ 230 0000 B7070140 		li	a5,1073807360
+ 231 0004 03A74740 		lw	a4,1028(a5)
+ 232              		.loc 1 162 18
+ 233 0008 1345F5FF 		not	a0,a0
+ 234              	.LVL13:
+ 235              		.loc 1 162 15
+ 236 000c 798D     		and	a0,a0,a4
+ 237              	.LVL14:
+ 238 000e 23A2A740 		sw	a0,1028(a5)
+ 163:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** }
+ 239              		.loc 1 163 1
+ 240 0012 8280     		ret
+ 241              		.cfi_endproc
+ 242              	.LFE7:
+ 244              		.section	.text.exti_flag_get,"ax",@progbits
+ 245              		.align	1
+ 246              		.globl	exti_flag_get
+ 248              	exti_flag_get:
+ 249              	.LFB8:
+ 164:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** 
+ 165:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** /*!
+ 166:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     \brief      get EXTI lines flag
+ 167:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     \param[in]  linex: EXTI line number, refer to exti_line_enum
+ 168:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****                 only one parameter can be selected which is shown as below:
+ 169:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****       \arg        EXTI_x (x=0..18): EXTI line x
+ 170:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     \param[out] none
+ 171:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     \retval     FlagStatus: status of flag (RESET or SET)
+ 172:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** */
+ 173:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** FlagStatus exti_flag_get(exti_line_enum linex)
+ 174:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** {
+ 250              		.loc 1 174 1 is_stmt 1
+ 251              		.cfi_startproc
+ 252              	.LVL15:
+ 175:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     if (RESET != (EXTI_PD & (uint32_t) linex)) {
+ 253              		.loc 1 175 5
+ 254              		.loc 1 175 19 is_stmt 0
+ 255 0000 B7070140 		li	a5,1073807360
+ 256 0004 83A74741 		lw	a5,1044(a5)
+ 257              		.loc 1 175 27
+ 258 0008 7D8D     		and	a0,a5,a0
+ 259              	.LVL16:
+ 176:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****         return SET;
+ 177:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     } else {
+ 178:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****         return RESET;
+ 179:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     }
+ 180:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** }
+ 260              		.loc 1 180 1
+ 261 000a 3335A000 		snez	a0,a0
+ 262 000e 8280     		ret
+ 263              		.cfi_endproc
+ 264              	.LFE8:
+ 266              		.section	.text.exti_flag_clear,"ax",@progbits
+ 267              		.align	1
+ 268              		.globl	exti_flag_clear
+ 270              	exti_flag_clear:
+ 271              	.LFB9:
+ 181:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** 
+GAS LISTING /tmp/ccqAhvQ4.s 			page 9
+
+
+ 182:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** /*!
+ 183:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     \brief      clear EXTI lines pending flag
+ 184:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     \param[in]  linex: EXTI line number, refer to exti_line_enum
+ 185:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****                 only one parameter can be selected which is shown as below:
+ 186:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****       \arg        EXTI_x (x=0..18): EXTI line x
+ 187:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     \param[out] none
+ 188:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     \retval     none
+ 189:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** */
+ 190:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** void exti_flag_clear(exti_line_enum linex)
+ 191:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** {
+ 272              		.loc 1 191 1 is_stmt 1
+ 273              		.cfi_startproc
+ 274              	.LVL17:
+ 192:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     EXTI_PD = (uint32_t) linex;
+ 275              		.loc 1 192 5
+ 276              		.loc 1 192 13 is_stmt 0
+ 277 0000 B7070140 		li	a5,1073807360
+ 278 0004 23AAA740 		sw	a0,1044(a5)
+ 193:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** }
+ 279              		.loc 1 193 1
+ 280 0008 8280     		ret
+ 281              		.cfi_endproc
+ 282              	.LFE9:
+ 284              		.section	.text.exti_interrupt_flag_get,"ax",@progbits
+ 285              		.align	1
+ 286              		.globl	exti_interrupt_flag_get
+ 288              	exti_interrupt_flag_get:
+ 289              	.LFB10:
+ 194:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** 
+ 195:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** /*!
+ 196:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     \brief      get EXTI lines flag when the interrupt flag is set
+ 197:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     \param[in]  linex: EXTI line number, refer to exti_line_enum
+ 198:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****                 only one parameter can be selected which is shown as below:
+ 199:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****       \arg        EXTI_x (x=0..18): EXTI line x
+ 200:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     \param[out] none
+ 201:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     \retval     FlagStatus: status of flag (RESET or SET)
+ 202:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** */
+ 203:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** FlagStatus exti_interrupt_flag_get(exti_line_enum linex)
+ 204:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** {
+ 290              		.loc 1 204 1 is_stmt 1
+ 291              		.cfi_startproc
+ 292              	.LVL18:
+ 205:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     uint32_t flag_left, flag_right;
+ 293              		.loc 1 205 5
+ 206:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** 
+ 207:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     flag_left = EXTI_PD & (uint32_t) linex;
+ 294              		.loc 1 207 5
+ 295              		.loc 1 207 17 is_stmt 0
+ 296 0000 B7060140 		li	a3,1073807360
+ 297 0004 83A74641 		lw	a5,1044(a3)
+ 208:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     flag_right = EXTI_INTEN & (uint32_t) linex;
+ 298              		.loc 1 208 18
+ 299 0008 83A60640 		lw	a3,1024(a3)
+ 204:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     uint32_t flag_left, flag_right;
+ 300              		.loc 1 204 1
+ 301 000c 2A87     		mv	a4,a0
+ 207:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     flag_right = EXTI_INTEN & (uint32_t) linex;
+GAS LISTING /tmp/ccqAhvQ4.s 			page 10
+
+
+ 302              		.loc 1 207 15
+ 303 000e 7D8D     		and	a0,a5,a0
+ 304              	.LVL19:
+ 305              		.loc 1 208 5 is_stmt 1
+ 209:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** 
+ 210:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     if ((RESET != flag_left) && (RESET != flag_right)) {
+ 306              		.loc 1 210 5
+ 307              		.loc 1 210 8 is_stmt 0
+ 308 0010 09C5     		beq	a0,zero,.L18
+ 208:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** 
+ 309              		.loc 1 208 16 discriminator 1
+ 310 0012 33F5E600 		and	a0,a3,a4
+ 311              	.LVL20:
+ 312              		.loc 1 210 30 discriminator 1
+ 313 0016 3335A000 		snez	a0,a0
+ 314              	.LVL21:
+ 315              	.L18:
+ 211:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****         return SET;
+ 212:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     } else {
+ 213:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****         return RESET;
+ 214:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     }
+ 215:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** }
+ 316              		.loc 1 215 1
+ 317 001a 8280     		ret
+ 318              		.cfi_endproc
+ 319              	.LFE10:
+ 321              		.section	.text.exti_interrupt_flag_clear,"ax",@progbits
+ 322              		.align	1
+ 323              		.globl	exti_interrupt_flag_clear
+ 325              	exti_interrupt_flag_clear:
+ 326              	.LFB15:
+ 327              		.cfi_startproc
+ 328 0000 B7070140 		li	a5,1073807360
+ 329 0004 23AAA740 		sw	a0,1044(a5)
+ 330 0008 8280     		ret
+ 331              		.cfi_endproc
+ 332              	.LFE15:
+ 334              		.section	.text.exti_software_interrupt_enable,"ax",@progbits
+ 335              		.align	1
+ 336              		.globl	exti_software_interrupt_enable
+ 338              	exti_software_interrupt_enable:
+ 339              	.LFB12:
+ 216:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** 
+ 217:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** /*!
+ 218:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     \brief      clear EXTI lines pending flag
+ 219:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     \param[in]  linex: EXTI line number, refer to exti_line_enum
+ 220:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****                 only one parameter can be selected which is shown as below:
+ 221:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****       \arg        EXTI_x (x=0..18): EXTI line x
+ 222:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     \param[out] none
+ 223:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     \retval     none
+ 224:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** */
+ 225:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** void exti_interrupt_flag_clear(exti_line_enum linex)
+ 226:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** {
+ 227:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     EXTI_PD = (uint32_t) linex;
+ 228:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** }
+ 229:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** 
+ 230:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** /*!
+GAS LISTING /tmp/ccqAhvQ4.s 			page 11
+
+
+ 231:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     \brief      enable EXTI software interrupt event
+ 232:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     \param[in]  linex: EXTI line number, refer to exti_line_enum
+ 233:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****                 only one parameter can be selected which is shown as below:
+ 234:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****       \arg        EXTI_x (x=0..18): EXTI line x
+ 235:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     \param[out] none
+ 236:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     \retval     none
+ 237:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** */
+ 238:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** void exti_software_interrupt_enable(exti_line_enum linex)
+ 239:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** {
+ 340              		.loc 1 239 1 is_stmt 1
+ 341              		.cfi_startproc
+ 342              	.LVL22:
+ 240:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     EXTI_SWIEV |= (uint32_t) linex;
+ 343              		.loc 1 240 5
+ 344              		.loc 1 240 16 is_stmt 0
+ 345 0000 37070140 		li	a4,1073807360
+ 346 0004 83270741 		lw	a5,1040(a4)
+ 347 0008 C98F     		or	a5,a5,a0
+ 348 000a 2328F740 		sw	a5,1040(a4)
+ 241:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** }
+ 349              		.loc 1 241 1
+ 350 000e 8280     		ret
+ 351              		.cfi_endproc
+ 352              	.LFE12:
+ 354              		.section	.text.exti_software_interrupt_disable,"ax",@progbits
+ 355              		.align	1
+ 356              		.globl	exti_software_interrupt_disable
+ 358              	exti_software_interrupt_disable:
+ 359              	.LFB13:
+ 242:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** 
+ 243:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** /*!
+ 244:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     \brief      disable EXTI software interrupt event
+ 245:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     \param[in]  linex: EXTI line number, refer to exti_line_enum
+ 246:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****                 only one parameter can be selected which is shown as below:
+ 247:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****       \arg        EXTI_x (x=0..18): EXTI line x
+ 248:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     \param[out] none
+ 249:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     \retval     none
+ 250:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** */
+ 251:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** void exti_software_interrupt_disable(exti_line_enum linex)
+ 252:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** {
+ 360              		.loc 1 252 1 is_stmt 1
+ 361              		.cfi_startproc
+ 362              	.LVL23:
+ 253:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c ****     EXTI_SWIEV &= ~(uint32_t) linex;
+ 363              		.loc 1 253 5
+ 364              		.loc 1 253 16 is_stmt 0
+ 365 0000 B7070140 		li	a5,1073807360
+ 366 0004 03A70741 		lw	a4,1040(a5)
+ 367              		.loc 1 253 19
+ 368 0008 1345F5FF 		not	a0,a0
+ 369              	.LVL24:
+ 370              		.loc 1 253 16
+ 371 000c 798D     		and	a0,a0,a4
+ 372              	.LVL25:
+ 373 000e 23A8A740 		sw	a0,1040(a5)
+ 254:../Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_exti.c **** }
+ 374              		.loc 1 254 1
+GAS LISTING /tmp/ccqAhvQ4.s 			page 12
+
+
+ 375 0012 8280     		ret
+ 376              		.cfi_endproc
+ 377              	.LFE13:
+ 379              		.text
+ 380              	.Letext0:
+ 381              		.file 2 "/home/johnson/Documents/mpb-toolchain/build/riscv32-mapleboard-elf/include/machine/_defau
+ 382              		.file 3 "/home/johnson/Documents/mpb-toolchain/build/riscv32-mapleboard-elf/include/sys/_stdint.h"
+ 383              		.file 4 "../Firmware/GD32VF103_standard_peripheral/gd32vf103.h"
+ 384              		.file 5 "../Firmware/GD32VF103_standard_peripheral/Include/gd32vf103_exti.h"
+GAS LISTING /tmp/ccqAhvQ4.s 			page 13
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 gd32vf103_exti.c
+     /tmp/ccqAhvQ4.s:13     .text.exti_deinit:0000000000000000 exti_deinit
+     /tmp/ccqAhvQ4.s:17     .text.exti_deinit:0000000000000000 .L0 
+     /tmp/ccqAhvQ4.s:18     .text.exti_deinit:0000000000000000 .L0 
+     /tmp/ccqAhvQ4.s:19     .text.exti_deinit:0000000000000000 .L0 
+     /tmp/ccqAhvQ4.s:20     .text.exti_deinit:0000000000000000 .L0 
+     /tmp/ccqAhvQ4.s:23     .text.exti_deinit:0000000000000008 .L0 
+     /tmp/ccqAhvQ4.s:24     .text.exti_deinit:0000000000000008 .L0 
+     /tmp/ccqAhvQ4.s:26     .text.exti_deinit:000000000000000c .L0 
+     /tmp/ccqAhvQ4.s:27     .text.exti_deinit:000000000000000c .L0 
+     /tmp/ccqAhvQ4.s:29     .text.exti_deinit:0000000000000010 .L0 
+     /tmp/ccqAhvQ4.s:30     .text.exti_deinit:0000000000000010 .L0 
+     /tmp/ccqAhvQ4.s:32     .text.exti_deinit:0000000000000014 .L0 
+     /tmp/ccqAhvQ4.s:33     .text.exti_deinit:0000000000000014 .L0 
+     /tmp/ccqAhvQ4.s:35     .text.exti_deinit:0000000000000018 .L0 
+     /tmp/ccqAhvQ4.s:36     .text.exti_deinit:000000000000001a .L0 
+     /tmp/ccqAhvQ4.s:43     .text.exti_init:0000000000000000 exti_init
+     /tmp/ccqAhvQ4.s:46     .text.exti_init:0000000000000000 .L0 
+     /tmp/ccqAhvQ4.s:48     .text.exti_init:0000000000000000 .L0 
+     /tmp/ccqAhvQ4.s:49     .text.exti_init:0000000000000000 .L0 
+     /tmp/ccqAhvQ4.s:50     .text.exti_init:0000000000000000 .L0 
+     /tmp/ccqAhvQ4.s:53     .text.exti_init:0000000000000008 .L0 
+     /tmp/ccqAhvQ4.s:55     .text.exti_init:000000000000000c .L0 
+     /tmp/ccqAhvQ4.s:58     .text.exti_init:0000000000000012 .L0 
+     /tmp/ccqAhvQ4.s:59     .text.exti_init:0000000000000012 .L0 
+     /tmp/ccqAhvQ4.s:63     .text.exti_init:000000000000001c .L0 
+     /tmp/ccqAhvQ4.s:64     .text.exti_init:000000000000001c .L0 
+     /tmp/ccqAhvQ4.s:68     .text.exti_init:0000000000000026 .L0 
+     /tmp/ccqAhvQ4.s:69     .text.exti_init:0000000000000026 .L0 
+     /tmp/ccqAhvQ4.s:73     .text.exti_init:0000000000000030 .L0 
+     /tmp/ccqAhvQ4.s:77     .text.exti_init:0000000000000038 .L0 
+     /tmp/ccqAhvQ4.s:78     .text.exti_init:0000000000000038 .L0 
+     /tmp/ccqAhvQ4.s:83     .text.exti_init:0000000000000042 .L0 
+     /tmp/ccqAhvQ4.s:84     .text.exti_init:0000000000000042 .L0 
+     /tmp/ccqAhvQ4.s:91     .text.exti_init:0000000000000050 .L0 
+     /tmp/ccqAhvQ4.s:94     .text.exti_init:0000000000000052 .L0 
+     /tmp/ccqAhvQ4.s:95     .text.exti_init:0000000000000052 .L0 
+     /tmp/ccqAhvQ4.s:101    .text.exti_init:0000000000000060 .L0 
+     /tmp/ccqAhvQ4.s:102    .text.exti_init:0000000000000060 .L0 
+     /tmp/ccqAhvQ4.s:107    .text.exti_init:000000000000006a .L0 
+     /tmp/ccqAhvQ4.s:111    .text.exti_init:000000000000006c .L0 
+     /tmp/ccqAhvQ4.s:112    .text.exti_init:000000000000006c .L0 
+     /tmp/ccqAhvQ4.s:116    .text.exti_init:0000000000000076 .L0 
+     /tmp/ccqAhvQ4.s:117    .text.exti_init:0000000000000076 .L0 
+     /tmp/ccqAhvQ4.s:121    .text.exti_init:000000000000007c .L0 
+     /tmp/ccqAhvQ4.s:122    .text.exti_init:000000000000007c .L0 
+     /tmp/ccqAhvQ4.s:127    .text.exti_init:000000000000008a .L0 
+     /tmp/ccqAhvQ4.s:128    .text.exti_init:000000000000008a .L0 
+     /tmp/ccqAhvQ4.s:133    .text.exti_init:0000000000000094 .L0 
+     /tmp/ccqAhvQ4.s:137    .text.exti_init:0000000000000096 .L0 
+     /tmp/ccqAhvQ4.s:138    .text.exti_init:0000000000000096 .L0 
+     /tmp/ccqAhvQ4.s:143    .text.exti_init:00000000000000a4 .L0 
+     /tmp/ccqAhvQ4.s:144    .text.exti_init:00000000000000a4 .L0 
+     /tmp/ccqAhvQ4.s:149    .text.exti_init:00000000000000ae .L0 
+     /tmp/ccqAhvQ4.s:150    .text.exti_init:00000000000000ae .L0 
+     /tmp/ccqAhvQ4.s:151    .text.exti_init:00000000000000b0 .L0 
+GAS LISTING /tmp/ccqAhvQ4.s 			page 14
+
+
+     /tmp/ccqAhvQ4.s:158    .text.exti_interrupt_enable:0000000000000000 exti_interrupt_enable
+     /tmp/ccqAhvQ4.s:161    .text.exti_interrupt_enable:0000000000000000 .L0 
+     /tmp/ccqAhvQ4.s:163    .text.exti_interrupt_enable:0000000000000000 .L0 
+     /tmp/ccqAhvQ4.s:164    .text.exti_interrupt_enable:0000000000000000 .L0 
+     /tmp/ccqAhvQ4.s:165    .text.exti_interrupt_enable:0000000000000000 .L0 
+     /tmp/ccqAhvQ4.s:170    .text.exti_interrupt_enable:000000000000000e .L0 
+     /tmp/ccqAhvQ4.s:171    .text.exti_interrupt_enable:0000000000000010 .L0 
+     /tmp/ccqAhvQ4.s:178    .text.exti_event_enable:0000000000000000 exti_event_enable
+     /tmp/ccqAhvQ4.s:181    .text.exti_event_enable:0000000000000000 .L0 
+     /tmp/ccqAhvQ4.s:183    .text.exti_event_enable:0000000000000000 .L0 
+     /tmp/ccqAhvQ4.s:184    .text.exti_event_enable:0000000000000000 .L0 
+     /tmp/ccqAhvQ4.s:185    .text.exti_event_enable:0000000000000000 .L0 
+     /tmp/ccqAhvQ4.s:190    .text.exti_event_enable:000000000000000e .L0 
+     /tmp/ccqAhvQ4.s:191    .text.exti_event_enable:0000000000000010 .L0 
+     /tmp/ccqAhvQ4.s:198    .text.exti_interrupt_disable:0000000000000000 exti_interrupt_disable
+     /tmp/ccqAhvQ4.s:201    .text.exti_interrupt_disable:0000000000000000 .L0 
+     /tmp/ccqAhvQ4.s:203    .text.exti_interrupt_disable:0000000000000000 .L0 
+     /tmp/ccqAhvQ4.s:204    .text.exti_interrupt_disable:0000000000000000 .L0 
+     /tmp/ccqAhvQ4.s:205    .text.exti_interrupt_disable:0000000000000000 .L0 
+     /tmp/ccqAhvQ4.s:208    .text.exti_interrupt_disable:0000000000000008 .L0 
+     /tmp/ccqAhvQ4.s:211    .text.exti_interrupt_disable:000000000000000c .L0 
+     /tmp/ccqAhvQ4.s:215    .text.exti_interrupt_disable:0000000000000012 .L0 
+     /tmp/ccqAhvQ4.s:216    .text.exti_interrupt_disable:0000000000000014 .L0 
+     /tmp/ccqAhvQ4.s:223    .text.exti_event_disable:0000000000000000 exti_event_disable
+     /tmp/ccqAhvQ4.s:226    .text.exti_event_disable:0000000000000000 .L0 
+     /tmp/ccqAhvQ4.s:228    .text.exti_event_disable:0000000000000000 .L0 
+     /tmp/ccqAhvQ4.s:229    .text.exti_event_disable:0000000000000000 .L0 
+     /tmp/ccqAhvQ4.s:230    .text.exti_event_disable:0000000000000000 .L0 
+     /tmp/ccqAhvQ4.s:233    .text.exti_event_disable:0000000000000008 .L0 
+     /tmp/ccqAhvQ4.s:236    .text.exti_event_disable:000000000000000c .L0 
+     /tmp/ccqAhvQ4.s:240    .text.exti_event_disable:0000000000000012 .L0 
+     /tmp/ccqAhvQ4.s:241    .text.exti_event_disable:0000000000000014 .L0 
+     /tmp/ccqAhvQ4.s:248    .text.exti_flag_get:0000000000000000 exti_flag_get
+     /tmp/ccqAhvQ4.s:251    .text.exti_flag_get:0000000000000000 .L0 
+     /tmp/ccqAhvQ4.s:253    .text.exti_flag_get:0000000000000000 .L0 
+     /tmp/ccqAhvQ4.s:254    .text.exti_flag_get:0000000000000000 .L0 
+     /tmp/ccqAhvQ4.s:255    .text.exti_flag_get:0000000000000000 .L0 
+     /tmp/ccqAhvQ4.s:258    .text.exti_flag_get:0000000000000008 .L0 
+     /tmp/ccqAhvQ4.s:261    .text.exti_flag_get:000000000000000a .L0 
+     /tmp/ccqAhvQ4.s:263    .text.exti_flag_get:0000000000000010 .L0 
+     /tmp/ccqAhvQ4.s:270    .text.exti_flag_clear:0000000000000000 exti_flag_clear
+     /tmp/ccqAhvQ4.s:273    .text.exti_flag_clear:0000000000000000 .L0 
+     /tmp/ccqAhvQ4.s:275    .text.exti_flag_clear:0000000000000000 .L0 
+     /tmp/ccqAhvQ4.s:276    .text.exti_flag_clear:0000000000000000 .L0 
+     /tmp/ccqAhvQ4.s:277    .text.exti_flag_clear:0000000000000000 .L0 
+     /tmp/ccqAhvQ4.s:280    .text.exti_flag_clear:0000000000000008 .L0 
+     /tmp/ccqAhvQ4.s:281    .text.exti_flag_clear:000000000000000a .L0 
+     /tmp/ccqAhvQ4.s:288    .text.exti_interrupt_flag_get:0000000000000000 exti_interrupt_flag_get
+     /tmp/ccqAhvQ4.s:291    .text.exti_interrupt_flag_get:0000000000000000 .L0 
+     /tmp/ccqAhvQ4.s:293    .text.exti_interrupt_flag_get:0000000000000000 .L0 
+     /tmp/ccqAhvQ4.s:294    .text.exti_interrupt_flag_get:0000000000000000 .L0 
+     /tmp/ccqAhvQ4.s:295    .text.exti_interrupt_flag_get:0000000000000000 .L0 
+     /tmp/ccqAhvQ4.s:296    .text.exti_interrupt_flag_get:0000000000000000 .L0 
+     /tmp/ccqAhvQ4.s:299    .text.exti_interrupt_flag_get:0000000000000008 .L0 
+     /tmp/ccqAhvQ4.s:301    .text.exti_interrupt_flag_get:000000000000000c .L0 
+     /tmp/ccqAhvQ4.s:303    .text.exti_interrupt_flag_get:000000000000000e .L0 
+     /tmp/ccqAhvQ4.s:306    .text.exti_interrupt_flag_get:0000000000000010 .L0 
+GAS LISTING /tmp/ccqAhvQ4.s 			page 15
+
+
+     /tmp/ccqAhvQ4.s:307    .text.exti_interrupt_flag_get:0000000000000010 .L0 
+     /tmp/ccqAhvQ4.s:308    .text.exti_interrupt_flag_get:0000000000000010 .L0 
+     /tmp/ccqAhvQ4.s:310    .text.exti_interrupt_flag_get:0000000000000012 .L0 
+     /tmp/ccqAhvQ4.s:313    .text.exti_interrupt_flag_get:0000000000000016 .L0 
+     /tmp/ccqAhvQ4.s:317    .text.exti_interrupt_flag_get:000000000000001a .L0 
+     /tmp/ccqAhvQ4.s:318    .text.exti_interrupt_flag_get:000000000000001c .L0 
+     /tmp/ccqAhvQ4.s:325    .text.exti_interrupt_flag_clear:0000000000000000 exti_interrupt_flag_clear
+     /tmp/ccqAhvQ4.s:327    .text.exti_interrupt_flag_clear:0000000000000000 .L0 
+     /tmp/ccqAhvQ4.s:331    .text.exti_interrupt_flag_clear:000000000000000a .L0 
+     /tmp/ccqAhvQ4.s:338    .text.exti_software_interrupt_enable:0000000000000000 exti_software_interrupt_enable
+     /tmp/ccqAhvQ4.s:341    .text.exti_software_interrupt_enable:0000000000000000 .L0 
+     /tmp/ccqAhvQ4.s:343    .text.exti_software_interrupt_enable:0000000000000000 .L0 
+     /tmp/ccqAhvQ4.s:344    .text.exti_software_interrupt_enable:0000000000000000 .L0 
+     /tmp/ccqAhvQ4.s:345    .text.exti_software_interrupt_enable:0000000000000000 .L0 
+     /tmp/ccqAhvQ4.s:350    .text.exti_software_interrupt_enable:000000000000000e .L0 
+     /tmp/ccqAhvQ4.s:351    .text.exti_software_interrupt_enable:0000000000000010 .L0 
+     /tmp/ccqAhvQ4.s:358    .text.exti_software_interrupt_disable:0000000000000000 exti_software_interrupt_disable
+     /tmp/ccqAhvQ4.s:361    .text.exti_software_interrupt_disable:0000000000000000 .L0 
+     /tmp/ccqAhvQ4.s:363    .text.exti_software_interrupt_disable:0000000000000000 .L0 
+     /tmp/ccqAhvQ4.s:364    .text.exti_software_interrupt_disable:0000000000000000 .L0 
+     /tmp/ccqAhvQ4.s:365    .text.exti_software_interrupt_disable:0000000000000000 .L0 
+     /tmp/ccqAhvQ4.s:368    .text.exti_software_interrupt_disable:0000000000000008 .L0 
+     /tmp/ccqAhvQ4.s:371    .text.exti_software_interrupt_disable:000000000000000c .L0 
+     /tmp/ccqAhvQ4.s:375    .text.exti_software_interrupt_disable:0000000000000012 .L0 
+     /tmp/ccqAhvQ4.s:376    .text.exti_software_interrupt_disable:0000000000000014 .L0 
+     /tmp/ccqAhvQ4.s:39     .text.exti_deinit:000000000000001a .L0 
+     /tmp/ccqAhvQ4.s:154    .text.exti_init:00000000000000b0 .L0 
+     /tmp/ccqAhvQ4.s:174    .text.exti_interrupt_enable:0000000000000010 .L0 
+     /tmp/ccqAhvQ4.s:194    .text.exti_event_enable:0000000000000010 .L0 
+     /tmp/ccqAhvQ4.s:219    .text.exti_interrupt_disable:0000000000000014 .L0 
+     /tmp/ccqAhvQ4.s:244    .text.exti_event_disable:0000000000000014 .L0 
+     /tmp/ccqAhvQ4.s:266    .text.exti_flag_get:0000000000000010 .L0 
+     /tmp/ccqAhvQ4.s:284    .text.exti_flag_clear:000000000000000a .L0 
+     /tmp/ccqAhvQ4.s:321    .text.exti_interrupt_flag_get:000000000000001c .L0 
+     /tmp/ccqAhvQ4.s:354    .text.exti_software_interrupt_enable:0000000000000010 .L0 
+     /tmp/ccqAhvQ4.s:379    .text.exti_software_interrupt_disable:0000000000000014 .L0 
+                     .debug_frame:0000000000000000 .L0 
+     /tmp/ccqAhvQ4.s:109    .text.exti_init:000000000000006c .L4
+     /tmp/ccqAhvQ4.s:82     .text.exti_init:0000000000000042 .L6
+     /tmp/ccqAhvQ4.s:119    .text.exti_init:000000000000007c .L7
+     /tmp/ccqAhvQ4.s:135    .text.exti_init:0000000000000096 .L8
+     /tmp/ccqAhvQ4.s:92     .text.exti_init:0000000000000052 .L10
+     /tmp/ccqAhvQ4.s:86     .text.exti_init:0000000000000048 .L11
+     /tmp/ccqAhvQ4.s:315    .text.exti_interrupt_flag_get:000000000000001a .L18
+     /tmp/ccqAhvQ4.s:892    .debug_abbrev:0000000000000000 .Ldebug_abbrev0
+     /tmp/ccqAhvQ4.s:1576   .debug_str:0000000000000323 .LASF56
+     /tmp/ccqAhvQ4.s:1496   .debug_str:00000000000000fb .LASF57
+     /tmp/ccqAhvQ4.s:1574   .debug_str:00000000000002f1 .LASF58
+     /tmp/ccqAhvQ4.s:1434   .debug_ranges:0000000000000000 .Ldebug_ranges0
+     /tmp/ccqAhvQ4.s:1460   .debug_line:0000000000000000 .Ldebug_line0
+     /tmp/ccqAhvQ4.s:1528   .debug_str:00000000000001d6 .LASF0
+     /tmp/ccqAhvQ4.s:1478   .debug_str:0000000000000068 .LASF1
+     /tmp/ccqAhvQ4.s:1506   .debug_str:0000000000000176 .LASF2
+     /tmp/ccqAhvQ4.s:1468   .debug_str:0000000000000023 .LASF3
+     /tmp/ccqAhvQ4.s:1556   .debug_str:000000000000025d .LASF4
+     /tmp/ccqAhvQ4.s:1492   .debug_str:00000000000000e3 .LASF5
+     /tmp/ccqAhvQ4.s:1464   .debug_str:0000000000000013 .LASF9
+GAS LISTING /tmp/ccqAhvQ4.s 			page 16
+
+
+     /tmp/ccqAhvQ4.s:1560   .debug_str:0000000000000290 .LASF6
+     /tmp/ccqAhvQ4.s:1486   .debug_str:00000000000000ad .LASF7
+     /tmp/ccqAhvQ4.s:1488   .debug_str:00000000000000bb .LASF8
+     /tmp/ccqAhvQ4.s:1476   .debug_str:000000000000005f .LASF10
+     /tmp/ccqAhvQ4.s:1570   .debug_str:00000000000002e5 .LASF11
+     /tmp/ccqAhvQ4.s:1584   .debug_str:00000000000003f3 .LASF12
+     /tmp/ccqAhvQ4.s:1502   .debug_str:000000000000015e .LASF13
+     /tmp/ccqAhvQ4.s:1530   .debug_str:00000000000001e3 .LASF14
+     /tmp/ccqAhvQ4.s:1532   .debug_str:00000000000001ea .LASF15
+     /tmp/ccqAhvQ4.s:1534   .debug_str:00000000000001f1 .LASF16
+     /tmp/ccqAhvQ4.s:1536   .debug_str:00000000000001f8 .LASF17
+     /tmp/ccqAhvQ4.s:1538   .debug_str:00000000000001ff .LASF18
+     /tmp/ccqAhvQ4.s:1540   .debug_str:0000000000000206 .LASF19
+     /tmp/ccqAhvQ4.s:1542   .debug_str:000000000000020d .LASF20
+     /tmp/ccqAhvQ4.s:1544   .debug_str:0000000000000214 .LASF21
+     /tmp/ccqAhvQ4.s:1546   .debug_str:000000000000021b .LASF22
+     /tmp/ccqAhvQ4.s:1548   .debug_str:0000000000000222 .LASF23
+     /tmp/ccqAhvQ4.s:1510   .debug_str:000000000000018e .LASF24
+     /tmp/ccqAhvQ4.s:1512   .debug_str:0000000000000196 .LASF25
+     /tmp/ccqAhvQ4.s:1514   .debug_str:000000000000019e .LASF26
+     /tmp/ccqAhvQ4.s:1516   .debug_str:00000000000001a6 .LASF27
+     /tmp/ccqAhvQ4.s:1518   .debug_str:00000000000001ae .LASF28
+     /tmp/ccqAhvQ4.s:1520   .debug_str:00000000000001b6 .LASF29
+     /tmp/ccqAhvQ4.s:1522   .debug_str:00000000000001be .LASF30
+     /tmp/ccqAhvQ4.s:1524   .debug_str:00000000000001c6 .LASF31
+     /tmp/ccqAhvQ4.s:1526   .debug_str:00000000000001ce .LASF32
+     /tmp/ccqAhvQ4.s:1562   .debug_str:00000000000002a2 .LASF33
+     /tmp/ccqAhvQ4.s:1494   .debug_str:00000000000000ec .LASF34
+     /tmp/ccqAhvQ4.s:1564   .debug_str:00000000000002b1 .LASF35
+     /tmp/ccqAhvQ4.s:1500   .debug_str:000000000000014f .LASF36
+     /tmp/ccqAhvQ4.s:1490   .debug_str:00000000000000d2 .LASF37
+     /tmp/ccqAhvQ4.s:1580   .debug_str:00000000000003ca .LASF38
+     /tmp/ccqAhvQ4.s:1482   .debug_str:0000000000000088 .LASF39
+     /tmp/ccqAhvQ4.s:1568   .debug_str:00000000000002d6 .LASF40
+     /tmp/ccqAhvQ4.s:1480   .debug_str:0000000000000074 .LASF41
+     /tmp/ccqAhvQ4.s:1558   .debug_str:0000000000000270 .LASF42
+     /tmp/ccqAhvQ4.s:359    .text.exti_software_interrupt_disable:0000000000000000 .LFB13
+     /tmp/ccqAhvQ4.s:377    .text.exti_software_interrupt_disable:0000000000000014 .LFE13
+     /tmp/ccqAhvQ4.s:1572   .debug_str:00000000000002eb .LASF44
+     /tmp/ccqAhvQ4.s:1229   .debug_loc:0000000000000000 .LLST7
+     /tmp/ccqAhvQ4.s:1554   .debug_str:000000000000023e .LASF43
+     /tmp/ccqAhvQ4.s:339    .text.exti_software_interrupt_enable:0000000000000000 .LFB12
+     /tmp/ccqAhvQ4.s:352    .text.exti_software_interrupt_enable:0000000000000010 .LFE12
+     /tmp/ccqAhvQ4.s:1566   .debug_str:00000000000002bc .LASF59
+     /tmp/ccqAhvQ4.s:1474   .debug_str:0000000000000047 .LASF47
+     /tmp/ccqAhvQ4.s:289    .text.exti_interrupt_flag_get:0000000000000000 .LFB10
+     /tmp/ccqAhvQ4.s:319    .text.exti_interrupt_flag_get:000000000000001c .LFE10
+     /tmp/ccqAhvQ4.s:1250   .debug_loc:000000000000002f .LLST4
+     /tmp/ccqAhvQ4.s:1550   .debug_str:0000000000000229 .LASF45
+     /tmp/ccqAhvQ4.s:1261   .debug_loc:000000000000004d .LLST5
+     /tmp/ccqAhvQ4.s:1552   .debug_str:0000000000000233 .LASF46
+     /tmp/ccqAhvQ4.s:1277   .debug_loc:0000000000000070 .LLST6
+     /tmp/ccqAhvQ4.s:1470   .debug_str:000000000000002d .LASF60
+     /tmp/ccqAhvQ4.s:1578   .debug_str:00000000000003bc .LASF48
+     /tmp/ccqAhvQ4.s:249    .text.exti_flag_get:0000000000000000 .LFB8
+     /tmp/ccqAhvQ4.s:264    .text.exti_flag_get:0000000000000010 .LFE8
+     /tmp/ccqAhvQ4.s:1302   .debug_loc:00000000000000a3 .LLST3
+GAS LISTING /tmp/ccqAhvQ4.s 			page 17
+
+
+     /tmp/ccqAhvQ4.s:1462   .debug_str:0000000000000000 .LASF49
+     /tmp/ccqAhvQ4.s:224    .text.exti_event_disable:0000000000000000 .LFB7
+     /tmp/ccqAhvQ4.s:242    .text.exti_event_disable:0000000000000014 .LFE7
+     /tmp/ccqAhvQ4.s:1316   .debug_loc:00000000000000c4 .LLST2
+     /tmp/ccqAhvQ4.s:1582   .debug_str:00000000000003dc .LASF50
+     /tmp/ccqAhvQ4.s:199    .text.exti_interrupt_disable:0000000000000000 .LFB6
+     /tmp/ccqAhvQ4.s:217    .text.exti_interrupt_disable:0000000000000014 .LFE6
+     /tmp/ccqAhvQ4.s:1337   .debug_loc:00000000000000f3 .LLST1
+     /tmp/ccqAhvQ4.s:1498   .debug_str:000000000000013d .LASF51
+     /tmp/ccqAhvQ4.s:179    .text.exti_event_enable:0000000000000000 .LFB5
+     /tmp/ccqAhvQ4.s:192    .text.exti_event_enable:0000000000000010 .LFE5
+     /tmp/ccqAhvQ4.s:1484   .debug_str:0000000000000097 .LASF52
+     /tmp/ccqAhvQ4.s:159    .text.exti_interrupt_enable:0000000000000000 .LFB4
+     /tmp/ccqAhvQ4.s:172    .text.exti_interrupt_enable:0000000000000010 .LFE4
+     /tmp/ccqAhvQ4.s:1508   .debug_str:0000000000000184 .LASF53
+     /tmp/ccqAhvQ4.s:44     .text.exti_init:0000000000000000 .LFB3
+     /tmp/ccqAhvQ4.s:152    .text.exti_init:00000000000000b0 .LFE3
+     /tmp/ccqAhvQ4.s:1358   .debug_loc:0000000000000122 .LLST0
+     /tmp/ccqAhvQ4.s:1466   .debug_str:000000000000001e .LASF54
+     /tmp/ccqAhvQ4.s:1472   .debug_str:000000000000003d .LASF55
+     /tmp/ccqAhvQ4.s:1504   .debug_str:000000000000016a .LASF61
+     /tmp/ccqAhvQ4.s:14     .text.exti_deinit:0000000000000000 .LFB2
+     /tmp/ccqAhvQ4.s:37     .text.exti_deinit:000000000000001a .LFE2
+     /tmp/ccqAhvQ4.s:271    .text.exti_flag_clear:0000000000000000 .LFB9
+     /tmp/ccqAhvQ4.s:282    .text.exti_flag_clear:000000000000000a .LFE9
+     /tmp/ccqAhvQ4.s:362    .text.exti_software_interrupt_disable:0000000000000000 .LVL23
+     /tmp/ccqAhvQ4.s:369    .text.exti_software_interrupt_disable:000000000000000c .LVL24
+     /tmp/ccqAhvQ4.s:372    .text.exti_software_interrupt_disable:000000000000000e .LVL25
+     /tmp/ccqAhvQ4.s:292    .text.exti_interrupt_flag_get:0000000000000000 .LVL18
+     /tmp/ccqAhvQ4.s:304    .text.exti_interrupt_flag_get:0000000000000010 .LVL19
+     /tmp/ccqAhvQ4.s:311    .text.exti_interrupt_flag_get:0000000000000016 .LVL20
+     /tmp/ccqAhvQ4.s:314    .text.exti_interrupt_flag_get:000000000000001a .LVL21
+     /tmp/ccqAhvQ4.s:252    .text.exti_flag_get:0000000000000000 .LVL15
+     /tmp/ccqAhvQ4.s:259    .text.exti_flag_get:000000000000000a .LVL16
+     /tmp/ccqAhvQ4.s:227    .text.exti_event_disable:0000000000000000 .LVL12
+     /tmp/ccqAhvQ4.s:234    .text.exti_event_disable:000000000000000c .LVL13
+     /tmp/ccqAhvQ4.s:237    .text.exti_event_disable:000000000000000e .LVL14
+     /tmp/ccqAhvQ4.s:202    .text.exti_interrupt_disable:0000000000000000 .LVL9
+     /tmp/ccqAhvQ4.s:209    .text.exti_interrupt_disable:000000000000000c .LVL10
+     /tmp/ccqAhvQ4.s:212    .text.exti_interrupt_disable:000000000000000e .LVL11
+     /tmp/ccqAhvQ4.s:47     .text.exti_init:0000000000000000 .LVL0
+     /tmp/ccqAhvQ4.s:98     .text.exti_init:000000000000005c .LVL1
+     /tmp/ccqAhvQ4.s:104    .text.exti_init:0000000000000066 .LVL2
+     /tmp/ccqAhvQ4.s:108    .text.exti_init:000000000000006c .LVL3
+     /tmp/ccqAhvQ4.s:130    .text.exti_init:0000000000000090 .LVL4
+     /tmp/ccqAhvQ4.s:134    .text.exti_init:0000000000000096 .LVL5
+     /tmp/ccqAhvQ4.s:146    .text.exti_init:00000000000000aa .LVL6
+     /tmp/ccqAhvQ4.s:386    .debug_info:0000000000000000 .Ldebug_info0
+
+NO UNDEFINED SYMBOLS
